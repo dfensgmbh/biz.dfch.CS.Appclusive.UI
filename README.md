@@ -1,7 +1,7 @@
 # biz.dfch.CS.Appclusive.UI
-[![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](https://github.com/dfensgmbh/biz.dfch.PS.Appclusive.Client/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](https://github.com/dfch/biz.dfch.CS.Appclusive.UI/blob/master/LICENSE)
 
-Assembly: biz.dfch.PS.Appclusive.UI
+Assembly: biz.dfch.CS.Appclusive.UI
 
 d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 
