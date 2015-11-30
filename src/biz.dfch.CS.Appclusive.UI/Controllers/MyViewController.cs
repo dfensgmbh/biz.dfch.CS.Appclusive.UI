@@ -17,7 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // http://localhost:xxxx/myView/Welcome?name=Edgar&numtimes=42
         public ActionResult Welcome(string name, int numTimes = 1)
         {
-            var diag = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri("http://appclusive/api/Diagnostics"));
+            var diag = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri("http://appclusive/Appclusive/api/Diagnostics"));
             diag.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
             var names = diag.AuditTrails.ToList();
 
@@ -30,7 +30,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // http://localhost:xxxx/myView/AuditTrail?numtimes=42
         public ActionResult AuditTrail(int numTimes = 1)
         {
-            var diag = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri("http://appclusive/api/Diagnostics"));
+            var diag = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri("http://appclusive/Appclusive/api/Diagnostics"));
             diag.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
             var a = new biz.dfch.CS.Appclusive.Api.Diagnostics.AuditTrail();
             var auditTrails = diag.AuditTrails.ToList();
