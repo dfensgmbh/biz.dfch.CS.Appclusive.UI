@@ -1,0 +1,225 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue
+
+@{
+    ViewBag.Title = "Catalogue details";
+    biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem itemModel = null;
+    if (Model.CatalogueItems != null && Model.CatalogueItems.Count > 0) { 
+        itemModel = Model.CatalogueItems[0];
+    }
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <h4>Catalogue</h4>
+    <hr />
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#items">Catalogue Items</a></li>
+            <li><a data-toggle="tab" href="#details">Details</a></li>
+            <li><a data-toggle="tab" href="#general">General</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="items" class="tab-pane fade in active">
+
+                @{
+                    if (itemModel != null)
+                    {
+
+                        <p>
+                            @Html.ActionLink("Create New", "Create")
+                        </p>
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.Description)
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => itemModel.CatalogueId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.Created)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.CreatedBy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.EndOfLife)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.EndOfSale)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.Modified)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.ModifiedBy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.Parameters)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.ProductId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.Tid)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.ValidFrom)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => itemModel.ValidUntil)
+                                </th>*@
+                                <th></th>
+                            </tr>
+
+                            @foreach (var catalogItem in Model.CatalogueItems)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.Description)
+                                    </td>
+
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => catalogItem.CatalogueId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.Created)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.EndOfLife)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.EndOfSale)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.Modified)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.ModifiedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.Parameters)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.ProductId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.Tid)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.ValidFrom)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => catalogItem.ValidUntil)
+                                    </td>*@
+                                    <td>                                        
+                                        @Html.ActionLink("Product Details", "Details", "Products", new { id = catalogItem.ProductId }, null) |
+                                        @Html.ActionLink("Edit", "Edit", new { id = catalogItem.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = catalogItem.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = catalogItem.Id })
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    }
+                }
+            </div>
+            <div id="details" class="tab-pane fade">
+                <dl>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+                    
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Version)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Version)
+                    </dd>
+
+                </dl>
+             </div>
+            <div id="general" class="tab-pane fade">
+                <dl ><!--class="dl-horizontal"-->
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tid)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tid)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Created)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Created)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CreatedBy)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Modified)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Modified)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ModifiedBy)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ModifiedBy)
+                    </dd>
+
+
+                </dl>
+            </div>
+        </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

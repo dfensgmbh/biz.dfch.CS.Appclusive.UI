@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.tab-content{
+    padding-top:20px;
+}
+
+dd{
+    margin-bottom:10px;
+}
