@@ -37,42 +37,6 @@
                                 <th>
                                     @Html.DisplayNameFor(model => itemModel.Description)
                                 </th>
-                                @*<th>
-                                    @Html.DisplayNameFor(model => itemModel.CatalogueId)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.Created)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.CreatedBy)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.EndOfLife)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.EndOfSale)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.Modified)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.ModifiedBy)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.Parameters)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.ProductId)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.Tid)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.ValidFrom)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => itemModel.ValidUntil)
-                                </th>*@
                                 <th></th>
                             </tr>
 
@@ -85,48 +49,11 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => catalogItem.Description)
                                     </td>
-
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => catalogItem.CatalogueId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.Created)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.CreatedBy)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.EndOfLife)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.EndOfSale)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.Modified)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.ModifiedBy)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.Parameters)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.ProductId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.Tid)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.ValidFrom)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => catalogItem.ValidUntil)
-                                    </td>*@
-                                    <td>                                        
-                                        @Html.ActionLink("Product Details", "Details", "Products", new { id = catalogItem.ProductId }, null) |
-                                        @Html.ActionLink("Edit", "Edit", new { id = catalogItem.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id = catalogItem.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = catalogItem.Id })
+                                    <td class="ap-btn">
+                                        <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { id = catalogItem.ProductId })"><i class="fa fa-cog"></i> Product Details</a>
+                                        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = catalogItem.Id })"><i class="fa fa-cog"></i> Details</a>
+                                        <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = catalogItem.Id })"><i class="fa fa-pencil"></i> Edit</a>
+                                        <a class="btn btn-default btn-sm" href="@Url.Action("Delete", new { id = catalogItem.Id })"><i class="fa fa-trash-o"></i> Delete</a>
                                     </td>
                                 </tr>
                             }
