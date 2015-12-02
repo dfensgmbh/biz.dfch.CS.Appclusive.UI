@@ -30,6 +30,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return View(AutoMapper.Mapper.Map<List<Models.Core.Catalogue>>(items));
         }
 
+        #region Catalogue 
+
         // GET: Catalogues/Details/5
         public ActionResult Details(int id)
         {
@@ -50,20 +52,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.Catalogue>(catalogue);
-
-                //#region add default
-
-                //apiItem.Name = catalogue.Name;
-                //apiItem.Description = catalogue.Description;
-                //apiItem.Status = catalogue.Status;
-                //apiItem.Version = catalogue.Version;
-
-                //#endregion
-
+                
                 CoreRepository.AddToCatalogues(apiItem);
                 CoreRepository.SaveChanges();
 
-                return RedirectToAction("Index", new { id = apiItem.Id });
+                return RedirectToAction("Details", new { id = apiItem.Id });
             }
             catch(Exception ex)
             {
@@ -128,5 +121,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View();
             }
         }
+
+        #endregion
+
+        #region edit CatalogItems
+
+        #endregion
     }
 }
