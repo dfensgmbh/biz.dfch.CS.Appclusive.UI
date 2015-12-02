@@ -16,6 +16,7 @@ namespace biz.dfch.CS.Appclusive.UI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutomapperConfig.MapInit();
         }
     }
 }
