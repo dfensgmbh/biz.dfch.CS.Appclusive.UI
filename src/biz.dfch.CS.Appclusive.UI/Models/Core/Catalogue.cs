@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Catalogue
+    public class Catalogue : ViewModelBase, IAppcusiveEntityBase
     {
         public Catalogue() {
             this.CatalogueItems = new List<CatalogueItem>();
+            AppcusiveEntityBaseHelper.InitEntity(this);
         }
 
         public List<CatalogueItem> CatalogueItems { get; set; }
+
+
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Status is required")]
+        public string Status { get; set; }
+
+        [Required(ErrorMessage = "Version is required")]
+        public string Version { get; set; }
+
 
         public DateTimeOffset Created { get; set; }
         public string CreatedBy { get; set; }
@@ -19,11 +32,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public long Id { get; set; }
         public DateTimeOffset Modified { get; set; }
         public string ModifiedBy { get; set; }
-        public string Name { get; set; }
-        public byte[] RowVersion { get; set; }
-        public string Status { get; set; }
         public string Tid { get; set; }
-        public string Version { get; set; }
+        public byte[] RowVersion { get; set; }
 
     }
 }

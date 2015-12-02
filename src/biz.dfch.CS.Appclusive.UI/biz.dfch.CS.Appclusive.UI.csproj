@@ -154,9 +154,12 @@
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\IAppcusiveEntityBase.cs" />
+    <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieDBContext.cs" />
     <Compile Include="Models\PortalConfig.cs" />
+    <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -232,6 +235,10 @@
     <Content Include="Views\MyView\AuditTrail.cshtml" />
     <Content Include="Views\Catalogues\Index.cshtml" />
     <Content Include="Views\Catalogues\Details.cshtml" />
+    <Content Include="Views\Catalogues\Edit.cshtml" />
+    <Content Include="Views\Catalogues\ItemList.cshtml" />
+    <Content Include="Views\Shared\IAppcusiveEntityBaseDetails.cshtml" />
+    <Content Include="Views\Catalogues\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

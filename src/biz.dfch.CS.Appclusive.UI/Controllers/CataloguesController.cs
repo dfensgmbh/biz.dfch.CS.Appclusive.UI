@@ -40,44 +40,70 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Catalogues/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Models.Core.Catalogue());
         }
 
         // POST: Catalogues/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Models.Core.Catalogue catalogue)
         {
             try
             {
-                // TODO: Add insert logic here
+                var apiItem = AutoMapper.Mapper.Map<Api.Core.Catalogue>(catalogue);
 
-                return RedirectToAction("Index");
+                //#region add default
+
+                //apiItem.Name = catalogue.Name;
+                //apiItem.Description = catalogue.Description;
+                //apiItem.Status = catalogue.Status;
+                //apiItem.Version = catalogue.Version;
+
+                //#endregion
+
+                CoreRepository.AddToCatalogues(apiItem);
+                CoreRepository.SaveChanges();
+
+                return RedirectToAction("Index", new { id = apiItem.Id });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                catalogue.ErrorText = ex.Message;
+                return View(catalogue);
             }
         }
 
         // GET: Catalogues/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var apiItem = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
+            return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
         }
 
         // POST: Catalogues/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Models.Core.Catalogue catalogue)
         {
             try
             {
-                // TODO: Add update logic here
+                var apiItem = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
+
+                #region copy all edited properties
+
+                apiItem.Name = catalogue.Name;
+                apiItem.Description = catalogue.Description;
+                apiItem.Status = catalogue.Status;
+                apiItem.Version = catalogue.Version;
+
+                #endregion
+                CoreRepository.UpdateObject(apiItem);
+                CoreRepository.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                catalogue.ErrorText = ex.Message;
+                return View(catalogue);
             }
         }
 

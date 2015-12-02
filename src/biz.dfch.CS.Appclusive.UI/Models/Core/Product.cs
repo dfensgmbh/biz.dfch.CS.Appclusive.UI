@@ -5,7 +5,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Product
+    public class Product : ViewModelBase, IAppcusiveEntityBase
     {
         
         public List<CatalogueItem> CatalogueItems { get; set; }
