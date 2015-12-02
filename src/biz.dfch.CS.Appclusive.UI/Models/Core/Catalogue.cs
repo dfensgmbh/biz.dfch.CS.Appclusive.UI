@@ -8,9 +8,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Catalogue : ViewModelBase, IAppcusiveEntityBase
     {
-        public Catalogue() {
-            this.CatalogueItems = new List<CatalogueItem>();
+        public Catalogue()
+        {
             AppcusiveEntityBaseHelper.InitEntity(this);
+            this.CatalogueItems = new List<CatalogueItem>();
         }
 
         public List<CatalogueItem> CatalogueItems { get; set; }
