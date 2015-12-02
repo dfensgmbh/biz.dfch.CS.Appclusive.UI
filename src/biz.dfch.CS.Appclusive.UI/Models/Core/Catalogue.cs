@@ -14,6 +14,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.CatalogueItems = new List<CatalogueItem>();
         }
 
+        public static string[] StatusSelection = { "Published", "New" };
+
         public List<CatalogueItem> CatalogueItems { get; set; }
 
 
