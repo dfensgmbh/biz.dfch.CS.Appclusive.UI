@@ -146,7 +146,9 @@
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
+    <Compile Include="Controllers\ManagementUrisController.cs" />
     <Compile Include="Controllers\EntityTypesController.cs" />
+    <Compile Include="Controllers\ManagementCredentialController.cs" />
     <Compile Include="Controllers\KeyNameValuesController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -286,6 +288,11 @@
     <Content Include="Views\EntityTypes\Details.cshtml" />
     <Content Include="Views\EntityTypes\Index.cshtml" />
     <Content Include="Views\EntityTypes\Create.cshtml" />
+    <Content Include="Views\ManagementCredentials\Details.cshtml" />
+    <Content Include="Views\ManagementCredentials\Index.cshtml" />
+    <Content Include="Views\ManagementUris\Details.cshtml" />
+    <Content Include="Views\ManagementUris\Index.cshtml" />
+    <Content Include="Views\Shared\ManagementUriList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
