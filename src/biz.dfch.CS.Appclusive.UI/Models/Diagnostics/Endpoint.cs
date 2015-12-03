@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -32,6 +33,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Diagnostics
         
         public byte[] RowVersion { get; set; }
         
+        [Display(Name="Server role")]
         public string ServerRole { get; set; }
         
         public string Tid { get; set; }
