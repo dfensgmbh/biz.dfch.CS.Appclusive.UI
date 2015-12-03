@@ -124,7 +124,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
-        #region edit CatalogItems
+        #region CatalogItems
+
+        public ActionResult ItemDetails(int id)
+        {
+            var item = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+            return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(item));
+        }
 
         #endregion
     }
