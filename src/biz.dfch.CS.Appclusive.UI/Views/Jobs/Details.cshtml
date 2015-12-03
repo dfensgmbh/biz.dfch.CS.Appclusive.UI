@@ -1,0 +1,114 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Job
+
+@{
+    ViewBag.Title = "Node details";
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <h4>Node</h4>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li><a data-toggle="tab" href="#general">General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl class="col-md-6" style="padding-left:0px;">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Token)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Token)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndTime)
+                </dd>
+
+            </dl>
+            <dl class="col-md-6">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReferencedItemId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ReferencedItemId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TenantId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TenantId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ParentId)
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Condition)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Condition)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ConditionParameters)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ConditionParameters)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parameters)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Parameters)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Error)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Error)
+                </dd>
+
+            </dl>
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+</p>

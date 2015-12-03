@@ -24,6 +24,22 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Order, Models.Core.Order>();
             Mapper.CreateMap<Api.Core.OrderItem, Models.Core.OrderItem>();
 
+            Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
+
+            Mapper.CreateMap<Api.Core.Job, Models.Core.Job>();
+
+            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();
+            
+            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();
+            
+            Mapper.CreateMap<Api.Core.Gate, Models.Core.Gate>();
+
+            Mapper.CreateMap<Api.Core.ManagementUri, Models.Core.ManagementUri>();
+            Mapper.CreateMap<Api.Core.ManagementCredential, Models.Core.ManagementCredential>();
+
+            Mapper.CreateMap<Api.Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>();
+            Mapper.CreateMap<Api.Diagnostics.Endpoint, Models.Diagnostics.Endpoint>();
+
         }
     }
 }

@@ -144,6 +144,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Controllers\CataloguesController.cs" />
@@ -154,16 +155,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
     <Compile Include="Models\Core\Cart.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
     <Compile Include="Models\Core\CostCentre.cs" />
+    <Compile Include="Models\Core\Gate.cs" />
+    <Compile Include="Models\Core\Job.cs" />
+    <Compile Include="Models\Core\KeyNameValue.cs" />
+    <Compile Include="Models\Core\ManagementCredential.cs" />
+    <Compile Include="Models\Core\ManagementUri.cs" />
     <Compile Include="Models\Core\Node.cs" />
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\Diagnostics\AuditTrail.cs" />
+    <Compile Include="Models\Diagnostics\Endpoint.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -261,6 +270,8 @@
     <Content Include="Views\Orders\ItemList.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\ItemDetails.cshtml" />
+    <Content Include="Views\Jobs\Details.cshtml" />
+    <Content Include="Views\Jobs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
