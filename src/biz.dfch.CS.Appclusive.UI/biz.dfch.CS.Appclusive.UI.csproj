@@ -146,6 +146,7 @@
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
+    <Compile Include="Controllers\GatesController.cs" />
     <Compile Include="Controllers\ManagementUrisController.cs" />
     <Compile Include="Controllers\EntityTypesController.cs" />
     <Compile Include="Controllers\ManagementCredentialController.cs" />
@@ -293,6 +294,8 @@
     <Content Include="Views\ManagementUris\Details.cshtml" />
     <Content Include="Views\ManagementUris\Index.cshtml" />
     <Content Include="Views\Shared\ManagementUriList.cshtml" />
+    <Content Include="Views\Gates\Details.cshtml" />
+    <Content Include="Views\Gates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
