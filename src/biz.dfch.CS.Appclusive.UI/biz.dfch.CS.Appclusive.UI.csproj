@@ -143,6 +143,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -155,7 +156,10 @@
     <Compile Include="Models\Core\Assoc.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
+    <Compile Include="Models\Core\CostCentre.cs" />
     <Compile Include="Models\Core\Node.cs" />
+    <Compile Include="Models\Core\Order.cs" />
+    <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
@@ -245,6 +249,10 @@
     <Content Include="Views\Nodes\Index.cshtml" />
     <Content Include="Views\Nodes\Details.cshtml" />
     <Content Include="Views\Nodes\ItemList.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\ItemList.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\ItemDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
