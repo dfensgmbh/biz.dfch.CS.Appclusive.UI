@@ -65,11 +65,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region edit OrderItems
 
-        public ActionResult ItemDetails(int id, int itemId)
+        public ActionResult ItemDetails(int id)
         {
-            var item = CoreRepository.Orders.Expand("OrderItems").Where(c => c.Id == id).FirstOrDefault();
-            Models.Core.Order order = AutoMapper.Mapper.Map<Models.Core.Order>(item);
-            return View(order.OrderItems.FirstOrDefault(it => it.Id == itemId));
+            var item = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
+            return View(AutoMapper.Mapper.Map<Models.Core.OrderItem>(item));
         }
 
         #endregion

@@ -7,7 +7,7 @@
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>Order Item of Order @Html.DisplayFor(model => model.Order.Name)</h4>
+    <h4>Order item of order "@Html.DisplayFor(model => model.Order.Name)"</h4>
     <hr />
 
         <ul class="nav nav-tabs">
@@ -76,5 +76,5 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { Id = Model.Order.Id })"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { Id = Model.Order.Id })"><i class="fa fa-arrow-left "></i> Back to order</a>
 </p>
