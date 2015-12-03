@@ -14,6 +14,8 @@ namespace biz.dfch.CS.Appclusive.UI
 
             Mapper.CreateMap<Api.Core.Catalogue, Models.Core.Catalogue>();
             Mapper.CreateMap<Api.Core.CatalogueItem, Models.Core.CatalogueItem>();
+            Mapper.CreateMap<Models.Core.Catalogue, Api.Core.Catalogue>();
+            Mapper.CreateMap<Models.Core.CatalogueItem, Api.Core.CatalogueItem>();
 
             Mapper.CreateMap<Api.Core.Node, Models.Core.Node>();
             Mapper.CreateMap<Api.Core.Assoc, Models.Core.Assoc>();
@@ -27,13 +29,14 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
 
             Mapper.CreateMap<Api.Core.Job, Models.Core.Job>();
-
-            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();
-            
-            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();
-            
+            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();            
+            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();            
             Mapper.CreateMap<Api.Core.Gate, Models.Core.Gate>();
 
+
+            Mapper.CreateMap<Api.Core.EntityType, Models.Core.EntityType>(); 
+            Mapper.CreateMap<Models.Core.EntityType, Api.Core.EntityType>();
+            
             Mapper.CreateMap<Api.Core.ManagementUri, Models.Core.ManagementUri>();
             Mapper.CreateMap<Api.Core.ManagementCredential, Models.Core.ManagementCredential>();
 
