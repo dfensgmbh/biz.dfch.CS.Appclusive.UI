@@ -34,5 +34,26 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public string Status { get; set; }
         
         public string Tid { get; set; }
+
+        #region approve/decline
+
+        public const string DECLINED_STATUS = "cancel";
+        public const string APPROVED_STATUS = "continue";
+
+        [Display(Name = "Help Text")]
+        public string HelpText { get; set; }
+
+        public string TitelText
+        {
+            get
+            {
+                return (this.Status == DECLINED_STATUS) ?
+                    "Decline request"
+                    :
+                    "Approve request";
+            }
+        }
+
+        #endregion
     }
 }

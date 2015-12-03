@@ -38,31 +38,53 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             var item = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.Approval>(item));
         }
-        
-        // GET: Approvals/Edit/5
-        public ActionResult Edit(int id)
+
+        // GET: Approvals/Approve/5
+        public ActionResult Approve(int id)
         {
             var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem));
+            Models.Core.Approval approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
+            approval.Status = Models.Core.Approval.APPROVED_STATUS;
+            approval.HelpText = "The request will be approved when you click the 'Approve' button. You can optionally add a explanation or reason for approval.";
+            return View("Edit", approval);
         }
 
-        // POST: Approvals/Edit/5
+        // GET: Approvals/Decline/5
+        public ActionResult Decline(int id)
+        {
+            var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
+            Models.Core.Approval approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
+            approval.Status = Models.Core.Approval.DECLINED_STATUS;
+            approval.HelpText = "The request will be declined when you click the 'Decline' button. You can optionally add a explanation or reason for approval.";
+            return View("Edit", approval);
+        }
+
+        // POST: Approvals/Approve/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Approval Approval)
+        public ActionResult Approve(int id, Models.Core.Approval approval)
+        {
+            return Edit(id, approval);
+        }
+        // POST: Approvals/Decline/5
+        [HttpPost]
+        public ActionResult Decline(int id, Models.Core.Approval approval)
+        {
+            return Edit(id, approval);
+        }
+
+        private ActionResult Edit(int id, Models.Core.Approval approval)
         {
             try
             {
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
-
-                // TODO: all edited properties
-                //apiItem.Name = Approval.Name;
-                //apiItem.Description = Approval.Description;
-                //apiItem.Status = Approval.Status;
-                //apiItem.Version = Approval.Version;
+                
+                apiItem.Status = approval.Status;
+                apiItem.Description = approval.Description;
 
                 #endregion
+
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
 
@@ -70,32 +92,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch(Exception ex)
             {
-                Approval.ErrorText = ex.Message;
-                return View(Approval);
+                approval.ErrorText = ex.Message;
+                return View(approval);
             }
         }
 
-        // GET: Approvals/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Approvals/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         #endregion
 

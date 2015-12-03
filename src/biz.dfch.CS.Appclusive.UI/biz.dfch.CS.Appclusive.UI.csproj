@@ -296,6 +296,7 @@
     <Content Include="Views\Shared\ManagementUriList.cshtml" />
     <Content Include="Views\Gates\Details.cshtml" />
     <Content Include="Views\Gates\Index.cshtml" />
+    <Content Include="Views\Approvals\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
