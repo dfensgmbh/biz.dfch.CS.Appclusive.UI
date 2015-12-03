@@ -17,9 +17,11 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Catalogue, Models.Core.Catalogue>();
             Mapper.CreateMap<Api.Core.CatalogueItem, Models.Core.CatalogueItem>();
 
-            // no edit for inventory
             Mapper.CreateMap<Api.Core.Node, Models.Core.Node>();
             Mapper.CreateMap<Api.Core.Assoc, Models.Core.Assoc>();
+
+            Mapper.CreateMap<Api.Core.Cart, Models.Core.Cart>();
+            Mapper.CreateMap<Api.Core.CartItem, Models.Core.CartItem>();
 
         }
     }
