@@ -29,7 +29,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public Order Order { get; set; }
 
-        [Display(Name = "Order Id")]
+        [Display(Name = "Order id")]
         public long OrderId { get; set; }
         
         public string Parameters { get; set; }

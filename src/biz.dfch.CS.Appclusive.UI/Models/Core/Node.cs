@@ -40,7 +40,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public Node Parent { get; set; }
 
-        [Display(Name = "Parent Id")]
+        [Display(Name = "Parent id")]
         public long? ParentId { get; set; }
         
         public byte[] RowVersion { get; set; }
