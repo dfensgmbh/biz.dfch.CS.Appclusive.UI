@@ -145,6 +145,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\KeyNameValuesController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
@@ -275,6 +276,8 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Approvals\Details.cshtml" />
     <Content Include="Views\Approvals\Index.cshtml" />
+    <Content Include="Views\KeyNameValues\Details.cshtml" />
+    <Content Include="Views\KeyNameValues\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
