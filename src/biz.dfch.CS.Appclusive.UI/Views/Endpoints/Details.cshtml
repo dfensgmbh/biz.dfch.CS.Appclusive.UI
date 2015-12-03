@@ -1,0 +1,86 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Diagnostics.Endpoint
+
+@{
+    ViewBag.Title = "Endpoint details";
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <h4>Endpoint</h4>
+    <hr />
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+            <li><a data-toggle="tab" href="#general">General</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="details" class="tab-pane fade in active">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Version)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Version)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RoutePrefix)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RoutePrefix)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RouteTemplate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RouteTemplate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ServerRole)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ServerRole)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Priority)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+            </div>
+            <div id="general" class="tab-pane fade">                
+                @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+            </div>
+        </div>
+    <hr />
+</div>
+<p>
+    <a class="btn btn-default btn-sm disabled" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
+    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+</p>
