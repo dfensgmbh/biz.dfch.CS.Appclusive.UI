@@ -51,6 +51,16 @@
                     <dd>
                         @Html.DisplayFor(model => model.Value)
                     </dd>
+
+                    @if (null != Model.ManagementCredential)
+                    {
+                        <dt>
+                            Management Credential
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.ManagementCredential.Name)
+                        </dd>
+                    }
                 </dl>
             </div>
             <div id="general" class="tab-pane fade">                

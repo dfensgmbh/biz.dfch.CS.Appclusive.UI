@@ -35,7 +35,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementUris/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.ManagementUris.Where(c => c.Id == id).FirstOrDefault();
+            var item = CoreRepository.ManagementUris.Expand("ManagementCredential").Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(item));
         }
 
