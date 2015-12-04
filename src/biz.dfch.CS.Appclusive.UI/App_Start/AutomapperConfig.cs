@@ -22,6 +22,7 @@ namespace biz.dfch.CS.Appclusive.UI
 
             Mapper.CreateMap<Api.Core.Cart, Models.Core.Cart>();
             Mapper.CreateMap<Api.Core.CartItem, Models.Core.CartItem>();
+            Mapper.CreateMap<Models.Core.CartItem, Api.Core.CartItem>();
 
             Mapper.CreateMap<Api.Core.Order, Models.Core.Order>();
             Mapper.CreateMap<Api.Core.OrderItem, Models.Core.OrderItem>();
