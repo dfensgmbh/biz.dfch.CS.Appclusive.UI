@@ -91,8 +91,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-
-                return RedirectToAction("Index");
+                ViewBag.InfoText = "Successfully saved";
+                return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
             }
             catch(Exception ex)
             {

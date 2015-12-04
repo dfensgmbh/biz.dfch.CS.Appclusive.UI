@@ -60,7 +60,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch(Exception ex)
             {
-                keyNameValue.ErrorText = ex.Message;
+                ViewBag.ErrorText = ex.Message;
                 return View(keyNameValue);
             }
         }
@@ -91,12 +91,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-
-                return RedirectToAction("Index");
+                ViewBag.InfoText = "Successfully saved";
+                return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
             }
             catch(Exception ex)
             {
-                keyNameValue.ErrorText = ex.Message;
+                ViewBag.ErrorText = ex.Message;
                 return View(keyNameValue);
             }
         }
