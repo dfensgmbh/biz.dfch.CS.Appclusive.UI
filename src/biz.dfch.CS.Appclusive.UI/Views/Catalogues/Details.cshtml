@@ -63,15 +63,4 @@
     <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>
 
-@Ajax.ActionLink("Notify success", "Notify", new { level = "success" },
-                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
-                                new { @class = "btn btn-success" })
-@Ajax.ActionLink("Notify warn", "Notify", new { level = "warn" },
-                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
-                                new { @class = "btn btn-warning" })
-@Ajax.ActionLink("Notify info", "Notify", new { level = "info" },
-                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
-                                new { @class = "btn btn-info" })
-@Ajax.ActionLink("Notify error", "Notify", new { level = "error" },
-                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
-                                new { @class = "btn btn-danger" })
+

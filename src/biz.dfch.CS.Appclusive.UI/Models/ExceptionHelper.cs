@@ -9,11 +9,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public static class ExceptionHelper
     {
-        static ExceptionHelper()
-        {
-        }
-        static System.Xml.XmlNamespaceManager NsManager ;
-
         public static List<AjaxNotificationViewModel> GetAjaxNotifications(Exception ex)
         {
             Contract.Requires(null != ex);

@@ -155,19 +155,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        /// <summary>
-        /// Notification test
-        /// </summary>
-        /// <param name="level"></param>
-        /// <returns></returns>
-        public PartialViewResult Notify(string level)
-        {
-            AjaxNotificationViewModel vm = new AjaxNotificationViewModel();
-            vm.Level = (ENotifyStyle)Enum.Parse(typeof(ENotifyStyle), level);
-                vm.Message = string.Format("{0} called", level);
-                return PartialView("AjaxNotification", new AjaxNotificationViewModel[] { vm });
-        }
-
         #endregion
     }
 }
