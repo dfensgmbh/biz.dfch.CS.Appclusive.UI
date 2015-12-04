@@ -92,8 +92,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch(Exception ex)
             {
-                approval.ErrorText = ex.Message;
-                return View(approval);
+                ViewBag.ErrorText = ex.Message;
+                return View("Edit", approval);
             }
         }
 

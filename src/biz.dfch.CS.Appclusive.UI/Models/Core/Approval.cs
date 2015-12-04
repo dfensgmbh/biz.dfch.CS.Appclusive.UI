@@ -43,14 +43,14 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Help Text")]
         public string HelpText { get; set; }
 
-        public string TitelText
+        public string ActionText
         {
             get
             {
                 return (this.Status == DECLINED_STATUS) ?
-                    "Decline request"
+                    "Decline"
                     :
-                    "Approve request";
+                    "Approve";
             }
         }
 
