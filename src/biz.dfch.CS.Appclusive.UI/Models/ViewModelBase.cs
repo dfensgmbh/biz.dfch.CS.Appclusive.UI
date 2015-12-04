@@ -7,8 +7,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public class ViewModelBase
     {
-        public string ErrorText { get; set; }
-
 
         //#region general properties of api Entities
         

@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,16 @@ namespace biz.dfch.CS.Appclusive.UI.Models
     public interface IAppcusiveEntityBase
     {
         DateTimeOffset Created { get; set; }
+
+        [Display(Name = "Created by")]
         string CreatedBy { get; set; }
+
         long Id { get; set; }
         DateTimeOffset Modified { get; set; }
+
+        [Display(Name = "Modified by")]
         string ModifiedBy { get; set; }
+        
         byte[] RowVersion { get; set; }
         string Tid { get; set; }
     }

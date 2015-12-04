@@ -1,13 +1,13 @@
-﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.EntityType
 
 @{
-    ViewBag.Title = "Catalogue create";
+    ViewBag.Title = "Entity type create";
 }
 
-<h2>New</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>Create Catalogue</h4>
+    <h4>Entity type</h4>
     <hr />
 
     <table>
@@ -18,7 +18,12 @@
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.Partial("Messages")
+                        if (!string.IsNullOrEmpty(ViewBag.ErrorText))
+                        {
+                            <div class="text-danger ap-errortext">
+                                @ViewBag.ErrorText
+                            </div>
+                        }
                         @Html.HiddenFor(model => model.Id)
 
                         <div class="form-group">
@@ -30,6 +35,14 @@
                         </div>
 
                         <div class="form-group">
+                            @Html.LabelFor(model => model.Version, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Version, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
@@ -37,19 +50,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Version, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.Parameters, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Version, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Parameters, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Parameters, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

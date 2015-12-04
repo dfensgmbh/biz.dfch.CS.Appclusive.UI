@@ -144,6 +144,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\EndpointsController.cs" />
+    <Compile Include="Controllers\GatesController.cs" />
+    <Compile Include="Controllers\ManagementUrisController.cs" />
+    <Compile Include="Controllers\EntityTypesController.cs" />
+    <Compile Include="Controllers\ManagementCredentialController.cs" />
+    <Compile Include="Controllers\KeyNameValuesController.cs" />
+    <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Controllers\CataloguesController.cs" />
@@ -154,16 +162,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
     <Compile Include="Models\Core\Cart.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
     <Compile Include="Models\Core\CostCentre.cs" />
+    <Compile Include="Models\Core\EntityType.cs" />
+    <Compile Include="Models\Core\Gate.cs" />
+    <Compile Include="Models\Core\Job.cs" />
+    <Compile Include="Models\Core\KeyNameValue.cs" />
+    <Compile Include="Models\Core\ManagementCredential.cs" />
+    <Compile Include="Models\Core\ManagementUri.cs" />
     <Compile Include="Models\Core\Node.cs" />
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\Diagnostics\AuditTrail.cs" />
+    <Compile Include="Models\Diagnostics\Endpoint.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -220,6 +237,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -261,6 +279,27 @@
     <Content Include="Views\Orders\ItemList.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\ItemDetails.cshtml" />
+    <Content Include="Views\Jobs\Details.cshtml" />
+    <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\Approvals\Details.cshtml" />
+    <Content Include="Views\Approvals\Index.cshtml" />
+    <Content Include="Views\KeyNameValues\Details.cshtml" />
+    <Content Include="Views\KeyNameValues\Index.cshtml" />
+    <Content Include="Views\Endpoints\Details.cshtml" />
+    <Content Include="Views\Endpoints\Index.cshtml" />
+    <Content Include="Views\EntityTypes\Details.cshtml" />
+    <Content Include="Views\EntityTypes\Index.cshtml" />
+    <Content Include="Views\EntityTypes\Create.cshtml" />
+    <Content Include="Views\ManagementCredentials\Details.cshtml" />
+    <Content Include="Views\ManagementCredentials\Index.cshtml" />
+    <Content Include="Views\ManagementUris\Details.cshtml" />
+    <Content Include="Views\ManagementUris\Index.cshtml" />
+    <Content Include="Views\Shared\ManagementUriList.cshtml" />
+    <Content Include="Views\Gates\Details.cshtml" />
+    <Content Include="Views\Gates\Index.cshtml" />
+    <Content Include="Views\Approvals\Edit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTimeOffset.cshtml" />
+    <Content Include="Views\Shared\Messages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

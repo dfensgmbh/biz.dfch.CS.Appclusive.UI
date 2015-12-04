@@ -24,13 +24,34 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Core <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Catalogues", "Index", "Catalogues")</li>
+                            <li>@Html.ActionLink("Inventory", "Index", "Nodes")</li>
+                            <li>@Html.ActionLink("Carts", "Index", "Carts")</li>
+                            <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+                            <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li>
+                            <li>@Html.ActionLink("Approvals", "Index", "Approvals")</li>
+                            <li>@Html.ActionLink("Configurations", "Index", "KeyNameValues")</li>
+                            <li>@Html.ActionLink("Entity types", "Index", "EntityTypes")</li>
+                            <li>@Html.ActionLink("Gate", "Index", "Gates")</li>
+                            <li>@Html.ActionLink("Management uris", "Index", "ManagementUris")</li>
+                            <li>@Html.ActionLink("Management credentials", "Index", "ManagementCredentials")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Diagnostics <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("AuditTrail", "AuditTrail", "MyView")</li>
+                            <li>@Html.ActionLink("Endpoints", "Index", "Endpoints")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("AuditTrail", "AuditTrail", "MyView")</li>
-                    <li>@Html.ActionLink("Catalogues", "Index", "Catalogues")</li>
-                    <li>@Html.ActionLink("Inventory", "Index", "Nodes")</li>
-                    <li>@Html.ActionLink("Carts", "Index", "Carts")</li>
-                    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
             </div>
@@ -46,6 +67,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/sitescripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>
