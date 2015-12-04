@@ -63,6 +63,9 @@
 </div>
 <p>
     <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
-    <a class="btn btn-default btn-sm disabled" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> Approve</a>
-    <a class="btn btn-default btn-sm disabled" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> Decline</a>
+    @if (Model.Status == biz.dfch.CS.Appclusive.UI.Models.Core.Approval.CREATED_STATUS)
+    {
+        <a class="btn btn-default btn-sm disabled" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> Approve</a>
+        <a class="btn btn-default btn-sm disabled" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> Decline</a>
+    }
 </p>
