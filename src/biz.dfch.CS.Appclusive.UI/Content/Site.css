@@ -67,6 +67,6 @@ dd{
     padding-bottom:3px;
 }
 
-div.ap-errortext{
-    margin-bottom:10px;
+div.ap-errortext, div.ap-infotext {
+    margin-bottom: 10px;
 }

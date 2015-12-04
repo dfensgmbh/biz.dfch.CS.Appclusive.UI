@@ -90,8 +90,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
+                ViewBag.InfoText = "Successfully saved";
 
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return View(catalogue);
             }
             catch(Exception ex)
             {
@@ -100,25 +102,22 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        // GET: Catalogues/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: Catalogues/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+        // GET: EntityTypes/Delete/5
+        public ActionResult Delete(int id)
+        { 
+            Api.Core.Catalogue apiItem =null;
             try
             {
-                // TODO: Add delete logic here
-
+                apiItem = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                CoreRepository.DeleteObject(apiItem);
+                CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.ErrorText = ex.Message;
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem)));
             }
         }
 

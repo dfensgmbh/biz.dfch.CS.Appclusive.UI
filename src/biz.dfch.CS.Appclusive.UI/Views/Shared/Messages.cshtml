@@ -1,0 +1,12 @@
+﻿@if (!string.IsNullOrEmpty(ViewBag.ErrorText))
+{
+    <div class="text-danger ap-errortext">
+        @ViewBag.ErrorText
+    </div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.InfoText))
+{
+    <div class="text-info ap-infotext">
+        @ViewBag.InfoText
+    </div>
+}
