@@ -17,6 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 {
                     coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
                     coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    coreRepository.IgnoreMissingProperties = true;
                 }
                 return coreRepository;
             }
@@ -94,7 +95,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
-
+                
                 #region copy all edited properties
                 
                 apiItem.Status = approval.Status;
