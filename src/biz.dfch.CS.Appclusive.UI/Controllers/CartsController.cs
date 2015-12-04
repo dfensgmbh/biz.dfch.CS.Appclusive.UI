@@ -44,15 +44,50 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             return View();
         }
-
-        // POST: Carts/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        
+        public ActionResult CheckoutCart()
         {
             try
             {
-                // TODO: Add delete logic here
+                Models.Core.Order order = new Models.Core.Order();
+                order.Name = "DefaultOrder";
+                order.Parameters = "{}";
 
+                CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
+                coreRepository.SaveChanges();
+
+    //msls.showMessageBox(
+    //    message,
+    //    {
+    //        title: title,
+    //        buttons: msls.MessageBoxButtons.yesNo
+    //    }
+    //).then(function (result) {
+    //    if (result == msls.MessageBoxResult.yes) {
+    //        myapp.activeDataWorkspace.CoreData.saveChanges().then(function() {
+    //                msls.showMessageBox(
+    //                    "Order has been placed",
+    //                    {
+    //                        title: "Order",
+    //                        buttons: msls.MessageBoxButtons.ok
+    //                    }
+    //                );
+    //            },
+    //            function fail(e) {
+    //                msls.showMessageBox(e.message,
+    //                {
+    //                    title: "Order has been placed",
+    //                    buttons: msls.MessageBoxButtons.ok
+    //                }).then(
+    //                    function(result) {
+    //                        myapp.cancelChanges();
+    //                        //throw e;
+    //                        myapp.showHome(msls.BoundaryOption, null);
+    //                    }
+    //                );
+    //            });
+    //    }
+    //});
                 return RedirectToAction("Index");
             }
             catch
