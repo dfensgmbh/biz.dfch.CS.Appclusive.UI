@@ -42,22 +42,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Orders/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            Api.Core.Order apiItem = null;
             try
             {
-                // TODO: Add delete logic here
-
+                apiItem = CoreRepository.Orders.Where(c => c.Id == id).FirstOrDefault();
+                CoreRepository.DeleteObject(apiItem);
+                CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.ErrorText = ex.Message;
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Order>(apiItem));
             }
         }
 
@@ -69,6 +65,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             var item = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.OrderItem>(item));
+        }
+
+        // GET: Orders/Delete/5
+        public ActionResult ItemDelete(int id)
+        {
+            Api.Core.OrderItem apiItem = null;
+            try
+            {
+                apiItem = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
+                CoreRepository.DeleteObject(apiItem);
+                CoreRepository.SaveChanges();
+                return RedirectToAction("Details", new { id = apiItem.OrderId });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorText = ex.Message;
+                return View("ItemDetails", AutoMapper.Mapper.Map<Models.Core.OrderItem>(apiItem));
+            }
         }
 
         #endregion

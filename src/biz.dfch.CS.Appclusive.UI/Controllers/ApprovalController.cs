@@ -17,6 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 {
                     coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
                     coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    coreRepository.IgnoreMissingProperties = true;
                 }
                 return coreRepository;
             }
@@ -24,9 +25,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
 
         // GET: Approvals
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, string status = null)
         {
-            var items = CoreRepository.Approvals.Take(PortalConfig.Pagesize).ToList();
+            IEnumerable<Api.Core.Approval> items;
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                int skipCount = page > 1 ? (page - 1) * PortalConfig.Pagesize : 0;
+                items = CoreRepository.Approvals.Skip(skipCount).Take(PortalConfig.Pagesize).ToList();
+                ViewBag.StatusFilter = status;
+            }
+            else
+            {
+                items = CoreRepository.Approvals.Where(a => a.Status == status);
+            }
+            switch (status)
+            {
+                case "Created": ViewBag.CreatedLinkClass = "active"; break;
+                case "Approved": ViewBag.ApprovedLinkClass = "active"; break;
+                case "Declined": ViewBag.DeclinedLinkClass = "active"; break;
+                default: ViewBag.AllLinkClass = "active"; break;
+            }
             return View(AutoMapper.Mapper.Map<List<Models.Core.Approval>>(items));
         }
 
@@ -44,7 +62,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
             Models.Core.Approval approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
-            approval.Status = Models.Core.Approval.APPROVED_STATUS;
+            approval.Status = Models.Core.Approval.APPROVED_STATUS_CHANGE;
             approval.HelpText = "The request will be approved when you click the 'Approve' button. You can optionally add a explanation or reason for approval.";
             return View("Edit", approval);
         }
@@ -54,7 +72,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
             Models.Core.Approval approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
-            approval.Status = Models.Core.Approval.DECLINED_STATUS;
+            approval.Status = Models.Core.Approval.DECLINED_STATUS_CHANGE;
             approval.HelpText = "The request will be declined when you click the 'Decline' button. You can optionally add a explanation or reason for approval.";
             return View("Edit", approval);
         }
@@ -77,7 +95,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
-
+                
                 #region copy all edited properties
                 
                 apiItem.Status = approval.Status;

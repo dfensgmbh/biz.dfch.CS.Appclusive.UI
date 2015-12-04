@@ -7,7 +7,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class CartItem : ViewModelBase, IAppcusiveEntityBase
     {
-       
+        public CartItem()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
+
         public Cart Cart { get; set; }
        
         public long CartId { get; set; }

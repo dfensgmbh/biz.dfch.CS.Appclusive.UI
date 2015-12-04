@@ -28,9 +28,16 @@
                 <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", new { id = catalogItem.Id })"><i class="fa fa-cog"></i> Details</a>
                 <a class="btn btn-default btn-sm disabled" href="@Url.Action("EditItem", new { id = catalogItem.Id })"><i class="fa fa-pencil"></i> Edit</a>
                 <a class="btn btn-default btn-sm disabled" href="@Url.Action("DeleteItem", new { id = catalogItem.Id })"><i class="fa fa-trash-o"></i> Delete</a>
+
+                @Ajax.ActionLink("Add to cart", "AddToCart", new { Id = catalogItem.Id },
+                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, 
+                            new { @class = "btn btn-success" })
             </td>
         </tr>
     }
 
 </table>
+
+
+
          

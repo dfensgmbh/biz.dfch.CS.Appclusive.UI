@@ -129,6 +129,32 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(item));
         }
 
+        public PartialViewResult AddToCart(int id)
+        {
+            AjaxNotificationViewModel vm = new AjaxNotificationViewModel();
+            try
+            {
+                var catalogueItem = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+
+                Models.Core.CartItem cartItem = new Models.Core.CartItem();
+                cartItem.Name = catalogueItem.Name;
+                cartItem.Description = catalogueItem.Description;
+                cartItem.Quantity = 1;
+                cartItem.CatalogueItemId = catalogueItem.Id;
+
+                CoreRepository.AddToCartItems(AutoMapper.Mapper.Map<Api.Core.CartItem>(cartItem));
+                CoreRepository.SaveChanges();
+                vm.Level = ENotifyStyle.success;
+                vm.Message = string.Format("Item {0} added to cart", catalogueItem.Name);
+
+                return PartialView("AjaxNotification", new AjaxNotificationViewModel[] { vm });
+            }
+            catch (Exception ex)
+            {
+                return PartialView("AjaxNotification", ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+
         #endregion
     }
 }

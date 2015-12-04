@@ -37,8 +37,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         #region approve/decline
 
-        public const string DECLINED_STATUS = "cancel";
-        public const string APPROVED_STATUS = "continue";
+        public const string DECLINED_STATUS_CHANGE = "Cancel";
+        public const string APPROVED_STATUS_CHANGE = "Continue";
+        public const string CREATED_STATUS = "Created";
 
         [Display(Name = "Help Text")]
         public string HelpText { get; set; }
@@ -47,7 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             get
             {
-                return (this.Status == DECLINED_STATUS) ?
+                return (this.Status == DECLINED_STATUS_CHANGE) ?
                     "Decline"
                     :
                     "Approve";

@@ -9,7 +9,8 @@ namespace biz.dfch.CS.Appclusive.UI
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -24,6 +25,7 @@ namespace biz.dfch.CS.Appclusive.UI
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/sitescripts").Include(
+                        "~/Scripts/notify.min.js",
                         "~/Scripts/Site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

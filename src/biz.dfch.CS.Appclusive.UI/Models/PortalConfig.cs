@@ -7,6 +7,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public class PortalConfig
     {
-        public static int Pagesize = 40;
+        public static int Pagesize = 100;
     }
 }

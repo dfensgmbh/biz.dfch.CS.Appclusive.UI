@@ -37,7 +37,7 @@
             </td>
             <td class="ap-btn">
                 <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", new { id = orderItem.Id })"><i class="fa fa-cog"></i> Details</a>
-                <a class="btn btn-default btn-sm disabled" href="@Url.Action("DeleteItem", new { id = orderItem.Id })"><i class="fa fa-trash-o"></i> Delete</a>
+                <a class="btn btn-default btn-sm disabled" href="@Url.Action("ItemDelete", new { id = orderItem.Id })" onclick="return ConfirmDelete()"><i class="fa fa-trash-o"></i> Delete</a>
             </td>
         </tr>
     }
