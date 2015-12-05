@@ -317,6 +317,8 @@
     <Content Include="Views\Shared\AjaxNotification.cshtml" />
     <Content Include="Views\Catalogues\ItemCreate.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
+    <Content Include="Views\Catalogues\ItemFormPartial.cshtml" />
+    <Content Include="Views\Catalogues\ItemEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
