@@ -1,4 +1,5 @@
-﻿@{
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@{
     var title = "biz.dfch.CS.Appclusive.UI";
 }
 <!DOCTYPE html>
@@ -69,6 +70,14 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/sitescripts")
     @RenderSection("scripts", required: false)
+    @Html.RenderDelayed()
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
 
     <div id="ajaxNotify">
     </div>

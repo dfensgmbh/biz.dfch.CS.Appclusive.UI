@@ -1,4 +1,5 @@
-﻿@if (!string.IsNullOrEmpty(ViewBag.ErrorText))
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@if (!string.IsNullOrEmpty(ViewBag.ErrorText))
 {
     <div class="text-danger ap-errortext">
         @ViewBag.ErrorText
@@ -9,4 +10,35 @@
     <div class="text-info ap-infotext">
         @ViewBag.InfoText
     </div>
+}
+
+@if (null != ViewBag.Notifications)
+{
+    foreach (biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+    {
+        switch (note.Level)
+        {
+            case biz.dfch.CS.Appclusive.UI.Models.ENotifyStyle.error:
+                <div class="text-danger ap-errortext">
+                    @note.Message
+                </div>
+                break;
+            default:
+                <div class="text-info ap-infotext">
+                    @note.Message
+                </div>
+                break;
+        }
+    }
+
+    using (Html.Delayed())
+    {
+        foreach (biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+        {
+            <script type="text/javascript">
+                $.notify("@note.Message", "@note.Level");
+            </script>
+        }
+        //Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications);
+    }
 }
