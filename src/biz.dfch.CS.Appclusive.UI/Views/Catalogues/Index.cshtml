@@ -44,8 +44,8 @@
             </td>
             <td class="ap-btn">
                 <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil "></i> Edit</a>
-                <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
-                <a class="btn btn-default btn-sm" href="@Url.Action("Delete", new { id = item.Id })" onclick="return ConfirmDelete()"><i class="fa fa-trash-o"></i> Delete</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("Delete", new { id = item.Id })" onclick="return ConfirmDelete()" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     }

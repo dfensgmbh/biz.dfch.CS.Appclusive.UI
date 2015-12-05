@@ -17,6 +17,7 @@
         </ul>
         <div class="tab-content">
             <div id="items" class="tab-pane fade in active">
+                @{ ViewBag.catalogId = Model.Id; }
                 @Html.Partial("ItemList", Model.CatalogueItems)
             </div>
             <div id="details" class="tab-pane fade">
@@ -60,7 +61,7 @@
 </div>
 <p>
     <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>
 
 
