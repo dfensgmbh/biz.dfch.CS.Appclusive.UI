@@ -25,6 +25,13 @@
                 </dd>
 
                 <dt>
+                    Catalog Item Name
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CatalogueItem.Name)
+                </dd>
+
+                <dt>
                     @Html.DisplayNameFor(model => model.CatalogueItemId)
                 </dt>
                 <dd>
@@ -53,13 +60,6 @@
                 </dd>
 
                 <dt>
-                    Catalog Item Name
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.CatalogueItem.Name)
-                </dd>
-
-                <dt>
                     @Html.DisplayNameFor(model => model.Parameters)
                 </dt>
                 <dd>
@@ -75,6 +75,16 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { Id = Model.CatalogueItemId })"><i class="fa fa-arrow-left "></i> Catalogue Item</a>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.Cart.Id })"><i class="fa fa-arrow-left "></i> Back to Cart</a>
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
+    }
+    @if (Model.CatalogueItemId > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { Id = Model.CatalogueItemId })"><i class="fa fa-arrow-left "></i> Catalogue Item</a>
+    }
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.Cart.Id })"><i class="fa fa-arrow-left "></i> Back to Cart</a>
+    }
 </p>

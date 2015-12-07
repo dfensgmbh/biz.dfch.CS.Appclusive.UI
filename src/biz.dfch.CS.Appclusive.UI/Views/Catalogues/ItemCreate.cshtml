@@ -9,7 +9,6 @@
 }
 <div>
     <hr />
-    @Html.Partial("Messages")
     @Html.Partial("ItemFormPartial", Model)
     <p>
         <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { Id = Model.ProductId })"><i class="fa fa-arrow-left "></i> See product</a>

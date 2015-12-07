@@ -1,12 +1,12 @@
-﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CartItem
 
 @{
-    ViewBag.Title = "Catalogue Item edit";
+    ViewBag.Title = "Cart Item edit";
 }
 
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>
-    <h4>Catalogue item of catalogue "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
+    <h4>Cart item of catalogue "@Html.DisplayFor(model => model.Cart.Name)"</h4>
 }
 
 <div>
@@ -27,8 +27,8 @@
     <hr />
 </div>
 <p>
-    @if (Model.CatalogueId > 0)
+    @if (Model.CartId > 0)
     {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CatalogueId })"><i class="fa fa-arrow-left "></i> Back to Catalogue</a>
+        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CartId })"><i c><i class="fa fa-arrow-left "></i> Back to Cart</a>
     }
 </p>
