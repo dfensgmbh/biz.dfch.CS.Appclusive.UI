@@ -44,20 +44,35 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             return View();
         }
-
-        // POST: Carts/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        
+        public ActionResult CheckoutCart(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Models.Core.Order order = new Models.Core.Order();
+                order.Name = "DefaultOrder";
+                order.Parameters = "{}";
 
-                return RedirectToAction("Index");
+                CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
+                coreRepository.SaveChanges();
+
+                AjaxNotificationViewModel notification = new AjaxNotificationViewModel();
+                notification.Level = ENotifyStyle.success;
+                notification.Message = "Order has been placed";
+                ViewBag.Notifications = new AjaxNotificationViewModel[] { notification };
+
+                return View("Details", (Models.Core.Cart)null);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                Api.Core.Cart item = null;
+                try
+                {
+                    item = CoreRepository.Carts.Expand("CartItems").Where(c => c.Id == id).FirstOrDefault();
+                }
+                catch { }
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Cart>(item));
             }
         }
 
