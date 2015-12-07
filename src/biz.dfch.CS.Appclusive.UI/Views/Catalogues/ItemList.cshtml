@@ -26,7 +26,7 @@
                 @Html.DisplayFor(modelItem => catalogItem.Description)
             </td>
             <td class="ap-btn">
-                <a class="btn btn-default btn-sm disabled" href=" @Url.Action("Details", "Products", new { id = catalogItem.ProductId }) "><i class=" fa fa-cog"></i> Product Details</a>
+                <a class="btn btn-default btn-sm" href=" @Url.Action("Details", "Products", new { id = catalogItem.ProductId }) "><i class=" fa fa-cog"></i> Product Details</a>
                 <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = catalogItem.Id })"><i class="fa fa-cog"></i> Details</a>
                 <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = catalogItem.Id })"><i class="fa fa-pencil"></i> Edit</a>
                 <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = catalogItem.Id })" onclick="return ConfirmDelete()" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>

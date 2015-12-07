@@ -31,8 +31,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Catalogues
         public ActionResult Index()
         {
-            var items = CoreRepository.Catalogues.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.Catalogue>>(items));
+            try
+            {
+                var items = CoreRepository.Catalogues.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.Catalogue>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.Catalogue>());
+            }
         }
 
         #region Catalogue 
