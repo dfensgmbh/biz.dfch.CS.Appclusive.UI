@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "Catalogue Item details";
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
-
-<div>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>Catalogue item of catalogue "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
+}
+<div>
     <hr />
-    @Html.Partial("Messages")
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#details">Details</a></li>

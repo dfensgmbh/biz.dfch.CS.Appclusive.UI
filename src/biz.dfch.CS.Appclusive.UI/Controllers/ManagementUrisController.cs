@@ -26,11 +26,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementUris
         public ActionResult Index()
         {
-            var items = CoreRepository.ManagementUris.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items));
+            try
+            {
+                var items = CoreRepository.ManagementUris.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.ManagementUri>());
+            }
         }
 
-        #region ManagementUri 
+        #region ManagementUri
 
         // GET: ManagementUris/Details/5
         public ActionResult Details(int id)
@@ -52,13 +60,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.ManagementUri>(managementUri);
-                
+
                 CoreRepository.AddToManagementUris(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(managementUri);
@@ -94,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ViewBag.InfoText = "Successfully saved";
                 return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(managementUri);

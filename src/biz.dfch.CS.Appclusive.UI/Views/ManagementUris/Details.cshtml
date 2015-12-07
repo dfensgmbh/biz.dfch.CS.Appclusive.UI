@@ -3,73 +3,74 @@
 @{
     ViewBag.Title = "Management Uri details";
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>Management Uri</h4>
+}
 
 <div>
-    <h4>Management Uri</h4>
     <hr />
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-            <li><a data-toggle="tab" href="#general">General</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="details" class="tab-pane fade in active">
-                <dl>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li><a data-toggle="tab" href="#general">General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Value)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Value)
+                </dd>
+
+                @if (null != Model.ManagementCredential)
+                {
                     <dt>
-                        @Html.DisplayNameFor(model => model.Id)
+                        Management Credential
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Id)
+                        @Html.DisplayFor(model => model.ManagementCredential.Name)
                     </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Type)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Value)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Value)
-                    </dd>
-
-                    @if (null != Model.ManagementCredential)
-                    {
-                        <dt>
-                            Management Credential
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.ManagementCredential.Name)
-                        </dd>
-                    }
-                </dl>
-            </div>
-            <div id="general" class="tab-pane fade">                
-                @Html.Partial("IAppcusiveEntityBaseDetails", Model)
-            </div>
+                }
+            </dl>
         </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
     <hr />
 </div>
 <p>
     <a class="btn btn-default btn-sm disabled" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>

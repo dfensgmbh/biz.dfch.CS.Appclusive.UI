@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "Entity type create";
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
-
-<div>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>Entity type</h4>
+}
+<div>
     <hr />
-
     <table>
         <tbody>
             <tr>

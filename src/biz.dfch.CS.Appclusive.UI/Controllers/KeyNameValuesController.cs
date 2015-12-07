@@ -26,11 +26,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: KeyNameValues
         public ActionResult Index()
         {
-            var items = CoreRepository.KeyNameValues.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.KeyNameValue>>(items));
+            try
+            {
+                var items = CoreRepository.KeyNameValues.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.KeyNameValue>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.KeyNameValue>());
+            }
         }
 
-        #region KeyNameValue 
+        #region KeyNameValue
 
         // GET: KeyNameValues/Details/5
         public ActionResult Details(int id)
@@ -52,13 +60,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.KeyNameValue>(keyNameValue);
-                
+
                 CoreRepository.AddToKeyNameValues(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(keyNameValue);
@@ -94,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ViewBag.InfoText = "Successfully saved";
                 return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(keyNameValue);

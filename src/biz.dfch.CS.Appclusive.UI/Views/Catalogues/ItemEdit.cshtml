@@ -4,10 +4,12 @@
     ViewBag.Title = "Catalogue Item edit";
 }
 
-<h2>@Html.DisplayFor(model => model.Name)</h2>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>Catalogue item of catalogue "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
+}
 
 <div>
-    <h4>Catalogue item of catalogue "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
     <hr />
 
     <ul class="nav nav-tabs">

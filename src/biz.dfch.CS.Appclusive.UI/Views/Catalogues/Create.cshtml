@@ -4,10 +4,12 @@
     ViewBag.Title = "Catalogue create";
 }
 
-<h2>New</h2>
+@section Title{
+    <h2>New</h2>
+    <h4>Create Catalogue</h4>
+}
 
 <div>
-    <h4>Create Catalogue</h4>
     <hr />
     <div>
         @using (Html.BeginForm())

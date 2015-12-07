@@ -26,10 +26,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Jobs
         public ActionResult Index()
         {
-            var items = CoreRepository.Jobs.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.Job>>(items));
+            try
+            {
+                var items = CoreRepository.Jobs.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.Job>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.Job>());
+            }
         }
-        
+
         // GET: Jobs/Details/5
         public ActionResult Details(int id)
         {

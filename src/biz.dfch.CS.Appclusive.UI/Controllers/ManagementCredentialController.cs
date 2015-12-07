@@ -26,11 +26,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementCredentials
         public ActionResult Index()
         {
-            var items = CoreRepository.ManagementCredentials.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementCredential>>(items));
+            try
+            {
+                var items = CoreRepository.ManagementCredentials.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementCredential>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.ManagementCredential>());
+            }
         }
 
-        #region ManagementCredential 
+        #region ManagementCredential
 
         // GET: ManagementCredentials/Details/5
         public ActionResult Details(int id)
@@ -52,13 +60,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.ManagementCredential>(managementCredential);
-                
+
                 CoreRepository.AddToManagementCredentials(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(managementCredential);
@@ -94,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ViewBag.InfoText = "Successfully saved";
                 return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(managementCredential);

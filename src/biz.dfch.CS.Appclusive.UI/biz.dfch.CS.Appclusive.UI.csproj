@@ -145,6 +145,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\MyViewController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
@@ -158,8 +159,6 @@
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MoviesController.cs" />
-    <Compile Include="Controllers\MyViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,8 +186,6 @@
     <Compile Include="Models\HelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
-    <Compile Include="Models\Movie.cs" />
-    <Compile Include="Models\MovieDBContext.cs" />
     <Compile Include="Models\PortalConfig.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,14 +265,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\MyView\Index.cshtml" />
-    <Content Include="Views\MyView\Welcome.cshtml" />
-    <Content Include="Views\Movies\Create.cshtml" />
-    <Content Include="Views\Movies\Delete.cshtml" />
-    <Content Include="Views\Movies\Details.cshtml" />
-    <Content Include="Views\Movies\Edit.cshtml" />
-    <Content Include="Views\Movies\Index.cshtml" />
-    <Content Include="Views\MyView\AuditTrail.cshtml" />
+    <Content Include="Views\AuditTrail\Index.cshtml" />
     <Content Include="Views\Catalogues\Index.cshtml" />
     <Content Include="Views\Catalogues\Details.cshtml" />
     <Content Include="Views\Catalogues\Edit.cshtml" />
@@ -326,7 +316,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

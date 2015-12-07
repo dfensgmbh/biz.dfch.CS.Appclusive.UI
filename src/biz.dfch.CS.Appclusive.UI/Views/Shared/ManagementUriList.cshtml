@@ -33,9 +33,9 @@
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td class="ap-btn">
-                <a class="btn btn-default btn-sm" href="@Url.Action("Details", "ManagementUris", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "ManagementUris", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
                 <a class="btn btn-default btn-sm disabled" href="@Url.Action("EditItem", "ManagementUris", new { id = item.Id })"><i class="fa fa-pencil"></i> Edit</a>
-                <a class="btn btn-default btn-sm disabled" href="@Url.Action("DeleteItem", "ManagementUris", new { id = item.Id })"><i class="fa fa-trash-o"></i> Delete</a>
+                <a class="btn btn-default btn-sm disabled" href="@Url.Action("DeleteItem", "ManagementUris", new { id = item.Id })" onclick="return ConfirmDelete()" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     }

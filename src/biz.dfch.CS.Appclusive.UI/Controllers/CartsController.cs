@@ -26,40 +26,35 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Carts
         public ActionResult Index()
         {
-            var items = CoreRepository.Carts.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.Cart>>(items));
+            try
+            {
+                var items = CoreRepository.Carts.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.Cart>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.Cart>());
+            }
         }
 
-        #region Cart 
+        #region Cart
 
         // GET: Carts/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.Carts.Expand("CartItems").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Cart>(item));
-        }
-
-        // GET: Carts/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Carts/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var item = CoreRepository.Carts.Expand("CartItems").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Cart>(item));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.Cart());
             }
         }
+
 
         #endregion
 
@@ -67,8 +62,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult ItemDetails(int id)
         {
-            var item = CoreRepository.CartItems.Expand("Cart").Expand("CatalogueItem").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.CartItem>(item));
+            try
+            {
+                var item = CoreRepository.CartItems.Expand("Cart").Expand("CatalogueItem").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.CartItem>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.CartItem());
+            }
         }
 
         #endregion

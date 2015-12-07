@@ -26,11 +26,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: EntityTypes
         public ActionResult Index()
         {
-            var items = CoreRepository.EntityTypes.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.EntityType>>(items));
+            try
+            {
+                var items = CoreRepository.EntityTypes.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.EntityType>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.EntityType>());
+            }
         }
 
-        #region EntityType 
+        #region EntityType
 
         // GET: EntityTypes/Details/5
         public ActionResult Details(int id)
@@ -52,13 +60,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.EntityType>(entityType);
-                
+
                 CoreRepository.AddToEntityTypes(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(entityType);
@@ -94,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ViewBag.InfoText = "Successfully saved";
                 return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(entityType);

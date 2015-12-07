@@ -60,6 +60,9 @@
         </div>
     </div>
     <div class="container body-content">
+
+        @RenderSection("Title", required: true)
+        @Html.Partial("Messages")
         @RenderBody()
         <hr />
         <footer>
