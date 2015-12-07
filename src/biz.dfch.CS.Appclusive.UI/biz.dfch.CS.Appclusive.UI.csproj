@@ -312,13 +312,14 @@
     <Content Include="Views\Gates\Details.cshtml" />
     <Content Include="Views\Gates\Index.cshtml" />
     <Content Include="Views\Approvals\Edit.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\DateTimeOffset.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\_DateTimeOffset.cshtml" />
     <Content Include="Views\Shared\Messages.cshtml" />
     <Content Include="Views\Shared\AjaxNotification.cshtml" />
     <Content Include="Views\Catalogues\ItemCreate.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\_DateTimeOffset.cshtml" />
     <Content Include="Views\Catalogues\ItemFormPartial.cshtml" />
     <Content Include="Views\Catalogues\ItemEdit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

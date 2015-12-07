@@ -24,6 +24,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
         private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
 
+        public CataloguesController(): base()
+        {
+            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
+        }
         // GET: Catalogues
         public ActionResult Index()
         {
@@ -36,8 +40,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Catalogues/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(item));
+            try
+            {
+                var item = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.Catalogue());
+            }
         }
 
         // GET: Catalogues/Create
@@ -61,7 +73,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch(Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(catalogue);
             }
         }
@@ -69,8 +81,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Catalogues/Edit/5
         public ActionResult Edit(int id)
         {
-            var apiItem = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
+            try
+            {
+                var apiItem = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.Catalogue());
+            }
         }
 
         // POST: Catalogues/Edit/5
@@ -91,12 +111,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.InfoText = "Successfully saved";
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                 return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
             }
             catch(Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(catalogue);
             }
         }
@@ -115,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem)));
             }
         }
@@ -126,8 +146,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult ItemDetails(int id)
         {
-            var item = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(item));
+            try
+            {
+                var item = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.CatalogueItem());
+            }
         }
 
         public PartialViewResult AddToCart(int id)
@@ -157,12 +185,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
 
+        private void AddProductSeletionToViewBag()
+        {
+            try
+            {
+                var products = CoreRepository.Products.ToList();
+                ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+
         // GET: Catalogues/Create
         public ActionResult ItemCreate(int catalogId)
         {
             try
             {
                 Contract.Requires(catalogId > 0);
+                this.AddProductSeletionToViewBag();
                 var apiCatalog = CoreRepository.Catalogues.Where(c => c.Id == catalogId).FirstOrDefault();
                 var catalog = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiCatalog);
                 Contract.Assert(null != catalog, "No catalog for item loaded");
@@ -175,8 +217,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
-                return View((Models.Core.CatalogueItem)null);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.CatalogueItem());
             }
         }
 
@@ -192,11 +234,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 CoreRepository.AddToCatalogueItems(apiItem);
                 CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                return RedirectToAction("ItemDetails", new { id = apiItem.Id });
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                this.AddProductSeletionToViewBag();
                 var apiCatalog = CoreRepository.Catalogues.Where(c => c.Id == catalogueItem.CatalogueId).FirstOrDefault();
                 catalogueItem.Catalogue = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiCatalog);
                 return View(catalogueItem);
@@ -209,13 +252,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Contract.Requires(id > 0);
+                this.AddProductSeletionToViewBag();
                 var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(apiItem));
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
-                return View((Models.Core.CatalogueItem)null);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.CatalogueItem());
             }
         }
 
@@ -227,6 +271,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 Contract.Requires(id > 0);
                 Contract.Requires(null != catalogueItem);
+                this.AddProductSeletionToViewBag();
                 var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
                 Contract.Assert(null != apiItem);
 
@@ -243,12 +288,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.Notifications = new AjaxNotificationViewModel[] { new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved") };
-                return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(apiItem));
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                return View(catalogueItem);
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(catalogueItem);
             }
         }
@@ -269,7 +314,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View("ItemDetails", View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(apiItem)));
             }
         }

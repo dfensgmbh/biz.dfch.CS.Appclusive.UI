@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Catalogue edit";
 }
-    
+
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
@@ -23,48 +23,48 @@
         <div id="details" class="tab-pane fade in active">
             @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.Partial("Messages")
-                @Html.HiddenFor(model => model.Id)
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.Partial("Messages")
+            @Html.HiddenFor(model => model.Id)
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-                    <div>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-                    <div>
-                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "4"})
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "4"})
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })                   
-                    <div>                        
-                        @Html.DropDownListFor(model => model.Status, new SelectList(biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue.StatusSelection), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.DropDownListFor(model => model.Status, new SelectList(biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue.StatusSelection), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Version, htmlAttributes: new { @class = "control-label" })
-                    <div>
-                        @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Version, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Version, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Version, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
             }
-           
+
         </div>
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
@@ -73,10 +73,13 @@
 </div>
 <p>
     <hr />
-    <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id })"><i class="fa fa-pencil "></i> Cancel</a>
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id })"><i class="fa fa-pencil "></i> Cancel</a>
+    }
     <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>
 
 @*<script type="text/javascript">
-    $('.selectpicker').selectpicker();
-</script>*@
+        $('.selectpicker').selectpicker();
+    </script>*@
