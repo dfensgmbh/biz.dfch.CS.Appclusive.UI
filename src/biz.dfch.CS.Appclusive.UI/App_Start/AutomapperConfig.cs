@@ -26,6 +26,8 @@ namespace biz.dfch.CS.Appclusive.UI
 
             Mapper.CreateMap<Api.Core.Order, Models.Core.Order>();
             Mapper.CreateMap<Api.Core.OrderItem, Models.Core.OrderItem>();
+            Mapper.CreateMap<Models.Core.Order, Api.Core.Order>();
+            Mapper.CreateMap<Models.Core.OrderItem, Api.Core.OrderItem>();
 
             Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
 

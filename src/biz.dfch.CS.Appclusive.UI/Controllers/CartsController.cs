@@ -55,6 +55,43 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
+        // GET: Carts/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+        
+        public ActionResult CheckoutCart(int id)
+        {
+            try
+            {
+                Models.Core.Order order = new Models.Core.Order();
+                order.Name = "DefaultOrder";
+                order.Parameters = "{}";
+
+                CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
+                coreRepository.SaveChanges();
+
+                AjaxNotificationViewModel notification = new AjaxNotificationViewModel();
+                notification.Level = ENotifyStyle.success;
+                notification.Message = "Order has been placed";
+                ViewBag.Notifications = new AjaxNotificationViewModel[] { notification };
+
+                return View("Details", (Models.Core.Cart)null);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                Api.Core.Cart item = null;
+                try
+                {
+                    item = CoreRepository.Carts.Expand("CartItems").Where(c => c.Id == id).FirstOrDefault();
+                }
+                catch { }
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Cart>(item));
+            }
+        }
+
 
         #endregion
 
