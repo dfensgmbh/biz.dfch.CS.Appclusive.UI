@@ -7,21 +7,8 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class EntityTypesController : Controller
+    public class EntityTypesController : CoreControllerBase
     {
-        private biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
-        {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                }
-                return coreRepository;
-            }
-        }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
 
         // GET: EntityTypes
         public ActionResult Index()

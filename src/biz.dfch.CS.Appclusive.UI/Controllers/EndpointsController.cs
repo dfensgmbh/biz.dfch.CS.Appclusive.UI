@@ -7,22 +7,8 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class EndpointsController : Controller
+    public class EndpointsController : DiagnosticsControllerBase
     {
-        private biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository
-        {
-            get
-            {
-                if (diagnosticsRepository == null)
-                {
-                    diagnosticsRepository = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppculsiveApiDiagnosticsUrl));
-                    diagnosticsRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                }
-                return diagnosticsRepository;
-            }
-        }
-        private biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics diagnosticsRepository;
-
         // GET: Endpoints
         public ActionResult Index()
         {

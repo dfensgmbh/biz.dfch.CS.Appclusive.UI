@@ -7,22 +7,8 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class KeyNameValuesController : Controller
+    public class KeyNameValuesController : CoreControllerBase
     {
-        private biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
-        {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                }
-                return coreRepository;
-            }
-        }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
-
         // GET: KeyNameValues
         public ActionResult Index()
         {

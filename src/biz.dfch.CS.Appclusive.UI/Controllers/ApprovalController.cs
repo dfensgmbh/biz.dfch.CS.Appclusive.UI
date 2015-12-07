@@ -7,23 +7,8 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ApprovalsController : Controller
-    {
-        private biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
-        {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    coreRepository.IgnoreMissingProperties = true;
-                }
-                return coreRepository;
-            }
-        }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
-
+    public class ApprovalsController : CoreControllerBase
+    {       
         // GET: Approvals
         public ActionResult Index(int page = 1, string status = null)
         {

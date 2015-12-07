@@ -143,9 +143,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
-    <Compile Include="Controllers\MyViewController.cs" />
+    <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
+    <Compile Include="Controllers\CoreControllerBase.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
@@ -265,7 +267,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\AuditTrail\Index.cshtml" />
+    <Content Include="Views\AuditTrails\Index.cshtml" />
     <Content Include="Views\Catalogues\Index.cshtml" />
     <Content Include="Views\Catalogues\Details.cshtml" />
     <Content Include="Views\Catalogues\Edit.cshtml" />

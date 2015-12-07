@@ -49,7 +49,7 @@
                             Diagnostics <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("AuditTrail", "AuditTrail", "MyView")</li>
+                            <li>@Html.ActionLink("Audit Trails", "Index", "AuditTrails")</li>
                             <li>@Html.ActionLink("Endpoints", "Index", "Endpoints")</li>
                         </ul>
                     </li>
@@ -61,7 +61,7 @@
     </div>
     <div class="container body-content">
 
-        @RenderSection("Title", required: true)
+        @RenderSection("Title", required: false)
         @Html.Partial("Messages")
         @RenderBody()
         <hr />

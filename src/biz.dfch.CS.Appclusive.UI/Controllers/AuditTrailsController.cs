@@ -7,10 +7,10 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AuditTrailController : Controller
+    public class AuditTrailsController : CoreControllerBase
     {
         // http://localhost:xxxx/myView/AuditTrail?numtimes=42
-        public ActionResult AuditTrail(int numTimes = 1)
+        public ActionResult Index(int numTimes = 1)
         {
             try
             {

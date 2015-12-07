@@ -7,22 +7,8 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CartsController : Controller
+    public class CartsController : CoreControllerBase
     {
-        private biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
-        {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                }
-                return coreRepository;
-            }
-        }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
-
         // GET: Carts
         public ActionResult Index()
         {
@@ -70,7 +56,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 order.Parameters = "{}";
 
                 CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
-                coreRepository.SaveChanges();
+                CoreRepository.SaveChanges();
 
                 AjaxNotificationViewModel notification = new AjaxNotificationViewModel();
                 notification.Level = ENotifyStyle.success;
