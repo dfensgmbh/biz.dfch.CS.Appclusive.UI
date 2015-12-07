@@ -4,13 +4,16 @@
     ViewBag.Title = "Cart details";
 }
 
-<h2>@Html.DisplayFor(model => model.Name)</h2>
-
+@if (null != Model)
+{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+}
 <div>
     <h4>Order</h4>
-    <hr />    
+    <hr />
     @Html.Partial("Messages")
-
+    @if (null != Model)
+    {
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#items">Contents</a></li>
             <li><a data-toggle="tab" href="#details">Details</a></li>
@@ -37,10 +40,11 @@
                     </dd>
                 </dl>
             </div>
-            <div id="general" class="tab-pane fade">                
+            <div id="general" class="tab-pane fade">
                 @Html.Partial("IAppcusiveEntityBaseDetails", Model)
             </div>
         </div>
+    }
     <hr />
 </div>
 <p>

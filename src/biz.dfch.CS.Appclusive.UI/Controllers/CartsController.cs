@@ -56,39 +56,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
                 coreRepository.SaveChanges();
 
-                //msls.showMessageBox(
-                //    message,
-                //    {
-                //        title: title,
-                //        buttons: msls.MessageBoxButtons.yesNo
-                //    }
-                //).then(function (result) {
-                //    if (result == msls.MessageBoxResult.yes) {
-                //        myapp.activeDataWorkspace.CoreData.saveChanges().then(function() {
-                //                msls.showMessageBox(
-                //                    "Order has been placed",
-                //                    {
-                //                        title: "Order",
-                //                        buttons: msls.MessageBoxButtons.ok
-                //                    }
-                //                );
-                //            },
-                //            function fail(e) {
-                //                msls.showMessageBox(e.message,
-                //                {
-                //                    title: "Order has been placed",
-                //                    buttons: msls.MessageBoxButtons.ok
-                //                }).then(
-                //                    function(result) {
-                //                        myapp.cancelChanges();
-                //                        //throw e;
-                //                        myapp.showHome(msls.BoundaryOption, null);
-                //                    }
-                //                );
-                //            });
-                //    }
-                //});
-                return RedirectToAction("Index");
+                AjaxNotificationViewModel notification = new AjaxNotificationViewModel();
+                notification.Level = ENotifyStyle.success;
+                notification.Message = "Order has been placed";
+                ViewBag.Notifications = new AjaxNotificationViewModel[] { notification };
+
+                return View("Details", (Models.Core.Cart)null);
             }
             catch (Exception ex)
             {
