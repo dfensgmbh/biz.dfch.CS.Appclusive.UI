@@ -33,8 +33,11 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
 
             Mapper.CreateMap<Api.Core.Job, Models.Core.Job>();
-            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();            
-            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();            
+            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();
+            
+            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();
+            Mapper.CreateMap<Models.Core.KeyNameValue, Api.Core.KeyNameValue>();    
+        
             Mapper.CreateMap<Api.Core.Gate, Models.Core.Gate>();
 
 

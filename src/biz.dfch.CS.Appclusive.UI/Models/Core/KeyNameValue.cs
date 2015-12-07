@@ -7,6 +7,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class KeyNameValue : ViewModelBase, IAppcusiveEntityBase
     {
+        public KeyNameValue()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
         
         public DateTimeOffset Created { get; set; }
         

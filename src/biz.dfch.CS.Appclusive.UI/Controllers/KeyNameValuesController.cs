@@ -29,8 +29,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: KeyNameValues/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(item));
+            try
+            {
+                var item = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.KeyNameValue());
+            }
         }
 
         // GET: KeyNameValues/Create
@@ -54,7 +62,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(keyNameValue);
             }
         }
@@ -62,8 +70,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: KeyNameValues/Edit/5
         public ActionResult Edit(int id)
         {
-            var apiItem = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
+            try
+            {
+                var apiItem = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.KeyNameValue());
+            }
         }
 
         // POST: KeyNameValues/Edit/5
@@ -76,21 +92,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region copy all edited properties
 
-                // TODO: set edited properties
-                //apiItem.Name = KeyNameValue.Name;
-                //apiItem.Description = KeyNameValue.Description;
-                //apiItem.Status = KeyNameValue.Status;
-                //apiItem.Version = KeyNameValue.Version;
+                apiItem.Name = keyNameValue.Name;
+                apiItem.Description = keyNameValue.Description;
+                apiItem.Value = keyNameValue.Value;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.InfoText = "Successfully saved";
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                 return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(keyNameValue);
             }
         }
@@ -98,22 +112,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: KeyNameValues/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: KeyNameValues/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            Api.Core.KeyNameValue apiItem = null;
             try
             {
-                // TODO: Add delete logic here
-
+                apiItem = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                CoreRepository.DeleteObject(apiItem);
+                CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem)));
             }
         }
 
