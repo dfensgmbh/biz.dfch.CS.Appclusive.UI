@@ -8,7 +8,8 @@
 
 <div>
     <h4>Order</h4>
-    <hr />
+    <hr />    
+    @Html.Partial("Messages")
 
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#items">Contents</a></li>
@@ -43,5 +44,6 @@
     <hr />
 </div>
 <p>
+    <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return ConfirmCheckOut()"><i class="fa fa-shopping-cart "></i> Check out cart</a>
     <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>
