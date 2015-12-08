@@ -182,6 +182,7 @@
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
     <Compile Include="Models\ExceptionHelper.cs" />
@@ -309,10 +310,10 @@
     <Content Include="Views\Shared\Messages.cshtml" />
     <Content Include="Views\Shared\AjaxNotification.cshtml" />
     <Content Include="Views\Catalogues\ItemCreate.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\_DateTimeOffset.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
     <Content Include="Views\Catalogues\ItemFormPartial.cshtml" />
     <Content Include="Views\Catalogues\ItemEdit.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\_en_DateTimeOffset.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Carts\ItemEdit.cshtml" />
@@ -321,6 +322,8 @@
     <Content Include="Views\KeyNameValues\Edit.cshtml" />
     <Content Include="Views\KeyNameValues\Create.cshtml" />
     <Content Include="Views\KeyNameValues\FormPartial.cshtml" />
+    <Content Include="Views\Carts\VdiSave.cshtml" />
+    <Content Include="Views\Carts\VdiCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

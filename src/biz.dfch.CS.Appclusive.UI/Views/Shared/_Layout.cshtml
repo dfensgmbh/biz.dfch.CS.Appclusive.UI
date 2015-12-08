@@ -53,6 +53,15 @@
                             <li>@Html.ActionLink("Endpoints", "Index", "Endpoints")</li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            DVI <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Add VDI for personal use", "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null)</li>
+                            <li>@Html.ActionLink("Add VDI for another user", "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">@User.Identity.Name</p>

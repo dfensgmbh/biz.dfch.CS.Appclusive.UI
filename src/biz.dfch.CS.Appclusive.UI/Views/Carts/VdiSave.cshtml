@@ -1,0 +1,49 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem
+
+@{
+    ViewBag.Title = "VDI-Cart Item save";
+}
+
+@section Title{
+    <h2>@Model.Title</h2>
+}
+
+<div>
+    <hr />
+    <dl>
+        @if (!string.IsNullOrWhiteSpace(Model.HelpText))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.HelpText)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.HelpText)
+            </dd>
+        }
+        
+        @if (Model.VdiName == biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Requester)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Requester)
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    <hr />
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-shopping-cart"></i> go to carts</a>
+</div>

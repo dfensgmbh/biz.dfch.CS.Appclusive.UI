@@ -222,5 +222,57 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         #endregion
+
+
+        #region VDI
+
+        public ActionResult VdiCreate(string vdiName)
+        {
+            try
+            {
+                Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, "no valid vdi-name");
+
+                Models.Core.VdiCartItem cartItem = new Models.Core.VdiCartItem();
+                cartItem.Name = vdiName;
+                cartItem.VdiName = vdiName;
+                cartItem.Quantity = 1;
+
+                return View(cartItem);
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("VdiDetails", new Models.Core.VdiCartItem());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult VdiCreate(string vdiName, Models.Core.VdiCartItem cartItem)
+        {
+            try
+            {
+                Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, "no valid vdi-name");
+                var catalogueItem = CoreRepository.CatalogueItems.Where(c => c.Name == vdiName).FirstOrDefault();
+                Contract.Assert(null != catalogueItem);
+
+                cartItem.CatalogueItemId = catalogueItem.Id;
+                cartItem.VdiName = vdiName;
+                cartItem.Quantity = 1;
+                cartItem.Parameters = cartItem.RequesterToParameters();
+
+                CoreRepository.AddToCartItems(AutoMapper.Mapper.Map<Api.Core.CartItem>(cartItem));
+                CoreRepository.SaveChanges();
+
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format("Item {0} added to cart", catalogueItem.Name)));
+                return View("VdiSave", cartItem);
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.VdiCartItem());
+            }
+        }
+
+        #endregion
     }
 }
