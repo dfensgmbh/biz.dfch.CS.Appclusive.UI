@@ -68,5 +68,5 @@
         <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> Approve</a>
         <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> Decline</a>
     }
-<a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> Order</a>
+    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> Order</a>
 </p>

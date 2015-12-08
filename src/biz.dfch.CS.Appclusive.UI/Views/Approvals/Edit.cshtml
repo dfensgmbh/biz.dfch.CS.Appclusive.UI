@@ -61,5 +61,5 @@
 <hr />
 <p>
     <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
-    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId })"><i class="fa fa-cog"></i> Order</a>
+    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> Order</a>
 </p>
