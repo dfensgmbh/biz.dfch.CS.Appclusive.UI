@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -46,51 +47,59 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Approvals/Details/5
         public ActionResult Details(int id)
         {
+            Models.Core.Approval approval = new Models.Core.Approval();
             try
             {
-                var item = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Approval>(item));
+                Contract.Requires(id > 0);
+                var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
+                approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
+                approval.ResolveOrderId(this.CoreRepository);
+                return View(approval);
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.Approval());
+                return View(approval);
             }
         }
 
         // GET: Approvals/Approve/5
         public ActionResult Approve(int id)
         {
+            Models.Core.Approval approval = new Models.Core.Approval();
             try
             {
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
-                Models.Core.Approval approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
+                approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.Status = Models.Core.Approval.APPROVED_STATUS_CHANGE;
                 approval.HelpText = "The request will be approved when you click the 'Approve' button. You can optionally add a explanation or reason for approval.";
+                approval.ResolveOrderId(this.CoreRepository);
                 return View("Edit", approval);
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Edit", new Models.Core.Approval());
+                return View("Edit", approval);
             }
         }
 
         // GET: Approvals/Decline/5
         public ActionResult Decline(int id)
         {
+            Models.Core.Approval approval = new Models.Core.Approval();
             try
             {
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
-                Models.Core.Approval approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
+                approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.Status = Models.Core.Approval.DECLINED_STATUS_CHANGE;
                 approval.HelpText = "The request will be declined when you click the 'Decline' button. You can optionally add a explanation or reason for approval.";
+                approval.ResolveOrderId(this.CoreRepository);
                 return View("Edit", approval);
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Edit", new Models.Core.Approval());
+                return View("Edit", approval);
             }
         }
 
@@ -127,11 +136,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
-                return View("Edit", approval);
+                //TODO: ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                //return View("Edit", approval);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully " + approval.Status));
+                return View("Details", approval);
             }
         }
-
 
         #endregion
 

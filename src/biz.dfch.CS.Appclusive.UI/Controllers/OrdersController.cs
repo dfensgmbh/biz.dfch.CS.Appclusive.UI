@@ -27,10 +27,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Order
 
         // GET: Orders/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int rId = 0, string rAction = null, string rController = null)
         {
-            var item = CoreRepository.Orders.Expand("OrderItems").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Order>(item));
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
+            try
+            {
+                var item = CoreRepository.Orders.Expand("OrderItems").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Order>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.Order());
+            }
         }
 
         // GET: Orders/Delete/5

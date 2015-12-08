@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -60,5 +61,39 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
         #endregion
+
+        /// <summary>
+        /// set through call of ResolveOrderId()
+        /// </summary>
+        public int OrderId { get; private set; }
+
+        /// <summary>
+        /// Find Order by Approval 
+        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
+        /// -> Job (Name== 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order') 
+        /// -> Order
+        /// </summary>
+        /// <param name="coreRepository"></param>
+        internal void ResolveOrderId(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            var jobs = coreRepository.Jobs.Where(j => j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval" & j.ReferencedItemId == this.Id.ToString());
+            Api.Core.Job approvalJob = jobs.FirstOrDefault();
+            Contract.Assert(null != approvalJob, "no approval-job available");
+            Contract.Assert(approvalJob.ParentId.HasValue, "no approval-job parent available");
+
+            jobs = coreRepository.Jobs.Where(j => j.Id == approvalJob.ParentId.Value && j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order");
+            Api.Core.Job orderJob = jobs.FirstOrDefault();
+            Contract.Assert(null != orderJob, "no Order-job available");
+
+            int orderId = 0;
+            int.TryParse(orderJob.ReferencedItemId, out orderId);
+            this.OrderId = orderId;
+        }
+
+        public string OrderIdClass {
+            get { return this.OrderId > 0 ? "" : " disabled"; }
+        }
     }
 }

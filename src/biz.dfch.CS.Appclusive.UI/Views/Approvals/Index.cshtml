@@ -59,8 +59,8 @@
                 <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
                 @if (item.Status == Approval.CREATED_STATUS)
                 {
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> Approve</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> Decline</a>
+                    <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> Approve</a>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> Decline</a>
                 }
             </td>
         </tr>
