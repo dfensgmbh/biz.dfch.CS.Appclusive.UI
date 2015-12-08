@@ -30,8 +30,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementCredentials/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.ManagementCredentials.Expand("ManagementUris").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(item));
+            try
+            {
+                var item = CoreRepository.ManagementCredentials.Expand("ManagementUris").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.ManagementCredential());
+            }
         }
 
         // GET: ManagementCredentials/Create
@@ -55,7 +63,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(managementCredential);
             }
         }
@@ -63,8 +71,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementCredentials/Edit/5
         public ActionResult Edit(int id)
         {
-            var apiItem = CoreRepository.ManagementCredentials.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
+            try
+            {
+                var apiItem = CoreRepository.ManagementCredentials.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.ManagementCredential());
+            }
         }
 
         // POST: ManagementCredentials/Edit/5
@@ -86,12 +102,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.InfoText = "Successfully saved";
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                 return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(managementCredential);
             }
         }
@@ -99,7 +115,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementCredentials/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Api.Core.ManagementCredential apiItem = null;
+            try
+            {
+                apiItem = CoreRepository.ManagementCredentials.Where(c => c.Id == id).FirstOrDefault();
+                CoreRepository.DeleteObject(apiItem);
+                CoreRepository.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem)));
+            }
         }
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -30,13 +31,22 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementUris/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.ManagementUris.Expand("ManagementCredential").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(item));
+            try
+            {
+                var item = CoreRepository.ManagementUris.Expand("ManagementCredential").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.ManagementUri());
+            }
         }
 
         // GET: ManagementUris/Create
         public ActionResult Create()
         {
+            this.AddManagementCredentialSelectionToViewBag();
             return View(new Models.Core.ManagementUri());
         }
 
@@ -55,7 +65,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                this.AddManagementCredentialSelectionToViewBag();
                 return View(managementUri);
             }
         }
@@ -63,8 +74,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementUris/Edit/5
         public ActionResult Edit(int id)
         {
-            var apiItem = CoreRepository.ManagementUris.Expand("ManagementCredential").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
+            try
+            {
+                Contract.Requires(id > 0);
+                this.AddManagementCredentialSelectionToViewBag();
+                var apiItem = CoreRepository.ManagementUris.Expand("ManagementCredential").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.ManagementUri());
+            }
         }
 
         // POST: ManagementUris/Edit/5
@@ -73,25 +94,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                Contract.Requires(id > 0);
+                Contract.Requires(null != managementUri);
+                this.AddManagementCredentialSelectionToViewBag();
                 var apiItem = CoreRepository.ManagementUris.Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
-                // TODO: set edited properties
-                //apiItem.Name = ManagementUri.Name;
-                //apiItem.Description = ManagementUri.Description;
-                //apiItem.Status = ManagementUri.Status;
-                //apiItem.Version = ManagementUri.Version;
+                apiItem.Name = managementUri.Name;
+                apiItem.Description = managementUri.Description;
+                apiItem.Type = managementUri.Type;
+                apiItem.Value = managementUri.Value;
+                apiItem.ManagementCredentialId = managementUri.ManagementCredentialId;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.InfoText = "Successfully saved";
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                 return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(managementUri);
             }
         }
@@ -99,19 +123,37 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: ManagementUris/Delete/5
         public ActionResult Delete(int id)
         {
+            Api.Core.ManagementUri apiItem = null;
             try
             {
-                var apiItem = CoreRepository.ManagementUris.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.ManagementUris.Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
-                return Index();
+                CoreRepository.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
-                return View();
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem)));
             }
         }
 
+
+        private void AddManagementCredentialSelectionToViewBag()
+        {
+            try
+            {
+                List<Api.Core.ManagementCredential> creds = new List<Api.Core.ManagementCredential>();
+                creds.Add(new Api.Core.ManagementCredential() { Name = "-" });
+                creds.AddRange(CoreRepository.ManagementCredentials.ToList());
+
+                ViewBag.ManagementCredentialSelection = new SelectList(creds.Select(u => { return new { Id = u.Id > 0 ? (long?)u.Id : null, Name = u.Name }; }), "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
 
         #endregion
 

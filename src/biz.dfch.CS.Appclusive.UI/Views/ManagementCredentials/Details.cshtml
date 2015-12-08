@@ -19,13 +19,6 @@
         <div id="details" class="tab-pane fade in active">
             <dl>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Id)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Id)
-                </dd>
-
-                <dt>
                     @Html.DisplayNameFor(model => model.Name)
                 </dt>
                 <dd>
@@ -71,6 +64,6 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm disabled" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
+    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
     <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>

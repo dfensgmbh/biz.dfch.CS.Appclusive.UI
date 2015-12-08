@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -326,6 +326,15 @@
     <Content Include="Views\EntityTypes\Create.cshtml" />
     <Content Include="Views\EntityTypes\FormPartial.cshtml" />
     <Content Include="Views\EntityTypes\Edit.cshtml" />
+    <Content Include="Views\ManagementCredentials\FormPartial.cshtml" />
+    <Content Include="Views\ManagementCredentials\Edit.cshtml" />
+    <Content Include="Views\ManagementCredentials\Create.cshtml" />
+    <Content Include="Views\ManagementUris\Create.cshtml" />
+    <Content Include="Views\ManagementUris\Edit.cshtml" />
+    <Content Include="Views\ManagementUris\FormPartial.cshtml" />
+    <Content Include="Views\Gates\Create.cshtml" />
+    <Content Include="Views\Gates\Edit.cshtml" />
+    <Content Include="Views\Gates\FormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,7 +361,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
+          <IISUrl>http://localhost:60755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
