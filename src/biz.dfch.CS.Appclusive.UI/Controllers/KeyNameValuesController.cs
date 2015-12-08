@@ -92,6 +92,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region copy all edited properties
 
+                apiItem.Key = keyNameValue.Key;
                 apiItem.Name = keyNameValue.Name;
                 apiItem.Description = keyNameValue.Description;
                 apiItem.Value = keyNameValue.Value;
