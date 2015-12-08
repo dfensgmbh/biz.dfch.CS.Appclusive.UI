@@ -30,8 +30,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: EntityTypes/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(item));
+            try
+            {
+                var item = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.EntityType());
+            }
         }
 
         // GET: EntityTypes/Create
@@ -55,7 +63,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(entityType);
             }
         }
@@ -63,8 +71,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: EntityTypes/Edit/5
         public ActionResult Edit(int id)
         {
-            var apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
+            try
+            {
+                var apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.KeyNameValue());
+            }
         }
 
         // POST: EntityTypes/Edit/5
@@ -77,21 +93,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region copy all edited properties
 
-                // TODO: set edited properties
-                //apiItem.Name = EntityType.Name;
-                //apiItem.Description = EntityType.Description;
-                //apiItem.Status = EntityType.Status;
-                //apiItem.Version = EntityType.Version;
+                apiItem.Name = entityType.Name;
+                apiItem.Description = entityType.Description;
+                apiItem.Parameters = entityType.Parameters;
+                apiItem.Version = entityType.Version;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.InfoText = "Successfully saved";
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                 return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(entityType);
             }
         }
@@ -99,16 +114,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: EntityTypes/Delete/5
         public ActionResult Delete(int id)
         {
+            Api.Core.EntityType apiItem = null;
             try
             {
-                var apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
-                return Index();
+                CoreRepository.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
-                return View();
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem)));
             }
         }
 
