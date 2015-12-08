@@ -36,5 +36,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public string Type { get; set; }
 
+        public static string[] StatusSelection = { "Free", "Locked" };
+        public static string[] TypeSelection = { "Default", "Mutex", "SpinLock", "Semaphore", "Barrier" };
+        
+
+
+
     }
 }

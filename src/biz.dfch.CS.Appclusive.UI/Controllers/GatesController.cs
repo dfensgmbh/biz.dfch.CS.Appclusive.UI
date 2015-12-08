@@ -30,8 +30,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Gates/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Gate>(item));
+            try
+            {
+                var item = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Gate>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.EntityType());
+            }
         }
 
         // GET: Gates/Create
@@ -55,7 +63,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(gate);
             }
         }
@@ -63,8 +71,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Gates/Edit/5
         public ActionResult Edit(int id)
         {
-            var apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
+            try
+            {
+                var apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.KeyNameValue());
+            }
         }
 
         // POST: Gates/Edit/5
@@ -77,21 +93,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region copy all edited properties
 
-                // TODO: set edited properties
-                //apiItem.Name = Gate.Name;
-                //apiItem.Description = Gate.Description;
-                //apiItem.Status = Gate.Status;
-                //apiItem.Version = Gate.Version;
+                apiItem.Name = gate.Name;
+                apiItem.Description = gate.Description;
+                apiItem.Parameters = gate.Parameters;
+                apiItem.Status = gate.Status;
+                apiItem.Type = gate.Type;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
-                ViewBag.InfoText = "Successfully saved";
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                 return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(gate);
             }
         }
@@ -99,16 +115,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Gates/Delete/5
         public ActionResult Delete(int id)
         {
+            Api.Core.Gate apiItem = null;
             try
             {
-                var apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
-                return Index();
+                CoreRepository.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorText = ex.Message;
-                return View();
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem)));
             }
         }
 

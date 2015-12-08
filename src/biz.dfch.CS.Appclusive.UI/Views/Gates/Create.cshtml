@@ -1,0 +1,24 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Gate
+
+@{
+    ViewBag.Title = "Gate create";
+}
+
+@section Title{
+    <h2>New</h2>
+    <h4>Gate</h4>
+}
+
+<div>
+    <hr />
+    <p>
+        Name must be unique and the full name of a core type.
+    </p>
+    <div>      
+        @Html.Partial("FormPartial", Model)
+    </div>
+    <p>
+        <hr />
+        <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Cancel</a>
+    </p>
+</div>

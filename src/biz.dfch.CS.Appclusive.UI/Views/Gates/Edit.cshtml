@@ -1,0 +1,34 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Gate
+
+@{
+    ViewBag.Title = "Gate edit";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>Edit Gate</h4>
+}
+
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li><a data-toggle="tab" href="#general">General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">            
+            @Html.Partial("FormPartial", Model)
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+</div>
+<p>
+    <hr />
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id })"><i class="fa fa-pencil "></i> Cancel</a>
+    }
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+</p>
