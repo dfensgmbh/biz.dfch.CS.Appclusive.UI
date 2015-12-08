@@ -93,16 +93,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region copy all edited properties
 
-                // TODO: set edited properties
-                //apiItem.Name = ManagementCredential.Name;
-                //apiItem.Description = ManagementCredential.Description;
-                //apiItem.Status = ManagementCredential.Status;
-                //apiItem.Version = ManagementCredential.Version;
+                apiItem.Name = managementCredential.Name;
+                apiItem.Description = managementCredential.Description;
+                apiItem.Password = managementCredential.Password;
+                apiItem.Username = managementCredential.Username;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                apiItem = CoreRepository.ManagementCredentials.Expand("ManagementUris").Where(c => c.Id == id).FirstOrDefault(); // because of data encryption
                 return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
             }
             catch (Exception ex)
