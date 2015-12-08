@@ -8,7 +8,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class OrderItem : ViewModelBase, IAppcusiveEntityBase
     {
-        
+        public OrderItem()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
         public CostCentre CostCentre { get; set; }
         
         public long? CostCentreId { get; set; }

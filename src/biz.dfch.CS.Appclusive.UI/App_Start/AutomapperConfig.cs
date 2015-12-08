@@ -22,6 +22,7 @@ namespace biz.dfch.CS.Appclusive.UI
 
             Mapper.CreateMap<Api.Core.Cart, Models.Core.Cart>();
             Mapper.CreateMap<Api.Core.CartItem, Models.Core.CartItem>();
+            Mapper.CreateMap<Models.Core.Cart, Api.Core.Cart>();
             Mapper.CreateMap<Models.Core.CartItem, Api.Core.CartItem>();
 
             Mapper.CreateMap<Api.Core.Order, Models.Core.Order>();
@@ -32,8 +33,11 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
 
             Mapper.CreateMap<Api.Core.Job, Models.Core.Job>();
-            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();            
-            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();            
+            Mapper.CreateMap<Api.Core.Approval, Models.Core.Approval>();
+            
+            Mapper.CreateMap<Api.Core.KeyNameValue, Models.Core.KeyNameValue>();
+            Mapper.CreateMap<Models.Core.KeyNameValue, Api.Core.KeyNameValue>();    
+        
             Mapper.CreateMap<Api.Core.Gate, Models.Core.Gate>();
 
 

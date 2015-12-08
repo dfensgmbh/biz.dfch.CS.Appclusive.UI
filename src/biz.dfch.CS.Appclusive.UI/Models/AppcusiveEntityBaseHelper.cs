@@ -16,7 +16,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
             entity.Modified = DateTimeOffset.Now;
             entity.ModifiedBy = "admin-ui";
             entity.CreatedBy = "admin-ui";
-            entity.Tid = "tenant-id";
+            entity.Tid = "11111111-1111-1111-1111-111111111111";
         }
     }
 }

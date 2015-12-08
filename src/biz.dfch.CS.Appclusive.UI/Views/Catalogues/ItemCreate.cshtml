@@ -1,0 +1,20 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem
+
+@{
+    ViewBag.Title = "Catalogue Item create";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>create Catalogue item of catalogue "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
+}
+<div>
+    <hr />
+    @Html.Partial("ItemFormPartial", Model)
+    <p>
+        <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { Id = Model.ProductId })"><i class="fa fa-arrow-left "></i> See product</a>
+        @if (Model.CatalogueId > 0)
+        {
+            <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CatalogueId })"><i class="fa fa-arrow-left "></i> Back to Catalogue</a>
+        }
+    </p>
+</div>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>
 
 @foreach(biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in Model){
-<script type="text/javascript">
-       $.notify("@note.Message", "@note.Level");
-   </script>
+    <script type="text/javascript">
+        $.notify("@note.Message", "@note.Level");
+    </script>
 }

@@ -7,6 +7,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class ManagementCredential : ViewModelBase, IAppcusiveEntityBase
     {
+        public ManagementCredential()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+            this.ManagementUris = new List<ManagementUri>();
+        }
         
         public DateTimeOffset Created { get; set; }
         

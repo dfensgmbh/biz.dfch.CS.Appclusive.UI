@@ -1,12 +1,14 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.Models.Core
 @model IEnumerable<Approval>
-          
+
 
 @{
     ViewBag.Title = "Approval List";
 }
+@section Title{
+    <h2>Approvals</h2>
+}
 
-<h2>Approvals</h2>
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li class="@ViewBag.AllLinkClass"><a href="?">all</a></li>
@@ -56,9 +58,9 @@
             <td class="ap-btn">
                 <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
                 @if (item.Status == Approval.CREATED_STATUS)
-                { 
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> Approve</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> Decline</a>
+                {
+                    <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> Approve</a>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> Decline</a>
                 }
             </td>
         </tr>
@@ -67,10 +69,9 @@
 </table>
 
 @*<ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-</ul>*@
-    
+        <li><a href="#">1</a></li>
+        <li class="active"><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+    </ul>*@

@@ -1,0 +1,21 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.KeyNameValue
+
+@{
+    ViewBag.Title = "Configuration (KNV) create";
+}
+
+@section Title{
+    <h2>New</h2>
+    <h4>Create Configuration (KNV)</h4>
+}
+
+<div>
+    <hr />
+    <div>      
+        @Html.Partial("FormPartial", Model)
+    </div>
+    <p>
+        <hr />
+        <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Cancel</a>
+    </p>
+</div>

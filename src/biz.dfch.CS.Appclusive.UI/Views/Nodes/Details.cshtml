@@ -3,69 +3,69 @@
 @{
     ViewBag.Title = "Node details";
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
-
-<div>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>Node</h4>
+}
+<div>
     <hr />
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-            <li><a data-toggle="tab" href="#items">Children</a></li>
-            <li><a data-toggle="tab" href="#general">General</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="details" class="tab-pane fade in active">
-                <dl>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li><a data-toggle="tab" href="#items">Children</a></li>
+        <li><a data-toggle="tab" href="#general">General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Name)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Type)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.ParentId)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.ParentId)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ParentId)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Parameters)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Parameters)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parameters)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Parameters)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
 
-                </dl>
-            </div>
-            <div id="items" class="tab-pane fade">
-                @Html.Partial("ItemList", Model.Children)
-            </div>
-            <div id="general" class="tab-pane fade">                
-                @Html.Partial("IAppcusiveEntityBaseDetails", Model)
-            </div>
+            </dl>
         </div>
+        <div id="items" class="tab-pane fade">
+            @Html.Partial("ItemList", Model.Children)
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>

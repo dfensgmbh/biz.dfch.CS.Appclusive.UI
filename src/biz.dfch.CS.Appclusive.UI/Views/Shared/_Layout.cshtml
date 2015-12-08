@@ -1,4 +1,5 @@
-﻿@{
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@{
     var title = "biz.dfch.CS.Appclusive.UI";
 }
 <!DOCTYPE html>
@@ -30,12 +31,13 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>@Html.ActionLink("Catalogues", "Index", "Catalogues")</li>
+                            <li>@Html.ActionLink("Products", "Index", "Products")</li>
                             <li>@Html.ActionLink("Inventory", "Index", "Nodes")</li>
                             <li>@Html.ActionLink("Carts", "Index", "Carts")</li>
                             <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
                             <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li>
                             <li>@Html.ActionLink("Approvals", "Index", "Approvals")</li>
-                            <li>@Html.ActionLink("Configurations", "Index", "KeyNameValues")</li>
+                            <li>@Html.ActionLink("Configurations (KNV)", "Index", "KeyNameValues")</li>
                             <li>@Html.ActionLink("Entity types", "Index", "EntityTypes")</li>
                             <li>@Html.ActionLink("Gate", "Index", "Gates")</li>
                             <li>@Html.ActionLink("Management uris", "Index", "ManagementUris")</li>
@@ -47,7 +49,7 @@
                             Diagnostics <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("AuditTrail", "AuditTrail", "MyView")</li>
+                            <li>@Html.ActionLink("Audit Trails", "Index", "AuditTrails")</li>
                             <li>@Html.ActionLink("Endpoints", "Index", "Endpoints")</li>
                         </ul>
                     </li>
@@ -58,6 +60,9 @@
         </div>
     </div>
     <div class="container body-content">
+
+        @RenderSection("Title", required: false)
+        @Html.Partial("Messages")
         @RenderBody()
         <hr />
         <footer>
@@ -69,6 +74,14 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/sitescripts")
     @RenderSection("scripts", required: false)
+    @Html.RenderDelayed()
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
 
     <div id="ajaxNotify">
     </div>

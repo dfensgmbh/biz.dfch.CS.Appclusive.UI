@@ -7,30 +7,25 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class GatesController : Controller
+    public class GatesController : CoreControllerBase
     {
-        private biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
-        {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                }
-                return coreRepository;
-            }
-        }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
 
         // GET: Gates
         public ActionResult Index()
         {
-            var items = CoreRepository.Gates.Take(PortalConfig.Pagesize).ToList();
-            return View(AutoMapper.Mapper.Map<List<Models.Core.Gate>>(items));
+            try
+            {
+                var items = CoreRepository.Gates.Take(PortalConfig.Pagesize).ToList();
+                return View(AutoMapper.Mapper.Map<List<Models.Core.Gate>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<Models.Core.Gate>());
+            }
         }
 
-        #region Gate 
+        #region Gate
 
         // GET: Gates/Details/5
         public ActionResult Details(int id)
@@ -52,13 +47,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.Gate>(gate);
-                
+
                 CoreRepository.AddToGates(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(gate);
@@ -94,7 +89,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ViewBag.InfoText = "Successfully saved";
                 return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorText = ex.Message;
                 return View(gate);

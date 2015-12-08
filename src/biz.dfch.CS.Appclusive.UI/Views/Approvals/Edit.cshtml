@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Approval details";
 }
-
-<h2>@Html.DisplayFor(model => model.ActionText) request</h2>
-
+@section Title{
+    <h2>@Html.DisplayFor(model => model.ActionText) request</h2>
+}
 <div>
     <hr />
 
@@ -13,7 +13,6 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.Partial("Messages")
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Status)
         <dl>
@@ -61,5 +60,6 @@
 </div>
 <hr />
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> Order</a>
 </p>

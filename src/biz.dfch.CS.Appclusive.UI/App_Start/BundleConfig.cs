@@ -21,7 +21,9 @@ namespace biz.dfch.CS.Appclusive.UI
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/moment-with-locales.js",
+                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/bootstrap-datetimepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/sitescripts").Include(

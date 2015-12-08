@@ -3,79 +3,79 @@
 @{
     ViewBag.Title = "Order Item details";
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>Order item of order "@Html.DisplayFor(model => model.Order.Name)"</h4>
+}
 
 <div>
-    <h4>Order item of order "@Html.DisplayFor(model => model.Order.Name)"</h4>
     <hr />
-    @Html.Partial("Messages")
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-            <li><a data-toggle="tab" href="#general">General</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="details" class="tab-pane fade in active">
-                <dl>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li><a data-toggle="tab" href="#general">General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Name)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Version)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Version)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Version)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Version)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.OrderId)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.OrderId)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.OrderId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.OrderId)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Quantity)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Quantity)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Quantity)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Type)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Parameters)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Parameters)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parameters)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Parameters)
+                </dd>
 
-                </dl>
-            </div>
-            <div id="general" class="tab-pane fade">                
-                @Html.Partial("IAppcusiveEntityBaseDetails", Model)
-            </div>
+            </dl>
         </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { Id = Model.OrderId })"><i class="fa fa-arrow-left "></i> Back to order</a>
-    <a class="btn btn-default btn-sm disabled" href="@Url.Action("ItemDelete", new { id = Model.Id })" onclick="return ConfirmDelete()"><i class="fa fa-trash-o"></i> Delete</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.OrderId })"><i class="fa fa-arrow-left "></i> Back to order</a>
+    <a class="btn btn-default btn-sm disabled" href="@Url.Action("ItemDelete", new { id = Model.Id })" onclick="return ConfirmDelete()" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i> Delete</a>
 </p>

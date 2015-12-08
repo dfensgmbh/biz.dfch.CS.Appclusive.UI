@@ -8,6 +8,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class CatalogueItem : ViewModelBase, IAppcusiveEntityBase
     {
+        public CatalogueItem()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
+
         public Catalogue Catalogue { get; set; }
         public long CatalogueId { get; set; }
         public DateTimeOffset Created { get; set; }

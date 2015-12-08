@@ -3,74 +3,74 @@
 @{
     ViewBag.Title = "Management credential details";
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
-
-<div>
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>Management credential</h4>
+}
+<div>
     <hr />
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-            <li><a data-toggle="tab" href="#general">General</a></li>
-            <li><a data-toggle="tab" href="#uriList">Management Uris</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="details" class="tab-pane fade in active">
-                <dl>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Id)
-                    </dd>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li><a data-toggle="tab" href="#general">General</a></li>
+        <li><a data-toggle="tab" href="#uriList">Management Uris</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Name)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Username)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Username)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Username)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Username)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Password)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Password)
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Password)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Password)
+                </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.EncryptedPassword)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.EncryptedPassword)
-                    </dd>
-                </dl>
-            </div>
-            <div id="uriList" class="tab-pane fade">
-                @Html.Partial("ManagementUriList", Model.ManagementUris)
-            </div>
-            <div id="general" class="tab-pane fade">                
-                @Html.Partial("IAppcusiveEntityBaseDetails", Model)
-            </div>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EncryptedPassword)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EncryptedPassword)
+                </dd>
+            </dl>
         </div>
+        <div id="uriList" class="tab-pane fade">
+            @Html.Partial("ManagementUriList", Model.ManagementUris)
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
     <hr />
 </div>
 <p>
     <a class="btn btn-default btn-sm disabled" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> Edit</a>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
 </p>

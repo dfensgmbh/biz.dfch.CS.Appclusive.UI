@@ -21,9 +21,9 @@
                 @Html.DisplayFor(modeItem => cartItem.Quantity)
             </td>
             <td class="ap-btn">
-                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", new { id = cartItem.Id })"><i class="fa fa-cog"></i> Details</a>
-                <a class="btn btn-default btn-sm disabled" href="@Url.Action("EditItem", new { id = cartItem.Id })"><i class="fa fa-cog"></i> Edit</a>
-                <a class="btn btn-default btn-sm disabled" href="@Url.Action("DeleteItem", new { id = cartItem.Id })"><i class="fa fa-trash-o"></i> Delete</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = cartItem.Id })"><i class="fa fa-cog"></i> Details</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = cartItem.Id })"><i class="fa fa-cog"></i> Edit</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = cartItem.Id })" onclick="return ConfirmDelete()" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     }

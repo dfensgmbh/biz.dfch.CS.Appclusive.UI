@@ -7,7 +7,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Cart : ViewModelBase, IAppcusiveEntityBase
     {
-       
+        public Cart()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+            this.CartItems = new List<CartItem>();
+        }
+
         public List<CartItem> CartItems { get; set; }
        
         public DateTimeOffset Created { get; set; }
