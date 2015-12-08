@@ -1,0 +1,28 @@
+﻿@if (ViewBag.Paging != null)
+{
+    <ul class="pagination">
+        @for (int i = 1; i <= (int)ViewBag.Paging.PageNr; i++)
+        {
+            if (i == ViewBag.Paging.PageNr)
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                </li>
+            }
+        }
+
+        @if (ViewBag.Paging.HasMore)
+        {
+            int nextPage = ViewBag.Paging.PageNr + 1;
+        <li>
+            <a class="btn btn-info btn-sm" href="@Url.Action("Index", new { pageNr = nextPage })">@nextPage</a>
+        </li>
+        }
+    </ul>
+}
