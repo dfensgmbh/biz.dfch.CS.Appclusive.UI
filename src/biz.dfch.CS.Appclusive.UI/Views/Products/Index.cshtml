@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tid)
+            @Html.DisplayNameFor(model => model.Type)
         </th>
         <th></th>
     </tr>
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tid)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td class="ap-btn">
                 <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
