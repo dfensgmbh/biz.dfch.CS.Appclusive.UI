@@ -26,7 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 switch (this.VdiName)
                 {
                     case VDI_PERSONAL_NAME:
-                        return "";
+                        return GeneralResources.VDI_PERSONAL_HelpText;
                     case VDI_TECHNICAL_NAME:
                         return GeneralResources.VDI_TECHNICAL_HelpText;
                     default:
