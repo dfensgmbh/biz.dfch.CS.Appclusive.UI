@@ -18,6 +18,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 {
                     coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
                     coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    coreRepository.IgnoreMissingProperties = true;
+                    coreRepository.IgnoreResourceNotFoundException = true;
                 }
                 return coreRepository;
             }

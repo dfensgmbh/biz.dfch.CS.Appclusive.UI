@@ -21,7 +21,7 @@
         {
             int nextPage = ViewBag.Paging.PageNr + 1;
         <li>
-            <a class="btn btn-info btn-sm" href="@Url.Action("Index", new { pageNr = nextPage })">@nextPage</a>
+            <a href="@Url.Action("Index", new { pageNr = nextPage })">@nextPage</a>
         </li>
         }
     </ul>
