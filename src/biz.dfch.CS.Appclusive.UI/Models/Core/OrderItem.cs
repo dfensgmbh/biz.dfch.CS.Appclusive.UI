@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public Order Order { get; set; }
 
-        [Display(Name = "Order id")]
+        [Display(Name = "OrderId", ResourceType = typeof(GeneralResources))]
         public long OrderId { get; set; }
         
         public string Parameters { get; set; }

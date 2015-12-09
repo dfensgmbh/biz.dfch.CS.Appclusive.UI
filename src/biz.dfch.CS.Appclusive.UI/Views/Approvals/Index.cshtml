@@ -1,12 +1,13 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.Models.Core
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @model IEnumerable<Approval>
 
 
 @{
-    ViewBag.Title = "Approval List";
+    ViewBag.Title = "Approval" + " List";
 }
 @section Title{
-    <h2>Approvals</h2>
+    <h2>@GeneralResources.ResourceManager.GetString("Approval")@GeneralResources.List</h2>
 }
 
 <nav class="navbar navbar-default">
@@ -56,22 +57,14 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td class="ap-btn">
-                <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> Details</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 @if (item.Status == Approval.CREATED_STATUS)
                 {
-                    <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> Approve</a>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> Decline</a>
+                    <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>
                 }
             </td>
         </tr>
     }
 
 </table>
-
-@*<ul class="pagination">
-        <li><a href="#">1</a></li>
-        <li class="active"><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-    </ul>*@

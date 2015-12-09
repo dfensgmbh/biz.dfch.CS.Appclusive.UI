@@ -1,7 +1,8 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @{
-    ViewBag.Title = "VDI-Cart Item save";
+    ViewBag.Title = @Model.GetType().Name + " save";
 }
 
 @section Title{
@@ -45,5 +46,5 @@
         </dd>
     </dl>
     <hr />
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-shopping-cart"></i> go to carts</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-shopping-cart"></i> @GeneralResources.GoToCarts</a>
 </div>

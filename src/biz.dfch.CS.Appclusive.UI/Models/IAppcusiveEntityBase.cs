@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,13 +28,13 @@ namespace biz.dfch.CS.Appclusive.UI.Models
     {
         DateTimeOffset Created { get; set; }
 
-        [Display(Name = "Created by")]
+        [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))]
         string CreatedBy { get; set; }
 
         long Id { get; set; }
         DateTimeOffset Modified { get; set; }
 
-        [Display(Name = "Modified by")]
+        [Display(Name = "ModifiedBy", ResourceType = typeof(GeneralResources))]
         string ModifiedBy { get; set; }
         
         byte[] RowVersion { get; set; }

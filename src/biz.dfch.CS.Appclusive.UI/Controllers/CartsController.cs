@@ -132,6 +132,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     item = CoreRepository.Carts.Expand("CartItems").Where(c => c.Id == id).FirstOrDefault();
                 }
                 catch { }
+                if (item == null) item = new Api.Core.Cart();
                 return View("Details", AutoMapper.Mapper.Map<Models.Core.Cart>(item));
             }
         }

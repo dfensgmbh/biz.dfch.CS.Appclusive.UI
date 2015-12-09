@@ -1,20 +1,21 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @{
-    ViewBag.Title = "Catalogue edit";
+    ViewBag.Title = @Model.GetType().Name + " edit";
 }
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>
-    <h4>Edit Catalogue</h4>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
 }
 
 <div>
     <hr />
 
     <ul class="nav nav-tabs">
-        <li><a data-toggle="tab" href="#items">Catalogue Items</a></li>
-        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-        <li><a data-toggle="tab" href="#general">General</a></li>
+        <li><a data-toggle="tab" href="#items">@GeneralResources.CatalogueItems</a></li>
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
         <div id="items" class="tab-pane fade">
@@ -60,7 +61,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="@GeneralResources.Save" class="btn btn-primary" />
                 </div>
             }
 
@@ -74,7 +75,7 @@
     <hr />
     @if (Model.Id > 0)
     {
-        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id })"><i class="fa fa-pencil "></i> Cancel</a>
+        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.CancelLink</a>
     }
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
 </p>

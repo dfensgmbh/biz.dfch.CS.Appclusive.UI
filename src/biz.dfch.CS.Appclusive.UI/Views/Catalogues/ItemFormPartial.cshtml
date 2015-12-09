@@ -1,4 +1,5 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 <div>
     @using (Html.BeginForm())
     {
@@ -71,7 +72,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="@GeneralResources.Save" class="btn btn-primary" />
         </div>
     }
 </div>

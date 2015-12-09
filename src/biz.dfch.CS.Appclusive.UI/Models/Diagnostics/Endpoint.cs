@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,8 +33,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Diagnostics
         public string RouteTemplate { get; set; }
         
         public byte[] RowVersion { get; set; }
-        
-        [Display(Name="Server role")]
+
+        [Display(Name = "ServerRole", ResourceType = typeof(GeneralResources))]
         public string ServerRole { get; set; }
         
         public string Tid { get; set; }

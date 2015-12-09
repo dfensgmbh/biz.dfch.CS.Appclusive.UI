@@ -1,7 +1,8 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Cart
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @{
-    ViewBag.Title = "Cart details";
+    ViewBag.Title = @Model.GetType().Name + " details";
 }
 
 @section Title{
@@ -9,7 +10,7 @@
     {
     <h2>@Html.DisplayFor(model => model.Name)</h2>
     }
-    <h4>Order</h4>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
 }
 
 <div>
@@ -17,8 +18,8 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#items">Contents</a></li>
-        <li><a data-toggle="tab" href="#details">Details</a></li>
-        <li><a data-toggle="tab" href="#general">General</a></li>
+        <li><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
         <div id="items" class="tab-pane fade in active">
@@ -48,6 +49,6 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return ConfirmCheckOut()"><i class="fa fa-shopping-cart"></i> Check out cart</a>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return confirm('@GeneralResources.ConfirmCheckOut')"><i class="fa fa-shopping-cart"></i> @GeneralResources.CheckOutCart</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
 </p>

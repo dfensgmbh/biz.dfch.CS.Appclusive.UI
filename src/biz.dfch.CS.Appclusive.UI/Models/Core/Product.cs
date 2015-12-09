@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,10 +18,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public string Description { get; set; }
 
-        [Display(Name = "End of life")]
+        [Display(Name = "EndOfLife", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset EndOfLife { get; set; }
 
-        [Display(Name = "End of sale")]
+        [Display(Name = "EndOfSale", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset EndOfSale { get; set; }
 
         
@@ -40,10 +41,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public string Type { get; set; }
 
-        [Display(Name = "Valid from")]
+        [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidFrom { get; set; }
 
-        [Display(Name = "Valid until")]
+        [Display(Name = "ValidUntil", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidUntil { get; set; }
         
         public string Version { get; set; }

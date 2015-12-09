@@ -1,20 +1,20 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem
-
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    ViewBag.Title = "Catalogue Item edit";
+    ViewBag.Title = @Model.GetType().Name + " edit";
 }
 
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>
-    <h4>Catalogue item of catalogue "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
+    <h4>@GeneralResources.ItemOfCatalog "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
 }
 
 <div>
     <hr />
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-        <li><a data-toggle="tab" href="#general">General</a></li>
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -29,6 +29,6 @@
 <p>
     @if (Model.CatalogueId > 0)
     {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CatalogueId })"><i class="fa fa-arrow-left "></i> Back to Catalogue</a>
+        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CatalogueId })"><i class="fa fa-arrow-left "></i> @GeneralResources.BackToCatalogue</a>
     }
 </p>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
@@ -20,7 +21,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public string Description { get; set; }
 
-        [Display(Name = "Expires at")]
+        [Display(Name = "ExpiresAt", ResourceType = typeof(GeneralResources))] 
         public DateTimeOffset ExpiresAt { get; set; }
         
         public long Id { get; set; }
@@ -30,8 +31,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public string ModifiedBy { get; set; }
         
         public string Name { get; set; }
-        
-        [Display(Name="Not before")]
+
+        [Display(Name = "NotBefore", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset NotBefore { get; set; }
         
         public byte[] RowVersion { get; set; }
@@ -46,7 +47,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public const string APPROVED_STATUS_CHANGE = "Continue";
         public const string CREATED_STATUS = "Created";
 
-        [Display(Name = "Help Text")]
+        [Display(Name = "HelpText", ResourceType = typeof(GeneralResources))]
         public string HelpText { get; set; }
 
         public string ActionText
@@ -54,9 +55,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             get
             {
                 return (this.Status == DECLINED_STATUS_CHANGE) ?
-                    "Decline"
+                    GeneralResources.Decline
                     :
-                    "Approve";
+                    GeneralResources.Approve;
             }
         }
 

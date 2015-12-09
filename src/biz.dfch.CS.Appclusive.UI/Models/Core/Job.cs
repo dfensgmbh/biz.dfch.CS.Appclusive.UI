@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,17 +36,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public Job Parent { get; set; }
 
-        [Display(Name = "Parent Id")]
+        [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
         
-        [Display(Name="Ref Id")]
+        [Display(Name = "ReferencedItemId", ResourceType = typeof(GeneralResources))]
         public string ReferencedItemId { get; set; }
         
         public byte[] RowVersion { get; set; }
         
         public string Status { get; set; }
 
-        [Display(Name = "Tenant Id")]
+        [Display(Name = "TenantId", ResourceType = typeof(GeneralResources))]
         public string TenantId { get; set; }
         
         public string Tid { get; set; }

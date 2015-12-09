@@ -1,5 +1,5 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.KeyNameValue
-
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -38,6 +38,6 @@
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
+        <input type="submit" value="@GeneralResources.Save" class="btn btn-primary" />
     </div>
 }

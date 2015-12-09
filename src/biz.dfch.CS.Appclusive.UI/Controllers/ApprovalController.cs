@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -72,7 +73,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.Status = Models.Core.Approval.APPROVED_STATUS_CHANGE;
-                approval.HelpText = "The request will be approved when you click the 'Approve' button. You can optionally add a explanation or reason for approval.";
+                approval.HelpText = GeneralResources.HelpTextApprove;
                 approval.ResolveOrderId(this.CoreRepository);
                 return View("Edit", approval);
             }
@@ -92,7 +93,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.Status = Models.Core.Approval.DECLINED_STATUS_CHANGE;
-                approval.HelpText = "The request will be declined when you click the 'Decline' button. You can optionally add a explanation or reason for approval.";
+                approval.HelpText = GeneralResources.HelpTextDecline; 
                 approval.ResolveOrderId(this.CoreRepository);
                 return View("Edit", approval);
             }

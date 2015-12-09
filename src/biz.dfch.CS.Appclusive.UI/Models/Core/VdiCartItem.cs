@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
@@ -17,7 +18,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         public string VdiName { get; set; }
 
-        [Display(Name = "Help text")]
+        [Display(Name = "HelpText", ResourceType = typeof(GeneralResources))]
         public string HelpText
         {
             get
@@ -27,9 +28,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     case VDI_PERSONAL_NAME:
                         return "";
                     case VDI_TECHNICAL_NAME:
-                        return "You are requestiong a VDI for antoher user";
+                        return GeneralResources.VDI_TECHNICAL_HelpText;
                     default:
-                        return "invalid VDI";
+                        return GeneralResources.VDI_INVALID_HelpText;
                 }
             }
         }

@@ -1,18 +1,18 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Job
-
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    ViewBag.Title = "Job details";
+    ViewBag.Title = @Model.GetType().Name + " details";
 }
 
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>Job</h4>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
     <hr />
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-        <li><a data-toggle="tab" href="#general">General</a></li>
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -110,5 +110,5 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
 </p>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public Node Parent { get; set; }
 
-        [Display(Name = "Parent id")]
+        [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
         
         public byte[] RowVersion { get; set; }

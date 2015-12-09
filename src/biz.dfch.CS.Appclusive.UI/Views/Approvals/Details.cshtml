@@ -1,18 +1,18 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Approval
-
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    ViewBag.Title = "Approval details";
+    ViewBag.Title = @Model.GetType().Name + " details";
 }
 
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>
-    <h4>Approval</h4>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
 }
 <div>
     <hr />
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#details">Details</a></li>
-        <li><a data-toggle="tab" href="#general">General</a></li>
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -62,11 +62,11 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> Back to List</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
     @if (Model.Status == biz.dfch.CS.Appclusive.UI.Models.Core.Approval.CREATED_STATUS)
     {
-        <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> Approve</a>
-        <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> Decline</a>
+        <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
+        <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>
     }
-    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> Order</a>
+    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> @GeneralResources.Order</a>
 </p>

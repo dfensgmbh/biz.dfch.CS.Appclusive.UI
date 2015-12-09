@@ -1,4 +1,5 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.Models
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     var title = "biz.dfch.CS.Appclusive.UI";
 }
@@ -24,24 +25,24 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink(@GeneralResources.Home, "Index", "Home")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Core <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Catalogues", "Index", "Catalogues")</li>
-                            <li>@Html.ActionLink("Products", "Index", "Products")</li>
-                            <li>@Html.ActionLink("Inventory", "Index", "Nodes")</li>
-                            <li>@Html.ActionLink("Carts", "Index", "Carts")</li>
-                            <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
-                            <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li>
-                            <li>@Html.ActionLink("Approvals", "Index", "Approvals")</li>
-                            <li>@Html.ActionLink("Configurations (KNV)", "Index", "KeyNameValues")</li>
-                            <li>@Html.ActionLink("Entity types", "Index", "EntityTypes")</li>
-                            <li>@Html.ActionLink("Gate", "Index", "Gates")</li>
-                            <li>@Html.ActionLink("Management uris", "Index", "ManagementUris")</li>
-                            <li>@Html.ActionLink("Management credentials", "Index", "ManagementCredentials")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Product, "Index", "Products")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Node, "Index", "Nodes")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Cart, "Index", "Carts")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Order, "Index", "Orders")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Job, "Index", "Jobs")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals")</li>
+                            <li>@Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues")</li>
+                            <li>@Html.ActionLink(@GeneralResources.EntityType, "Index", "EntityTypes")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Gate, "Index", "Gates")</li>
+                            <li>@Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris")</li>
+                            <li>@Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials")</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -49,8 +50,8 @@
                             Diagnostics <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Audit Trails", "Index", "AuditTrails")</li>
-                            <li>@Html.ActionLink("Endpoints", "Index", "Endpoints")</li>
+                            <li>@Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints")</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -58,11 +59,11 @@
                             DVI <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Add VDI for personal use", "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null)</li>
-                            <li>@Html.ActionLink("Add VDI for another user", "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
+                            <li>@Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null)</li>
+                            <li>@Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink(@GeneralResources.About, "About", "Home")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
             </div>
@@ -73,6 +74,7 @@
         @RenderSection("Title", required: false)
         @Html.Partial("Messages")
         @RenderBody()
+        @Html.Partial("Paging")
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year d-fens GmbH</p>
