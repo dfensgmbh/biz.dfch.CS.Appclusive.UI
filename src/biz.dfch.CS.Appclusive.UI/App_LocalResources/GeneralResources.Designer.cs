@@ -682,7 +682,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add VDI for personal use.
+        ///   Looks up a localized string similar to Add VDI for technical use.
         /// </summary>
         public static string VDI_TECHNICAL {
             get {
