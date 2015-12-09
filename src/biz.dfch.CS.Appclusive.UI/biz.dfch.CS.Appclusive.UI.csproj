@@ -324,7 +324,7 @@
     <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
     <Content Include="Views\Catalogues\ItemFormPartial.cshtml" />
     <Content Include="Views\Catalogues\ItemEdit.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\_en_DateTimeOffset.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\_DateTimeOffset.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Carts\ItemEdit.cshtml" />
