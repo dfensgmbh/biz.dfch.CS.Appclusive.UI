@@ -7,7 +7,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class CostCentre : ViewModelBase, IAppcusiveEntityBase
     {
-        
+
+        public CostCentre()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
+
         public DateTimeOffset Created { get; set; }
         
         public string CreatedBy { get; set; }

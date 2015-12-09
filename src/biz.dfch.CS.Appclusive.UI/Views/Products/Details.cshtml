@@ -14,6 +14,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
         <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+        <li><a data-toggle="tab" href="#items">@GeneralResources.CatalogueItems</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -54,10 +55,24 @@
                 </dd>
 
                 <dt>
+                    @Html.DisplayNameFor(model => model.Version)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Version)
+                </dd>
+
+                <dt>
                     @Html.DisplayNameFor(model => model.Description)
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
                 </dd>
 
                 <dt>
@@ -72,11 +87,26 @@
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+        <div id="items" class="tab-pane fade">
+            @Html.Partial("CatalogueItemList", Model.CatalogueItems)
+        </div>
     </div>
     <hr />
 </div>
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+    }
+    @if (ViewBag.ReturnId > 0 && !string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
+    }
+    else
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    }
 </p>
-
-

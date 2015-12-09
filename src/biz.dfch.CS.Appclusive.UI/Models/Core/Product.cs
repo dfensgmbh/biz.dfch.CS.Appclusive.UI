@@ -9,7 +9,13 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Product : ViewModelBase, IAppcusiveEntityBase
     {
-        
+
+        public Product()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+            this.CatalogueItems = new List<CatalogueItem>();
+        }
+
         public List<CatalogueItem> CatalogueItems { get; set; }
         
         public DateTimeOffset Created { get; set; }
@@ -38,9 +44,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public byte[] RowVersion { get; set; }
         
         public string Tid { get; set; }
-        
+
+        [Required]
         public string Type { get; set; }
 
+        [DataType("DateTime")]
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidFrom { get; set; }
 

@@ -15,13 +15,13 @@
             </div>
         </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Product, htmlAttributes: new { @class = "control-label" })
-        <div>
-            @Html.DropDownListFor(model => model.ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductSelection, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
-</div>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.DropDownListFor(model => model.ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductSelection, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ValidFrom, htmlAttributes: new { @class = "control-label" })

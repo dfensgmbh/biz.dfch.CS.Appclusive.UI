@@ -1,0 +1,38 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@if (ViewBag.catalogId > 0) { 
+<p>
+    <a class="btn btn-default btn-sm" href="@Url.Action("ItemCreate", new { catalogId = ViewBag.catalogId })"><i class="fa fa-plus "></i> Create New Item</a>
+</p>
+}
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var catalogItem in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => catalogItem.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => catalogItem.Description)
+            </td>
+            <td class="ap-btn">
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" }) "><i class="fa fa-cog"></i> @GeneralResources.CatalogueItem @GeneralResources.DetailsLink</a>   
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+         
