@@ -1,0 +1,21 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@{
+    ViewBag.Title = @Model.GetType().Name + " create";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ItemOfCatalog "@Html.DisplayFor(model => model.Catalogue.Name)"</h4>
+}
+<div>
+    <hr />
+    @Html.Partial("ItemFormPartial", Model)
+    <p>
+        <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { Id = Model.ProductId })"><i class="fa fa-arrow-left "></i> @GeneralResources.GoToProduct</a>
+        @if (Model.CatalogueId > 0)
+        {
+            <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CatalogueId })"><i class="fa fa-arrow-left "></i> @GeneralResources.BackToCatalogue</a>
+        }
+    </p>
+</div>

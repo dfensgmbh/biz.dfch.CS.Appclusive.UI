@@ -1,0 +1,28 @@
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@model System.DateTimeOffset
+
+@{
+    var pickerId = Html.IdFor(model => model);
+    var iconPickerId = "Icon" + pickerId;
+}
+
+<div class="input-group date" id="@pickerId">
+    @Html.TextBox("", Model.ToString("dd.MM.yyyy HH:mm"), new { @class = "form-control", @id = iconPickerId })
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>
+
+@using (Html.Delayed())
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#@pickerId').datetimepicker({
+                locale: 'de'
+            });
+            $('#@iconPickerId').datetimepicker({
+                locale: 'de'
+            });
+        });
+    </script>
+}

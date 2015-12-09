@@ -1,0 +1,91 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CartItem
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@{
+    ViewBag.Title = @Model.GetType().Name + " details";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ItemOfCart "@Html.DisplayFor(model => model.Cart.Name)"</h4>
+}
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CartId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CartId)
+                </dd>
+
+                <dt>
+                    Catalog Item Name
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CatalogueItem.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CatalogueItemId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CatalogueItemId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Quantity)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parameters)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Parameters)
+                </dd>
+
+            </dl>
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+    }
+    @if (Model.CatalogueItemId > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { Id = Model.CatalogueItemId })"><i class="fa fa-arrow-left "></i> @GeneralResources.CatalogueItem</a>
+    }
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.Cart.Id })"><i class="fa fa-arrow-left "></i> @GeneralResources.BackToCart</a>
+    }
+</p>
