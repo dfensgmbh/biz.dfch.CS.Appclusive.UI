@@ -16,11 +16,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
         }
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                var items = CoreRepository.Products.Take(PortalConfig.Pagesize).ToList();
+                List<Api.Core.Product> items;
+                if (pageNr > 1)
+                {
+                    items = CoreRepository.Products.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                else
+                {
+                    items = CoreRepository.Products.Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Product>>(items));
             }
             catch (Exception ex)

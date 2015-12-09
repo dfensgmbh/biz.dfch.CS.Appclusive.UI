@@ -1,4 +1,4 @@
-﻿@if (ViewBag.Paging != null)
+﻿@if (ViewBag.Paging != null && (ViewBag.Paging.PageNr>1 || ViewBag.Paging.HasMore))
 {
     <ul class="pagination">
         @for (int i = 1; i <= (int)ViewBag.Paging.PageNr; i++)
@@ -21,7 +21,7 @@
         {
             int nextPage = ViewBag.Paging.PageNr + 1;
         <li>
-            <a href="@Url.Action("Index", new { pageNr = nextPage })">@nextPage</a>
+            <a href="@Url.Action("Index", new { pageNr = nextPage })">...</a>
         </li>
         }
     </ul>

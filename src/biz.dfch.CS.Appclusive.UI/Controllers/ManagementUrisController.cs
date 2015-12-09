@@ -12,11 +12,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
 
         // GET: ManagementUris
-        public ActionResult Index()
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                var items = CoreRepository.ManagementUris.Take(PortalConfig.Pagesize).ToList();
+                List<Api.Core.ManagementUri> items;
+                if (pageNr > 1)
+                {
+                    items = CoreRepository.ManagementUris.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                else
+                {
+                    items = CoreRepository.ManagementUris.Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items));
             }
             catch (Exception ex)
