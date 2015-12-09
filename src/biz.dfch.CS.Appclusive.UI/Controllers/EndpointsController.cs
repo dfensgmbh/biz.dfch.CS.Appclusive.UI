@@ -10,11 +10,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class EndpointsController : DiagnosticsControllerBase
     {
         // GET: Endpoints
-        public ActionResult Index()
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                var items = DiagnosticsRepository.Endpoints.Take(PortalConfig.Pagesize).ToList();
+                List<Api.Diagnostics.Endpoint> items;
+                if (pageNr > 1)
+                {
+                    items = DiagnosticsRepository.Endpoints.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                else
+                {
+                    items = DiagnosticsRepository.Endpoints.Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
                 return View(AutoMapper.Mapper.Map<List<Models.Diagnostics.Endpoint>>(items));
             }
             catch (Exception ex)

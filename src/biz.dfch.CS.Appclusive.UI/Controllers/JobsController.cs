@@ -10,11 +10,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class JobsController : CoreControllerBase
     {
         // GET: Jobs
-        public ActionResult Index()
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                var items = CoreRepository.Jobs.Take(PortalConfig.Pagesize).ToList();
+                List<Api.Core.Job> items;
+                if (pageNr > 1)
+                {
+                    items = CoreRepository.Jobs.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                else
+                {
+                    items = CoreRepository.Jobs.Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Job>>(items));
             }
             catch (Exception ex)

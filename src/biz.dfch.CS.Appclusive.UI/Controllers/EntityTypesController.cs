@@ -11,11 +11,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
 
         // GET: EntityTypes
-        public ActionResult Index()
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                var items = CoreRepository.EntityTypes.Take(PortalConfig.Pagesize).ToList();
+                List<Api.Core.EntityType> items;
+                if (pageNr > 1)
+                {
+                    items = CoreRepository.EntityTypes.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                else
+                {
+                    items = CoreRepository.EntityTypes.Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.EntityType>>(items));
             }
             catch (Exception ex)
