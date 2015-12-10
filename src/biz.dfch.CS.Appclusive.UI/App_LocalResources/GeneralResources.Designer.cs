@@ -664,7 +664,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add VDI for personal use.
+        ///   Looks up a localized string similar to Add personal VDI.
         /// </summary>
         public static string VDI_PERSONAL {
             get {
@@ -673,7 +673,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Add technical VDI.
         /// </summary>
         public static string VDI_PERSONAL_HelpText {
             get {
