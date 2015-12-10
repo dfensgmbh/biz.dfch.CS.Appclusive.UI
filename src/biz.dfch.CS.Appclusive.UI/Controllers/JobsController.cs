@@ -36,8 +36,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Jobs/Details/5
         public ActionResult Details(int id)
         {
-            var item = CoreRepository.Jobs.Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Job>(item));
+            try
+            {
+                var item = CoreRepository.Jobs.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Job>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.Job());
+            }
         }
 
     }
