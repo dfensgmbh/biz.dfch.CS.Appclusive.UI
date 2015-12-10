@@ -17,27 +17,28 @@
         <th></th>
     </tr>
 
-    @foreach (var tenant in Model)
+    @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => tenant.Id)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => tenant.ExternalId)
+                @Html.DisplayFor(modelItem => item.ExternalId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => tenant.ExternalType)
+                @Html.DisplayFor(modelItem => item.ExternalType)
             </td>
             <td>
-                @if (null != tenant.Parent)
-                { 
-                    @Html.DisplayFor(modelItem => tenant.Parent.Id)
-                }
+                @Html.DisplayFor(modelItem => item.ParentId)                
             </td>
             <td class="ap-btn">
-                <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = tenant.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = tenant.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Tenants", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                @if (ViewBag.ShowEditLinks != null)
+                {
+                    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "Tenants", new { id = item.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("Delete", "Tenants", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                }
             </td>
         </tr>
     }

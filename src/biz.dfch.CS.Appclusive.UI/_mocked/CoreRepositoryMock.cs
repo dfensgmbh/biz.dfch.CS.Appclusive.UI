@@ -39,7 +39,8 @@ namespace biz.dfch.CS.Appclusive.UI._fake
                 Id = System.Guid.NewGuid(),
                 ExternalId = "ex id child",
                 ExternalType = "ex type",
-                Parent = tenantParent
+                Parent = tenantParent,
+                ParentId = tenantParent.Id
             };
             tenants.Add(tenant);
             tenantParent.Children.Add(tenant);

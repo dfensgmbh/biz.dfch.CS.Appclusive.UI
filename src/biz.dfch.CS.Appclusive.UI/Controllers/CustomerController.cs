@@ -41,7 +41,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Customer>(item));
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
             }
             catch (Exception ex)
@@ -98,7 +98,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 

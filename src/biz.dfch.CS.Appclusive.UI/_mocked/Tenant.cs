@@ -12,6 +12,7 @@ namespace biz.dfch.CS.Appclusive.Api.Core
         public Tenant()
         {
             this.Children = new List<Tenant>();
+            Id = System.Guid.Empty;
         }
 
         public Guid Id { get; set; }

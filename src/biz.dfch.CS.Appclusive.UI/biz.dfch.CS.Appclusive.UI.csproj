@@ -175,6 +175,12 @@
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TenantsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UsersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,6 +236,7 @@
     <Compile Include="_mocked\CimiTarget.cs" />
     <Compile Include="_mocked\ContractMapping.cs" />
     <Compile Include="_mocked\CoreRepositoryMock.cs" />
+    <Compile Include="_mocked\Extension.cs" />
     <Compile Include="_mocked\Tenant.cs" />
     <Compile Include="_mocked\User.cs" />
   </ItemGroup>
@@ -384,10 +391,20 @@
     <Content Include="Views\Shared\ContractMappingList.cshtml" />
     <Content Include="Views\Shared\TenantList.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Tenants\Create.cshtml" />
+    <Content Include="Views\Tenants\Details.cshtml" />
+    <Content Include="Views\Tenants\Edit.cshtml" />
+    <Content Include="Views\Tenants\FormPartial.cshtml" />
+    <Content Include="Views\Tenants\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\FormPartial.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Guid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
