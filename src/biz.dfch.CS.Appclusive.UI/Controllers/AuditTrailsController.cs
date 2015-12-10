@@ -32,7 +32,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {

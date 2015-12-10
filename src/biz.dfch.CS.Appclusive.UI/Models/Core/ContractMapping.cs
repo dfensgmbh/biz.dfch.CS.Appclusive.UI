@@ -7,7 +7,7 @@ using System.Web;
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class ContractMapping : AppcusiveEntityBase
-    { 
+    {
         [Required]
         public string ExternalType { get; set; }
 

@@ -36,7 +36,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region KeyNameValue
 
         // GET: KeyNameValues/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: KeyNameValues/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: KeyNameValues/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.KeyNameValue keyNameValue)
+        public ActionResult Edit(long id, Models.Core.KeyNameValue keyNameValue)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: KeyNameValues/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.KeyNameValue apiItem = null;
             try
@@ -133,7 +133,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
             }
         }
 

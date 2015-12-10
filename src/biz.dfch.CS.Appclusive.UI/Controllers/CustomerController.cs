@@ -78,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Customers/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Customers/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Customer customer)
+        public ActionResult Edit(long id, Models.Core.Customer customer)
         {
             try
             {
@@ -114,12 +114,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                if (null == customer.ContractMappings) customer.ContractMappings = new List<Models.Core.ContractMapping>();
+                if (null == customer.Tenants) customer.Tenants = new List<Models.Core.Tenant>();
                 return View(customer);
             }
         }
 
         // GET: Customers/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Customer apiItem = null;
             try
@@ -132,7 +134,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
             }
         }
 

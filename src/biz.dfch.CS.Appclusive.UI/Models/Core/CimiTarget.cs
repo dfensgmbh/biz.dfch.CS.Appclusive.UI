@@ -8,11 +8,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class CimiTarget : AppcusiveEntityBase
     {
-        public CimiTarget()
-        {
-            AppcusiveEntityBaseHelper.InitEntity(this);
-        }
-
         [Required]
         public string CimiId { get; set; }
 

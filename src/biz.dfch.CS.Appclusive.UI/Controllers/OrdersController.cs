@@ -36,7 +36,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Order
 
         // GET: Orders/Details/5
-        public ActionResult Details(int id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -54,7 +54,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Orders/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Order apiItem = null;
             try
@@ -75,14 +75,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region edit OrderItems
 
-        public ActionResult ItemDetails(int id)
+        public ActionResult ItemDetails(long id)
         {
             var item = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.OrderItem>(item));
         }
 
         // GET: Orders/Delete/5
-        public ActionResult ItemDelete(int id)
+        public ActionResult ItemDelete(long id)
         {
             Api.Core.OrderItem apiItem = null;
             try

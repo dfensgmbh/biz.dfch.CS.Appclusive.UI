@@ -42,7 +42,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Product
 
         // GET: Products/Details/5
-        public ActionResult Details(int id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -86,7 +86,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Products/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Products/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Product product)
+        public ActionResult Edit(long id, Models.Core.Product product)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Products/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Product apiItem = null;
             try
@@ -154,7 +154,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
         }
         #endregion

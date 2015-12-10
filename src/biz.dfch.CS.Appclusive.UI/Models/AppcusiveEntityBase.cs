@@ -8,6 +8,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public class AppcusiveEntityBase : IAppcusiveEntityBase
     {
+        public AppcusiveEntityBase()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
+
         #region
 
         public DateTimeOffset Created { get; set; }

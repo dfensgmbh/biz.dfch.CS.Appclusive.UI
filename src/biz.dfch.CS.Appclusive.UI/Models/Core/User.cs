@@ -8,11 +8,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class User : AppcusiveEntityBase
     {
-        public User()
-        {
-            AppcusiveEntityBaseHelper.InitEntity(this);
-        }
-
         [Required]
         public string ExternalId { get; set; }
         [Required]

@@ -9,29 +9,116 @@ namespace biz.dfch.CS.Appclusive.UI._fake
 {
     public class CoreRepositoryMock : biz.dfch.CS.Appclusive.Api.Core.Core
     {
+        public CoreRepositoryMock(Uri serviceRoot) : base(serviceRoot) { }
+        
+        static List<Customer> customers;
+        static List<CimiTarget> cimiTargets;
+        static List<ContractMapping> contractMappings;
+        static List<Tenant> tenants;
+        static List<User> users;
+
+        public List<Customer> Customers { get { return customers; } }
+        public List<CimiTarget> CimiTargets { get { return cimiTargets; } }
+        public List<ContractMapping> ContractMappings { get { return contractMappings; } }
+        public List<Tenant> Tenants { get { return tenants; } }
+        public List<User> Users { get { return users; } }
+
         static CoreRepositoryMock()
         {
+            // 1. tenants
+            tenants = new List<Tenant>();
+            Tenant tenantParent = new Tenant()
+            {
+                Id = System.Guid.NewGuid(),
+                ExternalId = "ex id parent",
+                ExternalType = "ex type"
+            };
+            tenants.Add(tenantParent);
+            Tenant tenant = new Tenant()
+            {
+                Id = System.Guid.NewGuid(),
+                ExternalId = "ex id child",
+                ExternalType = "ex type",
+                Parent = tenantParent
+            };
+            tenants.Add(tenant);
+            tenantParent.Children.Add(tenant);
+
+
+            // 2. Customers
             customers = new List<Customer>();
-            Customer entity = new Customer()
+            Customer customer = new Customer()
             {
                 Name = "Mocked customer",
                 Description = "Mocked description"
             };
-            customers.Add(entity);
-        }
-        static List<Customer> customers;
+            customer.Tenants.AddRange(tenants);
+            customers.Add(customer);
 
-        public CoreRepositoryMock(Uri serviceRoot) : base(serviceRoot) { }
-        
-        public List<Customer> Customers {
-            get
+            // 3. contracts
+            contractMappings = new List<ContractMapping>();
+            ContractMapping contract = new ContractMapping()
             {
-                return customers;
-            }
+                Name = "Mocked customer",
+                Description = "Mocked description"
+            };
+            contract.Customer = customers.FirstOrDefault();
+            contractMappings.Add(contract);
+            customer.ContractMappings.AddRange(contractMappings);
+
+
+            // Users
+            users = new List<User>();
+            User user = new User()
+            {
+                Name = "Mocked user",
+                Description = "Mocked description",
+                ExternalId = "ex id", 
+                Type="user type"
+            };
+            users.Add(user);
+
+
+            // cimi targets
+            cimiTargets = new List<CimiTarget>();
+            CimiTarget cimitarget = new CimiTarget()
+            {
+                Name = "Mocked CimiTarget",
+                Description = "Mocked description",
+                CimiId = "333",
+                CimiType = "cimi type",
+                CatalogueItemId = -5
+            };
+            cimiTargets.Add(cimitarget);
+
         }
+        
+        
+
+
+        
         public void AddToCustomers(Customer entity) {
             entity.Id = DateTime.Now.Ticks;
             customers.Add(entity);
+        }
+        public void AddToCimiTargets(CimiTarget entity)
+        {
+            entity.Id = DateTime.Now.Ticks;
+            cimiTargets.Add(entity);
+        }
+        public void AddToContractMappings(ContractMapping entity)
+        {
+            entity.Id = DateTime.Now.Ticks;
+            contractMappings.Add(entity);
+        }
+        public void AddToTenants(Tenant entity)
+        {
+            tenants.Add(entity);
+        }
+        public void AddToUsers(User entity)
+        {
+            entity.Id = DateTime.Now.Ticks;
+            users.Add(entity);
         }
     }
 }

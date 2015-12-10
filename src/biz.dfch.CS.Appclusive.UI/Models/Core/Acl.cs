@@ -7,9 +7,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Acl : AppcusiveEntityBase
     {
-        public Acl()
+        public Acl() : base()
         {
-            AppcusiveEntityBaseHelper.InitEntity(this);
+            this.Aces = new List<Ace>();
         }
 
         public List<Ace> Aces { get; set; }

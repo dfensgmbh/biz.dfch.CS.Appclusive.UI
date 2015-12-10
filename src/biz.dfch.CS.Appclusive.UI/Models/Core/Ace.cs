@@ -8,11 +8,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Ace : AppcusiveEntityBase
     {
-        public Ace()
-        {
-            AppcusiveEntityBaseHelper.InitEntity(this);
-        }
-
         [Required]
         [MaxLength(64)]
         public string Trustee { get; set; }

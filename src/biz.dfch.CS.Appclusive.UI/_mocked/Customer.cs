@@ -8,9 +8,10 @@ namespace biz.dfch.CS.Appclusive.Api.Core
 {
     public class Customer : AppcusiveEntityBase
     {
-        public Customer()
+        public Customer():base()
         {
-            AppcusiveEntityBaseHelper.InitEntity(this);
+            this.ContractMappings = new List<ContractMapping>();
+            this.Tenants = new List<Tenant>();
         }
 
         public List<ContractMapping> ContractMappings { get; set; }

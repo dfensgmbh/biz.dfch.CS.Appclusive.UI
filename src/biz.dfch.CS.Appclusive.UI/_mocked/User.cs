@@ -9,15 +9,9 @@ namespace biz.dfch.CS.Appclusive.Api.Core
 {
     public class User : AppcusiveEntityBase
     {
-        public User()
-        {
-            AppcusiveEntityBaseHelper.InitEntity(this);
-        }
-
         [Required]
         public string ExternalId { get; set; }
         [Required]
         public string Type { get; set; }
-
     }
 }

@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region EntityType
 
         // GET: EntityTypes/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: EntityTypes/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: EntityTypes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.EntityType entityType)
+        public ActionResult Edit(long id, Models.Core.EntityType entityType)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: EntityTypes/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.EntityType apiItem = null;
             try
@@ -134,7 +134,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
             }
         }
 

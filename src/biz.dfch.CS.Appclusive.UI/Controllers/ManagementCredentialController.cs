@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region ManagementCredential
 
         // GET: ManagementCredentials/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: ManagementCredentials/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: ManagementCredentials/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.ManagementCredential managementCredential)
+        public ActionResult Edit(long id, Models.Core.ManagementCredential managementCredential)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: ManagementCredentials/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.ManagementCredential apiItem = null;
             try
@@ -135,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
             }
         }
 

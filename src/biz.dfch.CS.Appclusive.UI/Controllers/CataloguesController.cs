@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Catalogue 
 
         // GET: Catalogues/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Catalogues/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Catalogues/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Catalogue catalogue)
+        public ActionResult Edit(long id, Models.Core.Catalogue catalogue)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
 
         // GET: EntityTypes/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         { 
             Api.Core.Catalogue apiItem =null;
             try
@@ -135,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
             }
         }
 
@@ -143,7 +143,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region CatalogItems
 
-        public ActionResult ItemDetails(int id)
+        public ActionResult ItemDetails(long id)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public PartialViewResult AddToCart(int id)
+        public PartialViewResult AddToCart(long id)
         {
             AjaxNotificationViewModel vm = new AjaxNotificationViewModel();
             try
@@ -246,7 +246,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Catalogues/Edit/5
-        public ActionResult ItemEdit(int id)
+        public ActionResult ItemEdit(long id)
         {
             try
             {
@@ -264,7 +264,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Catalogues/ItemEdit/5
         [HttpPost]
-        public ActionResult ItemEdit(int id, Models.Core.CatalogueItem catalogueItem)
+        public ActionResult ItemEdit(long id, Models.Core.CatalogueItem catalogueItem)
         {
             try
             {
@@ -299,7 +299,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
 
         // GET: EntityTypes/ItemDelete/5
-        public ActionResult ItemDelete(int id)
+        public ActionResult ItemDelete(long id)
         {
             Api.Core.CatalogueItem apiItem = null;
             try
