@@ -161,6 +161,7 @@
     <Compile Include="Controllers\ApprovalController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
@@ -183,13 +184,20 @@
       <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
+    <Compile Include="Models\AppcusiveEntityBase.cs" />
+    <Compile Include="Models\Core\Ace.cs" />
+    <Compile Include="Models\Core\AceActionEnum.cs" />
+    <Compile Include="Models\Core\Acl.cs" />
     <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
     <Compile Include="Models\Core\Cart.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
+    <Compile Include="Models\Core\CimiTarget.cs" />
+    <Compile Include="Models\Core\ContractMapping.cs" />
     <Compile Include="Models\Core\CostCentre.cs" />
+    <Compile Include="Models\Core\Customer.cs" />
     <Compile Include="Models\Core\EntityType.cs" />
     <Compile Include="Models\Core\Gate.cs" />
     <Compile Include="Models\Core\Job.cs" />
@@ -200,6 +208,8 @@
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\Core\Tenant.cs" />
+    <Compile Include="Models\Core\User.cs" />
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
@@ -217,6 +227,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="_mocked\CimiTarget.cs" />
+    <Compile Include="_mocked\ContractMapping.cs" />
+    <Compile Include="_mocked\CoreRepositoryMock.cs" />
+    <Compile Include="_mocked\Tenant.cs" />
+    <Compile Include="_mocked\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -361,6 +376,14 @@
     <Content Include="Views\Products\CatalogueItemList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\AuditTrails\Details.cshtml" />
+    <Compile Include="_mocked\Customer.cs" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\FormPartial.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Shared\ContractMappingList.cshtml" />
+    <Content Include="Views\Shared\TenantList.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

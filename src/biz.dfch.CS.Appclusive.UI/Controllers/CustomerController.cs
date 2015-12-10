@@ -7,65 +7,65 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class GatesController : CoreControllerBase
+    public class CustomersController : CoreControllerBase
     {
 
-        // GET: Gates
+        // GET: Customers
         public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                List<Api.Core.Gate> items;
+                List<Api.Core.Customer> items;
                 if (pageNr > 1)
                 {
-                    items = CoreRepository.Gates.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                    items = CoreRepository.Customers.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
                 }
                 else
                 {
-                    items = CoreRepository.Gates.Take(PortalConfig.Pagesize + 1).ToList();
+                    items = CoreRepository.Customers.Take(PortalConfig.Pagesize + 1).ToList();
                 }
                 ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Gate>>(items));
+                return View(AutoMapper.Mapper.Map<List<Models.Core.Customer>>(items));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Gate>());
+                return View(new List<Models.Core.Customer>());
             }
         }
 
-        #region Gate
+        #region Customer
 
-        // GET: Gates/Details/5
-        public ActionResult Details(int id)
+        // GET: Customers/Details/5
+        public ActionResult Details(long id)
         {
             try
             {
-                var item = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Gate>(item));
+                var item = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Customer>(item));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.EntityType());
+                return View(new Models.Core.Customer());
             }
         }
 
-        // GET: Gates/Create
+        // GET: Customers/Create
         public ActionResult Create()
         {
-            return View(new Models.Core.Gate());
+            return View(new Models.Core.Customer());
         }
 
-        // POST: Gates/Create
+        // POST: Customers/Create
         [HttpPost]
-        public ActionResult Create(Models.Core.Gate gate)
+        public ActionResult Create(Models.Core.Customer customer)
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Gate>(gate);
+                var apiItem = AutoMapper.Mapper.Map<Api.Core.Customer>(customer);
 
-                CoreRepository.AddToGates(apiItem);
+                CoreRepository.AddToCustomers(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
@@ -73,61 +73,58 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(gate);
+                return View(customer);
             }
         }
 
-        // GET: Gates/Edit/5
+        // GET: Customers/Edit/5
         public ActionResult Edit(int id)
         {
             try
             {
-                var apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
+                var apiItem = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.Gate());
+                return View(new Models.Core.Customer());
             }
         }
 
-        // POST: Gates/Edit/5
+        // POST: Customers/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Gate gate)
+        public ActionResult Edit(int id, Models.Core.Customer customer)
         {
             try
             {
-                var apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
-                apiItem.Name = gate.Name;
-                apiItem.Description = gate.Description;
-                apiItem.Parameters = gate.Parameters;
-                apiItem.Status = gate.Status;
-                apiItem.Type = gate.Type;
+                apiItem.Name = customer.Name;
+                apiItem.Description = customer.Description;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
+                return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(gate);
+                return View(customer);
             }
         }
 
-        // GET: Gates/Delete/5
+        // GET: Customers/Delete/5
         public ActionResult Delete(int id)
         {
-            Api.Core.Gate apiItem = null;
+            Api.Core.Customer apiItem = null;
             try
             {
-                apiItem = CoreRepository.Gates.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -135,7 +132,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem)));
+                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem)));
             }
         }
 

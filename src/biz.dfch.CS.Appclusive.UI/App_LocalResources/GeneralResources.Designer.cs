@@ -70,6 +70,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ace.
+        /// </summary>
+        public static string Ace {
+            get {
+                return ResourceManager.GetString("Ace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acl.
+        /// </summary>
+        public static string Acl {
+            get {
+                return ResourceManager.GetString("Acl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to cart.
         /// </summary>
         public static string AddToCart {
@@ -223,6 +241,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cimi target.
+        /// </summary>
+        public static string CimiTarget {
+            get {
+                return ResourceManager.GetString("CimiTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to checkout?.
         /// </summary>
         public static string ConfirmCheckOut {
@@ -237,6 +264,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ConfirmDelete {
             get {
                 return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract mapping.
+        /// </summary>
+        public static string ContractMapping {
+            get {
+                return ResourceManager.GetString("ContractMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract mappings.
+        /// </summary>
+        public static string ContractMappings {
+            get {
+                return ResourceManager.GetString("ContractMappings", resourceCulture);
             }
         }
         
@@ -273,6 +318,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
@@ -637,11 +691,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tenant.
+        /// </summary>
+        public static string Tenant {
+            get {
+                return ResourceManager.GetString("Tenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tenant Id.
         /// </summary>
         public static string TenantId {
             get {
                 return ResourceManager.GetString("TenantId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tenants.
+        /// </summary>
+        public static string Tenants {
+            get {
+                return ResourceManager.GetString("Tenants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
             }
         }
         

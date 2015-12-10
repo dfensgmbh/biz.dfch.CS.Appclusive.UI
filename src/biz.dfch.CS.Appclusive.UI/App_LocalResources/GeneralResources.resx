@@ -336,4 +336,31 @@
   <data name="HelpTextAuditTrail" xml:space="preserve">
     <value>This table shows all modifications to the underlying entities</value>
   </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Ace" xml:space="preserve">
+    <value>Ace</value>
+  </data>
+  <data name="Acl" xml:space="preserve">
+    <value>Acl</value>
+  </data>
+  <data name="CimiTarget" xml:space="preserve">
+    <value>Cimi target</value>
+  </data>
+  <data name="ContractMapping" xml:space="preserve">
+    <value>Contract mapping</value>
+  </data>
+  <data name="ContractMappings" xml:space="preserve">
+    <value>Contract mappings</value>
+  </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="Tenants" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
 </root>

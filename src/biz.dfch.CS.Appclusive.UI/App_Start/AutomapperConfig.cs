@@ -54,6 +54,32 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>();
             Mapper.CreateMap<Api.Diagnostics.Endpoint, Models.Diagnostics.Endpoint>();
 
+            Mapper.CreateMap<Api.Core.Ace, Models.Core.Ace>();
+            Mapper.CreateMap<Models.Core.Ace, Api.Core.Ace>();
+
+            Mapper.CreateMap<Api.Core.Acl, Models.Core.Acl>();
+            Mapper.CreateMap<Models.Core.Acl, Api.Core.Acl>();
+
+            Mapper.CreateMap<Api.Core.User, Models.Core.User>();
+            Mapper.CreateMap<Models.Core.User, Api.Core.User>();
+
+            Mapper.CreateMap<Api.Core.Tenant, Models.Core.Tenant>();
+            Mapper.CreateMap<Models.Core.Tenant, Api.Core.Tenant>();
+
+            Mapper.CreateMap<Api.Core.ContractMapping, Models.Core.ContractMapping>();
+            Mapper.CreateMap<Models.Core.ContractMapping, Api.Core.ContractMapping>();
+
+            Mapper.CreateMap<Api.Core.CostCentre, Models.Core.CostCentre>();
+            Mapper.CreateMap<Models.Core.CostCentre, Api.Core.CostCentre>();
+
+            Mapper.CreateMap<Api.Core.CimiTarget, Models.Core.CimiTarget>();
+            Mapper.CreateMap<Models.Core.CimiTarget, Api.Core.CimiTarget>();
+            
+            Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
+            Mapper.CreateMap<Models.Core.Product, Api.Core.Product>();
+
+            Mapper.CreateMap<Api.Core.Customer, Models.Core.Customer>();
+            Mapper.CreateMap<Models.Core.Customer, Api.Core.Customer>();
         }
     }
 }
