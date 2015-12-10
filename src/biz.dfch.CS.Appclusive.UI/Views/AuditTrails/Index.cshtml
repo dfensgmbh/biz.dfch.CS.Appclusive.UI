@@ -1,33 +1,58 @@
-﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Diagnostics.AuditTrail>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AuditTrail list";
 }
 @section Title{
     <h2>@GeneralResources.ResourceManager.GetString("AuditTrail")@GeneralResources.List</h2>
 }
-<ul>
+
     <table class="table table-striped table-hover">
-        <caption>This table shows all modifications to the underlying entities</caption>
+        <caption>@GeneralResources.HelpTextAuditTrail</caption>
         <thead>
             <tr>
-                <th>EntityId</th>
-                <th>EntityType</th>
-                <th>EntityState</th>
-                <th>Created</th>
-                <th>Modified</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EntityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EntityType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EntityState)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Modified)
+                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var auditTail in ViewBag.AuditTrails)
+            @foreach (var item in Model)
             {
-                <tr class="@("Added" == auditTail.EntityState ? "success" : ("Deleted" == auditTail.EntityState ? "danger" : string.Empty))">
-                    <td>@auditTail.EntityId</td>
-                    <td>@auditTail.EntityType</td>
-                    <td>@auditTail.EntityState</td>
-                    <td>@auditTail.Created</td>
-                    <td>@auditTail.Modified</td>
+                <tr class="table table-striped table-hover @("Added" == item.EntityState ? "success" : ("Deleted" == item.EntityState ? "danger" : string.Empty))">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntityId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntityType)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntityState)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modified)
+                    </td>
+                    <td class="ap-btn">
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
-</ul>

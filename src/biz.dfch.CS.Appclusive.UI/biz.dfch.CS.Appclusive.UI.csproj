@@ -352,6 +352,7 @@
     <Content Include="Views\Products\FormPartial.cshtml" />
     <Content Include="Views\Products\CatalogueItemList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\AuditTrails\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

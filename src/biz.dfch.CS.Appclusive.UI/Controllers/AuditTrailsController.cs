@@ -7,22 +7,23 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AuditTrailsController : CoreControllerBase
+    public class AuditTrailsController : DiagnosticsControllerBase
     {
-        // http://localhost:xxxx/myView/AuditTrail?numtimes=42
-        public ActionResult Index(int numTimes = 1)
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                var diag = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppculsiveApiDiagnosticsUrl));
-                diag.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                var a = new biz.dfch.CS.Appclusive.Api.Diagnostics.AuditTrail();
-                var auditTrails = diag.AuditTrails.ToList();
-
-                ViewBag.Title = "AuditTrail";
-                ViewBag.AuditTrails = auditTrails;
-
-                return View();
+                List<Api.Diagnostics.AuditTrail> items;
+                if (pageNr > 1)
+                {
+                    items = DiagnosticsRepository.AuditTrails.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                else
+                {
+                    items = DiagnosticsRepository.AuditTrails.Take(PortalConfig.Pagesize + 1).ToList();
+                }
+                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                return View(AutoMapper.Mapper.Map<List<Models.Diagnostics.AuditTrail>>(items));
             }
             catch (Exception ex)
             {
@@ -30,5 +31,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new List<Models.Diagnostics.AuditTrail>());
             }
         }
+
+        public ActionResult Details(int id)
+        {
+            try
+            {
+                var item = DiagnosticsRepository.AuditTrails.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Diagnostics.AuditTrail>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Diagnostics.AuditTrail());
+            }
+        }
+
     }
 }

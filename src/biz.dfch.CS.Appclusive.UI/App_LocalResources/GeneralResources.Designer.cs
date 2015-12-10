@@ -421,6 +421,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This table shows all modifications to the underlying entities.
+        /// </summary>
+        public static string HelpTextAuditTrail {
+            get {
+                return ResourceManager.GetString("HelpTextAuditTrail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The request will be declined when you click the &apos;Decline&apos; button. You can optionally add a explanation or reason for approval..
         /// </summary>
         public static string HelpTextDecline {

@@ -333,4 +333,7 @@
   <data name="VDI_TECHNICAL" xml:space="preserve">
     <value>Add VDI for technical use</value>
   </data>
+  <data name="HelpTextAuditTrail" xml:space="preserve">
+    <value>This table shows all modifications to the underlying entities</value>
+  </data>
 </root>
