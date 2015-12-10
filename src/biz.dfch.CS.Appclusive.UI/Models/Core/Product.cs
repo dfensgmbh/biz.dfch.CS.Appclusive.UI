@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
@@ -48,9 +49,23 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Required]
         public string Type { get; set; }
 
-        [DataType("DateTime")]
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidFrom { get; set; }
+
+        /// <summary>
+        /// needed when the date is allowed to be MinValue and a Date-Picker is used
+        /// </summary>
+        [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
+        public DateTime ValidFromDateTime {
+            get
+            {
+                return ValidFrom.ToDateTime();
+            }
+            set
+            {
+                ValidFrom = value.ToDateTimeOffset();
+            } 
+        }
 
         [Display(Name = "ValidUntil", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidUntil { get; set; }

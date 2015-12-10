@@ -39,6 +39,22 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidFrom { get; set; }
 
+        /// <summary>
+        /// needed when the date is allowed to be MinValue and a Date-Picker is used
+        /// </summary>
+        [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
+        public DateTime ValidFromDateTime
+        {
+            get
+            {
+                return ValidFrom.ToDateTime();
+            }
+            set
+            {
+                ValidFrom = value.ToDateTimeOffset();
+            }
+        }
+
         [Display(Name = "ValidUntil", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidUntil { get; set; }
     }
