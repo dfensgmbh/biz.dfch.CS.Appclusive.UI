@@ -34,7 +34,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
