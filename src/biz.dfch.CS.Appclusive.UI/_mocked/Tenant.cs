@@ -25,5 +25,20 @@ namespace biz.dfch.CS.Appclusive.Api.Core
 
         public List<Tenant> Children { get; set; }
 
+        public string DisplayName
+        {
+            get
+            {
+                if (Id == System.Guid.Empty)
+                {
+                    return "-";
+                }
+                else
+                {
+                    return Id.ToString();
+                }
+            }
+        }
+
     }
 }

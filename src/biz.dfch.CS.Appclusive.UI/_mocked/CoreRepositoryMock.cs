@@ -114,6 +114,12 @@ namespace biz.dfch.CS.Appclusive.UI._fake
         }
         public void AddToTenants(Tenant entity)
         {
+            if (entity.ParentId != Guid.Empty)
+            {
+                Tenant parent = tenants.FirstOrDefault(t => t.Id == entity.ParentId);
+                parent.Children.Add(entity);
+                entity.Parent = parent;
+            }
             tenants.Add(entity);
         }
         public void AddToUsers(User entity)
