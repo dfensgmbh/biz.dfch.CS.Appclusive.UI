@@ -137,7 +137,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: once server api sends a re4adable response for approval updates use the outcommented lines instead
+                //TODO: once server api sends a readable response for approval updates use the outcommented lines instead
                 // ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 // return View("Edit", approval);
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully " + approval.Status));

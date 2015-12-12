@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -72,8 +72,16 @@
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.HBase.Client, Version=0.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HBase.Client.0.2.2\lib\net45\Microsoft.HBase.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -196,7 +204,8 @@
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
     <Compile Include="Models\ExceptionHelper.cs" />
-    <Compile Include="Models\HelperExtensions.cs" />
+    <Compile Include="Models\Extensions.cs" />
+    <Compile Include="Models\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
     <Compile Include="Models\PagingInfo.cs" />
@@ -234,7 +243,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
-    <None Include="Properties\PublishProfiles\scs-deployment-profile.pubxml" />
+    <None Include="Properties\PublishProfiles\general-deployment-profile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -317,14 +326,12 @@
     <Content Include="Views\Gates\Details.cshtml" />
     <Content Include="Views\Gates\Index.cshtml" />
     <Content Include="Views\Approvals\Edit.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\_DateTimeOffset.cshtml" />
     <Content Include="Views\Shared\Messages.cshtml" />
     <Content Include="Views\Shared\AjaxNotification.cshtml" />
     <Content Include="Views\Catalogues\ItemCreate.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTimeOffset.cshtml" />
     <Content Include="Views\Catalogues\ItemFormPartial.cshtml" />
     <Content Include="Views\Catalogues\ItemEdit.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\_en_DateTimeOffset.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Carts\ItemEdit.cshtml" />
@@ -348,9 +355,16 @@
     <Content Include="Views\Gates\Edit.cshtml" />
     <Content Include="Views\Gates\FormPartial.cshtml" />
     <Content Include="Views\Shared\Paging.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\FormPartial.cshtml" />
+    <Content Include="Views\Products\CatalogueItemList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\AuditTrails\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -385,7 +399,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60755/</IISUrl>
+          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

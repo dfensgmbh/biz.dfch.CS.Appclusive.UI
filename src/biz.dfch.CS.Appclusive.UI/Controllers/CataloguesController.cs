@@ -147,7 +147,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("Product").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(item));
             }
             catch (Exception ex)

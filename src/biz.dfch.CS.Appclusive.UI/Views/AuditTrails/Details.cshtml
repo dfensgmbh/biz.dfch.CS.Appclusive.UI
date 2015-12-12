@@ -1,0 +1,77 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Diagnostics.AuditTrail
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " details";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EntityId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EntityId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EntityType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EntityType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EntityState)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EntityState)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Original)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Original)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Current)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Current)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+</p>

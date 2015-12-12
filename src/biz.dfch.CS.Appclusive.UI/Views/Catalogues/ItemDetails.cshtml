@@ -25,6 +25,15 @@
                 </dd>
 
                 <dt>
+                    @Html.DisplayNameFor(model => model.Product)
+                </dt>
+                <dd>
+                    @if (Model.Product != null) {
+                        @Html.DisplayFor(model => model.Product.Name);
+                    }
+                </dd>
+
+                <dt>
                     @Html.DisplayNameFor(model => model.ValidFrom)
                 </dt>
                 <dd>

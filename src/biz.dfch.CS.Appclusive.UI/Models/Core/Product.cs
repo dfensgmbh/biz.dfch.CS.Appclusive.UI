@@ -4,12 +4,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Product : ViewModelBase, IAppcusiveEntityBase
     {
-        
+
+        public Product()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+            this.CatalogueItems = new List<CatalogueItem>();
+        }
+
         public List<CatalogueItem> CatalogueItems { get; set; }
         
         public DateTimeOffset Created { get; set; }
@@ -38,11 +45,27 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public byte[] RowVersion { get; set; }
         
         public string Tid { get; set; }
-        
+
+        [Required]
         public string Type { get; set; }
 
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidFrom { get; set; }
+
+        /// <summary>
+        /// needed when the date is allowed to be MinValue and a Date-Picker is used
+        /// </summary>
+        [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
+        public DateTime ValidFromDateTime {
+            get
+            {
+                return ValidFrom.ToDateTime();
+            }
+            set
+            {
+                ValidFrom = value.ToDateTimeOffset();
+            } 
+        }
 
         [Display(Name = "ValidUntil", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidUntil { get; set; }

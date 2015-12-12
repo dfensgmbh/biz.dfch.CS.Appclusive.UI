@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
-    public static class HtmlRenderExtensions
+    public static class HtmlHelperExtensions
     {
 
         /// <summary>

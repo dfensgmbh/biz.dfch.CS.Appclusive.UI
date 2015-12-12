@@ -26,20 +26,16 @@
                 @Html.DisplayFor(modelItem => catalogItem.Description)
             </td>
             <td class="ap-btn">
-                <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { id = catalogItem.ProductId }) "><i class="fa fa-cog"></i> Product @GeneralResources.DetailsLink</a>
+                @Ajax.ActionLink(GeneralResources.AddToCart, "AddToCart", new { Id = catalogItem.Id },
+                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
+                            new { @class = "btn btn-success" })
                 <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = catalogItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+
+                <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { id = catalogItem.ProductId }) "><i class="fa fa-cog"></i> Product @GeneralResources.DetailsLink</a>
                 <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = catalogItem.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
                 <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = catalogItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-
-                @Ajax.ActionLink(GeneralResources.AddToCart, "AddToCart", new { Id = catalogItem.Id },
-                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, 
-                            new { @class = "btn btn-success" })
             </td>
         </tr>
     }
 
 </table>
-
-
-
-         
