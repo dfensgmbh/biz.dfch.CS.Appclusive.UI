@@ -26,5 +26,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 _action = (AceActionEnum)Enum.Parse(typeof(AceActionEnum), value, true);
             }
         }
+
+        public Acl Acl { get; set; }
+        
+        public long AclId { get; set; }
     }
 }

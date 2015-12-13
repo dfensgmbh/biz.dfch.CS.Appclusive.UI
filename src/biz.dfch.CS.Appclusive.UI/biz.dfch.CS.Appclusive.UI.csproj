@@ -156,6 +156,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AceController.cs" />
+    <Compile Include="Controllers\AclController.cs" />
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
@@ -412,11 +414,22 @@
     <Content Include="Views\ContractMappings\Index.cshtml" />
     <Content Include="Views\CimiTargets\Index.cshtml" />
     <Content Include="Views\CimiTargets\Details.cshtml" />
-    <Content Include="Views\CostCentre\Create.cshtml" />
-    <Content Include="Views\CostCentre\Details.cshtml" />
-    <Content Include="Views\CostCentre\Edit.cshtml" />
-    <Content Include="Views\CostCentre\FormPartial.cshtml" />
-    <Content Include="Views\CostCentre\Index.cshtml" />
+    <Content Include="Views\CostCentres\Create.cshtml" />
+    <Content Include="Views\CostCentres\Details.cshtml" />
+    <Content Include="Views\CostCentres\Edit.cshtml" />
+    <Content Include="Views\CostCentres\FormPartial.cshtml" />
+    <Content Include="Views\CostCentres\Index.cshtml" />
+    <Content Include="Views\Aces\Create.cshtml" />
+    <Content Include="Views\Aces\Details.cshtml" />
+    <Content Include="Views\Aces\Edit.cshtml" />
+    <Content Include="Views\Aces\FormPartial.cshtml" />
+    <Content Include="Views\Aces\Index.cshtml" />
+    <Content Include="Views\Acls\Create.cshtml" />
+    <Content Include="Views\Acls\Details.cshtml" />
+    <Content Include="Views\Acls\Edit.cshtml" />
+    <Content Include="Views\Acls\FormPartial.cshtml" />
+    <Content Include="Views\Acls\Index.cshtml" />
+    <Content Include="Views\Shared\AceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

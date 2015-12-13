@@ -37,11 +37,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Acl
 
         // GET: Acls/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Acls.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Acls.Expand("Aces").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Acl>(item));
             }
             catch (Exception ex)
@@ -78,11 +81,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Acls/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
-                var apiItem = CoreRepository.Acls.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Acls.Expand("Aces").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
             }
             catch (Exception ex)
@@ -94,18 +97,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Acls/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Acl acl)
+        public ActionResult Edit(long id, Models.Core.Acl acl)
         {
             try
             {
-                var apiItem = CoreRepository.Acls.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Acls.Expand("Aces").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
                 apiItem.Name = acl.Name;
                 apiItem.Description = acl.Description;
-                apiItem.Parameters = acl.Parameters;
-                apiItem.Version = acl.Version;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
@@ -121,12 +122,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Acls/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Acl apiItem = null;
             try
             {
-                apiItem = CoreRepository.Acls.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Acls.Expand("Aces").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -134,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
             }
         }
 

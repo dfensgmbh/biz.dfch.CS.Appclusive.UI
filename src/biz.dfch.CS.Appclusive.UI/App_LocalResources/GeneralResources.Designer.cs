@@ -70,7 +70,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ace.
+        ///   Looks up a localized string similar to ACE.
         /// </summary>
         public static string Ace {
             get {
@@ -79,11 +79,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acl.
+        ///   Looks up a localized string similar to ACEs.
+        /// </summary>
+        public static string Aces {
+            get {
+                return ResourceManager.GetString("Aces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACL.
         /// </summary>
         public static string Acl {
             get {
                 return ResourceManager.GetString("Acl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACLs.
+        /// </summary>
+        public static string Acls {
+            get {
+                return ResourceManager.GetString("Acls", resourceCulture);
             }
         }
         
@@ -448,6 +466,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go to ACL.
+        /// </summary>
+        public static string GoToAcl {
+            get {
+                return ResourceManager.GetString("GoToAcl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to go to carts.
         /// </summary>
         public static string GoToCarts {
@@ -579,6 +606,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ManagementUri {
             get {
                 return ResourceManager.GetString("ManagementUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Management uris.
+        /// </summary>
+        public static string ManagementUris {
+            get {
+                return ResourceManager.GetString("ManagementUris", resourceCulture);
             }
         }
         

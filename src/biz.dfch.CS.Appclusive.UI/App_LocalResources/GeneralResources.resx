@@ -340,10 +340,10 @@
     <value>Customer</value>
   </data>
   <data name="Ace" xml:space="preserve">
-    <value>Ace</value>
+    <value>ACE</value>
   </data>
   <data name="Acl" xml:space="preserve">
-    <value>Acl</value>
+    <value>ACL</value>
   </data>
   <data name="CimiTarget" xml:space="preserve">
     <value>Cimi target</value>
@@ -365,5 +365,17 @@
   </data>
   <data name="Children" xml:space="preserve">
     <value>Children</value>
+  </data>
+  <data name="Acls" xml:space="preserve">
+    <value>ACLs</value>
+  </data>
+  <data name="ManagementUris" xml:space="preserve">
+    <value>Management uris</value>
+  </data>
+  <data name="Aces" xml:space="preserve">
+    <value>ACEs</value>
+  </data>
+  <data name="GoToAcl" xml:space="preserve">
+    <value>Go to ACL</value>
   </data>
 </root>
