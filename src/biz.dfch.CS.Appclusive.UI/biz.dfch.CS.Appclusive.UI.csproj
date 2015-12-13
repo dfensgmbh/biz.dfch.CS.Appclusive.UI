@@ -159,6 +159,7 @@
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\CimiTargetsController.cs" />
     <Compile Include="Controllers\ContractMappingsController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
@@ -408,6 +409,8 @@
     <Content Include="Views\ContractMappings\Edit.cshtml" />
     <Content Include="Views\ContractMappings\FormPartial.cshtml" />
     <Content Include="Views\ContractMappings\Index.cshtml" />
+    <Content Include="Views\CimiTargets\Index.cshtml" />
+    <Content Include="Views\CimiTargets\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
