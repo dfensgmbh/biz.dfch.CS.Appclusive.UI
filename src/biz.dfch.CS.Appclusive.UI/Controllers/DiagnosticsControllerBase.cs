@@ -1,6 +1,7 @@
 ﻿using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     diagnosticsRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     diagnosticsRepository.IgnoreMissingProperties = true;
                     diagnosticsRepository.Format.UseJson();
+                    diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                 }
                 return diagnosticsRepository;
             }

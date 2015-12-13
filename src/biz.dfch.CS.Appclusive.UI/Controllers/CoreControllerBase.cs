@@ -24,6 +24,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     coreRepository.IgnoreMissingProperties = true;
                     coreRepository.Format.UseJson();
+                    coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                 }
                 return coreRepository;
             }
