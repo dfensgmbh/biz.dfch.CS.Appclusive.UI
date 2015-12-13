@@ -161,6 +161,7 @@
     <Compile Include="Controllers\ApprovalController.cs" />
     <Compile Include="Controllers\CimiTargetsController.cs" />
     <Compile Include="Controllers\ContractMappingsController.cs" />
+    <Compile Include="Controllers\CostCentersController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -411,6 +412,11 @@
     <Content Include="Views\ContractMappings\Index.cshtml" />
     <Content Include="Views\CimiTargets\Index.cshtml" />
     <Content Include="Views\CimiTargets\Details.cshtml" />
+    <Content Include="Views\CostCentre\Create.cshtml" />
+    <Content Include="Views\CostCentre\Details.cshtml" />
+    <Content Include="Views\CostCentre\Edit.cshtml" />
+    <Content Include="Views\CostCentre\FormPartial.cshtml" />
+    <Content Include="Views\CostCentre\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

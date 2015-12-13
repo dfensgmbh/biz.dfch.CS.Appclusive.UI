@@ -7,7 +7,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CostCentreController : CoreControllerBase
+    public class CostCentresController : CoreControllerBase
     {
 
         // GET: CostCentres
@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region CostCentre
 
         // GET: CostCentres/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: CostCentres/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: CostCentres/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.CostCentre costCentre)
+        public ActionResult Edit(long id, Models.Core.CostCentre costCentre)
         {
             try
             {
@@ -104,8 +104,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 apiItem.Name = costCentre.Name;
                 apiItem.Description = costCentre.Description;
-                apiItem.Parameters = costCentre.Parameters;
-                apiItem.Version = costCentre.Version;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
@@ -121,7 +119,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: CostCentres/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.CostCentre apiItem = null;
             try
@@ -134,7 +132,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.CostCentre>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.CostCentre>(apiItem));
             }
         }
 
