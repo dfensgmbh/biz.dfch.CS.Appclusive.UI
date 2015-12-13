@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,5 +30,21 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         public string Parameters { get; set; }
 
+
+        /// <summary>
+        /// needed when the date is allowed to be MinValue and a Date-Picker is used
+        /// </summary>
+        [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
+        public DateTime ValidFromDateTime
+        {
+            get
+            {
+                return ValidFrom.ToDateTime();
+            }
+            set
+            {
+                ValidFrom = value.ToDateTimeOffset();
+            }
+        }
     }
 }

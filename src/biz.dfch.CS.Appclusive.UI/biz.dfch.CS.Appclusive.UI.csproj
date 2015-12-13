@@ -159,6 +159,7 @@
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\ContractMappingsController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -402,6 +403,11 @@
     <Content Include="Views\Users\FormPartial.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Guid.cshtml" />
+    <Content Include="Views\ContractMappings\Create.cshtml" />
+    <Content Include="Views\ContractMappings\Details.cshtml" />
+    <Content Include="Views\ContractMappings\Edit.cshtml" />
+    <Content Include="Views\ContractMappings\FormPartial.cshtml" />
+    <Content Include="Views\ContractMappings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

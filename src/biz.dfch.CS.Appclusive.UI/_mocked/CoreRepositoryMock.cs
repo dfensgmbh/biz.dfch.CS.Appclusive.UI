@@ -51,7 +51,7 @@ namespace biz.dfch.CS.Appclusive.UI._fake
             Customer customer = new Customer()
             {
                 Name = "Mocked customer",
-                Description = "Mocked description"
+                Description = "Mocked description", 
             };
             customer.Tenants.AddRange(tenants);
             customers.Add(customer);
@@ -60,8 +60,11 @@ namespace biz.dfch.CS.Appclusive.UI._fake
             contractMappings = new List<ContractMapping>();
             ContractMapping contract = new ContractMapping()
             {
-                Name = "Mocked customer",
-                Description = "Mocked description"
+                Name = "Mocked contract",
+                Description = "Mocked contract",
+                ExternalId = "ext id",
+                ExternalType = "Ext Type",
+                Parameters = "{}"
             };
             contract.Customer = customers.FirstOrDefault();
             contractMappings.Add(contract);
