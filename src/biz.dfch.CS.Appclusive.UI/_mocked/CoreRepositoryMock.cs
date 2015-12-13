@@ -5,7 +5,7 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Web;
 
-namespace biz.dfch.CS.Appclusive.UI._fake
+namespace biz.dfch.CS.Appclusive.UI._mocked
 {
     public class CoreRepositoryMock : biz.dfch.CS.Appclusive.Api.Core.Core
     {
