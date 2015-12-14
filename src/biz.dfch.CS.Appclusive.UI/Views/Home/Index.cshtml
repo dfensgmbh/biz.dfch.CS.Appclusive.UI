@@ -1,4 +1,5 @@
-﻿@{
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
     var title = "biz.dfch.CS.Appclusive.UI";
     ViewBag.Title = title;
 }
@@ -9,7 +10,46 @@
     <p class="lead"><a href="http://d-fens.ch">d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland</a></p>
     <p><a href="http://appclusive.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
+<div class="row">
+    <div class="col-sm-4">
+        <ul  class="list-group">            
+            <li class="list-group-item"><i class="fa fa-book"></i> @Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues")</li>
+            <li class="list-group-item"><i class="fa fa-bicycle"></i> @Html.ActionLink(@GeneralResources.Product, "Index", "Products")</li>
+            <li class="list-group-item"><i class="fa fa-cubes"></i> @Html.ActionLink(@GeneralResources.Node, "Index", "Nodes")</li>
+            <li class="list-group-item"><i class="fa fa-shopping-cart"></i> @Html.ActionLink(@GeneralResources.Cart, "Index", "Carts")</li>
+            <li class="list-group-item"><i class="fa fa-ship"></i> @Html.ActionLink(@GeneralResources.Order, "Index", "Orders")</li>
+            <li class="list-group-item"><i class="fa fa-spinner"></i> @Html.ActionLink(@GeneralResources.Job, "Index", "Jobs")</li>
+            <li class="list-group-item"><i class="fa fa-thumbs-up"></i> @Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals")</li>
+            <li class="list-group-item"><i class="fa fa-database"></i> @Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues")</li>
+            <li class="list-group-item"><i class="fa fa-cogs"></i> @Html.ActionLink(@GeneralResources.EntityType, "Index", "EntityTypes")</li>
+            <li class="list-group-item"><i class="fa fa-subway"></i> @Html.ActionLink(@GeneralResources.Gate, "Index", "Gates")</li>
+            <li class="list-group-item"><i class="fa fa-external-link"></i> @Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris")</li>
+            <li class="list-group-item"><i class="fa fa-credit-card"></i> @Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials")</li>
+            <li class="list-group-item"><i class="fa fa-umbrella"></i> @Html.ActionLink(@GeneralResources.Ace, "Index", "Aces")</li>
+            <li class="list-group-item"><i class="fa fa-briefcase"></i> @Html.ActionLink(@GeneralResources.Acl, "Index", "Acls")</li>
+            <li class="list-group-item"><i class="fa fa-balance-scale"></i> @Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres")</li>
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <ul  class="list-group">
+            <li class="list-group-item"><i class="fa fa-user-secret"></i> @Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails")</li>
+            <li class="list-group-item"><i class="fa fa-terminal"></i> @Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints")</li>
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <ul  class="list-group">
+            <li class="list-group-item"><i class="fa fa-university"></i> @Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants")</li>
+            <li class="list-group-item"><i class="fa fa-child"></i> @Html.ActionLink(@GeneralResources.Customer, "Index", "Customers")</li>
+            <li class="list-group-item"><i class="fa fa-user"></i> @Html.ActionLink(@GeneralResources.User, "Index", "Users")</li>
+            <li class="list-group-item"><i class="fa fa-map-signs"></i> @Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets")</li>
+            <li class="list-group-item"><i class="fa fa-pencil-square-o"></i> @Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings")</li>
+            <li class="list-group-item"><i class="fa fa-check-square"></i> @Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null)</li>
+            <li class="list-group-item"><i class="fa fa-check-square-o"></i> @Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
+            <li class="list-group-item"><i class="fa fa-life-ring"></i> @Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
 
+        </ul>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-4">
         <h3>biz.dfch.CS.Appclusive.Core</h3>
