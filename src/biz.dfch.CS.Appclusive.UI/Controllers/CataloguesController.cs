@@ -39,8 +39,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(item));
+                var item = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(item);
+                if (null != modelItem)
+                {
+                    modelItem.CatalogueItems = LoadCatalogueItems(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -80,8 +85,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
+                var apiItem = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.CatalogueItems = LoadCatalogueItems(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -96,8 +106,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Catalogues.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
-
+                var apiItem = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                
                 #region copy all edited properties
 
                 apiItem.Name = catalogue.Name;
@@ -109,7 +119,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem));
+
+                Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.CatalogueItems = LoadCatalogueItems(id, 1);
+                }
+                return View(modelItem);
             }
             catch(Exception ex)
             {
@@ -140,6 +156,35 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #endregion
 
         #region CatalogItems
+
+        // GET: Catalogues/ItemList
+        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1)
+        {
+            try
+            {
+                return PartialView(LoadCatalogueItems(catalogueId, pageNr));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return PartialView(new List<Models.Core.CatalogueItem>());
+            }
+        }
+
+        private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)
+        {
+            QueryOperationResponse<Api.Core.CatalogueItem> items = CoreRepository.CatalogueItems
+                    .AddQueryOption("$filter", "CatalogueId = " + catalogueId)
+                    .AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .Execute() as QueryOperationResponse<Api.Core.CatalogueItem>;
+
+            ViewBag.catalogueId = catalogueId;
+            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+
+            return AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(items);
+        }
 
         public ActionResult ItemDetails(long id)
         {
@@ -182,33 +227,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
 
-        private void AddProductSeletionToViewBag()
-        {
-            try
-            {
-                var products = CoreRepository.Products.ToList();
-                ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
 
         // GET: Catalogues/Create
-        public ActionResult ItemCreate(int catalogId)
+        public ActionResult ItemCreate(int catalogueId)
         {
             try
             {
-                Contract.Requires(catalogId > 0);
+                Contract.Requires(catalogueId > 0);
                 this.AddProductSeletionToViewBag();
-                var apiCatalog = CoreRepository.Catalogues.Where(c => c.Id == catalogId).FirstOrDefault();
+                var apiCatalog = CoreRepository.Catalogues.Where(c => c.Id == catalogueId).FirstOrDefault();
                 var catalog = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiCatalog);
                 Contract.Assert(null != catalog, "No catalog for item loaded");
 
                 var modelItem = new Models.Core.CatalogueItem();
                 modelItem.Catalogue = catalog;
-                modelItem.CatalogueId = catalogId;
+                modelItem.CatalogueId = catalogueId;
                 
                 return View(modelItem);
             }
@@ -318,5 +351,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
+        private void AddProductSeletionToViewBag()
+        {
+            try
+            {
+                var products = CoreRepository.Products.ToList();
+                ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
     }
 }
