@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\SpecialOperationsController.cs" />
     <Compile Include="Controllers\CimiTargetsController.cs" />
     <Compile Include="Controllers\ContractMappingsController.cs" />
     <Compile Include="Controllers\CostCentersController.cs" />
@@ -229,8 +230,12 @@
     <Compile Include="Models\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
+    <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\PortalConfig.cs" />
+    <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
+    <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
+    <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -430,6 +435,12 @@
     <Content Include="Views\Acls\FormPartial.cshtml" />
     <Content Include="Views\Acls\Index.cshtml" />
     <Content Include="Views\Shared\AceList.cshtml" />
+    <Content Include="Views\SpecialOperations\Index.cshtml" />
+    <Content Include="Views\SpecialOperations\SetCreatedBy.cshtml" />
+    <Content Include="Views\SpecialOperations\SetTenant.cshtml" />
+    <Content Include="Views\SpecialOperations\ClearAuditLog.cshtml" />
+    <Content Include="Views\SpecialOperations\ReloadProducts.cshtml" />
+    <Content Include="Views\SpecialOperations\RaiseUpdateConfigurationEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -467,7 +478,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
+          <IISUrl>http://localhost:60755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

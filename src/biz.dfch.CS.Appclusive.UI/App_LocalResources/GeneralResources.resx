@@ -378,4 +378,31 @@
   <data name="GoToAcl" xml:space="preserve">
     <value>Go to ACL</value>
   </data>
+  <data name="Go" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="OperationClearAuditLog" xml:space="preserve">
+    <value>Clear audit log</value>
+  </data>
+  <data name="OperationRaiseUpdateConfigurationEvent" xml:space="preserve">
+    <value>Raise update configuration event</value>
+  </data>
+  <data name="OperationReloadProducts" xml:space="preserve">
+    <value>Reload products</value>
+  </data>
+  <data name="OperationSetCreatedBy" xml:space="preserve">
+    <value>Set created by</value>
+  </data>
+  <data name="OperationSetCreatedByHelpText" xml:space="preserve">
+    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
+  <data name="OperationSetTenant" xml:space="preserve">
+    <value>Set tenant</value>
+  </data>
+  <data name="SpecialOperations" xml:space="preserve">
+    <value>Special operations</value>
+  </data>
+  <data name="OperationSetTenantHelpText" xml:space="preserve">
+    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
 </root>
