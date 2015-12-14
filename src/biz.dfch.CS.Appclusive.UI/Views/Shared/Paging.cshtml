@@ -1,28 +1,48 @@
-﻿@if (ViewBag.Paging != null && (ViewBag.Paging.PageNr>1 || ViewBag.Paging.HasMore))
+﻿@if (ViewBag.Paging != null)
 {
     <ul class="pagination">
-        @for (int i = 1; i <= (int)ViewBag.Paging.PageNr; i++)
+
+        @*@for (int i = 1; i <= (int)ViewBag.Paging.PageNr; i++)
+            {
+                if (i == ViewBag.Paging.PageNr)
+                {
+                    <li class="active">
+                        <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                    </li>
+                }
+            }*@
+        @if (ViewBag.Paging.PageNr > 1)
         {
-            if (i == ViewBag.Paging.PageNr)
-            {
-                <li class="active">
-                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
-                </li>
-            }
+            int prevPage = ViewBag.Paging.PageNr - 1;
+            <li>
+                <a href="@Url.Action("Index", new { pageNr = prevPage })"> previous </a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="disabled"> previous </a>
+            </li>
         }
 
         @if (ViewBag.Paging.HasMore)
         {
             int nextPage = ViewBag.Paging.PageNr + 1;
-        <li>
-            <a href="@Url.Action("Index", new { pageNr = nextPage })">...</a>
-        </li>
+            <li>
+                <a href="@Url.Action("Index", new { pageNr = nextPage })"> next </a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="disabled"> next </a>
+            </li>
         }
     </ul>
 }
