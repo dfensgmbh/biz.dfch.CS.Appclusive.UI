@@ -36,7 +36,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Action)
             </td>
-            <td class="ap-btn">
+            <td class="ap-btn text-nowrap">
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
                     <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "Aces", new { id = item.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>

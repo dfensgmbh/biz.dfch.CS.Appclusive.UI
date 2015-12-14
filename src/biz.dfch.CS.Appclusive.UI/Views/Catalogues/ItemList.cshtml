@@ -25,7 +25,7 @@
             <td>
                 @Html.DisplayFor(modelItem => catalogItem.Description)
             </td>
-            <td class="ap-btn">
+            <td class="ap-btn text-nowrap">
                 @Ajax.ActionLink(GeneralResources.AddToCart, "AddToCart", new { Id = catalogItem.Id },
                          new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
                             new { @class = "btn btn-success" })

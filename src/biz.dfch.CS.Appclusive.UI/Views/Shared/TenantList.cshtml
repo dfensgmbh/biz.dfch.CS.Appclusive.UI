@@ -32,7 +32,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ParentId)                
             </td>
-            <td class="ap-btn">
+            <td class="ap-btn text-nowrap">
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Tenants", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {

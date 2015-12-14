@@ -32,7 +32,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
-            <td class="ap-btn">
+            <td class="ap-btn text-nowrap">
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "ManagementUris", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "ManagementUris", new { id = item.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
                 <a class="btn btn-default btn-sm" href="@Url.Action("Delete", "ManagementUris", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
