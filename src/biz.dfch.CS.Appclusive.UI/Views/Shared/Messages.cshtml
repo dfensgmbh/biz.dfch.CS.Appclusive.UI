@@ -14,7 +14,6 @@
 
 @if (null != ViewBag.Notifications && ViewBag.Notifications.Count>0)
 {
-    <hr/>
     foreach (biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
     {
         switch (note.Level)

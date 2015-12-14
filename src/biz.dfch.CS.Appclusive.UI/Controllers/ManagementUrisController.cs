@@ -21,6 +21,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -32,16 +33,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                List<Api.Core.ManagementUri> items;
-                if (pageNr > 1)
-                {
-                    items = CoreRepository.ManagementUris.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                else
-                {
-                    items = CoreRepository.ManagementUris.Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                QueryOperationResponse<Api.Core.ManagementUri> items = CoreRepository.ManagementUris
+                        .AddQueryOption("$inlinecount", "allpages")
+                        .AddQueryOption("$top", PortalConfig.Pagesize)
+                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                        .Execute() as QueryOperationResponse<Api.Core.ManagementUri>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items));
             }
             catch (Exception ex)
@@ -54,7 +52,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region ManagementUri
 
         // GET: ManagementUris/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -97,7 +95,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: ManagementUris/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -115,7 +113,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: ManagementUris/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.ManagementUri managementUri)
+        public ActionResult Edit(long id, Models.Core.ManagementUri managementUri)
         {
             try
             {
@@ -146,7 +144,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: ManagementUris/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.ManagementUri apiItem = null;
             try
@@ -159,7 +157,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
             }
         }
 

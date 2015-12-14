@@ -2,6 +2,6 @@
 
 @foreach(biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in Model){
     <script type="text/javascript">
-        $.notify("@note.Message", "@note.Level");
+        $.notify("@note.Message.Replace("\r\n"," ")", "@note.Level");
     </script>
 }

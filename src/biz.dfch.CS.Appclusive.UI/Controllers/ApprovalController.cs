@@ -62,7 +62,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Approval
 
         // GET: Approvals/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             Models.Core.Approval approval = new Models.Core.Approval();
             try
@@ -81,7 +81,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Approvals/Approve/5
-        public ActionResult Approve(int id)
+        public ActionResult Approve(long id)
         {
             Models.Core.Approval approval = new Models.Core.Approval();
             try
@@ -101,7 +101,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Approvals/Decline/5
-        public ActionResult Decline(int id)
+        public ActionResult Decline(long id)
         {
             Models.Core.Approval approval = new Models.Core.Approval();
             try
@@ -122,18 +122,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Approvals/Approve/5
         [HttpPost]
-        public ActionResult Approve(int id, Models.Core.Approval approval)
+        public ActionResult Approve(long id, Models.Core.Approval approval)
         {
             return Edit(id, approval);
         }
         // POST: Approvals/Decline/5
         [HttpPost]
-        public ActionResult Decline(int id, Models.Core.Approval approval)
+        public ActionResult Decline(long id, Models.Core.Approval approval)
         {
             return Edit(id, approval);
         }
 
-        private ActionResult Edit(int id, Models.Core.Approval approval)
+        private ActionResult Edit(long id, Models.Core.Approval approval)
         {
             try
             {

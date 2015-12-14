@@ -21,6 +21,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -31,16 +32,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                List<Api.Core.Cart> items;
-                if (pageNr > 1)
-                {
-                    items = CoreRepository.Carts.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                else
-                {
-                    items = CoreRepository.Carts.Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                QueryOperationResponse<Api.Core.Cart> items = CoreRepository.Carts
+                        .AddQueryOption("$inlinecount", "allpages")
+                        .AddQueryOption("$top", PortalConfig.Pagesize)
+                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                        .Execute() as QueryOperationResponse<Api.Core.Cart>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Cart>>(items));
             }
             catch (Exception ex)
@@ -53,7 +51,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Cart
 
         // GET: Carts/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -68,7 +66,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Carts/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -84,7 +82,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Carts/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Cart cart)
+        public ActionResult Edit(long id, Models.Core.Cart cart)
         {
             try
             {
@@ -113,7 +111,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Carts/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Cart apiItem = null;
             try
@@ -126,11 +124,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem));
             }
         }
         
-        public ActionResult CheckoutCart(int id)
+        public ActionResult CheckoutCart(long id)
         {
             try
             {
@@ -166,7 +164,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region edit CartItems
 
-        public ActionResult ItemDetails(int id)
+        public ActionResult ItemDetails(long id)
         {
             try
             {
@@ -181,7 +179,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Carts/Edit/5
-        public ActionResult ItemEdit(int id)
+        public ActionResult ItemEdit(long id)
         {
             try
             {
@@ -198,7 +196,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Carts/ItemEdit/5
         [HttpPost]
-        public ActionResult ItemEdit(int id, Models.Core.CartItem cartItem)
+        public ActionResult ItemEdit(long id, Models.Core.CartItem cartItem)
         {
             try
             {
@@ -229,7 +227,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
 
         // GET: Carts/ItemDelete/5
-        public ActionResult ItemDelete(int id)
+        public ActionResult ItemDelete(long id)
         {
             Api.Core.CartItem apiItem = null;
             try

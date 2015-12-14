@@ -1,0 +1,90 @@
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@if (ViewBag.AjaxPaging != null && ViewBag.AjaxPaging.PageCount > 1)
+{
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.targetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+    <ul class="pagination">
+        <li>
+            @ViewBag.AjaxPagingRouteValues.pageNr = 10;
+            @Ajax.IconActionLink("fa fa-angle-double-left", ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+        </li>
+
+        @if (ViewBag.AjaxPaging.PageNr > 1)
+        {
+            <li>
+                @ViewBag.AjaxPagingRouteValues.pageNr = 1;
+                @Ajax.IconActionLink("fa fa-angle-double-left", ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+            </li>
+            <li>
+                @ViewBag.AjaxPagingRouteValues.pageNr = ViewBag.AjaxPaging.PageNr - 1;
+                @Ajax.IconActionLink("fa fa-angle-left", ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-double-left"></i></a>
+            </li>
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-left"></i></a>
+            </li>
+        }
+
+        @{
+        long start = Math.Max(1, ViewBag.AjaxPaging.PageNr - 2);
+        long end = Math.Min(ViewBag.AjaxPaging.PageCount, ViewBag.AjaxPaging.PageNr + 2);
+        }
+
+        @if (start > 1)
+        {
+            <li class="disabled">
+                <a class="disabled">...</a>
+            </li>
+        }
+
+        @for (long i = start; i <= end; i++)
+        {
+            if (i == ViewBag.AjaxPaging.PageNr)
+            {
+                <li class="active">
+                    @ViewBag.AjaxPagingRouteValues.pageNr = i;
+                    @Ajax.ActionLink(@i, ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+                </li>
+            }
+            else
+            {
+                <li>
+                    @ViewBag.AjaxPagingRouteValues.pageNr = i;
+                    @Ajax.ActionLink(@i, ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+                </li>
+            }
+        }
+        @if (end < ViewBag.AjaxPaging.PageCount - 1)
+        {
+            <li class="disabled">
+                <a class="disabled">...</a>
+            </li>
+        }
+
+        @if (ViewBag.AjaxPaging.HasMore)
+        {
+            int nextPage = ViewBag.AjaxPaging.PageNr + 1;
+            <li>
+                @ViewBag.AjaxPagingRouteValues.pageNr = nextPage;
+                @Ajax.IconActionLink("fa fa-angle-right", ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+            </li>
+            <li>
+                @ViewBag.AjaxPagingRouteValues.pageNr = ViewBag.AjaxPaging.PageCount;
+                @Ajax.IconActionLink("fa fa-angle-double-right", ViewBag.AjaxPagingAction, ViewBag.AjaxPagingRouteValues, ajaxOptions, null)
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-right"></i></a>
+            </li>
+            <li class="disabled">
+                <a href="@Url.Action("Index", new { pageNr = ViewBag.AjaxPaging.PageCount })"><i class="fa fa-angle-double-right"></i></a>
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,70 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CimiTarget
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " details";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CimiId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CimiId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CimiType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CimiType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CatalogueItemId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CatalogueItemId)
+                </dd>
+
+            </dl>
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    @if (Model.Id > 0)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+    }
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+</p>

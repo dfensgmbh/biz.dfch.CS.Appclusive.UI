@@ -43,6 +43,9 @@
                             <li>@Html.ActionLink(@GeneralResources.Gate, "Index", "Gates")</li>
                             <li>@Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris")</li>
                             <li>@Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Ace, "Index", "Aces")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Acl, "Index", "Acls")</li>
+                            <li>@Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres")</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -56,6 +59,19 @@
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Mocked <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>--- mocked entities ---</li>
+                            <li>@Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Customer, "Index", "Customers")</li>
+                            <li>@Html.ActionLink(@GeneralResources.User, "Index", "Users")</li>
+                            <li>@Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets")</li>
+                            <li>@Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             VDI <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -64,6 +80,7 @@
                         </ul>
                     </li>
                     <li>@Html.ActionLink(@GeneralResources.About, "About", "Home")</li>
+                    <li>@Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
             </div>

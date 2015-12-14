@@ -1,0 +1,34 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Tenant
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " edit";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Id)</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#tenants">@GeneralResources.Children</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">            
+            @Html.Partial("FormPartial", Model)
+        </div>
+        <div id="tenants" class="tab-pane fade">
+            @Html.Partial("TenantList", Model.Children)
+        </div>
+    </div>
+</div>
+<p>
+    <hr />
+    @if (null != Model.Id)
+    {
+        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id.ToString() })"><i class="fa fa-pencil "></i> @GeneralResources.CancelLink</a>
+    }
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+</p>

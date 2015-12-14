@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -156,11 +156,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AceController.cs" />
+    <Compile Include="Controllers\AclController.cs" />
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\SpecialOperationsController.cs" />
+    <Compile Include="Controllers\CimiTargetsController.cs" />
+    <Compile Include="Controllers\ContractMappingsController.cs" />
+    <Compile Include="Controllers\CostCentersController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
@@ -174,6 +181,12 @@
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TenantsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UsersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,14 +195,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AjaxHelperExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
+    <Compile Include="Models\AppcusiveEntityBase.cs" />
+    <Compile Include="Models\Core\Ace.cs" />
+    <Compile Include="Models\Core\AceActionEnum.cs" />
+    <Compile Include="Models\Core\Acl.cs" />
     <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
     <Compile Include="Models\Core\Cart.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
+    <Compile Include="Models\Core\CimiTarget.cs" />
+    <Compile Include="Models\Core\ContractMapping.cs" />
     <Compile Include="Models\Core\CostCentre.cs" />
+    <Compile Include="Models\Core\Customer.cs" />
     <Compile Include="Models\Core\EntityType.cs" />
     <Compile Include="Models\Core\Gate.cs" />
     <Compile Include="Models\Core\Job.cs" />
@@ -200,6 +221,8 @@
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\Core\Tenant.cs" />
+    <Compile Include="Models\Core\User.cs" />
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
@@ -208,8 +231,12 @@
     <Compile Include="Models\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
+    <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\PortalConfig.cs" />
+    <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
+    <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
+    <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -217,6 +244,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="_mocked\CimiTarget.cs" />
+    <Compile Include="_mocked\ContractMapping.cs" />
+    <Compile Include="_mocked\CoreRepositoryMock.cs" />
+    <Compile Include="_mocked\Extension.cs" />
+    <Compile Include="_mocked\QueryOperationResponse.cs" />
+    <Compile Include="_mocked\Tenant.cs" />
+    <Compile Include="_mocked\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -361,10 +395,59 @@
     <Content Include="Views\Products\CatalogueItemList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\AuditTrails\Details.cshtml" />
+    <Compile Include="_mocked\Customer.cs" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\FormPartial.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Shared\ContractMappingList.cshtml" />
+    <Content Include="Views\Shared\TenantList.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Tenants\Create.cshtml" />
+    <Content Include="Views\Tenants\Details.cshtml" />
+    <Content Include="Views\Tenants\Edit.cshtml" />
+    <Content Include="Views\Tenants\FormPartial.cshtml" />
+    <Content Include="Views\Tenants\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\FormPartial.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Guid.cshtml" />
+    <Content Include="Views\ContractMappings\Create.cshtml" />
+    <Content Include="Views\ContractMappings\Details.cshtml" />
+    <Content Include="Views\ContractMappings\Edit.cshtml" />
+    <Content Include="Views\ContractMappings\FormPartial.cshtml" />
+    <Content Include="Views\ContractMappings\Index.cshtml" />
+    <Content Include="Views\CimiTargets\Index.cshtml" />
+    <Content Include="Views\CimiTargets\Details.cshtml" />
+    <Content Include="Views\CostCentres\Create.cshtml" />
+    <Content Include="Views\CostCentres\Details.cshtml" />
+    <Content Include="Views\CostCentres\Edit.cshtml" />
+    <Content Include="Views\CostCentres\FormPartial.cshtml" />
+    <Content Include="Views\CostCentres\Index.cshtml" />
+    <Content Include="Views\Aces\Create.cshtml" />
+    <Content Include="Views\Aces\Details.cshtml" />
+    <Content Include="Views\Aces\Edit.cshtml" />
+    <Content Include="Views\Aces\FormPartial.cshtml" />
+    <Content Include="Views\Aces\Index.cshtml" />
+    <Content Include="Views\Acls\Create.cshtml" />
+    <Content Include="Views\Acls\Details.cshtml" />
+    <Content Include="Views\Acls\Edit.cshtml" />
+    <Content Include="Views\Acls\FormPartial.cshtml" />
+    <Content Include="Views\Acls\Index.cshtml" />
+    <Content Include="Views\Shared\AceList.cshtml" />
+    <Content Include="Views\SpecialOperations\Index.cshtml" />
+    <Content Include="Views\SpecialOperations\SetCreatedBy.cshtml" />
+    <Content Include="Views\SpecialOperations\SetTenant.cshtml" />
+    <Content Include="Views\SpecialOperations\ClearAuditLog.cshtml" />
+    <Content Include="Views\SpecialOperations\ReloadProducts.cshtml" />
+    <Content Include="Views\SpecialOperations\RaiseUpdateConfigurationEvent.cshtml" />
+    <Content Include="Views\Catalogues\ItemIndex.cshtml" />
+    <Content Include="Views\Shared\AjaxPaging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -399,7 +482,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
+          <IISUrl>http://localhost:60755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

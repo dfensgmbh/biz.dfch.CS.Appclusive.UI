@@ -1,0 +1,15 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem>
+
+<div id="catalogItemListAjax">
+    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+    @Html.Partial("Messages")
+
+    @Html.Partial("ItemList", Model)
+    
+    @{
+        ViewBag.AjaxPagingTargetId = "catalogItemListAjax";
+        ViewBag.AjaxPagingAction = "ItemsIndex";
+        ViewBag.AjaxPagingRouteValues = new { catalogueId = 1, pageNr = 1 };
+    }
+    @Html.Partial("Paging", Model)
+</div>

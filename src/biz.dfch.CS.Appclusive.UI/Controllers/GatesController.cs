@@ -20,6 +20,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -31,16 +32,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                List<Api.Core.Gate> items;
-                if (pageNr > 1)
-                {
-                    items = CoreRepository.Gates.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                else
-                {
-                    items = CoreRepository.Gates.Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                QueryOperationResponse<Api.Core.Gate> items = CoreRepository.Gates
+                        .AddQueryOption("$inlinecount", "allpages")
+                        .AddQueryOption("$top", PortalConfig.Pagesize)
+                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                        .Execute() as QueryOperationResponse<Api.Core.Gate>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Gate>>(items));
             }
             catch (Exception ex)
@@ -53,7 +51,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Gate
 
         // GET: Gates/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             try
             {
@@ -94,7 +92,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Gates/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
@@ -104,13 +102,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.KeyNameValue());
+                return View(new Models.Core.Gate());
             }
         }
 
         // POST: Gates/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Gate gate)
+        public ActionResult Edit(long id, Models.Core.Gate gate)
         {
             try
             {
@@ -138,7 +136,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Gates/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Gate apiItem = null;
             try
@@ -151,7 +149,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Gate>(apiItem));
             }
         }
 

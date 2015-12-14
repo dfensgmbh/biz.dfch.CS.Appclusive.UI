@@ -20,6 +20,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -30,16 +31,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                List<Api.Core.Order> items;
-                if (pageNr > 1)
-                {
-                    items = CoreRepository.Orders.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                else
-                {
-                    items = CoreRepository.Orders.Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                QueryOperationResponse<Api.Core.Order> items = CoreRepository.Orders
+                        .AddQueryOption("$inlinecount", "allpages")
+                        .AddQueryOption("$top", PortalConfig.Pagesize)
+                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                        .Execute() as QueryOperationResponse<Api.Core.Order>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Order>>(items));
             }
             catch (Exception ex)
@@ -52,7 +50,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Order
 
         // GET: Orders/Details/5
-        public ActionResult Details(int id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -70,7 +68,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Orders/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Order apiItem = null;
             try
@@ -91,14 +89,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region edit OrderItems
 
-        public ActionResult ItemDetails(int id)
+        public ActionResult ItemDetails(long id)
         {
             var item = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.OrderItem>(item));
         }
 
         // GET: Orders/Delete/5
-        public ActionResult ItemDelete(int id)
+        public ActionResult ItemDelete(long id)
         {
             Api.Core.OrderItem apiItem = null;
             try
