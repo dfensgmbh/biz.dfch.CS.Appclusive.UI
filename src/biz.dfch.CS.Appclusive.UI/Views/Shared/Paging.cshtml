@@ -1,34 +1,58 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
-@if (ViewBag.Paging != null)
+@if (ViewBag.Paging != null && ViewBag.Paging.PageCount > 1)
 {
     <ul class="pagination">
-
-        @*@for (int i = 1; i <= (int)ViewBag.Paging.PageNr; i++)
-            {
-                if (i == ViewBag.Paging.PageNr)
-                {
-                    <li class="active">
-                        <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
-                    </li>
-                }
-            }*@
         @if (ViewBag.Paging.PageNr > 1)
         {
+            <li>
+                <a href="@Url.Action("Index", new { pageNr = 1 })"><i class="fa fa-angle-double-left"></i></a>
+            </li>
             int prevPage = ViewBag.Paging.PageNr - 1;
             <li>
-                <a href="@Url.Action("Index", new { pageNr = prevPage })"><i class="fa fa-chevron-left"></i> @GeneralResources.Previous</a>
+                <a href="@Url.Action("Index", new { pageNr = prevPage })"><i class="fa fa-angle-left"></i></a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"><i class="fa fa-chevron-left"></i> @GeneralResources.Previous</a>
+                <a class="disabled"><i class="fa fa-angle-double-left"></i></a>
+            </li>
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-left"></i></a>
+            </li>
+        }
+
+        @{
+        long start = Math.Max(1, ViewBag.Paging.PageNr - 2);
+        long end = Math.Min(ViewBag.Paging.PageCount, ViewBag.Paging.PageNr + 2);
+        }
+
+        @if (start > 1)
+        {
+            <li class="disabled">
+                <a class="disabled">...</a>
+            </li>
+        }
+        
+        @for (long i = start; i <= end; i++)
+        {
+            if (i == ViewBag.Paging.PageNr)
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                </li>
+            }
+        }
+        @if (end < ViewBag.Paging.PageCount - 1)
+        {
+            <li class="disabled">
+                <a class="disabled">...</a>
             </li>
         }
 
@@ -36,13 +60,19 @@
         {
             int nextPage = ViewBag.Paging.PageNr + 1;
             <li>
-                <a href="@Url.Action("Index", new { pageNr = nextPage })">@GeneralResources.Next <i class="fa fa-chevron-right"></i></a>
+                <a href="@Url.Action("Index", new { pageNr = nextPage })"><i class="fa fa-angle-right"></i></a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", new { pageNr = ViewBag.Paging.PageCount })"><i class="fa fa-angle-double-right"></i></a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled">@GeneralResources.Next <i class="fa fa-chevron-right"></i></a>
+                <a class="disabled"><i class="fa fa-angle-right"></i></a>
+            </li>
+            <li class="disabled">
+                <a href="@Url.Action("Index", new { pageNr = ViewBag.Paging.PageCount })"><i class="fa fa-angle-double-right"></i></a>
             </li>
         }
     </ul>

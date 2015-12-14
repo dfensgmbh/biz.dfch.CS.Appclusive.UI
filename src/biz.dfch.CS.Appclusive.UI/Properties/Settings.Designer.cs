@@ -25,7 +25,7 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://appclusive/Appclusive/api/Diagnostics")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://172.19.115.33:80/Appclusive/api/Diagnostics")]
         public string AppculsiveApiDiagnosticsUrl {
             get {
                 return ((string)(this["AppculsiveApiDiagnosticsUrl"]));
@@ -34,10 +34,19 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://appclusive/Appclusive/api/Core")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://172.19.115.33:80/Appclusive/api/Core")]
         public string AppculsiveApiCoreUrl {
             get {
                 return ((string)(this["AppculsiveApiCoreUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int Pagesize {
+            get {
+                return ((int)(this["Pagesize"]));
             }
         }
     }

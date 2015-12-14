@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -11,20 +12,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
 
         // GET: ManagementCredentials
-        public ActionResult Index(int pageNr=1)
+        public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                List<Api.Core.ManagementCredential> items;
-                if (pageNr > 1)
-                {
-                    items = CoreRepository.ManagementCredentials.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                else
-                {
-                    items = CoreRepository.ManagementCredentials.Take(PortalConfig.Pagesize+1).ToList();
-                }
-                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                QueryOperationResponse<Api.Core.ManagementCredential> items = CoreRepository.ManagementCredentials
+                        .AddQueryOption("$inlinecount", "allpages")
+                        .AddQueryOption("$top", PortalConfig.Pagesize)
+                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                        .Execute() as QueryOperationResponse<Api.Core.ManagementCredential>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementCredential>>(items));
             }
             catch (Exception ex)

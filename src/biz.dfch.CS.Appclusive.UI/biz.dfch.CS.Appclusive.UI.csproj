@@ -247,6 +247,7 @@
     <Compile Include="_mocked\ContractMapping.cs" />
     <Compile Include="_mocked\CoreRepositoryMock.cs" />
     <Compile Include="_mocked\Extension.cs" />
+    <Compile Include="_mocked\QueryOperationResponse.cs" />
     <Compile Include="_mocked\Tenant.cs" />
     <Compile Include="_mocked\User.cs" />
   </ItemGroup>
