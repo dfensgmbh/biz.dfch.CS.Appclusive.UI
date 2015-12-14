@@ -402,7 +402,13 @@
   <data name="SpecialOperations" xml:space="preserve">
     <value>Special operations</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="OperationSetTenantHelpText" xml:space="preserve">
     <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
   </data>
 </root>

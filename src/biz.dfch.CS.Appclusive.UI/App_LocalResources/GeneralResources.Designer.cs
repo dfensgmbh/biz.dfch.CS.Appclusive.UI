@@ -646,6 +646,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Node (Inventory).
         /// </summary>
         public static string Node {
@@ -759,6 +768,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ParentId {
             get {
                 return ResourceManager.GetString("ParentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         

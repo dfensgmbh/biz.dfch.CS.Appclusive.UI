@@ -1,4 +1,5 @@
-﻿@if (ViewBag.Paging != null)
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@if (ViewBag.Paging != null)
 {
     <ul class="pagination">
 
@@ -21,13 +22,13 @@
         {
             int prevPage = ViewBag.Paging.PageNr - 1;
             <li>
-                <a href="@Url.Action("Index", new { pageNr = prevPage })"> previous </a>
+                <a href="@Url.Action("Index", new { pageNr = prevPage })">@GeneralResources.Previous</a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"> previous </a>
+                <a class="disabled">@GeneralResources.Previous</a>
             </li>
         }
 
@@ -35,13 +36,13 @@
         {
             int nextPage = ViewBag.Paging.PageNr + 1;
             <li>
-                <a href="@Url.Action("Index", new { pageNr = nextPage })"> next </a>
+                <a href="@Url.Action("Index", new { pageNr = nextPage })">@GeneralResources.Next</a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"> next </a>
+                <a class="disabled">@GeneralResources.Next</a>
             </li>
         }
     </ul>
