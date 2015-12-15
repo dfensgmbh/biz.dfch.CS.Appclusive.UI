@@ -23,7 +23,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Node : ViewModelBase, IAppcusiveEntityBase
+    public class Node : AppcusiveEntityViewModelBase
     {
         public Node()
         {
@@ -35,21 +35,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         public List<Node> Children { get; set; }
         
-        public DateTimeOffset Created { get; set; }
-        
-        public string CreatedBy { get; set; }
-        
-        public string Description { get; set; }
-        
-        public long Id { get; set; }
-        
         public List<Assoc> IncomingAssocs { get; set; }
-        
-        public DateTimeOffset Modified { get; set; }
-        
-        public string ModifiedBy { get; set; }
-        
-        public string Name { get; set; }
         
         public List<Assoc> OutgoingAssocs { get; set; }
         
@@ -59,10 +45,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
-        
-        public byte[] RowVersion { get; set; }
-        
-        public string Tid { get; set; }
         
         public string Type { get; set; }
 

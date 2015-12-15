@@ -133,9 +133,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     apiItem.Name = product.Name;
                     apiItem.Description = product.Description;
                     apiItem.Parameters = product.Parameters;
-                    apiItem.Version = product.Version;
                     apiItem.EndOfLife = product.EndOfLife;
-                    apiItem.EndOfSale = product.EndOfSale;
+                    apiItem.EntityKindId = product.EntityKindId;
                     apiItem.ValidFrom = product.ValidFrom;
                     apiItem.ValidUntil = product.ValidUntil;
                     apiItem.Type = product.Type;

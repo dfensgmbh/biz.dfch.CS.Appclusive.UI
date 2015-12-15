@@ -30,9 +30,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models
             
             entity.Created = DateTimeOffset.Now;
             entity.Modified = DateTimeOffset.Now;
-            entity.ModifiedBy = "admin-ui";
-            entity.CreatedBy = "admin-ui";
-            entity.Tid = "11111111-1111-1111-1111-111111111111";
+            entity.CreatedById = 1;
+            entity.ModifiedById = 1;
+            entity.Tid = System.Guid.Parse( "11111111-1111-1111-1111-111111111111");
         }
     }
 }

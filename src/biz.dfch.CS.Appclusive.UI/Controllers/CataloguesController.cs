@@ -326,7 +326,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 apiItem.Name = catalogueItem.Name;
                 apiItem.ValidFrom = catalogueItem.ValidFrom;
                 apiItem.ValidUntil = catalogueItem.ValidUntil;
-                apiItem.EndOfSale = catalogueItem.EndOfSale;
                 apiItem.EndOfLife = catalogueItem.EndOfLife;
                 apiItem.Description = catalogueItem.Description;
                 apiItem.Parameters = catalogueItem.Parameters;

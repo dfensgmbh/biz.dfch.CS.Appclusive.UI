@@ -58,8 +58,8 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Gate, Models.Core.Gate>();
             Mapper.CreateMap<Models.Core.Gate, Api.Core.Gate>();
 
-            Mapper.CreateMap<Api.Core.EntityType, Models.Core.EntityType>(); 
-            Mapper.CreateMap<Models.Core.EntityType, Api.Core.EntityType>();
+            Mapper.CreateMap<Api.Core.EntityKind, Models.Core.EntityKind>();
+            Mapper.CreateMap<Models.Core.EntityKind, Api.Core.EntityKind>();
 
             Mapper.CreateMap<Api.Core.ManagementUri, Models.Core.ManagementUri>();
             Mapper.CreateMap<Models.Core.ManagementUri, Api.Core.ManagementUri>();
@@ -88,8 +88,8 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.CostCentre, Models.Core.CostCentre>();
             Mapper.CreateMap<Models.Core.CostCentre, Api.Core.CostCentre>();
 
-            Mapper.CreateMap<Api.Core.CimiTarget, Models.Core.CimiTarget>();
-            Mapper.CreateMap<Models.Core.CimiTarget, Api.Core.CimiTarget>();
+            Mapper.CreateMap<Api.Cmp.CimiTarget, Models.Cmp.CimiTarget>();
+            Mapper.CreateMap<Models.Cmp.CimiTarget, Api.Cmp.CimiTarget>();
             
             Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
             Mapper.CreateMap<Models.Core.Product, Api.Core.Product>();

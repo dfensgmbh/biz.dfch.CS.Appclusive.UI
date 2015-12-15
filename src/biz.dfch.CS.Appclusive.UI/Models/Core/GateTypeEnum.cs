@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class CostCentre : AppcusiveEntityViewModelBase
+    public enum GateTypeEnum
     {
-
+        Default = 0
+        ,
+        Mutex = 0
+        ,
+        SpinLock
+        ,
+        Semaphore
+        ,
+        Barrier
     }
 }

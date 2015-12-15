@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
-using biz.dfch.CS.Appclusive.UI._mocked;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CimiTargetsController : CoreControllerBase
+    public class CimiTargetsController : CmpControllerBase
     {
 
         // GET: CimiTargets
@@ -16,19 +16,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                QueryOperationResponse<Api.Core.CimiTarget> items = CoreRepository.CimiTargets
+                QueryOperationResponse<Api.Cmp.CimiTarget> items = CmpRepository.CimiTargets
                         .AddQueryOption("$inlinecount", "allpages")
                         .AddQueryOption("$top", PortalConfig.Pagesize)
                         .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.CimiTarget>;
+                        .Execute() as QueryOperationResponse<Api.Cmp.CimiTarget>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.CimiTarget>>(items));
+                return View(AutoMapper.Mapper.Map<List<Models.Cmp.CimiTarget>>(items));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.CimiTarget>());
+                return View(new List<Models.Cmp.CimiTarget>());
             }
         }
 
@@ -37,13 +37,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.CimiTargets.Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.CimiTarget>(item));
+                var item = CmpRepository.CimiTargets.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Cmp.CimiTarget>(item));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.CimiTarget());
+                return View(new Models.Cmp.CimiTarget());
             }
         }
     }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Customer : AppcusiveEntityBase
+    public class Customer : AppcusiveEntityViewModelBase
     {
         public List<ContractMapping> ContractMappings { get; set; }
 

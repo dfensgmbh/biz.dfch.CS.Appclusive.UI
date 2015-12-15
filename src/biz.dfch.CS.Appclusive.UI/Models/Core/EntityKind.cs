@@ -21,32 +21,14 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class EntityType : ViewModelBase, IAppcusiveEntityBase
+    public class EntityKind : AppcusiveEntityViewModelBase
     {
-        public EntityType()
+        public EntityKind()
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
         }
 
-        public DateTimeOffset Created { get; set; }
-        
-        public string CreatedBy { get; set; }
-        
-        public string Description { get; set; }
-        
-        public long Id { get; set; }
-        
-        public DateTimeOffset Modified { get; set; }
-        
-        public string ModifiedBy { get; set; }
-        
-        public string Name { get; set; }
-        
         public string Parameters { get; set; }
-        
-        public byte[] RowVersion { get; set; }
-        
-        public string Tid { get; set; }
         
         public string Version { get; set; }
 

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.Api.Core
 {
-    public class Customer : AppcusiveEntityBase
+    public class Customer : AppcusiveEntityViewModelBase
     {
         public Customer():base()
         {

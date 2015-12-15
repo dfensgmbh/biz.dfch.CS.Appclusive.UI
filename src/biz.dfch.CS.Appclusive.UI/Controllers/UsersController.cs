@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
-using biz.dfch.CS.Appclusive.UI._mocked;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -100,7 +100,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 apiItem.ExternalId = user.ExternalId;
                 apiItem.Name = user.Name;
                 apiItem.Description = user.Description;
-                apiItem.Type = user.Type;
+                apiItem.ExternalType = user.ExternalType;
+                apiItem.Mail = user.Mail;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);

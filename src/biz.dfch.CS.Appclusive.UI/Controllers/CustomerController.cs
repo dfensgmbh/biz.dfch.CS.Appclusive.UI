@@ -8,7 +8,7 @@ using biz.dfch.CS.Appclusive.UI._mocked;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CustomersController : CoreControllerBase
+    public class CustomersController : CoreControllerBaseMock
     {
 
         // GET: Customers

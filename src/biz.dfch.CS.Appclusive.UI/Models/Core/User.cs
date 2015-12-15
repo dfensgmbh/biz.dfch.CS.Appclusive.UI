@@ -6,12 +6,16 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class User : AppcusiveEntityBase
+    public class User : AppcusiveEntityViewModelBase
     {
         [Required]
         public string ExternalId { get; set; }
+
         [Required]
-        public string Type { get; set; }
+        public string ExternalType { get; set; }
+
+        [Required]
+        public string Mail { get; set; }
 
     }
 }

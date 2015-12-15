@@ -7,7 +7,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.Api.Core
 {
-    public class ContractMapping : AppcusiveEntityBase
+    public class ContractMapping : AppcusiveEntityViewModelBase
     {
         public ContractMapping()
         {

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Acl : AppcusiveEntityBase
+    public class Acl : AppcusiveEntityViewModelBase
     {
         public Acl() : base()
         {

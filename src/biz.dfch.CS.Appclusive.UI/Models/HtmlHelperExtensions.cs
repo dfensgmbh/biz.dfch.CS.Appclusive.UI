@@ -18,14 +18,32 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public static class HtmlHelperExtensions
     {
+        
+        public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes){
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (string enumName in Enum.GetNames(enumType))
+            {
+                string enumText = biz.dfch.CS.Appclusive.UI.App_LocalResources.GeneralResources.ResourceManager.GetString(enumType.Name + "_" + enumName);
+                items.Add(new SelectListItem() {
+                    Text = String.IsNullOrEmpty(enumText) ? enumName : enumText,
+                    Value = enumName 
+                });
+            
+            }
+            SelectList selects = new SelectList(items);
+            
+            return htmlHelper.DropDownListFor<TModel, TProperty>(expression, selects, htmlAttributes);
+        }
 
         /// <summary>
         /// Delegate script/resource/etc injection until the end of the page

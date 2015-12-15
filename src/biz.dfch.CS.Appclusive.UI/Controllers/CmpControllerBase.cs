@@ -24,30 +24,30 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CoreControllerBase : Controller
+    public class CmpControllerBase : Controller
     {
 
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
-        protected biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
+        protected biz.dfch.CS.Appclusive.Api.Cmp.Cmp CmpRepository
         {
             get
             {
-                if (coreRepository == null)
+                if (cmpRepository == null)
                 {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    coreRepository.IgnoreMissingProperties = true;
-                    coreRepository.Format.UseJson();
-                    coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
+                    cmpRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    cmpRepository.IgnoreMissingProperties = true;
+                    cmpRepository.Format.UseJson();
+                    cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                 }
-                return coreRepository;
+                return cmpRepository;
             }
         }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
+        private biz.dfch.CS.Appclusive.Api.Cmp.Cmp cmpRepository;
 
-        public CoreControllerBase()
+        public CmpControllerBase()
             : base()
         {
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();

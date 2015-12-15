@@ -6,7 +6,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Ace : AppcusiveEntityBase
+    public class Ace : AppcusiveEntityViewModelBase
     {
         [Required]
         [MaxLength(64)]

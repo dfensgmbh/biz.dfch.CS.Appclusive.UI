@@ -7,7 +7,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.Api.Core
 {
-    public class User : AppcusiveEntityBase
+    public class User : AppcusiveEntityViewModelBase
     {
         [Required]
         public string ExternalId { get; set; }

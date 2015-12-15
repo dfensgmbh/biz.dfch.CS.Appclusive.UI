@@ -250,6 +250,33 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        public static string CatalogueStatusEnum_Hidden {
+            get {
+                return ResourceManager.GetString("CatalogueStatusEnum_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published.
+        /// </summary>
+        public static string CatalogueStatusEnum_Published {
+            get {
+                return ResourceManager.GetString("CatalogueStatusEnum_Published", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revoked.
+        /// </summary>
+        public static string CatalogueStatusEnum_Revoked {
+            get {
+                return ResourceManager.GetString("CatalogueStatusEnum_Revoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check out cart.
         /// </summary>
         public static string CheckOutCart {
@@ -403,15 +430,6 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End of sale.
-        /// </summary>
-        public static string EndOfSale {
-            get {
-                return ResourceManager.GetString("EndOfSale", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Endpoint.
         /// </summary>
         public static string Endpoint {
@@ -421,11 +439,11 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity type.
+        ///   Looks up a localized string similar to Entity kind.
         /// </summary>
-        public static string EntityType {
+        public static string EntityKind {
             get {
-                return ResourceManager.GetString("EntityType", resourceCulture);
+                return ResourceManager.GetString("EntityKind", resourceCulture);
             }
         }
         
@@ -453,6 +471,69 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string GateHelpText {
             get {
                 return ResourceManager.GetString("GateHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free.
+        /// </summary>
+        public static string GateStatusEnum_Free {
+            get {
+                return ResourceManager.GetString("GateStatusEnum_Free", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locked.
+        /// </summary>
+        public static string GateStatusEnum_Locked {
+            get {
+                return ResourceManager.GetString("GateStatusEnum_Locked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barrier.
+        /// </summary>
+        public static string GateTypeEnum_Barrier {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Barrier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string GateTypeEnum_Default {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mutex.
+        /// </summary>
+        public static string GateTypeEnum_Mutex {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Mutex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semaphore.
+        /// </summary>
+        public static string GateTypeEnum_Semaphore {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Semaphore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpinLock.
+        /// </summary>
+        public static string GateTypeEnum_SpinLock {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_SpinLock", resourceCulture);
             }
         }
         
@@ -579,6 +660,78 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Job {
             get {
                 return ResourceManager.GetString("Job", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canceled.
+        /// </summary>
+        public static string JobStatusEnum_Canceled {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        public static string JobStatusEnum_Completed {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        public static string JobStatusEnum_Created {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faulted.
+        /// </summary>
+        public static string JobStatusEnum_Faulted {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Faulted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        public static string JobStatusEnum_Running {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitingForActivation.
+        /// </summary>
+        public static string JobStatusEnum_WaitingForActivation {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_WaitingForActivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitingForChildrenToComplete.
+        /// </summary>
+        public static string JobStatusEnum_WaitingForChildrenToComplete {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_WaitingForChildrenToComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitingToRun.
+        /// </summary>
+        public static string JobStatusEnum_WaitingToRun {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_WaitingToRun", resourceCulture);
             }
         }
         

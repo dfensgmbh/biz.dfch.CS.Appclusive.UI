@@ -7,7 +7,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.Api.Core
 {
-    public class CimiTarget : AppcusiveEntityBase
+    public class CimiTarget : AppcusiveEntityViewModelBase
     {
         public CimiTarget()
         {

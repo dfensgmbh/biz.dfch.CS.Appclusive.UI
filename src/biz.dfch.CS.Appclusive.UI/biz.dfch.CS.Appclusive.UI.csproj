@@ -161,6 +161,8 @@
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\CmpControllerBase.cs" />
+    <Compile Include="Controllers\CoreControllerBaseMock.cs" />
     <Compile Include="Controllers\SpecialOperationsController.cs" />
     <Compile Include="Controllers\CimiTargetsController.cs" />
     <Compile Include="Controllers\ContractMappingsController.cs" />
@@ -172,7 +174,7 @@
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
     <Compile Include="Controllers\ManagementUrisController.cs" />
-    <Compile Include="Controllers\EntityTypesController.cs" />
+    <Compile Include="Controllers\EntityKindsController.cs" />
     <Compile Include="Controllers\ManagementCredentialController.cs" />
     <Compile Include="Controllers\KeyNameValuesController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
@@ -197,7 +199,8 @@
     </Compile>
     <Compile Include="Models\AjaxHelperExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
-    <Compile Include="Models\AppcusiveEntityBase.cs" />
+    <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
+    <Compile Include="Models\Cmp\CimiTarget.cs" />
     <Compile Include="Models\Core\Ace.cs" />
     <Compile Include="Models\Core\AceActionEnum.cs" />
     <Compile Include="Models\Core\Acl.cs" />
@@ -207,12 +210,14 @@
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
-    <Compile Include="Models\Core\CimiTarget.cs" />
+    <Compile Include="Models\Core\CatalogueStatusEnum.cs" />
     <Compile Include="Models\Core\ContractMapping.cs" />
     <Compile Include="Models\Core\CostCentre.cs" />
     <Compile Include="Models\Core\Customer.cs" />
-    <Compile Include="Models\Core\EntityType.cs" />
+    <Compile Include="Models\Core\EntityKind.cs" />
     <Compile Include="Models\Core\Gate.cs" />
+    <Compile Include="Models\Core\GateStatusEnum.cs" />
+    <Compile Include="Models\Core\GateTypeEnum.cs" />
     <Compile Include="Models\Core\Job.cs" />
     <Compile Include="Models\Core\KeyNameValue.cs" />
     <Compile Include="Models\Core\ManagementCredential.cs" />
@@ -237,20 +242,27 @@
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
     <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
-    <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="_mocked\CimiTarget.cs" />
-    <Compile Include="_mocked\ContractMapping.cs" />
-    <Compile Include="_mocked\CoreRepositoryMock.cs" />
-    <Compile Include="_mocked\Extension.cs" />
-    <Compile Include="_mocked\QueryOperationResponse.cs" />
-    <Compile Include="_mocked\Tenant.cs" />
-    <Compile Include="_mocked\User.cs" />
+    <Compile Include="_mocked\ContractMapping.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\CoreRepositoryMock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\Customer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\Extension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\QueryOperationResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -350,8 +362,8 @@
     <Content Include="Views\KeyNameValues\Index.cshtml" />
     <Content Include="Views\Endpoints\Details.cshtml" />
     <Content Include="Views\Endpoints\Index.cshtml" />
-    <Content Include="Views\EntityTypes\Details.cshtml" />
-    <Content Include="Views\EntityTypes\Index.cshtml" />
+    <Content Include="Views\EntityKinds\Details.cshtml" />
+    <Content Include="Views\EntityKinds\Index.cshtml" />
     <Content Include="Views\ManagementCredentials\Details.cshtml" />
     <Content Include="Views\ManagementCredentials\Index.cshtml" />
     <Content Include="Views\ManagementUris\Details.cshtml" />
@@ -376,9 +388,9 @@
     <Content Include="Views\KeyNameValues\FormPartial.cshtml" />
     <Content Include="Views\Carts\VdiSave.cshtml" />
     <Content Include="Views\Carts\VdiCreate.cshtml" />
-    <Content Include="Views\EntityTypes\Create.cshtml" />
-    <Content Include="Views\EntityTypes\FormPartial.cshtml" />
-    <Content Include="Views\EntityTypes\Edit.cshtml" />
+    <Content Include="Views\EntityKinds\Create.cshtml" />
+    <Content Include="Views\EntityKinds\FormPartial.cshtml" />
+    <Content Include="Views\EntityKinds\Edit.cshtml" />
     <Content Include="Views\ManagementCredentials\FormPartial.cshtml" />
     <Content Include="Views\ManagementCredentials\Edit.cshtml" />
     <Content Include="Views\ManagementCredentials\Create.cshtml" />
@@ -395,7 +407,6 @@
     <Content Include="Views\Products\CatalogueItemList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\AuditTrails\Details.cshtml" />
-    <Compile Include="_mocked\Customer.cs" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\FormPartial.cshtml" />

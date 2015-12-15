@@ -24,39 +24,21 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Approval : ViewModelBase, IAppcusiveEntityBase
+    public class Approval : AppcusiveEntityViewModelBase
     {
         public Approval()
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
         }
 
-        public DateTimeOffset Created { get; set; }
-        
-        public string CreatedBy { get; set; }
-        
-        public string Description { get; set; }
-
         [Display(Name = "ExpiresAt", ResourceType = typeof(GeneralResources))] 
         public DateTimeOffset ExpiresAt { get; set; }
         
-        public long Id { get; set; }
-        
-        public DateTimeOffset Modified { get; set; }
-
-        public string ModifiedBy { get; set; }
-        
-        public string Name { get; set; }
-
         [Display(Name = "NotBefore", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset NotBefore { get; set; }
         
-        public byte[] RowVersion { get; set; }
-        
         public string Status { get; set; }
         
-        public string Tid { get; set; }
-
         #region approve/decline
 
         public const string DECLINED_STATUS_CHANGE = "Cancel";
@@ -98,9 +80,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             var jobs = coreRepository.Jobs.Where(j => j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval" & j.ReferencedItemId == this.Id.ToString());
             Api.Core.Job approvalJob = jobs.FirstOrDefault();
             Contract.Assert(null != approvalJob, "no approval-job available");
-            Contract.Assert(approvalJob.ParentId.HasValue, "no approval-job parent available");
+            Contract.Assert(approvalJob.ParentId>0, "no approval-job parent available");
 
-            jobs = coreRepository.Jobs.Where(j => j.Id == approvalJob.ParentId.Value && j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order");
+            jobs = coreRepository.Jobs.Where(j => j.Id == approvalJob.ParentId && j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order");
             Api.Core.Job orderJob = jobs.FirstOrDefault();
             Contract.Assert(null != orderJob, "no Order-job available");
 

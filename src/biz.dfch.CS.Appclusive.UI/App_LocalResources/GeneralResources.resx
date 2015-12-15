@@ -126,9 +126,6 @@
   <data name="EndOfLife" xml:space="preserve">
     <value>End of life</value>
   </data>
-  <data name="EndOfSale" xml:space="preserve">
-    <value>End of sale</value>
-  </data>
   <data name="ExpiresAt" xml:space="preserve">
     <value>Expires at</value>
   </data>
@@ -225,8 +222,8 @@
   <data name="CostCentre" xml:space="preserve">
     <value>Cost centre</value>
   </data>
-  <data name="EntityType" xml:space="preserve">
-    <value>Entity type</value>
+  <data name="EntityKind" xml:space="preserve">
+    <value>Entity kind</value>
   </data>
   <data name="Gate" xml:space="preserve">
     <value>Gate</value>
@@ -410,5 +407,59 @@
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>
+  </data>
+  <data name="CatalogueStatusEnum_Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="CatalogueStatusEnum_Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="CatalogueStatusEnum_Revoked" xml:space="preserve">
+    <value>Revoked</value>
+  </data>
+  <data name="GateStatusEnum_Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="GateStatusEnum_Locked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="GateTypeEnum_Barrier" xml:space="preserve">
+    <value>Barrier</value>
+  </data>
+  <data name="GateTypeEnum_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="GateTypeEnum_Mutex" xml:space="preserve">
+    <value>Mutex</value>
+  </data>
+  <data name="GateTypeEnum_Semaphore" xml:space="preserve">
+    <value>Semaphore</value>
+  </data>
+  <data name="GateTypeEnum_SpinLock" xml:space="preserve">
+    <value>SpinLock</value>
+  </data>
+  <data name="JobStatusEnum_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="JobStatusEnum_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="JobStatusEnum_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="JobStatusEnum_Faulted" xml:space="preserve">
+    <value>Faulted</value>
+  </data>
+  <data name="JobStatusEnum_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="JobStatusEnum_WaitingForActivation" xml:space="preserve">
+    <value>WaitingForActivation</value>
+  </data>
+  <data name="JobStatusEnum_WaitingForChildrenToComplete" xml:space="preserve">
+    <value>WaitingForChildrenToComplete</value>
+  </data>
+  <data name="JobStatusEnum_WaitingToRun" xml:space="preserve">
+    <value>WaitingToRun</value>
   </data>
 </root>

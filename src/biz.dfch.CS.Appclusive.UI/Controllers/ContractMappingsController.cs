@@ -8,7 +8,7 @@ using biz.dfch.CS.Appclusive.UI._mocked;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ContractMappingsController : CoreControllerBase
+    public class ContractMappingsController : CoreControllerBaseMock
     {
 
         // GET: ContractMappings

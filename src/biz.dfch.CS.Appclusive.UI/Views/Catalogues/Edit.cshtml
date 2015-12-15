@@ -1,5 +1,6 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Models
 
 @{
     ViewBag.Title = @Model.GetType().Name + " edit";
@@ -47,7 +48,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
                     <div>
-                        @Html.DropDownListFor(model => model.Status, new SelectList(biz.dfch.CS.Appclusive.UI.Models.Core.Catalogue.StatusSelection), new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.Status, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueStatusEnum), new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                     </div>
                 </div>

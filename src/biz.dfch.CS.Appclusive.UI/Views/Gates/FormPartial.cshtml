@@ -17,7 +17,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
         <div>            
-            @Html.DropDownListFor(model => model.Type, new SelectList(biz.dfch.CS.Appclusive.UI.Models.Core.Gate.TypeSelection), new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Type, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.GateTypeEnum), new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
         <div>
-            @Html.DropDownListFor(model => model.Status, new SelectList(biz.dfch.CS.Appclusive.UI.Models.Core.Gate.StatusSelection), new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Status, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.GateStatusEnum), new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
         </div>
     </div>

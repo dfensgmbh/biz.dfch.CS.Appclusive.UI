@@ -24,62 +24,62 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class EntityTypesController : CoreControllerBase
+    public class EntityKindsController : CoreControllerBase
     {
 
-        // GET: EntityTypes
+        // GET: EntityKinds
         public ActionResult Index(int pageNr = 1)
         {
             try
             {
-                QueryOperationResponse<Api.Core.EntityType> items = CoreRepository.EntityTypes
+                QueryOperationResponse<Api.Core.EntityKind> items = CoreRepository.EntityKinds
                         .AddQueryOption("$inlinecount", "allpages")
                         .AddQueryOption("$top", PortalConfig.Pagesize)
                         .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.EntityType>;
+                        .Execute() as QueryOperationResponse<Api.Core.EntityKind>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.EntityType>>(items));
+                return View(AutoMapper.Mapper.Map<List<Models.Core.EntityKind>>(items));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.EntityType>());
+                return View(new List<Models.Core.EntityKind>());
             }
         }
 
-        #region EntityType
+        #region EntityKind
 
-        // GET: EntityTypes/Details/5
+        // GET: EntityKinds/Details/5
         public ActionResult Details(long id)
         {
             try
             {
-                var item = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(item));
+                var item = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(item));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.EntityType());
+                return View(new Models.Core.EntityKind());
             }
         }
 
-        // GET: EntityTypes/Create
+        // GET: EntityKinds/Create
         public ActionResult Create()
         {
-            return View(new Models.Core.EntityType());
+            return View(new Models.Core.EntityKind());
         }
 
-        // POST: EntityTypes/Create
+        // POST: EntityKinds/Create
         [HttpPost]
-        public ActionResult Create(Models.Core.EntityType entityType)
+        public ActionResult Create(Models.Core.EntityKind entityKind)
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.EntityType>(entityType);
+                var apiItem = AutoMapper.Mapper.Map<Api.Core.EntityKind>(entityKind);
 
-                CoreRepository.AddToEntityTypes(apiItem);
+                CoreRepository.AddToEntityKinds(apiItem);
                 CoreRepository.SaveChanges();
 
                 return RedirectToAction("Details", new { id = apiItem.Id });
@@ -87,60 +87,60 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(entityType);
+                return View(entityKind);
             }
         }
 
-        // GET: EntityTypes/Edit/5
+        // GET: EntityKinds/Edit/5
         public ActionResult Edit(long id)
         {
             try
             {
-                var apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
+                var apiItem = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(apiItem));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.EntityType());
+                return View(new Models.Core.EntityKind());
             }
         }
 
-        // POST: EntityTypes/Edit/5
+        // POST: EntityKinds/Edit/5
         [HttpPost]
-        public ActionResult Edit(long id, Models.Core.EntityType entityType)
+        public ActionResult Edit(long id, Models.Core.EntityKind entityKind)
         {
             try
             {
-                var apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
-                apiItem.Name = entityType.Name;
-                apiItem.Description = entityType.Description;
-                apiItem.Parameters = entityType.Parameters;
-                apiItem.Version = entityType.Version;
+                apiItem.Name = entityKind.Name;
+                apiItem.Description = entityKind.Description;
+                apiItem.Parameters = entityKind.Parameters;
+                apiItem.Version = entityKind.Version;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
                 CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
+                return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(apiItem));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(entityType);
+                return View(entityKind);
             }
         }
 
-        // GET: EntityTypes/Delete/5
+        // GET: EntityKinds/Delete/5
         public ActionResult Delete(long id)
         {
-            Api.Core.EntityType apiItem = null;
+            Api.Core.EntityKind apiItem = null;
             try
             {
-                apiItem = CoreRepository.EntityTypes.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -148,7 +148,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", AutoMapper.Mapper.Map<Models.Core.EntityType>(apiItem));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.EntityKind>(apiItem));
             }
         }
 
