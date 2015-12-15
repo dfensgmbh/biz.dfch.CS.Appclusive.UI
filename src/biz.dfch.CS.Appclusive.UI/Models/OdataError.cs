@@ -11,11 +11,20 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         public string value { get; set; }
     }
 
+    public class Internalexception
+    {
+        public string message { get; set; }
+        public string type { get; set; }
+        public string stacktrace { get; set; }
+        public Internalexception internalexception { get; set; }
+    }
+
     public class Innererror
     {
         public string message { get; set; }
         public string type { get; set; }
         public string stacktrace { get; set; }
+        public Internalexception internalexception { get; set; }
     }
 
     public class OdataError
@@ -24,7 +33,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         public Message message { get; set; }
         public Innererror innererror { get; set; }
     }
-
+    
     public class OdataErrorRoot
     {
         public OdataError odata_error { get; set; }

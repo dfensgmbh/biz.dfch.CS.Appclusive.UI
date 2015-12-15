@@ -53,5 +53,33 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
         }
 
+        protected void AddCustomerSeletionToViewBag()
+        {
+            try
+            {
+                List<Api.Core.Customer> customers = new List<Api.Core.Customer>();
+                customers.Add(new Api.Core.Customer());
+                customers.AddRange(CoreRepository.Customers);
+
+                ViewBag.CustomerSelection = new SelectList(customers, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+
+        protected void AddAclSeletionToViewBag()
+        {
+            try
+            {
+                // ACL
+                ViewBag.AclSelection = new SelectList(CoreRepository.Acls, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
     }
 }

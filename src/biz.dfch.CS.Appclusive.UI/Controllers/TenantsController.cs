@@ -150,21 +150,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #endregion
 
 
-        private void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant)
-        {
-            try
-            {
-                List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
-                tenants.Add(new Api.Core.Tenant());
-                tenants.AddRange(CoreRepository.Tenants.ToList().Where(t => currentTenant==null || t.Id != currentTenant.Id));
-
-                ViewBag.TenantSelection = new SelectList(tenants, "Id", "DisplayName");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
 
     }
 }

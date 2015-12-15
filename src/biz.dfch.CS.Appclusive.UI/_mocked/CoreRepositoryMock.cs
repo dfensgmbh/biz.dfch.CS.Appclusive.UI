@@ -10,7 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI._mocked
     public class CoreRepositoryMock : biz.dfch.CS.Appclusive.Api.Core.Core
     {
         public CoreRepositoryMock(Uri serviceRoot) : base(serviceRoot) { }
-        
+
         static List<Customer> customers;
         static List<ContractMapping> contractMappings;
 
@@ -27,7 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI._mocked
             Customer customer = new Customer()
             {
                 Name = "Mocked customer",
-                Description = "Mocked description", 
+                Description = "Mocked description",
             };
             customer.Tenants.AddRange(core.Tenants);
             customers.Add(customer);
@@ -46,10 +46,11 @@ namespace biz.dfch.CS.Appclusive.UI._mocked
             contractMappings.Add(contract);
             customer.ContractMappings.AddRange(contractMappings);
 
-            
+
         }
-        
-        public void AddToCustomers(Customer entity) {
+
+        public void AddToCustomers(Customer entity)
+        {
             entity.Id = DateTime.Now.Ticks;
             customers.Add(entity);
         }
@@ -58,5 +59,6 @@ namespace biz.dfch.CS.Appclusive.UI._mocked
             entity.Id = DateTime.Now.Ticks;
             contractMappings.Add(entity);
         }
+
     }
 }

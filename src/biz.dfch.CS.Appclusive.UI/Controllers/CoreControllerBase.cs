@@ -53,5 +53,66 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
         }
 
+        #region selection lists
+
+        protected void AddProductSeletionToViewBag()
+        {
+            try
+            {
+                var products = CoreRepository.Products.ToList();
+                ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+        
+        protected void AddEntityKindSeletionToViewBag()
+        {
+            try
+            {
+                var entityKinds = CoreRepository.EntityKinds.ToList();
+                ViewBag.EntityKindSelection = new SelectList(entityKinds, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+
+        protected void AddManagementCredentialSelectionToViewBag()
+        {
+            try
+            {
+                List<Api.Core.ManagementCredential> creds = new List<Api.Core.ManagementCredential>();
+                creds.Add(new Api.Core.ManagementCredential() { Name = "-" });
+                creds.AddRange(CoreRepository.ManagementCredentials.ToList());
+
+                ViewBag.ManagementCredentialSelection = new SelectList(creds.Select(u => { return new { Id = u.Id > 0 ? (long?)u.Id : null, Name = u.Name }; }), "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+
+        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant)
+        {
+            try
+            {
+                List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
+                tenants.Add(new Api.Core.Tenant());
+                tenants.AddRange(CoreRepository.Tenants.ToList().Where(t => currentTenant == null || t.Id != currentTenant.Id));
+
+                ViewBag.TenantSelection = new SelectList(tenants, "Id", "DisplayName");
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+            }
+        }
+
+        #endregion
     }
 }

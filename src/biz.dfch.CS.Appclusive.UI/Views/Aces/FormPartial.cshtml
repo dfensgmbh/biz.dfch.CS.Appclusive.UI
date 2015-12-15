@@ -1,5 +1,6 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Ace
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Models
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -41,7 +42,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Action, htmlAttributes: new { @class = "control-label" })
         <div>
-            @Html.DropDownListFor(model => model.Action, (IEnumerable<SelectListItem>)ViewBag.AceActionSelection, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Action, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.AceActionEnum), new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
         </div>
     </div>

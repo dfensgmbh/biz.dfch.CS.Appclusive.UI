@@ -56,7 +56,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Aces/Create
         public ActionResult Create()
         {
-            this.AddSeletionListsToViewBag();
+            this.AddAclSeletionToViewBag();
             return View(new Models.Core.Ace());
         }
 
@@ -76,7 +76,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddSeletionListsToViewBag();
+                this.AddAclSeletionToViewBag();
                 return View(Ace);
             }
         }
@@ -84,7 +84,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Aces/Edit/5
         public ActionResult Edit(long id)
         {
-            this.AddSeletionListsToViewBag();
+            this.AddAclSeletionToViewBag();
             try
             {
                 var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
@@ -101,7 +101,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         [HttpPost]
         public ActionResult Edit(long id, Models.Core.Ace Ace)
         {
-            this.AddSeletionListsToViewBag();
+            this.AddAclSeletionToViewBag();
             try
             {
                 var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
@@ -141,44 +141,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddSeletionListsToViewBag();
+                this.AddAclSeletionToViewBag();
                 return View("Details", AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
             }
         }
 
 
         #endregion
-
-        private void AddSeletionListsToViewBag()
-        {
-            try
-            {
-                // Action enum
-                ViewBag.AceActionSelection = new SelectList(Enum.GetNames(typeof(Models.Core.AceActionEnum)));
-
-                // ACL
-                ViewBag.AclSelection = new SelectList(CoreRepository.Acls, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
-
-        private void AddCustomerSeletionToViewBag()
-        {
-            try
-            {
-                List<Api.Core.Customer> customers = new List<Api.Core.Customer>();
-                customers.Add(new Api.Core.Customer());
-                customers.AddRange(CoreRepository.Customers);
-
-                ViewBag.CustomerSelection = new SelectList(customers, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
+        
     }
 }

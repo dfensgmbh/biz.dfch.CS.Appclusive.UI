@@ -62,6 +62,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                this.AddCustomerSeletionToViewBag();
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.ContractMapping>(contractMapping);
 
                 CoreRepository.AddToContractMappings(apiItem);
@@ -81,8 +82,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.ContractMappings.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 this.AddCustomerSeletionToViewBag();
+                var apiItem = CoreRepository.ContractMappings.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.ContractMapping>(apiItem));
             }
             catch (Exception ex)
@@ -146,20 +147,5 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
-        private void AddCustomerSeletionToViewBag()
-        {
-            try
-            {
-                List<Api.Core.Customer> customers = new List<Api.Core.Customer>();
-                customers.Add(new Api.Core.Customer());
-                customers.AddRange(CoreRepository.Customers);
-
-                ViewBag.CustomerSelection = new SelectList(customers, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
     }
 }

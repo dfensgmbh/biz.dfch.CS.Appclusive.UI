@@ -37,12 +37,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models
                 items.Add(new SelectListItem() {
                     Text = String.IsNullOrEmpty(enumText) ? enumName : enumText,
                     Value = enumName 
-                });
-            
+                });            
             }
-            SelectList selects = new SelectList(items);
             
-            return htmlHelper.DropDownListFor<TModel, TProperty>(expression, selects, htmlAttributes);
+            return htmlHelper.DropDownListFor<TModel, TProperty>(expression, items, htmlAttributes);
         }
 
         /// <summary>
