@@ -48,5 +48,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public string Type { get; set; }
 
+        [Required]
+        public long EntityKindId { get; set; }
+
+        public EntityKind EntityKind { get; set; }
     }
 }

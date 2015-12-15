@@ -63,7 +63,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Products.Expand("CatalogueItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Products.Expand("EntityKind").Expand("CatalogueItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                this.AddEntityKindSeletionToViewBag();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(item));
             }
             catch (Exception ex)
@@ -76,6 +77,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Product());
         }
 
@@ -85,6 +87,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                this.AddEntityKindSeletionToViewBag();
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.Product>(product);
 
                 CoreRepository.AddToProducts(apiItem);
@@ -104,7 +107,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                this.AddEntityKindSeletionToViewBag();
+                var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
             catch (Exception ex)
@@ -120,13 +124,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                this.AddEntityKindSeletionToViewBag();
+                
                 if (!ModelState.IsValid)
                 {
                     return View(product);
                 }
                 else
                 {
-                    var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 
@@ -159,7 +165,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Product apiItem = null;
             try
             {
-                apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

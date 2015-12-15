@@ -50,5 +50,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public string TenantId { get; set; }
         
         public string Token { get; set; }
+
+        [Required]
+        public long EntityKindId { get; set; }
+
+        public EntityKind EntityKind { get; set; }
     }
 }

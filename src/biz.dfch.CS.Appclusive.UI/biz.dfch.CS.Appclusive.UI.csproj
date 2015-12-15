@@ -457,6 +457,7 @@
     <Content Include="Views\Catalogues\ItemIndex.cshtml" />
     <Content Include="Views\Shared\AjaxPaging.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\User.cshtml" />
+    <Content Include="Views\Catalogues\FormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

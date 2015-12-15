@@ -50,7 +50,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Nodes/Details/5
         public ActionResult Details(long id)
         {
-            var item = CoreRepository.Nodes.Expand("Children").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+            var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
         }
 

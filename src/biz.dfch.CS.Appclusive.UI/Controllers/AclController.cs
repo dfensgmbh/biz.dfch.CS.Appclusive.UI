@@ -42,7 +42,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Acls.Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Acl>(item));
             }
             catch (Exception ex)
@@ -55,6 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Acls/Create
         public ActionResult Create()
         {
+            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Acl());
         }
 
@@ -64,6 +65,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                this.AddEntityKindSeletionToViewBag();
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.Acl>(acl);
 
                 CoreRepository.AddToAcls(apiItem);
@@ -83,7 +85,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Acls.Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                this.AddEntityKindSeletionToViewBag();
+                var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
             }
             catch (Exception ex)
@@ -99,12 +102,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Acls.Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                this.AddEntityKindSeletionToViewBag();
+                var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
                 apiItem.Name = acl.Name;
                 apiItem.Description = acl.Description;
+                apiItem.EntityKindId = acl.EntityKindId;
 
                 #endregion
                 CoreRepository.UpdateObject(apiItem);
@@ -125,7 +130,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Acl apiItem = null;
             try
             {
-                apiItem = CoreRepository.Acls.Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

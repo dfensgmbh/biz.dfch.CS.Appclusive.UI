@@ -1,5 +1,6 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Product
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Models
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -39,10 +40,10 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Version, htmlAttributes: new { @class = "control-label" })
-        <div>
-            @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Version, "", new { @class = "text-danger" })
+        @Html.LabelFor(model => model.EntityKind, htmlAttributes: new { @class = "control-label" })
+        <div>           
+            @Html.DropDownListFor(model => model.EntityKindId, (IEnumerable<SelectListItem>)ViewBag.EntityKindSelection, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EntityKindId, "", new { @class = "text-danger" })
         </div>
     </div>
 

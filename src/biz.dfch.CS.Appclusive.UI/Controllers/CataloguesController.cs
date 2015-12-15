@@ -366,17 +366,5 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
-        private void AddProductSeletionToViewBag()
-        {
-            try
-            {
-                var products = CoreRepository.Products.ToList();
-                ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
     }
 }
