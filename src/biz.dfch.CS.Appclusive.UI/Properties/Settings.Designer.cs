@@ -43,7 +43,7 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
         public int Pagesize {
             get {
                 return ((int)(this["Pagesize"]));

@@ -39,7 +39,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.ContractMappings.Expand("Customer").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.ContractMappings.Expand("Customer").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.ContractMapping>(item));
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.ContractMappings.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.ContractMappings.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 this.AddCustomerSeletionToViewBag();
                 return View(AutoMapper.Mapper.Map<Models.Core.ContractMapping>(apiItem));
             }
@@ -98,7 +98,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.ContractMappings.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.ContractMappings.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
@@ -131,7 +131,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.ContractMapping apiItem = null;
             try
             {
-                apiItem = CoreRepository.ContractMappings.Expand("Customer").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.ContractMappings.Expand("Customer").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

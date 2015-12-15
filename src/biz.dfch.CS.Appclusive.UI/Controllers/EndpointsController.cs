@@ -52,7 +52,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = DiagnosticsRepository.Endpoints.Where(c => c.Id == id).FirstOrDefault();
+                var item = DiagnosticsRepository.Endpoints.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Diagnostics.Endpoint>(item));
             }
             catch (Exception ex)

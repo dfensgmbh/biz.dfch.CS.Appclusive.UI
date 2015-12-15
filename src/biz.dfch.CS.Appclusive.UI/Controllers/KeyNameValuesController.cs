@@ -54,7 +54,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(item));
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
@@ -139,7 +139,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.KeyNameValue apiItem = null;
             try
             {
-                apiItem = CoreRepository.KeyNameValues.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

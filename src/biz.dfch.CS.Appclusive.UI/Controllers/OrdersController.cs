@@ -57,7 +57,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Orders.Expand("OrderItems").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Orders.Expand("OrderItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Order>(item));
             }
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Order apiItem = null;
             try
             {
-                apiItem = CoreRepository.Orders.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Orders.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -91,7 +91,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult ItemDetails(long id)
         {
-            var item = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
+            var item = CoreRepository.OrderItems.Expand("Order").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
             return View(AutoMapper.Mapper.Map<Models.Core.OrderItem>(item));
         }
 
@@ -101,7 +101,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.OrderItem apiItem = null;
             try
             {
-                apiItem = CoreRepository.OrderItems.Expand("Order").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.OrderItems.Expand("Order").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Details", new { id = apiItem.OrderId });

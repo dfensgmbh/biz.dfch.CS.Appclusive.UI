@@ -52,7 +52,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.Jobs.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Jobs.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Job>(item));
             }
             catch (Exception ex)

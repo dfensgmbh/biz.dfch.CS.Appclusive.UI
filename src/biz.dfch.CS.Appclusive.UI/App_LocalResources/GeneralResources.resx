@@ -462,4 +462,7 @@
   <data name="JobStatusEnum_WaitingToRun" xml:space="preserve">
     <value>WaitingToRun</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

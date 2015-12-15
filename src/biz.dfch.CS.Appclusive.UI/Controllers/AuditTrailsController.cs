@@ -50,7 +50,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = DiagnosticsRepository.AuditTrails.Where(c => c.Id == id).FirstOrDefault();
+                var item = DiagnosticsRepository.AuditTrails.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Diagnostics.AuditTrail>(item));
             }
             catch (Exception ex)

@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CmpRepository.CimiTargets.Where(c => c.Id == id).FirstOrDefault();
+                var item = CmpRepository.CimiTargets.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Cmp.CimiTarget>(item));
             }
             catch (Exception ex)

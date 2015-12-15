@@ -55,7 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Catalogues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(item);
                 if (null != modelItem)
                 {
@@ -101,7 +101,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Catalogues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem);
                 if (null != modelItem)
                 {
@@ -122,7 +122,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Catalogues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 
                 #region copy all edited properties
 
@@ -157,7 +157,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Catalogue apiItem =null;
             try
             {
-                apiItem = CoreRepository.Catalogues.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Catalogues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -206,7 +206,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("Product").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("Product").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(item));
             }
             catch (Exception ex)
@@ -221,7 +221,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             AjaxNotificationViewModel vm = new AjaxNotificationViewModel();
             try
             {
-                var catalogueItem = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+                var catalogueItem = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 Models.Core.CartItem cartItem = new Models.Core.CartItem();
                 cartItem.Name = catalogueItem.Name;
@@ -299,7 +299,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 Contract.Requires(id > 0);
                 this.AddProductSeletionToViewBag();
-                var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.CatalogueItem>(apiItem));
             }
             catch (Exception ex)
@@ -318,7 +318,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 Contract.Requires(id > 0);
                 Contract.Requires(null != catalogueItem);
                 this.AddProductSeletionToViewBag();
-                var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Contract.Assert(null != apiItem);
 
                 #region copy all edited properties
@@ -351,7 +351,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Contract.Requires(id > 0);
-                apiItem = CoreRepository.CatalogueItems.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.CatalogueItems.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Contract.Assert(null != apiItem);
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();

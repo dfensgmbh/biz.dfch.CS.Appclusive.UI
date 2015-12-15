@@ -55,7 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(item));
             }
             catch (Exception ex)
@@ -96,7 +96,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(apiItem));
             }
             catch (Exception ex)
@@ -112,7 +112,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
@@ -140,7 +140,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.EntityKind apiItem = null;
             try
             {
-                apiItem = CoreRepository.EntityKinds.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

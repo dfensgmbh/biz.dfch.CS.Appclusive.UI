@@ -39,7 +39,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Customer>(item));
             }
             catch (Exception ex)
@@ -80,7 +80,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
             }
             catch (Exception ex)
@@ -96,7 +96,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
@@ -124,7 +124,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Customer apiItem = null;
             try
             {
-                apiItem = CoreRepository.Customers.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Customers.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

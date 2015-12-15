@@ -43,7 +43,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Aces.Expand("Acl").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Ace>(item));
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             this.AddSeletionListsToViewBag();
             try
             {
-                var apiItem = CoreRepository.Aces.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
             }
             catch (Exception ex)
@@ -104,7 +104,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             this.AddSeletionListsToViewBag();
             try
             {
-                var apiItem = CoreRepository.Aces.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
@@ -133,7 +133,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Ace apiItem = null;
             try
             {
-                apiItem = CoreRepository.Aces.Expand("Acl").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

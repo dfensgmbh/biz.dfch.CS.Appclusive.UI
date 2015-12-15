@@ -32,11 +32,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Users.Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Users.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.User>(item));
             }
             catch (Exception ex)
@@ -77,7 +80,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Users.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Users.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.User>(apiItem));
             }
             catch (Exception ex)
@@ -93,7 +96,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Users.Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Users.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                 #region copy all edited properties
 
@@ -122,7 +125,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.User apiItem = null;
             try
             {
-                apiItem = CoreRepository.Users.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Users.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
