@@ -190,7 +190,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)
         {
             QueryOperationResponse<Api.Core.CatalogueItem> items = CoreRepository.CatalogueItems
-                    .AddQueryOption("$filter", "CatalogueId = " + catalogueId)
+                    .AddQueryOption("$filter", "CatalogueId eq " + catalogueId)
                     .AddQueryOption("$inlinecount", "allpages")
                     .AddQueryOption("$top", PortalConfig.Pagesize)
                     .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)

@@ -8,8 +8,12 @@
     
     @{
         ViewBag.AjaxPagingTargetId = "catalogItemListAjax";
-        ViewBag.AjaxPagingAction = "ItemsIndex";
-        ViewBag.AjaxPagingRouteValues = new { catalogueId = 1, pageNr = 1 };
+        ViewBag.AjaxPagingAction = "ItemIndex";
+        RouteValueDictionary rd = new RouteValueDictionary();
+        rd.Add("catalogueId", ViewBag.CatalogueId);
+        rd.Add("pageNr", 1);
+        ViewBag.AjaxRouteValueDictionary = rd; 
     }
-    @Html.Partial("Paging", Model)
+    @Html.Partial("AjaxPaging", Model)
+
 </div>
