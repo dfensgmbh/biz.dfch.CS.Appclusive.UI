@@ -31,7 +31,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                QueryOperationResponse<Api.Core.Order> items = CoreRepository.Orders
+                QueryOperationResponse<Api.Core.Order> items = CoreRepository.Orders.Expand("CostCentre").Expand("Requester")
                         .AddQueryOption("$inlinecount", "allpages")
                         .AddQueryOption("$top", PortalConfig.Pagesize)
                         .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
@@ -57,7 +57,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Orders.Expand("OrderItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Orders.Expand("OrderItems").Expand("CostCentre").Expand("Requester").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Order>(item));
             }
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Order apiItem = null;
             try
             {
-                apiItem = CoreRepository.Orders.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Orders.Expand("Requester").Expand("CostCentre").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");

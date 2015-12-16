@@ -37,7 +37,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         public string Parameters { get; set; }
 
-        public string Requester { get; set; }
+        public long? RequesterId { get; set; }
+
+        public User Requester { get; set; }
 
         public string Status { get; set; }
 

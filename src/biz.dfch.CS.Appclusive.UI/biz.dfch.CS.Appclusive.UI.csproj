@@ -458,6 +458,8 @@
     <Content Include="Views\Shared\AjaxPaging.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\User.cshtml" />
     <Content Include="Views\Catalogues\FormPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EntityKind.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CostCentre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
