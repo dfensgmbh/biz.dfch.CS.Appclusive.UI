@@ -26,7 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public Order()
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
-            this.OrderItems = new List<OrderItem>();
+            this.OrderItems = new List<OrderItem>();       
         }
 
         public CostCentre CostCentre { get; set; }
