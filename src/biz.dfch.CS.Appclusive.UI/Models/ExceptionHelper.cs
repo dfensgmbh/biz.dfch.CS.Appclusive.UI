@@ -41,25 +41,33 @@ namespace biz.dfch.CS.Appclusive.UI.Models
                         try
                         {
                             OdataErrorRoot error = JsonConvert.DeserializeObject<OdataErrorRoot>(e.Message.Replace("odata.error", "odata_error"));
-                            if (null != error && null != error.odata_error && null != error.odata_error.message)
+                            if (null != error && null != error.odata_error )
                             {
+                                if (null != error.odata_error.message)
+                                {
+                                    noteList.Add(new AjaxNotificationViewModel()
+                                    {
+                                        Level = ENotifyStyle.error,
+                                        Message = error.odata_error.message.value
+                                    });
+                                }
                                 if (null != error.odata_error.innererror)
                                 {
                                     noteList.Add(new AjaxNotificationViewModel()
                                     {
                                         Level = ENotifyStyle.error,
-                                        Message =  error.odata_error.innererror.message
+                                        Message = error.odata_error.innererror.message
                                     });
-                                }
-                                Internalexception internalexception = error.odata_error.innererror.internalexception;
-                                while (null != internalexception)
-                                {
-                                    noteList.Add(new AjaxNotificationViewModel()
+                                    Internalexception internalexception = error.odata_error.innererror.internalexception;
+                                    while (null != internalexception)
                                     {
-                                        Level = ENotifyStyle.error,
-                                        Message = internalexception.message
-                                    });
-                                    internalexception = internalexception.internalexception;
+                                        noteList.Add(new AjaxNotificationViewModel()
+                                        {
+                                            Level = ENotifyStyle.error,
+                                            Message = internalexception.message
+                                        });
+                                        internalexception = internalexception.internalexception;
+                                    }
                                 }
                             }
                         }
