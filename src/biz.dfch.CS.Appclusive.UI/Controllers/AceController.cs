@@ -23,7 +23,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         .Execute() as QueryOperationResponse<Api.Core.Ace>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                ViewBag.ShowEditLinks = true;
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Ace>>(items));
             }
             catch (Exception ex)

@@ -11,5 +11,6 @@
 <p>
     <a class="btn btn-default btn-sm" href="@Url.Action("Create")"><i class="fa fa-plus "></i> @GeneralResources.CreateNew</a>
 </p>
+@{ ViewBag.ShowEditLinks = true; }
 @Html.Partial("AceList", Model)
 
