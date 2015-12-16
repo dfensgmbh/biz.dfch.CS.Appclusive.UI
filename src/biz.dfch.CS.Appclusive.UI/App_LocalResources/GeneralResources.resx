@@ -465,4 +465,7 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="EntityType" xml:space="preserve">
+    <value>Entity type</value>
+  </data>
 </root>
