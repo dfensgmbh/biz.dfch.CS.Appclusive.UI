@@ -36,7 +36,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (cmpRepository == null)
                 {
-                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
+                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Cmp"));
                     cmpRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     cmpRepository.IgnoreMissingProperties = true;
                     cmpRepository.Format.UseJson();

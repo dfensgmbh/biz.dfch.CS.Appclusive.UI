@@ -36,7 +36,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (coreRepository == null)
                 {
-                    coreRepository = new biz.dfch.CS.Appclusive.UI._mocked.CoreRepositoryMock(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
+                    coreRepository = new biz.dfch.CS.Appclusive.UI._mocked.CoreRepositoryMock(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
                     coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     coreRepository.IgnoreMissingProperties = true;
                     coreRepository.Format.UseJson();

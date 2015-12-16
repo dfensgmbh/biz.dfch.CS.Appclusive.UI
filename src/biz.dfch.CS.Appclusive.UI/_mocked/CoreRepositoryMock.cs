@@ -19,7 +19,7 @@ namespace biz.dfch.CS.Appclusive.UI._mocked
 
         static CoreRepositoryMock()
         {
-            biz.dfch.CS.Appclusive.Api.Core.Core core = new Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiCoreUrl));
+            biz.dfch.CS.Appclusive.Api.Core.Core core = new Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
 
 
             // 2. Customers
