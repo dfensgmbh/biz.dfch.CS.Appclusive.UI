@@ -77,6 +77,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                managementCredential.EncryptedPassword = managementCredential.Password;
                 var apiItem = AutoMapper.Mapper.Map<Api.Core.ManagementCredential>(managementCredential);
 
                 CoreRepository.AddToManagementCredentials(apiItem);

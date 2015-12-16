@@ -36,5 +36,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         public string Value { get; set; }
 
+        public string[] TypeSelection
+        {
+            get
+            {
+                List<string> list = new List<string>() { "json", "string" };
+                if (null == this.Type || !list.Contains(this.Type))
+                {
+                    list.Add(this.Type);
+                }
+                return list.ToArray();
+            }
+        }
     }
 }
