@@ -772,6 +772,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naming convention: use project namespace as prefix.
+        /// </summary>
+        public static string ManagementCredentialNameInfo {
+            get {
+                return ResourceManager.GetString("ManagementCredentialNameInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management uri.
         /// </summary>
         public static string ManagementUri {

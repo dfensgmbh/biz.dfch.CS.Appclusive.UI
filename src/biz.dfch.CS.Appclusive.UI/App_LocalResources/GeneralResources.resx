@@ -468,4 +468,7 @@
   <data name="EntityType" xml:space="preserve">
     <value>Entity type</value>
   </data>
+  <data name="ManagementCredentialNameInfo" xml:space="preserve">
+    <value>Naming convention: use project namespace as prefix</value>
+  </data>
 </root>
