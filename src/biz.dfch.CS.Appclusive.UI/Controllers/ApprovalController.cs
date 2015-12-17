@@ -139,7 +139,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(approval);
+                    return View("Details", approval);
                 }
                 else
                 {

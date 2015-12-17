@@ -56,7 +56,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Cart>(item));
+                if (null == item)
+                {
+                    return View(new Models.Core.Cart());
+                }
+                else
+                {
+                    return View(AutoMapper.Mapper.Map<Models.Core.Cart>(item));
+                }
             }
             catch (Exception ex)
             {
@@ -147,10 +154,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
                 CoreRepository.SaveChanges();
 
-                AjaxNotificationViewModel notification = new AjaxNotificationViewModel();
-                notification.Level = ENotifyStyle.success;
-                notification.Message = "Order has been placed";
-                ViewBag.Notifications = new AjaxNotificationViewModel[] { notification };
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Order has been placed"));
 
                 return View("Details", (Models.Core.Cart)null);
             }

@@ -33,6 +33,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
             entity.CreatedById = 1;
             entity.ModifiedById = 1;
             entity.Tid = System.Guid.Parse( "11111111-1111-1111-1111-111111111111");
+            entity.Name = "new";
         }
     }
 }
