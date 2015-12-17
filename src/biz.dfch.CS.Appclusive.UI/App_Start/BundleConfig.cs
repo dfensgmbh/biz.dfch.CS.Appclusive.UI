@@ -26,7 +26,8 @@ namespace biz.dfch.CS.Appclusive.UI
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                        "~/Scripts/jquery-ui-1.11.4.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -49,6 +50,7 @@ namespace biz.dfch.CS.Appclusive.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/font-awesome.min.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/themes/base/autocomplete.css",
                       "~/Content/site.css"));
         }
     }

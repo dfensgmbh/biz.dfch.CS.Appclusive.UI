@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -42,5 +48,66 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             return View();
         }
+
+        #region Test
+
+        // GET: Aces/Test
+        public ActionResult Test()
+        {
+            return View(new Models.Core.Ace());
+        }
+
+        // POST: Aces/Test
+        [HttpPost]
+        public ActionResult Test(Models.Core.Ace ace)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(ace);
+                }
+                else
+                {
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(ace);
+                }
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(ace);
+            }
+        }
+
+        public ActionResult TestSearch(string term)
+        {
+            // Get Tags from database
+            string[] tags = { "ASP.NET", "WebForms", 
+                    "MVC", "jQuery", "ActionResult", 
+                    "MangoDB", "Java", "Windows" };
+            return this.Json(tags.Where(t => t.StartsWith(term)), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult TestKvSearch(string term)
+        {
+            List<toption> options = new List<toption>();
+            options.Add(new toption() { value = "MangoDB", key = 1 });
+            options.Add(new toption() { value = "ActionResult", key = 2 });
+            options.Add(new toption() { value = "WebForms", key = 3 });
+            options.Add(new toption() { value = "ASP.NET", key = 4 });
+            options.Add(new toption() { value = "jQuery", key = 5 });
+            options.Add(new toption() { value = "MVC", key = 6 });
+            options.Add(new toption() { value = "Windows", key = 7 });
+            options.Add(new toption() { value = "Java", key = 8 });
+            return this.Json(options.Where(t => t.value.StartsWith(term)), JsonRequestBehavior.AllowGet);
+        }
+
+        public class toption
+        {
+            public long key { get; set; }
+            public string value { get; set; }
+        }
+        #endregion
     }
 }
