@@ -137,19 +137,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(approval);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Status = approval.Status;
-                apiItem.Description = approval.Description;
+                    apiItem.Status = approval.Status;
+                    apiItem.Description = approval.Description;
 
-                #endregion
+                    #endregion
 
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

@@ -61,12 +61,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.CostCentre>(costCentre);
+                if (!ModelState.IsValid)
+                {
+                    return View(costCentre);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.CostCentre>(costCentre);
 
-                CoreRepository.AddToCostCentres(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToCostCentres(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -96,18 +103,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.CostCentres.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(costCentre);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.CostCentres.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = costCentre.Name;
-                apiItem.Description = costCentre.Description;
+                    apiItem.Name = costCentre.Name;
+                    apiItem.Description = costCentre.Description;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.CostCentre>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.CostCentre>(apiItem));
+                }
             }
             catch (Exception ex)
             {

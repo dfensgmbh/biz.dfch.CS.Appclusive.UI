@@ -79,12 +79,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.ManagementUri>(managementUri);
+                if (!ModelState.IsValid)
+                {
+                    return View(managementUri);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.ManagementUri>(managementUri);
 
-                CoreRepository.AddToManagementUris(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToManagementUris(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -119,22 +126,31 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 Contract.Requires(id > 0);
                 Contract.Requires(null != managementUri);
+                
                 this.AddManagementCredentialSelectionToViewBag();
-                var apiItem = CoreRepository.ManagementUris.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    managementUri.ManagementCredential = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(CoreRepository.ManagementCredentials.Where(ci => ci.Id == id).ToList());
+                    return View(managementUri);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.ManagementUris.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = managementUri.Name;
-                apiItem.Description = managementUri.Description;
-                apiItem.Type = managementUri.Type;
-                apiItem.Value = managementUri.Value;
-                apiItem.ManagementCredentialId = managementUri.ManagementCredentialId;
+                    apiItem.Name = managementUri.Name;
+                    apiItem.Description = managementUri.Description;
+                    apiItem.Type = managementUri.Type;
+                    apiItem.Value = managementUri.Value;
+                    apiItem.ManagementCredentialId = managementUri.ManagementCredentialId;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
+                }
             }
             catch (Exception ex)
             {

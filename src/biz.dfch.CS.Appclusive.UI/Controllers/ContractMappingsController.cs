@@ -62,13 +62,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddCustomerSeletionToViewBag();
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.ContractMapping>(contractMapping);
+                this.AddCustomerSeletionToViewBag(); 
+                if (!ModelState.IsValid)
+                {
+                    return View(contractMapping);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.ContractMapping>(contractMapping);
 
-                CoreRepository.AddToContractMappings(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToContractMappings(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -99,24 +106,31 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.ContractMappings.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(contractMapping);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.ContractMappings.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = contractMapping.Name;
-                apiItem.Description = contractMapping.Description;
-                apiItem.ExternalType = contractMapping.ExternalType;
-                apiItem.ExternalId = contractMapping.ExternalId;
-                apiItem.ValidFrom = contractMapping.ValidFrom;
-                apiItem.ValidUntil = contractMapping.ValidUntil;
-                apiItem.CustomerId = contractMapping.CustomerId;
-                apiItem.Parameters = contractMapping.Parameters;
+                    apiItem.Name = contractMapping.Name;
+                    apiItem.Description = contractMapping.Description;
+                    apiItem.ExternalType = contractMapping.ExternalType;
+                    apiItem.ExternalId = contractMapping.ExternalId;
+                    apiItem.ValidFrom = contractMapping.ValidFrom;
+                    apiItem.ValidUntil = contractMapping.ValidUntil;
+                    apiItem.CustomerId = contractMapping.CustomerId;
+                    apiItem.Parameters = contractMapping.Parameters;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.ContractMapping>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.ContractMapping>(apiItem));
+                }
             }
             catch (Exception ex)
             {

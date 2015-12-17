@@ -61,12 +61,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Customer>(customer);
+                if (!ModelState.IsValid)
+                {
+                    return View(customer);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.Customer>(customer);
 
-                CoreRepository.AddToCustomers(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToCustomers(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -96,18 +103,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    customer.ContractMappings = AutoMapper.Mapper.Map<List<Models.Core.ContractMapping>>(CoreRepository.ContractMappings.Where(ci => ci.CustomerId == id).ToList());
+                    return View(customer);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = customer.Name;
-                apiItem.Description = customer.Description;
+                    apiItem.Name = customer.Name;
+                    apiItem.Description = customer.Description;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
+                }
             }
             catch (Exception ex)
             {

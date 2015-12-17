@@ -82,12 +82,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Catalogue>(catalogue);
-                
-                CoreRepository.AddToCatalogues(apiItem);
-                CoreRepository.SaveChanges();
+                if (!ModelState.IsValid)
+                {
+                    return View(catalogue);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.Catalogue>(catalogue);
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    CoreRepository.AddToCatalogues(apiItem);
+                    CoreRepository.SaveChanges();
+
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch(Exception ex)
             {
@@ -122,26 +129,34 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Catalogues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                
-                #region copy all edited properties
-
-                apiItem.Name = catalogue.Name;
-                apiItem.Description = catalogue.Description;
-                apiItem.Status = catalogue.Status;
-                apiItem.Version = catalogue.Version;
-
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-
-                Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem);
-                if (null != modelItem)
+                if (!ModelState.IsValid)
                 {
-                    modelItem.CatalogueItems = LoadCatalogueItems(id, 1);
+                    catalogue.CatalogueItems = AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(CoreRepository.CatalogueItems.Where(ci => ci.CatalogueId == id).ToList());
+                    return View(catalogue);
                 }
-                return View(modelItem);
+                else
+                {
+                    var apiItem = CoreRepository.Catalogues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+
+                    #region copy all edited properties
+
+                    apiItem.Name = catalogue.Name;
+                    apiItem.Description = catalogue.Description;
+                    apiItem.Status = catalogue.Status;
+                    apiItem.Version = catalogue.Version;
+
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+
+                    Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem);
+                    if (null != modelItem)
+                    {
+                        modelItem.CatalogueItems = LoadCatalogueItems(id, 1);
+                    }
+                    return View(modelItem);
+                }
             }
             catch(Exception ex)
             {
@@ -275,12 +290,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Contract.Requires(null != catalogueItem);
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.CatalogueItem>(catalogueItem);
+                if (!ModelState.IsValid)
+                {
+                    return View(catalogueItem);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.CatalogueItem>(catalogueItem);
 
-                CoreRepository.AddToCatalogueItems(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToCatalogueItems(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("ItemDetails", new { id = apiItem.Id });
+                    return RedirectToAction("ItemDetails", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -318,23 +340,32 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 Contract.Requires(id > 0);
                 Contract.Requires(null != catalogueItem);
                 this.AddProductSeletionToViewBag();
-                var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                Contract.Assert(null != apiItem);
 
-                #region copy all edited properties
+                if (!ModelState.IsValid)
+                {
+                    catalogueItem.Catalogue = AutoMapper.Mapper.Map<Models.Core.Catalogue>(CoreRepository.Catalogues.Where(ci => ci.Id == id).ToList());
+                    return View(catalogueItem);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.CatalogueItems.Expand("Catalogue").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    Contract.Assert(null != apiItem);
 
-                apiItem.Name = catalogueItem.Name;
-                apiItem.ValidFrom = catalogueItem.ValidFrom;
-                apiItem.ValidUntil = catalogueItem.ValidUntil;
-                apiItem.EndOfLife = catalogueItem.EndOfLife;
-                apiItem.Description = catalogueItem.Description;
-                apiItem.Parameters = catalogueItem.Parameters;
+                    #region copy all edited properties
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(catalogueItem);
+                    apiItem.Name = catalogueItem.Name;
+                    apiItem.ValidFrom = catalogueItem.ValidFrom;
+                    apiItem.ValidUntil = catalogueItem.ValidUntil;
+                    apiItem.EndOfLife = catalogueItem.EndOfLife;
+                    apiItem.Description = catalogueItem.Description;
+                    apiItem.Parameters = catalogueItem.Parameters;
+
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(catalogueItem);
+                }
             }
             catch (Exception ex)
             {

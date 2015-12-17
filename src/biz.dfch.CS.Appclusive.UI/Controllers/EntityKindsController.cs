@@ -77,12 +77,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.EntityKind>(entityKind);
+                if (!ModelState.IsValid)
+                {
+                    return View(entityKind);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.EntityKind>(entityKind);
 
-                CoreRepository.AddToEntityKinds(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToEntityKinds(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -112,20 +119,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(entityKind);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = entityKind.Name;
-                apiItem.Description = entityKind.Description;
-                apiItem.Parameters = entityKind.Parameters;
-                apiItem.Version = entityKind.Version;
+                    apiItem.Name = entityKind.Name;
+                    apiItem.Description = entityKind.Description;
+                    apiItem.Parameters = entityKind.Parameters;
+                    apiItem.Version = entityKind.Version;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.EntityKind>(apiItem));
+                }
             }
             catch (Exception ex)
             {

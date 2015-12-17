@@ -68,10 +68,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 apiItem = AutoMapper.Mapper.Map<Api.Core.Tenant>(tenant);
-                CoreRepository.AddToTenants(apiItem);
-                CoreRepository.SaveChanges();
+                if (!ModelState.IsValid)
+                {
+                    this.AddTenantSeletionToViewBag(apiItem);
+                    return View(tenant);
+                }
+                else
+                {
+                    CoreRepository.AddToTenants(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -87,7 +95,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Guid guid = Guid.Parse(id);
-                var apiItem = CoreRepository.Tenants.Expand("Parent").Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
+                var apiItem = CoreRepository.Tenants.Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
                 this.AddTenantSeletionToViewBag(apiItem);
                 return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
             }
@@ -106,19 +114,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Guid guid = Guid.Parse(id);
-                apiItem = CoreRepository.Tenants.Expand("Parent").Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(tenant);
+                }
+                else
+                {
+                    apiItem = CoreRepository.Tenants.Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.ExternalId = tenant.ExternalId;
-                apiItem.ExternalType = tenant.ExternalType;
-                apiItem.ParentId = tenant.ParentId;
+                    apiItem.ExternalId = tenant.ExternalId;
+                    apiItem.ExternalType = tenant.ExternalType;
+                    apiItem.ParentId = tenant.ParentId;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
+                }
             }
             catch (Exception ex)
             {

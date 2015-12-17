@@ -86,18 +86,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    cart.CartItems = AutoMapper.Mapper.Map<List<Models.Core.CartItem>>(CoreRepository.CartItems.Where(ci => ci.CartId == id).ToList());
+                    return View(cart);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = cart.Name;
-                apiItem.Description = cart.Description;
-                
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem));
+                    apiItem.Name = cart.Name;
+                    apiItem.Description = cart.Description;
+
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem));
+                }
             }
             catch (Exception ex)
             {
@@ -202,21 +210,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 Contract.Requires(id > 0);
                 Contract.Requires(null != cartItem);
-                var apiItem = CoreRepository.CartItems.Expand("Cart").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                Contract.Assert(null != apiItem);
+                if (!ModelState.IsValid)
+                {
+                    return View(cartItem);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.CartItems.Expand("Cart").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    Contract.Assert(null != apiItem);
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = cartItem.Name;
-                apiItem.Quantity = cartItem.Quantity;
-                apiItem.Description = cartItem.Description;
-                apiItem.Parameters = cartItem.Parameters;
+                    apiItem.Name = cartItem.Name;
+                    apiItem.Quantity = cartItem.Quantity;
+                    apiItem.Description = cartItem.Description;
+                    apiItem.Parameters = cartItem.Parameters;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(cartItem);
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.CartItem>(apiItem));
+                }
             }
             catch (Exception ex)
             {
@@ -279,16 +294,23 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var catalogueItem = CoreRepository.CatalogueItems.Where(c => c.Name == vdiName).FirstOrDefault();
                 Contract.Assert(null != catalogueItem);
 
-                cartItem.CatalogueItemId = catalogueItem.Id;
-                cartItem.VdiName = vdiName;
-                cartItem.Quantity = 1;
-                cartItem.Parameters = cartItem.RequesterToParameters();
+                if (!ModelState.IsValid)
+                {
+                    return View(cartItem);
+                }
+                else
+                {
+                    cartItem.CatalogueItemId = catalogueItem.Id;
+                    cartItem.VdiName = vdiName;
+                    cartItem.Quantity = 1;
+                    cartItem.Parameters = cartItem.RequesterToParameters();
 
-                CoreRepository.AddToCartItems(AutoMapper.Mapper.Map<Api.Core.CartItem>(cartItem));
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToCartItems(AutoMapper.Mapper.Map<Api.Core.CartItem>(cartItem));
+                    CoreRepository.SaveChanges();
 
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format("Item {0} added to cart", catalogueItem.Name)));
-                return View("VdiSave", cartItem);
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format("Item {0} added to cart", catalogueItem.Name)));
+                    return View("VdiSave", cartItem);
+                }
             }
             catch (Exception ex)
             {

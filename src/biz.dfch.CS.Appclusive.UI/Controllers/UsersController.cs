@@ -61,18 +61,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.User>(user);
+                if (!ModelState.IsValid)
+                {
+                    return View(user);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.User>(user);
 
-                CoreRepository.AddToUsers(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToUsers(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return View(user);
             }
+        
         }
 
         // GET: Users/Edit/5
@@ -96,21 +104,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Users.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(user);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.Users.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.ExternalId = user.ExternalId;
-                apiItem.Name = user.Name;
-                apiItem.Description = user.Description;
-                apiItem.ExternalType = user.ExternalType;
-                apiItem.Mail = user.Mail;
+                    apiItem.ExternalId = user.ExternalId;
+                    apiItem.Name = user.Name;
+                    apiItem.Description = user.Description;
+                    apiItem.ExternalType = user.ExternalType;
+                    apiItem.Mail = user.Mail;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.User>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.User>(apiItem));
+                }
             }
             catch (Exception ex)
             {

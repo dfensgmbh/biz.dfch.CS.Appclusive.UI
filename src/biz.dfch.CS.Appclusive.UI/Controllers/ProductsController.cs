@@ -88,12 +88,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 this.AddEntityKindSeletionToViewBag();
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Product>(product);
+                if (!ModelState.IsValid)
+                {
+                    return View(product);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.Product>(product);
 
-                CoreRepository.AddToProducts(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToProducts(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -108,7 +115,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 this.AddEntityKindSeletionToViewBag();
-                var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
             catch (Exception ex)
@@ -132,7 +139,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 

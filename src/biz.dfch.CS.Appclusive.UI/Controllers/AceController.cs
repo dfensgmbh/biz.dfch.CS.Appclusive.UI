@@ -61,22 +61,29 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Aces/Create
         [HttpPost]
-        public ActionResult Create(Models.Core.Ace Ace)
+        public ActionResult Create(Models.Core.Ace ace)
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Ace>(Ace);
+                if (!ModelState.IsValid)
+                {
+                    return View(ace);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.Ace>(ace);
 
-                CoreRepository.AddToAces(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToAces(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 this.AddAclSeletionToViewBag();
-                return View(Ace);
+                return View(ace);
             }
         }
 
@@ -98,31 +105,38 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: Aces/Edit/5
         [HttpPost]
-        public ActionResult Edit(long id, Models.Core.Ace Ace)
+        public ActionResult Edit(long id, Models.Core.Ace ace)
         {
             this.AddAclSeletionToViewBag();
             try
             {
-                var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(ace);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = Ace.Name;
-                apiItem.Description = Ace.Description;
-                apiItem.Trustee = Ace.Trustee;
-                apiItem.Action = Ace.Action;
-                apiItem.AclId = Ace.AclId;
+                    apiItem.Name = ace.Name;
+                    apiItem.Description = ace.Description;
+                    apiItem.Trustee = ace.Trustee;
+                    apiItem.Action = ace.Action;
+                    apiItem.AclId = ace.AclId;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
+                }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(Ace);
+                return View(ace);
             }
         }
 

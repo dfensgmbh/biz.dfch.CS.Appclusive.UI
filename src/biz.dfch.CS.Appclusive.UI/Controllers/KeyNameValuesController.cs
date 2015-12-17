@@ -76,12 +76,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.KeyNameValue>(keyNameValue);
+                if (!ModelState.IsValid)
+                {
+                    return View(keyNameValue);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.KeyNameValue>(keyNameValue);
 
-                CoreRepository.AddToKeyNameValues(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToKeyNameValues(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -111,20 +118,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(keyNameValue);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Key = keyNameValue.Key;
-                apiItem.Name = keyNameValue.Name;
-                apiItem.Description = keyNameValue.Description;
-                apiItem.Value = keyNameValue.Value;
+                    apiItem.Key = keyNameValue.Key;
+                    apiItem.Name = keyNameValue.Name;
+                    apiItem.Description = keyNameValue.Description;
+                    apiItem.Value = keyNameValue.Value;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.KeyNameValue>(apiItem));
+                }
             }
             catch (Exception ex)
             {

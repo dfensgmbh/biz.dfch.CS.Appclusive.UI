@@ -66,12 +66,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 this.AddEntityKindSeletionToViewBag();
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Acl>(acl);
+                if (!ModelState.IsValid)
+                {
+                    return View(acl);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.Acl>(acl);
 
-                CoreRepository.AddToAcls(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToAcls(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -103,19 +110,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 this.AddEntityKindSeletionToViewBag();
-                var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                if (!ModelState.IsValid)
+                {
+                    return View(acl);
+                }
+                else
+                {
+                    var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
-                #region copy all edited properties
+                    #region copy all edited properties
 
-                apiItem.Name = acl.Name;
-                apiItem.Description = acl.Description;
-                apiItem.EntityKindId = acl.EntityKindId;
+                    apiItem.Name = acl.Name;
+                    apiItem.Description = acl.Description;
+                    apiItem.EntityKindId = acl.EntityKindId;
 
-                #endregion
-                CoreRepository.UpdateObject(apiItem);
-                CoreRepository.SaveChanges();
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                    #endregion
+                    CoreRepository.UpdateObject(apiItem);
+                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                }
             }
             catch (Exception ex)
             {
