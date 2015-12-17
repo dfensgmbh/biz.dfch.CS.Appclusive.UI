@@ -49,5 +49,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         [Display(Name = "ModifiedBy", ResourceType = typeof(GeneralResources))]
         User ModifiedBy { get; set; }
+
+        [StringLength(1024)]
+        [Required(ErrorMessageResourceName = "requiredName", ErrorMessageResourceType = typeof(ErrorResources))]
+        string Name { get; set; }
+
+        string Description { get; set; }
     }
 }
