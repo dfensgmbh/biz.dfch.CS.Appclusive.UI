@@ -103,7 +103,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
                 tenants.Add(new Api.Core.Tenant());
-                tenants.AddRange(CoreRepository.Tenants.ToList().Where(t => currentTenant == null || t.Id != currentTenant.Id));
+                if (null == currentTenant || currentTenant.ParentId == currentTenant.Id)// special seed entry in DB
+                {
+                    tenants.AddRange(CoreRepository.Tenants);
+                }
+                else
+                {
+                    tenants.AddRange(CoreRepository.Tenants.Where(t => t.Id != currentTenant.Id));
+                }
 
                 ViewBag.TenantSelection = new SelectList(tenants, "Id", "DisplayName");
             }

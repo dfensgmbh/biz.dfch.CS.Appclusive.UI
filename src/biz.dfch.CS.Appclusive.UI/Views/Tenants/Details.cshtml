@@ -14,6 +14,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
         <li><a data-toggle="tab" href="#tenants">@GeneralResources.Children</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -23,6 +24,20 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Id)
+                </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
                 </dd>
 
                 <dt>
@@ -40,15 +55,18 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.ParentId)
+                    @Html.DisplayNameFor(model => model.Parent)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.ParentId)
+                    @Html.DisplayFor(model => model.Parent)
                 </dd>
             </dl>
         </div>
         <div id="tenants" class="tab-pane fade">
             @Html.Partial("TenantList", Model.Children)
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("General", Model)
         </div>
     </div>
     <hr />

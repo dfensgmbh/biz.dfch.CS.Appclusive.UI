@@ -460,6 +460,8 @@
     <Content Include="Views\Catalogues\FormPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\EntityKind.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CostCentre.cshtml" />
+    <Content Include="Views\Tenants\General.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Tenant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
