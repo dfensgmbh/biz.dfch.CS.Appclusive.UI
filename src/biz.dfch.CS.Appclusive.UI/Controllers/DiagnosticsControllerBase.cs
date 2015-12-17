@@ -35,7 +35,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     diagnosticsRepository = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Diagnostics"));
                     diagnosticsRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     diagnosticsRepository.IgnoreMissingProperties = true;
-                    diagnosticsRepository.Format.UseJson();
+                    //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                 }
                 return diagnosticsRepository;

@@ -78,9 +78,11 @@ namespace biz.dfch.CS.Appclusive.UI
 
             Mapper.CreateMap<Api.Core.User, Models.Core.User>();
             Mapper.CreateMap<Models.Core.User, Api.Core.User>();
+            Mapper.CreateMap<biz.dfch.CS.Appclusive.Core.OdataServices.Core.User, Models.Core.User>();
 
             Mapper.CreateMap<Api.Core.Tenant, Models.Core.Tenant>();
             Mapper.CreateMap<Models.Core.Tenant, Api.Core.Tenant>();
+            Mapper.CreateMap<biz.dfch.CS.Appclusive.Core.OdataServices.Core.Tenant, Models.Core.Tenant>();
 
             Mapper.CreateMap<Api.Core.ContractMapping, Models.Core.ContractMapping>();
             Mapper.CreateMap<Models.Core.ContractMapping, Api.Core.ContractMapping>();
