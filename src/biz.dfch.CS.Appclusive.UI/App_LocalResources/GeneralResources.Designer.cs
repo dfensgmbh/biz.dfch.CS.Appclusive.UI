@@ -340,6 +340,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to copied!.
+        /// </summary>
+        public static string Copied {
+            get {
+                return ResourceManager.GetString("Copied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy password to clip board.
+        /// </summary>
+        public static string CopyPassword {
+            get {
+                return ResourceManager.GetString("CopyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cost centre.
         /// </summary>
         public static string CostCentre {
@@ -624,6 +642,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string HelpTextDecline {
             get {
                 return ResourceManager.GetString("HelpTextDecline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide password.
+        /// </summary>
+        public static string HidePassword {
+            get {
+                return ResourceManager.GetString("HidePassword", resourceCulture);
             }
         }
         
@@ -993,6 +1020,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See password.
+        /// </summary>
+        public static string SeePassword {
+            get {
+                return ResourceManager.GetString("SeePassword", resourceCulture);
             }
         }
         

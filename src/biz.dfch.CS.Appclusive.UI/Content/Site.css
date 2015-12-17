@@ -71,4 +71,6 @@ div.ap-errortext, div.ap-infotext {
     margin-bottom: 10px;
 }
 
-.ui-autocomplete-selected{ background-color: yellow; }
+.copy-clipboard{
+    float: right;
+}
