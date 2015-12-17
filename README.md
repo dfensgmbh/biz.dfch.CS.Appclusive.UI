@@ -1,4 +1,5 @@
 # biz.dfch.CS.Appclusive.UI
+[![Build Status](https://build.dfch.biz/app/rest/builds/buildType:(id:CSharpDotNet_BizDfchCsAppclusiveUi_Build)/statusIcon)](https://build.dfch.biz/project.html?projectId=CSharpDotNet_BizDfchCsAppclusiveUi&tab=projectOverview)
 [![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](https://github.com/dfch/biz.dfch.CS.Appclusive.UI/blob/master/LICENSE)
 
 Assembly: biz.dfch.CS.Appclusive.UI

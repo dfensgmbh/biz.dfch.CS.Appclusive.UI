@@ -126,9 +126,6 @@
   <data name="EndOfLife" xml:space="preserve">
     <value>End of life</value>
   </data>
-  <data name="EndOfSale" xml:space="preserve">
-    <value>End of sale</value>
-  </data>
   <data name="ExpiresAt" xml:space="preserve">
     <value>Expires at</value>
   </data>
@@ -225,8 +222,8 @@
   <data name="CostCentre" xml:space="preserve">
     <value>Cost centre</value>
   </data>
-  <data name="EntityType" xml:space="preserve">
-    <value>Entity type</value>
+  <data name="EntityKind" xml:space="preserve">
+    <value>Entity kind</value>
   </data>
   <data name="Gate" xml:space="preserve">
     <value>Gate</value>
@@ -335,5 +332,143 @@
   </data>
   <data name="HelpTextAuditTrail" xml:space="preserve">
     <value>This table shows all modifications to the underlying entities</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Ace" xml:space="preserve">
+    <value>ACE</value>
+  </data>
+  <data name="Acl" xml:space="preserve">
+    <value>ACL</value>
+  </data>
+  <data name="CimiTarget" xml:space="preserve">
+    <value>Cimi target</value>
+  </data>
+  <data name="ContractMapping" xml:space="preserve">
+    <value>Contract mapping</value>
+  </data>
+  <data name="ContractMappings" xml:space="preserve">
+    <value>Contract mappings</value>
+  </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="Tenants" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Children" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="Acls" xml:space="preserve">
+    <value>ACLs</value>
+  </data>
+  <data name="ManagementUris" xml:space="preserve">
+    <value>Management uris</value>
+  </data>
+  <data name="Aces" xml:space="preserve">
+    <value>ACEs</value>
+  </data>
+  <data name="GoToAcl" xml:space="preserve">
+    <value>Go to ACL</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="OperationClearAuditLog" xml:space="preserve">
+    <value>Clear audit log</value>
+  </data>
+  <data name="OperationRaiseUpdateConfigurationEvent" xml:space="preserve">
+    <value>Raise update configuration event</value>
+  </data>
+  <data name="OperationReloadProducts" xml:space="preserve">
+    <value>Reload products</value>
+  </data>
+  <data name="OperationSetCreatedBy" xml:space="preserve">
+    <value>Set created by</value>
+  </data>
+  <data name="OperationSetCreatedByHelpText" xml:space="preserve">
+    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
+  <data name="OperationSetTenant" xml:space="preserve">
+    <value>Set tenant</value>
+  </data>
+  <data name="SpecialOperations" xml:space="preserve">
+    <value>Special operations</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="OperationSetTenantHelpText" xml:space="preserve">
+    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="CatalogueStatusEnum_Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="CatalogueStatusEnum_Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="CatalogueStatusEnum_Revoked" xml:space="preserve">
+    <value>Revoked</value>
+  </data>
+  <data name="GateStatusEnum_Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="GateStatusEnum_Locked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="GateTypeEnum_Barrier" xml:space="preserve">
+    <value>Barrier</value>
+  </data>
+  <data name="GateTypeEnum_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="GateTypeEnum_Mutex" xml:space="preserve">
+    <value>Mutex</value>
+  </data>
+  <data name="GateTypeEnum_Semaphore" xml:space="preserve">
+    <value>Semaphore</value>
+  </data>
+  <data name="GateTypeEnum_SpinLock" xml:space="preserve">
+    <value>SpinLock</value>
+  </data>
+  <data name="JobStatusEnum_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="JobStatusEnum_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="JobStatusEnum_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="JobStatusEnum_Faulted" xml:space="preserve">
+    <value>Faulted</value>
+  </data>
+  <data name="JobStatusEnum_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="JobStatusEnum_WaitingForActivation" xml:space="preserve">
+    <value>WaitingForActivation</value>
+  </data>
+  <data name="JobStatusEnum_WaitingForChildrenToComplete" xml:space="preserve">
+    <value>WaitingForChildrenToComplete</value>
+  </data>
+  <data name="JobStatusEnum_WaitingToRun" xml:space="preserve">
+    <value>WaitingToRun</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EntityType" xml:space="preserve">
+    <value>Entity type</value>
+  </data>
+  <data name="ManagementCredentialNameInfo" xml:space="preserve">
+    <value>Naming convention: use project namespace as prefix</value>
   </data>
 </root>

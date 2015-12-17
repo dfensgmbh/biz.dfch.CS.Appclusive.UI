@@ -1,0 +1,7 @@
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@model System.Guid
+
+@if (Model != null && !Model.Equals(System.Guid.Empty))
+{
+    @Model.ToString();
+}

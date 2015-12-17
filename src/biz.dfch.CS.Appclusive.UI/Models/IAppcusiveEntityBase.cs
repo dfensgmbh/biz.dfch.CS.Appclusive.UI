@@ -15,29 +15,39 @@
  */
 
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using biz.dfch.CS.Appclusive.UI.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public interface IAppcusiveEntityBase
     {
-        DateTimeOffset Created { get; set; }
-
-        [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))]
-        string CreatedBy { get; set; }
-
         long Id { get; set; }
+
+        DateTimeOffset Created { get; set; }
         DateTimeOffset Modified { get; set; }
 
-        [Display(Name = "ModifiedBy", ResourceType = typeof(GeneralResources))]
-        string ModifiedBy { get; set; }
-        
         byte[] RowVersion { get; set; }
-        string Tid { get; set; }
+
+        [Required]
+        Guid Tid { get; set; }
+
+        Tenant Tenant { get; set; }
+
+        [Required]
+        long CreatedById { get; set; }
+
+        [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))]
+        User CreatedBy { get; set; }
+
+        [Required]
+        long ModifiedById { get; set; }
+
+        [Display(Name = "ModifiedBy", ResourceType = typeof(GeneralResources))]
+        User ModifiedBy { get; set; }
     }
 }

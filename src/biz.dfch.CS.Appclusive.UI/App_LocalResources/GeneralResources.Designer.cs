@@ -70,6 +70,42 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ACE.
+        /// </summary>
+        public static string Ace {
+            get {
+                return ResourceManager.GetString("Ace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACEs.
+        /// </summary>
+        public static string Aces {
+            get {
+                return ResourceManager.GetString("Aces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACL.
+        /// </summary>
+        public static string Acl {
+            get {
+                return ResourceManager.GetString("Acl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACLs.
+        /// </summary>
+        public static string Acls {
+            get {
+                return ResourceManager.GetString("Acls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to cart.
         /// </summary>
         public static string AddToCart {
@@ -214,11 +250,56 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        public static string CatalogueStatusEnum_Hidden {
+            get {
+                return ResourceManager.GetString("CatalogueStatusEnum_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published.
+        /// </summary>
+        public static string CatalogueStatusEnum_Published {
+            get {
+                return ResourceManager.GetString("CatalogueStatusEnum_Published", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revoked.
+        /// </summary>
+        public static string CatalogueStatusEnum_Revoked {
+            get {
+                return ResourceManager.GetString("CatalogueStatusEnum_Revoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check out cart.
         /// </summary>
         public static string CheckOutCart {
             get {
                 return ResourceManager.GetString("CheckOutCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Children.
+        /// </summary>
+        public static string Children {
+            get {
+                return ResourceManager.GetString("Children", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cimi target.
+        /// </summary>
+        public static string CimiTarget {
+            get {
+                return ResourceManager.GetString("CimiTarget", resourceCulture);
             }
         }
         
@@ -237,6 +318,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ConfirmDelete {
             get {
                 return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract mapping.
+        /// </summary>
+        public static string ContractMapping {
+            get {
+                return ResourceManager.GetString("ContractMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract mappings.
+        /// </summary>
+        public static string ContractMappings {
+            get {
+                return ResourceManager.GetString("ContractMappings", resourceCulture);
             }
         }
         
@@ -273,6 +372,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
@@ -322,20 +430,20 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End of sale.
-        /// </summary>
-        public static string EndOfSale {
-            get {
-                return ResourceManager.GetString("EndOfSale", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Endpoint.
         /// </summary>
         public static string Endpoint {
             get {
                 return ResourceManager.GetString("Endpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity kind.
+        /// </summary>
+        public static string EntityKind {
+            get {
+                return ResourceManager.GetString("EntityKind", resourceCulture);
             }
         }
         
@@ -376,11 +484,92 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free.
+        /// </summary>
+        public static string GateStatusEnum_Free {
+            get {
+                return ResourceManager.GetString("GateStatusEnum_Free", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locked.
+        /// </summary>
+        public static string GateStatusEnum_Locked {
+            get {
+                return ResourceManager.GetString("GateStatusEnum_Locked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barrier.
+        /// </summary>
+        public static string GateTypeEnum_Barrier {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Barrier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string GateTypeEnum_Default {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mutex.
+        /// </summary>
+        public static string GateTypeEnum_Mutex {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Mutex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semaphore.
+        /// </summary>
+        public static string GateTypeEnum_Semaphore {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_Semaphore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpinLock.
+        /// </summary>
+        public static string GateTypeEnum_SpinLock {
+            get {
+                return ResourceManager.GetString("GateTypeEnum_SpinLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         public static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go.
+        /// </summary>
+        public static string Go {
+            get {
+                return ResourceManager.GetString("Go", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to ACL.
+        /// </summary>
+        public static string GoToAcl {
+            get {
+                return ResourceManager.GetString("GoToAcl", resourceCulture);
             }
         }
         
@@ -484,6 +673,78 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Canceled.
+        /// </summary>
+        public static string JobStatusEnum_Canceled {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        public static string JobStatusEnum_Completed {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        public static string JobStatusEnum_Created {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faulted.
+        /// </summary>
+        public static string JobStatusEnum_Faulted {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Faulted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        public static string JobStatusEnum_Running {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitingForActivation.
+        /// </summary>
+        public static string JobStatusEnum_WaitingForActivation {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_WaitingForActivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitingForChildrenToComplete.
+        /// </summary>
+        public static string JobStatusEnum_WaitingForChildrenToComplete {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_WaitingForChildrenToComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaitingToRun.
+        /// </summary>
+        public static string JobStatusEnum_WaitingToRun {
+            get {
+                return ResourceManager.GetString("JobStatusEnum_WaitingToRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration (KNV).
         /// </summary>
         public static string KeyNameValue {
@@ -511,11 +772,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naming convention: use project namespace as prefix.
+        /// </summary>
+        public static string ManagementCredentialNameInfo {
+            get {
+                return ResourceManager.GetString("ManagementCredentialNameInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management uri.
         /// </summary>
         public static string ManagementUri {
             get {
                 return ResourceManager.GetString("ManagementUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Management uris.
+        /// </summary>
+        public static string ManagementUris {
+            get {
+                return ResourceManager.GetString("ManagementUris", resourceCulture);
             }
         }
         
@@ -529,11 +808,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
             }
         }
         
@@ -552,6 +849,69 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string NotBefore {
             get {
                 return ResourceManager.GetString("NotBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear audit log.
+        /// </summary>
+        public static string OperationClearAuditLog {
+            get {
+                return ResourceManager.GetString("OperationClearAuditLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raise update configuration event.
+        /// </summary>
+        public static string OperationRaiseUpdateConfigurationEvent {
+            get {
+                return ResourceManager.GetString("OperationRaiseUpdateConfigurationEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload products.
+        /// </summary>
+        public static string OperationReloadProducts {
+            get {
+                return ResourceManager.GetString("OperationReloadProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set created by.
+        /// </summary>
+        public static string OperationSetCreatedBy {
+            get {
+                return ResourceManager.GetString("OperationSetCreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;Entity Type&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
+        /// </summary>
+        public static string OperationSetCreatedByHelpText {
+            get {
+                return ResourceManager.GetString("OperationSetCreatedByHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set tenant.
+        /// </summary>
+        public static string OperationSetTenant {
+            get {
+                return ResourceManager.GetString("OperationSetTenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;Entity Type&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
+        /// </summary>
+        public static string OperationSetTenantHelpText {
+            get {
+                return ResourceManager.GetString("OperationSetTenantHelpText", resourceCulture);
             }
         }
         
@@ -588,6 +948,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ParentId {
             get {
                 return ResourceManager.GetString("ParentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         
@@ -637,11 +1006,47 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Special operations.
+        /// </summary>
+        public static string SpecialOperations {
+            get {
+                return ResourceManager.GetString("SpecialOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tenant.
+        /// </summary>
+        public static string Tenant {
+            get {
+                return ResourceManager.GetString("Tenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tenant Id.
         /// </summary>
         public static string TenantId {
             get {
                 return ResourceManager.GetString("TenantId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tenants.
+        /// </summary>
+        public static string Tenants {
+            get {
+                return ResourceManager.GetString("Tenants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
             }
         }
         

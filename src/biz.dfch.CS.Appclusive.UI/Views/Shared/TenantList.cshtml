@@ -1,0 +1,40 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Tenant>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parent)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parent)                
+            </td>
+            <td class="ap-btn text-nowrap">
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Tenants", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
+                {
+                    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "Tenants", new { id = item.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("Delete", "Tenants", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

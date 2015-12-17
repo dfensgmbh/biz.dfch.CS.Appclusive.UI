@@ -32,7 +32,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.RoutePrefix)
             </td>
-            <td class="ap-btn">
+            <td class="ap-btn text-nowrap">
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
             </td>
         </tr>

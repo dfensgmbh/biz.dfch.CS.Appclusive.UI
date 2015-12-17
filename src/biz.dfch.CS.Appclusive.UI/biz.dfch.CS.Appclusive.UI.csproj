@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.0.10.29717, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.0.10\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.1.0.32151, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.1.0\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -156,16 +156,25 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AceController.cs" />
+    <Compile Include="Controllers\AclController.cs" />
     <Compile Include="Controllers\AuditTrailsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\CmpControllerBase.cs" />
+    <Compile Include="Controllers\CoreControllerBaseMock.cs" />
+    <Compile Include="Controllers\SpecialOperationsController.cs" />
+    <Compile Include="Controllers\CimiTargetsController.cs" />
+    <Compile Include="Controllers\ContractMappingsController.cs" />
+    <Compile Include="Controllers\CostCentersController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
     <Compile Include="Controllers\ManagementUrisController.cs" />
-    <Compile Include="Controllers\EntityTypesController.cs" />
+    <Compile Include="Controllers\EntityKindsController.cs" />
     <Compile Include="Controllers\ManagementCredentialController.cs" />
     <Compile Include="Controllers\KeyNameValuesController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
@@ -174,6 +183,12 @@
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TenantsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UsersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,16 +197,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AjaxHelperExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
+    <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
+    <Compile Include="Models\Cmp\CimiTarget.cs" />
+    <Compile Include="Models\Core\Ace.cs" />
+    <Compile Include="Models\Core\AceActionEnum.cs" />
+    <Compile Include="Models\Core\Acl.cs" />
     <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
     <Compile Include="Models\Core\Cart.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Catalogue.cs" />
     <Compile Include="Models\Core\CatalogueItem.cs" />
+    <Compile Include="Models\Core\CatalogueStatusEnum.cs" />
+    <Compile Include="Models\Core\ContractMapping.cs" />
     <Compile Include="Models\Core\CostCentre.cs" />
-    <Compile Include="Models\Core\EntityType.cs" />
+    <Compile Include="Models\Core\Customer.cs" />
+    <Compile Include="Models\Core\EntityKind.cs" />
     <Compile Include="Models\Core\Gate.cs" />
+    <Compile Include="Models\Core\GateStatusEnum.cs" />
+    <Compile Include="Models\Core\GateTypeEnum.cs" />
     <Compile Include="Models\Core\Job.cs" />
     <Compile Include="Models\Core\KeyNameValue.cs" />
     <Compile Include="Models\Core\ManagementCredential.cs" />
@@ -200,6 +226,8 @@
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderItem.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\Core\Tenant.cs" />
+    <Compile Include="Models\Core\User.cs" />
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
@@ -208,14 +236,32 @@
     <Compile Include="Models\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
+    <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\PortalConfig.cs" />
-    <Compile Include="Models\ViewModelBase.cs" />
+    <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
+    <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
+    <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="_mocked\ContractMapping.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\CoreRepositoryMock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\Customer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\Extension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_mocked\QueryOperationResponse.cs">
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +273,39 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -257,6 +336,8 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -316,8 +397,8 @@
     <Content Include="Views\KeyNameValues\Index.cshtml" />
     <Content Include="Views\Endpoints\Details.cshtml" />
     <Content Include="Views\Endpoints\Index.cshtml" />
-    <Content Include="Views\EntityTypes\Details.cshtml" />
-    <Content Include="Views\EntityTypes\Index.cshtml" />
+    <Content Include="Views\EntityKinds\Details.cshtml" />
+    <Content Include="Views\EntityKinds\Index.cshtml" />
     <Content Include="Views\ManagementCredentials\Details.cshtml" />
     <Content Include="Views\ManagementCredentials\Index.cshtml" />
     <Content Include="Views\ManagementUris\Details.cshtml" />
@@ -342,9 +423,9 @@
     <Content Include="Views\KeyNameValues\FormPartial.cshtml" />
     <Content Include="Views\Carts\VdiSave.cshtml" />
     <Content Include="Views\Carts\VdiCreate.cshtml" />
-    <Content Include="Views\EntityTypes\Create.cshtml" />
-    <Content Include="Views\EntityTypes\FormPartial.cshtml" />
-    <Content Include="Views\EntityTypes\Edit.cshtml" />
+    <Content Include="Views\EntityKinds\Create.cshtml" />
+    <Content Include="Views\EntityKinds\FormPartial.cshtml" />
+    <Content Include="Views\EntityKinds\Edit.cshtml" />
     <Content Include="Views\ManagementCredentials\FormPartial.cshtml" />
     <Content Include="Views\ManagementCredentials\Edit.cshtml" />
     <Content Include="Views\ManagementCredentials\Create.cshtml" />
@@ -361,10 +442,65 @@
     <Content Include="Views\Products\CatalogueItemList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\AuditTrails\Details.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\FormPartial.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Shared\ContractMappingList.cshtml" />
+    <Content Include="Views\Shared\TenantList.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Tenants\Create.cshtml" />
+    <Content Include="Views\Tenants\Details.cshtml" />
+    <Content Include="Views\Tenants\Edit.cshtml" />
+    <Content Include="Views\Tenants\FormPartial.cshtml" />
+    <Content Include="Views\Tenants\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\FormPartial.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Guid.cshtml" />
+    <Content Include="Views\ContractMappings\Create.cshtml" />
+    <Content Include="Views\ContractMappings\Details.cshtml" />
+    <Content Include="Views\ContractMappings\Edit.cshtml" />
+    <Content Include="Views\ContractMappings\FormPartial.cshtml" />
+    <Content Include="Views\ContractMappings\Index.cshtml" />
+    <Content Include="Views\CimiTargets\Index.cshtml" />
+    <Content Include="Views\CimiTargets\Details.cshtml" />
+    <Content Include="Views\CostCentres\Create.cshtml" />
+    <Content Include="Views\CostCentres\Details.cshtml" />
+    <Content Include="Views\CostCentres\Edit.cshtml" />
+    <Content Include="Views\CostCentres\FormPartial.cshtml" />
+    <Content Include="Views\CostCentres\Index.cshtml" />
+    <Content Include="Views\Aces\Create.cshtml" />
+    <Content Include="Views\Aces\Details.cshtml" />
+    <Content Include="Views\Aces\Edit.cshtml" />
+    <Content Include="Views\Aces\FormPartial.cshtml" />
+    <Content Include="Views\Aces\Index.cshtml" />
+    <Content Include="Views\Acls\Create.cshtml" />
+    <Content Include="Views\Acls\Details.cshtml" />
+    <Content Include="Views\Acls\Edit.cshtml" />
+    <Content Include="Views\Acls\FormPartial.cshtml" />
+    <Content Include="Views\Acls\Index.cshtml" />
+    <Content Include="Views\Shared\AceList.cshtml" />
+    <Content Include="Views\SpecialOperations\Index.cshtml" />
+    <Content Include="Views\SpecialOperations\SetCreatedBy.cshtml" />
+    <Content Include="Views\SpecialOperations\SetTenant.cshtml" />
+    <Content Include="Views\SpecialOperations\ClearAuditLog.cshtml" />
+    <Content Include="Views\SpecialOperations\ReloadProducts.cshtml" />
+    <Content Include="Views\SpecialOperations\RaiseUpdateConfigurationEvent.cshtml" />
+    <Content Include="Views\Catalogues\ItemIndex.cshtml" />
+    <Content Include="Views\Shared\AjaxPaging.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\User.cshtml" />
+    <Content Include="Views\Catalogues\FormPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EntityKind.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CostCentre.cshtml" />
+    <Content Include="Views\Tenants\General.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Tenant.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -399,7 +535,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
+          <IISUrl>http://localhost:60755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

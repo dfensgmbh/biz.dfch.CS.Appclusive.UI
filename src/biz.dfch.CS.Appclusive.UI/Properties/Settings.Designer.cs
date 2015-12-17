@@ -25,19 +25,19 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://appclusive/Appclusive/api/Diagnostics")]
-        public string AppculsiveApiDiagnosticsUrl {
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int Pagesize {
             get {
-                return ((string)(this["AppculsiveApiDiagnosticsUrl"]));
+                return ((int)(this["Pagesize"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://appclusive/Appclusive/api/Core")]
-        public string AppculsiveApiCoreUrl {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://172.19.115.33:80/Appclusive/api/")]
+        public string AppculsiveApiBaseUrl {
             get {
-                return ((string)(this["AppculsiveApiCoreUrl"]));
+                return ((string)(this["AppculsiveApiBaseUrl"]));
             }
         }
     }

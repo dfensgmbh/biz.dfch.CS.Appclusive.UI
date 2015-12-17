@@ -1,10 +1,27 @@
-﻿using System;
+﻿/**
+ * Copyright 2015 d-fens GmbH
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -20,16 +37,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                List<Api.Core.Product> items;
-                if (pageNr > 1)
-                {
-                    items = CoreRepository.Products.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                else
-                {
-                    items = CoreRepository.Products.Take(PortalConfig.Pagesize + 1).ToList();
-                }
-                ViewBag.Paging = new PagingInfo(pageNr, items.Count > PortalConfig.Pagesize);
+                QueryOperationResponse<Api.Core.Product> items = CoreRepository.Products
+                        .AddQueryOption("$inlinecount", "allpages")
+                        .AddQueryOption("$top", PortalConfig.Pagesize)
+                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                        .Execute() as QueryOperationResponse<Api.Core.Product>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.Product>>(items));
             }
             catch (Exception ex)
@@ -42,14 +56,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Product
 
         // GET: Products/Details/5
-        public ActionResult Details(int id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Products.Expand("CatalogueItems").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Products.Expand("EntityKind").Expand("CatalogueItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                this.AddEntityKindSeletionToViewBag();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(item));
             }
             catch (Exception ex)
@@ -62,6 +77,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Product());
         }
 
@@ -71,12 +87,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = AutoMapper.Mapper.Map<Api.Core.Product>(product);
+                this.AddEntityKindSeletionToViewBag();
+                if (!ModelState.IsValid)
+                {
+                    return View(product);
+                }
+                else
+                {
+                    var apiItem = AutoMapper.Mapper.Map<Api.Core.Product>(product);
 
-                CoreRepository.AddToProducts(apiItem);
-                CoreRepository.SaveChanges();
+                    CoreRepository.AddToProducts(apiItem);
+                    CoreRepository.SaveChanges();
 
-                return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id });
+                }
             }
             catch (Exception ex)
             {
@@ -86,42 +110,44 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Products/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             try
             {
-                var apiItem = CoreRepository.Products.Where(c => c.Id == id).FirstOrDefault();
+                this.AddEntityKindSeletionToViewBag();
+                var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Core.KeyNameValue());
+                return View(new Models.Core.Product());
             }
         }
 
         // POST: Products/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Models.Core.Product product)
+        public ActionResult Edit(long id, Models.Core.Product product)
         {
             try
             {
+                this.AddEntityKindSeletionToViewBag();
+                
                 if (!ModelState.IsValid)
                 {
                     return View(product);
                 }
                 else
                 {
-                    var apiItem = CoreRepository.Products.Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 
                     apiItem.Name = product.Name;
                     apiItem.Description = product.Description;
                     apiItem.Parameters = product.Parameters;
-                    apiItem.Version = product.Version;
                     apiItem.EndOfLife = product.EndOfLife;
-                    apiItem.EndOfSale = product.EndOfSale;
+                    apiItem.EntityKindId = product.EntityKindId;
                     apiItem.ValidFrom = product.ValidFrom;
                     apiItem.ValidUntil = product.ValidUntil;
                     apiItem.Type = product.Type;
@@ -141,12 +167,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Products/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             Api.Core.Product apiItem = null;
             try
             {
-                apiItem = CoreRepository.Products.Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -154,7 +180,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem)));
+                return View("Details", AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
         }
         #endregion

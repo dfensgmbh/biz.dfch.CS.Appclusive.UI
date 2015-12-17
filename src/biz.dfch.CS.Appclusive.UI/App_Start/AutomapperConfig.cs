@@ -1,4 +1,20 @@
-﻿using System;
+﻿/**
+ * Copyright 2015 d-fens GmbH
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -42,8 +58,8 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Gate, Models.Core.Gate>();
             Mapper.CreateMap<Models.Core.Gate, Api.Core.Gate>();
 
-            Mapper.CreateMap<Api.Core.EntityType, Models.Core.EntityType>(); 
-            Mapper.CreateMap<Models.Core.EntityType, Api.Core.EntityType>();
+            Mapper.CreateMap<Api.Core.EntityKind, Models.Core.EntityKind>();
+            Mapper.CreateMap<Models.Core.EntityKind, Api.Core.EntityKind>();
 
             Mapper.CreateMap<Api.Core.ManagementUri, Models.Core.ManagementUri>();
             Mapper.CreateMap<Models.Core.ManagementUri, Api.Core.ManagementUri>();
@@ -54,6 +70,34 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>();
             Mapper.CreateMap<Api.Diagnostics.Endpoint, Models.Diagnostics.Endpoint>();
 
+            Mapper.CreateMap<Api.Core.Ace, Models.Core.Ace>();
+            Mapper.CreateMap<Models.Core.Ace, Api.Core.Ace>();
+
+            Mapper.CreateMap<Api.Core.Acl, Models.Core.Acl>();
+            Mapper.CreateMap<Models.Core.Acl, Api.Core.Acl>();
+
+            Mapper.CreateMap<Api.Core.User, Models.Core.User>();
+            Mapper.CreateMap<Models.Core.User, Api.Core.User>();
+            Mapper.CreateMap<biz.dfch.CS.Appclusive.Core.OdataServices.Core.User, Models.Core.User>();
+
+            Mapper.CreateMap<Api.Core.Tenant, Models.Core.Tenant>();
+            Mapper.CreateMap<Models.Core.Tenant, Api.Core.Tenant>();
+            Mapper.CreateMap<biz.dfch.CS.Appclusive.Core.OdataServices.Core.Tenant, Models.Core.Tenant>();
+
+            Mapper.CreateMap<Api.Core.ContractMapping, Models.Core.ContractMapping>();
+            Mapper.CreateMap<Models.Core.ContractMapping, Api.Core.ContractMapping>();
+
+            Mapper.CreateMap<Api.Core.CostCentre, Models.Core.CostCentre>();
+            Mapper.CreateMap<Models.Core.CostCentre, Api.Core.CostCentre>();
+
+            Mapper.CreateMap<Api.Cmp.CimiTarget, Models.Cmp.CimiTarget>();
+            Mapper.CreateMap<Models.Cmp.CimiTarget, Api.Cmp.CimiTarget>();
+            
+            Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
+            Mapper.CreateMap<Models.Core.Product, Api.Core.Product>();
+
+            Mapper.CreateMap<Api.Core.Customer, Models.Core.Customer>();
+            Mapper.CreateMap<Models.Core.Customer, Api.Core.Customer>();
         }
     }
 }
