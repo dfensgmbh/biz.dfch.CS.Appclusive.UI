@@ -10,6 +10,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
     {
         public Tenant()
         {
+            this.Created = DateTimeOffset.Now;
+            this.Modified = DateTimeOffset.Now;
+            this.CreatedById = 1;
+            this.ModifiedById = 1;
             this.Children = new List<Tenant>();
         }
         public Guid Id { get; set; }

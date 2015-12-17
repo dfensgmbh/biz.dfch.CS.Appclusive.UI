@@ -116,6 +116,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 Guid guid = Guid.Parse(id);
                 if (!ModelState.IsValid)
                 {
+                    this.AddTenantSeletionToViewBag(AutoMapper.Mapper.Map<Api.Core.Tenant>(tenant));
                     return View(tenant);
                 }
                 else
@@ -124,14 +125,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                     #region copy all edited properties
 
-                    apiItem.ExternalId = tenant.ExternalId;
-                    apiItem.ExternalType = tenant.ExternalType;
+                    apiItem.Id = tenant.Id; 
+                    apiItem.Name = tenant.Name;
+                    apiItem.Description = tenant.Description;
                     apiItem.ParentId = tenant.ParentId;
+                    apiItem.ExternalType = tenant.ExternalType;
+                    apiItem.ExternalId = tenant.ExternalId;
 
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    this.AddTenantSeletionToViewBag(apiItem);
                     return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
                 }
             }

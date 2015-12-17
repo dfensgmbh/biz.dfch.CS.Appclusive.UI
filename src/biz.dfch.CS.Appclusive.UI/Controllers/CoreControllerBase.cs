@@ -112,7 +112,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     tenants.AddRange(CoreRepository.Tenants.Where(t => t.Id != currentTenant.Id));
                 }
 
-                ViewBag.TenantSelection = new SelectList(tenants, "Id", "DisplayName");
+                ViewBag.TenantSelection = new SelectList(AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(tenants), "IdStr", "Id");
             }
             catch (Exception ex)
             {
