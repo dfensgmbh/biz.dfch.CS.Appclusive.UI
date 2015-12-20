@@ -1,4 +1,6 @@
-﻿@{
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
     var title = "biz.dfch.CS.Appclusive.UI";
 }
 <!DOCTYPE html>
@@ -23,17 +25,72 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("AuditTrail", "AuditTrail", "MyView")</li>
+                    <li>@Html.ActionLink(@GeneralResources.Home, "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Core <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Product, "Index", "Products")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Node, "Index", "Nodes")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Cart, "Index", "Carts")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Order, "Index", "Orders")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Job, "Index", "Jobs")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals")</li>
+                            <li>@Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues")</li>
+                            <li>@Html.ActionLink(@GeneralResources.EntityKind, "Index", "EntityKinds")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Gate, "Index", "Gates")</li>
+                            <li>@Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris")</li>
+                            <li>@Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Ace, "Index", "Aces")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Acl, "Index", "Acls")</li>
+                            <li>@Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants")</li>
+                            <li>@Html.ActionLink(@GeneralResources.User, "Index", "Users")</li>
+                            <li>@Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Diagnostics <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails")</li>
+                            <li>@Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Mocked. <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink(@GeneralResources.Customer, "Index", "Customers")</li>
+                            <li>@Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            VDI <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null)</li>
+                            <li>@Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink(@GeneralResources.About, "About", "Home")</li>
+                    <li>@Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
             </div>
         </div>
     </div>
     <div class="container body-content">
+
+        @RenderSection("Title", required: false)
+        @Html.Partial("Messages")
         @RenderBody()
+        @Html.Partial("Paging")
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year d-fens GmbH</p>
@@ -42,6 +99,19 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/sitescripts")
     @RenderSection("scripts", required: false)
+    @Html.RenderDelayed()
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+
+    <div id="ajaxNotify">
+    </div>
+
 </body>
 </html>

@@ -1,0 +1,98 @@
+﻿/**
+ * Copyright 2015 d-fens GmbH
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
+using System.Linq;
+using System.Web;
+
+namespace biz.dfch.CS.Appclusive.UI.Models.Core
+{
+    public class Approval : AppcusiveEntityViewModelBase
+    {
+        public Approval()
+        {
+            AppcusiveEntityBaseHelper.InitEntity(this);
+        }
+
+        [Display(Name = "ExpiresAt", ResourceType = typeof(GeneralResources))] 
+        public DateTimeOffset ExpiresAt { get; set; }
+        
+        [Display(Name = "NotBefore", ResourceType = typeof(GeneralResources))]
+        public DateTimeOffset NotBefore { get; set; }
+        
+        public string Status { get; set; }
+        
+        #region approve/decline
+
+        public const string DECLINED_STATUS_CHANGE = "Cancel";
+        public const string APPROVED_STATUS_CHANGE = "Continue";
+        public const string CREATED_STATUS = "Created";
+
+        [Display(Name = "HelpText", ResourceType = typeof(GeneralResources))]
+        public string HelpText { get; set; }
+
+        public string ActionText
+        {
+            get
+            {
+                return (this.Status == DECLINED_STATUS_CHANGE) ?
+                    GeneralResources.Decline
+                    :
+                    GeneralResources.Approve;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// set through call of ResolveOrderId()
+        /// </summary>
+        public int OrderId { get; private set; }
+
+        /// <summary>
+        /// Find Order by Approval 
+        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
+        /// -> Job (Name== 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order') 
+        /// -> Order
+        /// </summary>
+        /// <param name="coreRepository"></param>
+        internal void ResolveOrderId(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            var jobs = coreRepository.Jobs.Where(j => j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval" & j.ReferencedItemId == this.Id.ToString());
+            Api.Core.Job approvalJob = jobs.FirstOrDefault();
+            Contract.Assert(null != approvalJob, "no approval-job available");
+            Contract.Assert(approvalJob.ParentId>0, "no approval-job parent available");
+
+            jobs = coreRepository.Jobs.Where(j => j.Id == approvalJob.ParentId && j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order");
+            Api.Core.Job orderJob = jobs.FirstOrDefault();
+            Contract.Assert(null != orderJob, "no Order-job available");
+
+            int orderId = 0;
+            int.TryParse(orderJob.ReferencedItemId, out orderId);
+            this.OrderId = orderId;
+        }
+
+        public string OrderIdClass {
+            get { return this.OrderId > 0 ? "" : " disabled"; }
+        }
+    }
+}

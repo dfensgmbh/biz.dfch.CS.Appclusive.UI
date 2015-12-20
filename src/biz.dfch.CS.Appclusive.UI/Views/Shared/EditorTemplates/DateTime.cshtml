@@ -1,0 +1,28 @@
+﻿@using biz.dfch.CS.Appclusive.UI.Models
+@model System.DateTime
+@{
+    var pickerId = Html.IdFor(model => model);
+    var iconPickerId = "Icon" + pickerId;
+}
+
+<div class="input-group date" id="@pickerId">
+    @Html.TextBox("", Model, new { @class = "form-control", @id = iconPickerId })
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>
+
+@* see https://github.com/Eonasdan/bootstrap-datetimepicker/blob/master/docs/Options.md *@
+@using (Html.Delayed())
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#@pickerId').datetimepicker({
+                locale: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName'
+            });
+            $('#@iconPickerId').datetimepicker({
+                locale: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName'
+            });
+        });
+    </script>
+}

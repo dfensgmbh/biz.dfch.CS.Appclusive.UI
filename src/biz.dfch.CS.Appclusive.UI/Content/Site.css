@@ -17,8 +17,60 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
+}*/
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+
+select.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* special formatting */
+.tab-content{
+    padding-top:20px;
+}
+
+dd{
+    margin-bottom:10px;
+}
+
+.table td.ap-btn{
+    padding-top:3px;
+    padding-bottom:3px;
+}
+
+div.ap-errortext, div.ap-infotext {
+    margin-bottom: 10px;
+}
+
+.copy-clipboard{
+    float: right;
 }

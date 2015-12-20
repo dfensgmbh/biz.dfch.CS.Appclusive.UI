@@ -1,0 +1,72 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Approval
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " details";
+}
+
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+<div>
+    <hr />
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NotBefore)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NotBefore)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ExpiresAt)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ExpiresAt)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+            </dl>
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @if (Model.Status == biz.dfch.CS.Appclusive.UI.Models.Core.Approval.CREATED_STATUS)
+    {
+        <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
+        <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>
+    }
+    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> @GeneralResources.Order</a>
+</p>

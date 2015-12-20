@@ -1,0 +1,77 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Tenant
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " details";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Id)</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#tenants">@GeneralResources.Children</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ExternalId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ExternalId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ExternalType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ExternalType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parent)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Parent)
+                </dd>
+            </dl>
+        </div>
+        <div id="tenants" class="tab-pane fade">
+            @Html.Partial("TenantList", Model.Children)
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("General", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id.ToString() })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+</p>

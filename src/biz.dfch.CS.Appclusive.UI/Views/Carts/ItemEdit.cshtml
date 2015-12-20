@@ -1,0 +1,35 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CartItem
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@{
+    ViewBag.Title = @Model.GetType().Name + " edit";
+}
+
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ItemOfCart "@Html.DisplayFor(model => model.Cart.Name)"</h4>
+}
+
+<div>
+    <hr />
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            @Html.Partial("ItemFormPartial", Model)
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    @if (Model.CartId > 0)
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CartId })"><i c><i class="fa fa-arrow-left "></i> @GeneralResources.BackToCart</a>
+    }
+</p>

@@ -1,0 +1,10 @@
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+<div id="raiseUpdateConfigurationEventForm">
+    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+    @Html.Partial("Messages")
+
+    @Ajax.ActionLink(GeneralResources.OperationRaiseUpdateConfigurationEvent, "RaiseUpdateConfigurationEvent", null,
+            new AjaxOptions() { UpdateTargetId = "raiseUpdateConfigurationEventForm", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
+            new { @class = "btn btn-primary" })
+</div>

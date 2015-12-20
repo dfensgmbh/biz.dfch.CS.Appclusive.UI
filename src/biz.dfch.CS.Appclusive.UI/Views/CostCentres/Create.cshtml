@@ -1,0 +1,21 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CostCentre
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " create";
+}
+
+@section Title{
+    <h2>@GeneralResources.New</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+
+<div>
+    <hr />
+    <div>      
+        @Html.Partial("FormPartial", Model)
+    </div>
+    <p>
+        <hr />
+        <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.CancelLink</a>
+    </p>
+</div>

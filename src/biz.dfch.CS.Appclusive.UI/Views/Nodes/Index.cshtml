@@ -1,0 +1,11 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Node>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@{
+    ViewBag.Title = "Node" + " List";
+}
+@section Title{
+    <h2>@GeneralResources.ResourceManager.GetString("Node")@GeneralResources.List</h2>
+}
+@Html.Partial("ItemList", Model)
+

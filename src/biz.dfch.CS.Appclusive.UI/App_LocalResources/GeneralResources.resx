@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Back2list" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="EndOfLife" xml:space="preserve">
+    <value>End of life</value>
+  </data>
+  <data name="ExpiresAt" xml:space="preserve">
+    <value>Expires at</value>
+  </data>
+  <data name="HelpText" xml:space="preserve">
+    <value>Help Text</value>
+  </data>
+  <data name="HelpTextApprove" xml:space="preserve">
+    <value>The request will be approved when you click the 'Approve' button. You can optionally add a explanation or reason for approval.</value>
+  </data>
+  <data name="HelpTextDecline" xml:space="preserve">
+    <value>The request will be declined when you click the 'Decline' button. You can optionally add a explanation or reason for approval.</value>
+  </data>
+  <data name="ModifiedBy" xml:space="preserve">
+    <value>Modified by</value>
+  </data>
+  <data name="NotBefore" xml:space="preserve">
+    <value>Not before</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Order Id</value>
+  </data>
+  <data name="ParentId" xml:space="preserve">
+    <value>Parent id</value>
+  </data>
+  <data name="ReferencedItemId" xml:space="preserve">
+    <value>Ref Id</value>
+  </data>
+  <data name="ServerRole" xml:space="preserve">
+    <value>Server role</value>
+  </data>
+  <data name="TenantId" xml:space="preserve">
+    <value>Tenant Id</value>
+  </data>
+  <data name="ValidFrom" xml:space="preserve">
+    <value>Valid from</value>
+  </data>
+  <data name="ValidUntil" xml:space="preserve">
+    <value>Valid until</value>
+  </data>
+  <data name="VDI_INVALID_HelpText" xml:space="preserve">
+    <value>invalid VDI</value>
+  </data>
+  <data name="VDI_PERSONAL_HelpText" xml:space="preserve">
+    <value>Add technical VDI</value>
+  </data>
+  <data name="VDI_TECHNICAL_HelpText" xml:space="preserve">
+    <value>You are requestiong a VDI for antoher user</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="DetailsLink" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="EditLink" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="BackToOrder" xml:space="preserve">
+    <value>Back to order</value>
+  </data>
+  <data name="CancelLink" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ItemOfOrder" xml:space="preserve">
+    <value>Order item of order</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Catalogue" xml:space="preserve">
+    <value>Catalogue</value>
+  </data>
+  <data name="KeyNameValue" xml:space="preserve">
+    <value>Configuration (KNV)</value>
+  </data>
+  <data name="Approval" xml:space="preserve">
+    <value>Approval</value>
+  </data>
+  <data name="Assoc" xml:space="preserve">
+    <value>Assoc</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="CartItem" xml:space="preserve">
+    <value>Cart item</value>
+  </data>
+  <data name="CatalogueItem" xml:space="preserve">
+    <value>Catalogue item</value>
+  </data>
+  <data name="CostCentre" xml:space="preserve">
+    <value>Cost centre</value>
+  </data>
+  <data name="EntityKind" xml:space="preserve">
+    <value>Entity kind</value>
+  </data>
+  <data name="Gate" xml:space="preserve">
+    <value>Gate</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Job</value>
+  </data>
+  <data name="ManagementCredential" xml:space="preserve">
+    <value>Management credential</value>
+  </data>
+  <data name="ManagementUri" xml:space="preserve">
+    <value>Management uri</value>
+  </data>
+  <data name="Node" xml:space="preserve">
+    <value>Node (Inventory)</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="OrderItem" xml:space="preserve">
+    <value>Order item</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="VdiCartItem" xml:space="preserve">
+    <value>VDI</value>
+  </data>
+  <data name="AuditTrail" xml:space="preserve">
+    <value>Audit trail</value>
+  </data>
+  <data name="Endpoint" xml:space="preserve">
+    <value>Endpoint</value>
+  </data>
+  <data name="ItemOfCart" xml:space="preserve">
+    <value>Cart item of cart</value>
+  </data>
+  <data name="ItemOfCatalog" xml:space="preserve">
+    <value>Catalog item of catalog</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value> list</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>request</value>
+  </data>
+  <data name="BackToCart" xml:space="preserve">
+    <value>Back to Cart</value>
+  </data>
+  <data name="CatalogueItems" xml:space="preserve">
+    <value>Catalogue items</value>
+  </data>
+  <data name="CheckOutCart" xml:space="preserve">
+    <value>Check out cart</value>
+  </data>
+  <data name="GoToCarts" xml:space="preserve">
+    <value>go to carts</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BackToCatalogue" xml:space="preserve">
+    <value>Back to catalogue</value>
+  </data>
+  <data name="GateHelpText" xml:space="preserve">
+    <value>Name must be unique and the full name of a core type.</value>
+  </data>
+  <data name="GoToProduct" xml:space="preserve">
+    <value>Go to product</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ConfirmCheckOut" xml:space="preserve">
+    <value>Are you sure want to checkout?</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete this item?</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="VDI_PERSONAL" xml:space="preserve">
+    <value>Add personal VDI</value>
+  </data>
+  <data name="VDI_TECHNICAL" xml:space="preserve">
+    <value>Add VDI for technical use</value>
+  </data>
+  <data name="HelpTextAuditTrail" xml:space="preserve">
+    <value>This table shows all modifications to the underlying entities</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Ace" xml:space="preserve">
+    <value>ACE</value>
+  </data>
+  <data name="Acl" xml:space="preserve">
+    <value>ACL</value>
+  </data>
+  <data name="CimiTarget" xml:space="preserve">
+    <value>Cimi target</value>
+  </data>
+  <data name="ContractMapping" xml:space="preserve">
+    <value>Contract mapping</value>
+  </data>
+  <data name="ContractMappings" xml:space="preserve">
+    <value>Contract mappings</value>
+  </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="Tenants" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Children" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="Acls" xml:space="preserve">
+    <value>ACLs</value>
+  </data>
+  <data name="ManagementUris" xml:space="preserve">
+    <value>Management uris</value>
+  </data>
+  <data name="Aces" xml:space="preserve">
+    <value>ACEs</value>
+  </data>
+  <data name="GoToAcl" xml:space="preserve">
+    <value>Go to ACL</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="OperationClearAuditLog" xml:space="preserve">
+    <value>Clear audit log</value>
+  </data>
+  <data name="OperationRaiseUpdateConfigurationEvent" xml:space="preserve">
+    <value>Raise update configuration event</value>
+  </data>
+  <data name="OperationReloadProducts" xml:space="preserve">
+    <value>Reload products</value>
+  </data>
+  <data name="OperationSetCreatedBy" xml:space="preserve">
+    <value>Set created by</value>
+  </data>
+  <data name="OperationSetCreatedByHelpText" xml:space="preserve">
+    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
+  <data name="OperationSetTenant" xml:space="preserve">
+    <value>Set tenant</value>
+  </data>
+  <data name="SpecialOperations" xml:space="preserve">
+    <value>Special operations</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="OperationSetTenantHelpText" xml:space="preserve">
+    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="CatalogueStatusEnum_Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="CatalogueStatusEnum_Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="CatalogueStatusEnum_Revoked" xml:space="preserve">
+    <value>Revoked</value>
+  </data>
+  <data name="GateStatusEnum_Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="GateStatusEnum_Locked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="GateTypeEnum_Barrier" xml:space="preserve">
+    <value>Barrier</value>
+  </data>
+  <data name="GateTypeEnum_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="GateTypeEnum_Mutex" xml:space="preserve">
+    <value>Mutex</value>
+  </data>
+  <data name="GateTypeEnum_Semaphore" xml:space="preserve">
+    <value>Semaphore</value>
+  </data>
+  <data name="GateTypeEnum_SpinLock" xml:space="preserve">
+    <value>SpinLock</value>
+  </data>
+  <data name="JobStatusEnum_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="JobStatusEnum_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="JobStatusEnum_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="JobStatusEnum_Faulted" xml:space="preserve">
+    <value>Faulted</value>
+  </data>
+  <data name="JobStatusEnum_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="JobStatusEnum_WaitingForActivation" xml:space="preserve">
+    <value>WaitingForActivation</value>
+  </data>
+  <data name="JobStatusEnum_WaitingForChildrenToComplete" xml:space="preserve">
+    <value>WaitingForChildrenToComplete</value>
+  </data>
+  <data name="JobStatusEnum_WaitingToRun" xml:space="preserve">
+    <value>WaitingToRun</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EntityType" xml:space="preserve">
+    <value>Entity type</value>
+  </data>
+  <data name="ManagementCredentialNameInfo" xml:space="preserve">
+    <value>Naming convention: use project namespace as prefix</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>copied!</value>
+  </data>
+  <data name="CopyPassword" xml:space="preserve">
+    <value>Copy password to clip board</value>
+  </data>
+  <data name="HidePassword" xml:space="preserve">
+    <value>Hide password</value>
+  </data>
+  <data name="SeePassword" xml:space="preserve">
+    <value>See password</value>
+  </data>
+</root>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CartItem>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var cartItem in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modeItem => cartItem.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modeItem => cartItem.Quantity)
+            </td>
+            <td class="ap-btn text-nowrap">
+                <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = cartItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = cartItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.EditLink</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = cartItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+         

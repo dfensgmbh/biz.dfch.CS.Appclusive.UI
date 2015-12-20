@@ -1,0 +1,70 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CatalogueId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.DropDownListFor(model => model.ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductSelection, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValidFromDateTime, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.ValidFromDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValidFromDateTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValidUntil, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.ValidUntil, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.ValidUntil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndOfLife, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.EndOfLife, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndOfLife, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "4", @style = "min-width: 100%" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Parameters, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.TextAreaFor(model => model.Parameters, new { @class = "form-control", @rows = "10", @style = "min-width: 100%" })
+                @Html.ValidationMessageFor(model => model.Parameters, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="@GeneralResources.Save" class="btn btn-primary" />
+        </div>
+    }
+</div>
