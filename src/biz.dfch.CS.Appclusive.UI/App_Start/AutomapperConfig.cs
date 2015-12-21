@@ -78,11 +78,21 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Acl, Models.Core.Acl>();
             Mapper.CreateMap<Models.Core.Acl, Api.Core.Acl>();
 
+            Mapper.CreateMap<Api.Diagnostics.User, Models.Core.User>();
+            Mapper.CreateMap<Api.Cmp.User, Models.Core.User>();
             Mapper.CreateMap<Api.Core.User, Models.Core.User>();
             Mapper.CreateMap<Models.Core.User, Api.Core.User>();
 
+            Mapper.CreateMap<Api.Diagnostics.Tenant, Models.Core.Tenant>();
+            Mapper.CreateMap<Api.Cmp.Tenant, Models.Core.Tenant>();
             Mapper.CreateMap<Api.Core.Tenant, Models.Core.Tenant>();
             Mapper.CreateMap<Models.Core.Tenant, Api.Core.Tenant>();
+
+            Mapper.CreateMap<Api.Core.Permission, Models.Core.Permission>();
+            Mapper.CreateMap<Models.Core.Permission, Api.Core.Permission>();
+
+            Mapper.CreateMap<Api.Core.Role, Models.Core.Role>();
+            Mapper.CreateMap<Models.Core.Role, Api.Core.Role>();
 
             Mapper.CreateMap<Api.Core.ContractMapping, Models.Core.ContractMapping>();
             Mapper.CreateMap<Models.Core.ContractMapping, Api.Core.ContractMapping>();

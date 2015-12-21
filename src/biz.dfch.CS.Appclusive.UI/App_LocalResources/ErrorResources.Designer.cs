@@ -61,6 +61,42 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission added to role..
+        /// </summary>
+        public static string permissionAdded {
+            get {
+                return ResourceManager.GetString("permissionAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This permission is already added to this role..
+        /// </summary>
+        public static string permissionAlreadyAdded {
+            get {
+                return ResourceManager.GetString("permissionAlreadyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission does not exist in role..
+        /// </summary>
+        public static string permissionNotExist {
+            get {
+                return ResourceManager.GetString("permissionNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission removed from role..
+        /// </summary>
+        public static string permissionRemoved {
+            get {
+                return ResourceManager.GetString("permissionRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name is required.
         /// </summary>
         public static string requiredName {

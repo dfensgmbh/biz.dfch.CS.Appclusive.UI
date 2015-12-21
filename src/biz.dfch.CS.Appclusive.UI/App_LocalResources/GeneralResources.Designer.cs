@@ -106,6 +106,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to cart.
         /// </summary>
         public static string AddToCart {
@@ -318,6 +327,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ConfirmDelete {
             get {
                 return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this item?.
+        /// </summary>
+        public static string ConfirmRemove {
+            get {
+                return ResourceManager.GetString("ConfirmRemove", resourceCulture);
             }
         }
         
@@ -979,6 +997,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission.
+        /// </summary>
+        public static string Permission {
+            get {
+                return ResourceManager.GetString("Permission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        public static string Permissions {
+            get {
+                return ResourceManager.GetString("Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         public static string Previous {
@@ -1011,6 +1047,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Request {
             get {
                 return ResourceManager.GetString("Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
             }
         }
         
