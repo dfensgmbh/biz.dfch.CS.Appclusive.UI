@@ -45,7 +45,15 @@
             @Html.ValidationMessageFor(model => model.ValidUntil, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsPrimary, htmlAttributes: new { @class = "control-label" })
+        <div class="left">
+            @Html.EditorFor(model => model.IsPrimary, null)
+            @Html.ValidationMessageFor(model => model.IsPrimary, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.ExternalId, htmlAttributes: new { @class = "control-label" })
         <div>

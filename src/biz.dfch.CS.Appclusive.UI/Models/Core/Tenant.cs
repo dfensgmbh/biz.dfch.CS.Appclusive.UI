@@ -55,8 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public DateTimeOffset Created { get; set; }
         [Required]
         public DateTimeOffset Modified { get; set; }
-
-
+        
         [Required]
         public Guid ParentId { get; set; }
         public Tenant Parent { get; set; }
@@ -77,6 +76,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
         public List<Tenant> Children { get; set; }
+        
+        [Required]
+        public long CustomerId { get; set; }
 
+        public Customer Customer { get; set; }
     }
 }

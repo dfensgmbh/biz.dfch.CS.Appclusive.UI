@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
-using biz.dfch.CS.Appclusive.UI._mocked;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ContractMappingsController : CoreControllerBaseMock
+    public class ContractMappingsController : CoreControllerBase
     {
 
         // GET: ContractMappings
@@ -35,8 +35,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region ContractMapping
 
         // GET: ContractMappings/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = CoreRepository.ContractMappings.Expand("Customer").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
@@ -106,6 +109,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                this.AddCustomerSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(contractMapping);
@@ -124,6 +128,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     apiItem.ValidUntil = contractMapping.ValidUntil;
                     apiItem.CustomerId = contractMapping.CustomerId;
                     apiItem.Parameters = contractMapping.Parameters;
+                    apiItem.IsPrimary = contractMapping.IsPrimary;
 
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
@@ -135,7 +140,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddCustomerSeletionToViewBag();
                 return View(contractMapping);
             }
         }
