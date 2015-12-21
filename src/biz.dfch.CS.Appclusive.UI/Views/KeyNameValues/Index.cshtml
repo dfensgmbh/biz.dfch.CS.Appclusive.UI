@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.KeyNameValue>
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @{
     ViewBag.Title = "KeyNameValue" + " list";
 }
@@ -44,3 +45,21 @@
     }
 
 </table>
+
+@using (Html.Delayed())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#permissionSearch').autocomplete(
+              {
+                  source: '@Url.Action("PermissionSearch", "Roles", new { roleId = ViewBag.Id })',
+                  select: function (event, ui) {
+                      $('#permissionId').val(ui.item.key);
+                  },
+                  change: function (event, ui) {
+                      $('#permissionId').val(ui.item.key);
+                  }
+              });
+        })
+    </script>
+}
