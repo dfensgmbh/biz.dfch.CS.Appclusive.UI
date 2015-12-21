@@ -27,15 +27,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class KeyNameValuesController : CoreControllerBase
     {
         // GET: KeyNameValues
-        public ActionResult Index(int pageNr = 1)
+        public ActionResult Index(int pageNr = 1, string searchTerm = null)
         {
+            ViewBag.SearchTerm = searchTerm;
             try
             {
-                QueryOperationResponse<Api.Core.KeyNameValue> items = CoreRepository.KeyNameValues
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.KeyNameValue>;
+                DataServiceQuery<Api.Core.KeyNameValue> query = CoreRepository.KeyNameValues;
+                query = AddNameFilter(query, searchTerm);
+                query = AddPagingOptions(query, pageNr);
+
+                QueryOperationResponse<Api.Core.KeyNameValue> items = query.Execute() as QueryOperationResponse<Api.Core.KeyNameValue>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Core.KeyNameValue>>(items));
@@ -47,6 +48,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
+        public ActionResult Search(string term)
+        {
+            DataServiceQuery<Api.Core.KeyNameValue> query = CoreRepository.KeyNameValues;
+            query = AddNameFilter(query, term);
+
+            QueryOperationResponse<Api.Core.KeyNameValue> items = (QueryOperationResponse<Api.Core.KeyNameValue> ) query.AddQueryOption("$top", PortalConfig.Searchsize).Execute();
+
+            List<AjaxOption> options = new List<AjaxOption>(); 
+            foreach (var item in items)
+            {
+                options.Add(new AjaxOption(item.Id, item.Name));
+            }            
+            return this.Json(options, JsonRequestBehavior.AllowGet);
+        }
+        
         #region KeyNameValue
 
         // GET: KeyNameValues/Details/5

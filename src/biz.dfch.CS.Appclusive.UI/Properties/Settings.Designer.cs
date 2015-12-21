@@ -25,7 +25,16 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://172.19.115.33:80/Appclusive/api/")]
+        public string AppculsiveApiBaseUrl {
+            get {
+                return ((string)(this["AppculsiveApiBaseUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
         public int Pagesize {
             get {
                 return ((int)(this["Pagesize"]));
@@ -34,10 +43,10 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://172.19.115.33:80/Appclusive/api/")]
-        public string AppculsiveApiBaseUrl {
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int Searchsize {
             get {
-                return ((string)(this["AppculsiveApiBaseUrl"]));
+                return ((int)(this["Searchsize"]));
             }
         }
     }

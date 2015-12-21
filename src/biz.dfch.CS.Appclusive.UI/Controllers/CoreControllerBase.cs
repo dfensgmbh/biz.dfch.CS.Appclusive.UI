@@ -53,6 +53,30 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
         }
 
+        #region basic query filters
+
+        protected DataServiceQuery<T> AddNameFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',Name)", searchTerm));
+            }
+            return query;
+        }
+
+        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr)
+        {
+            if (pageNr>0)
+            {
+                query = query.AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize);
+            }
+            return query;
+        }
+
+        #endregion
+
         #region selection lists
 
         protected void AddProductSeletionToViewBag()
