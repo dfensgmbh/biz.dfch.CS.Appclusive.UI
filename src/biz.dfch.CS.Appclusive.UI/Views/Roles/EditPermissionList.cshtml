@@ -1,0 +1,37 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Permission>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Models
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = "permissionList", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+}
+@using (Ajax.BeginForm("AddPermission", "Roles", new { roleId = ViewBag.Id }, ajaxOptions))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-4">
+            <input name="permissionId" id="permissionId" type="hidden" value="0" />
+            <input class="form-control text-box single-line ap-autocomplete" id="permissionSearch" name="permissionSearch" />
+        </div>
+        <input type="submit" value="@GeneralResources.Add" class="btn btn-primary" />
+    </div>
+}
+@Html.Partial("PermissionList", Model)
+
+@using (Html.Delayed())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#permissionSearch').autocomplete(
+              {
+                  source: '@Url.Action("PermissionSearch", "Roles", new { roleId = ViewBag.Id })',
+                  select: function (event, ui) {
+                      $('#permissionId').val(ui.item.key);
+                  },
+                  change: function (event, ui) {
+                      $('#permissionId').val(ui.item.key);
+                  }
+              });
+        })
+    </script>
+}

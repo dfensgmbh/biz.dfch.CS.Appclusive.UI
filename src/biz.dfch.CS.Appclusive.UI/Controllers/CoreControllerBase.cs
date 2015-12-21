@@ -148,6 +148,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
             }
         }
+        
         #endregion
     }
 }

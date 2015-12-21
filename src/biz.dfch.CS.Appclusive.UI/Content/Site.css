@@ -74,3 +74,9 @@ div.ap-errortext, div.ap-infotext {
 .copy-clipboard{
     float: right;
 }
+
+/* autocoplete menu */
+ul.ui-autocomplete {
+    border: 1px solid #ddd;
+    background-color: white;
+}
