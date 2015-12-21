@@ -21,6 +21,7 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Api_Diagnostics = biz.dfch.CS.Appclusive.Core.OdataServices.Diagnostics; 
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -30,11 +31,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                QueryOperationResponse<Api.Diagnostics.AuditTrail> items = DiagnosticsRepository.AuditTrails
+                QueryOperationResponse<Api_Diagnostics.AuditTrail> items = DiagnosticsRepository.AuditTrails
                         .AddQueryOption("$inlinecount", "allpages")
                         .AddQueryOption("$top", PortalConfig.Pagesize)
                         .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Diagnostics.AuditTrail>;
+                        .Execute() as QueryOperationResponse<Api_Diagnostics.AuditTrail>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 return View(AutoMapper.Mapper.Map<List<Models.Diagnostics.AuditTrail>>(items));
