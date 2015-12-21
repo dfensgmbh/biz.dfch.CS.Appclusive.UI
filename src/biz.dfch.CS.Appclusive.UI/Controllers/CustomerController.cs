@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
-using biz.dfch.CS.Appclusive.UI._mocked;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CustomersController : CoreControllerBaseMock
+    public class CustomersController : CoreControllerBase
     {
 
         // GET: Customers
@@ -35,8 +35,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Customer
 
         // GET: Customers/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

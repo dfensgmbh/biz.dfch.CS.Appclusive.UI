@@ -106,6 +106,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to cart.
         /// </summary>
         public static string AddToCart {
@@ -322,6 +331,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this item?.
+        /// </summary>
+        public static string ConfirmRemove {
+            get {
+                return ResourceManager.GetString("ConfirmRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract mapping.
         /// </summary>
         public static string ContractMapping {
@@ -336,6 +354,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ContractMappings {
             get {
                 return ResourceManager.GetString("ContractMappings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to copied!.
+        /// </summary>
+        public static string Copied {
+            get {
+                return ResourceManager.GetString("Copied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy password to clip board.
+        /// </summary>
+        public static string CopyPassword {
+            get {
+                return ResourceManager.GetString("CopyPassword", resourceCulture);
             }
         }
         
@@ -624,6 +660,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string HelpTextDecline {
             get {
                 return ResourceManager.GetString("HelpTextDecline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide password.
+        /// </summary>
+        public static string HidePassword {
+            get {
+                return ResourceManager.GetString("HidePassword", resourceCulture);
             }
         }
         
@@ -952,6 +997,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission.
+        /// </summary>
+        public static string Permission {
+            get {
+                return ResourceManager.GetString("Permission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        public static string Permissions {
+            get {
+                return ResourceManager.GetString("Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         public static string Previous {
@@ -988,11 +1051,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See password.
+        /// </summary>
+        public static string SeePassword {
+            get {
+                return ResourceManager.GetString("SeePassword", resourceCulture);
             }
         }
         

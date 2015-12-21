@@ -23,12 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.ValidUntil)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Parameters)
-        </th>
         <th></th>
     </tr>
 
@@ -56,17 +50,11 @@
             <td>
                 @Html.DisplayFor(modelItem => contract.ValidUntil)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => contract.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => contract.Parameters)
-            </td>
             <td class="ap-btn text-nowrap">
-                <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = contract.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "ContractMappings", new { id = contract.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = contract.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "ContractMappings", new { id = contract.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
                 }
             </td>
         </tr>

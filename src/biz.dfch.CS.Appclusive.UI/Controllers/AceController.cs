@@ -8,7 +8,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AcesController : CoreControllerBaseMock
+    public class AcesController : CoreControllerBase
     {
 
         // GET: Aces

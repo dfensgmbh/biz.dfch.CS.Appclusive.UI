@@ -29,10 +29,7 @@
                     @Html.DisplayNameFor(model => model.Customer)
                 </dt>
                 <dd>
-                    @if (null != Model.Customer)
-                    {
-                        @Html.DisplayFor(model => model.Customer.Name)
-                    }
+                    @Html.DisplayFor(model => model.Customer)
                 </dd>
 
                 <dt>
@@ -53,6 +50,13 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.ValidUntil)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsPrimary)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IsPrimary)
                 </dd>
 
                 <dt>
@@ -84,5 +88,12 @@
 </div>
 <p>
     <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
+    }
+    else
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    }
 </p>

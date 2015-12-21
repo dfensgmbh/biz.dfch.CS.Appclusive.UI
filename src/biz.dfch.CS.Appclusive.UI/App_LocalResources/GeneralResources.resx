@@ -471,4 +471,31 @@
   <data name="ManagementCredentialNameInfo" xml:space="preserve">
     <value>Naming convention: use project namespace as prefix</value>
   </data>
+  <data name="Copied" xml:space="preserve">
+    <value>copied!</value>
+  </data>
+  <data name="CopyPassword" xml:space="preserve">
+    <value>Copy password to clip board</value>
+  </data>
+  <data name="HidePassword" xml:space="preserve">
+    <value>Hide password</value>
+  </data>
+  <data name="SeePassword" xml:space="preserve">
+    <value>See password</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Are you sure you want to remove this item?</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
 </root>

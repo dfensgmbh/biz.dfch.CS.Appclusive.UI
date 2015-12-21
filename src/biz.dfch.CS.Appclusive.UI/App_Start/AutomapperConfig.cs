@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
+using Api_Diagnostics = biz.dfch.CS.Appclusive.Core.OdataServices.Diagnostics;
+using Api_Cmp = biz.dfch.CS.Appclusive.Core.OdataServices.Cmp;
 
 namespace biz.dfch.CS.Appclusive.UI
 {
@@ -67,8 +69,8 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.ManagementCredential, Models.Core.ManagementCredential>();
             Mapper.CreateMap<Models.Core.ManagementCredential, Api.Core.ManagementCredential>();
 
-            Mapper.CreateMap<Api.Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>();
-            Mapper.CreateMap<Api.Diagnostics.Endpoint, Models.Diagnostics.Endpoint>();
+            Mapper.CreateMap<Api_Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>();
+            Mapper.CreateMap<Api_Diagnostics.Endpoint, Models.Diagnostics.Endpoint>();
 
             Mapper.CreateMap<Api.Core.Ace, Models.Core.Ace>();
             Mapper.CreateMap<Models.Core.Ace, Api.Core.Ace>();
@@ -76,13 +78,21 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.Acl, Models.Core.Acl>();
             Mapper.CreateMap<Models.Core.Acl, Api.Core.Acl>();
 
+            Mapper.CreateMap<Api.Diagnostics.User, Models.Core.User>();
+            Mapper.CreateMap<Api.Cmp.User, Models.Core.User>();
             Mapper.CreateMap<Api.Core.User, Models.Core.User>();
             Mapper.CreateMap<Models.Core.User, Api.Core.User>();
-            Mapper.CreateMap<biz.dfch.CS.Appclusive.Core.OdataServices.Core.User, Models.Core.User>();
 
+            Mapper.CreateMap<Api.Diagnostics.Tenant, Models.Core.Tenant>();
+            Mapper.CreateMap<Api.Cmp.Tenant, Models.Core.Tenant>();
             Mapper.CreateMap<Api.Core.Tenant, Models.Core.Tenant>();
             Mapper.CreateMap<Models.Core.Tenant, Api.Core.Tenant>();
-            Mapper.CreateMap<biz.dfch.CS.Appclusive.Core.OdataServices.Core.Tenant, Models.Core.Tenant>();
+
+            Mapper.CreateMap<Api.Core.Permission, Models.Core.Permission>();
+            Mapper.CreateMap<Models.Core.Permission, Api.Core.Permission>();
+
+            Mapper.CreateMap<Api.Core.Role, Models.Core.Role>();
+            Mapper.CreateMap<Models.Core.Role, Api.Core.Role>();
 
             Mapper.CreateMap<Api.Core.ContractMapping, Models.Core.ContractMapping>();
             Mapper.CreateMap<Models.Core.ContractMapping, Api.Core.ContractMapping>();
@@ -90,8 +100,8 @@ namespace biz.dfch.CS.Appclusive.UI
             Mapper.CreateMap<Api.Core.CostCentre, Models.Core.CostCentre>();
             Mapper.CreateMap<Models.Core.CostCentre, Api.Core.CostCentre>();
 
-            Mapper.CreateMap<Api.Cmp.CimiTarget, Models.Cmp.CimiTarget>();
-            Mapper.CreateMap<Models.Cmp.CimiTarget, Api.Cmp.CimiTarget>();
+            Mapper.CreateMap<Api_Cmp.CimiTarget, Models.Cmp.CimiTarget>();
+            Mapper.CreateMap<Models.Cmp.CimiTarget, Api_Cmp.CimiTarget>();
             
             Mapper.CreateMap<Api.Core.Product, Models.Core.Product>();
             Mapper.CreateMap<Models.Core.Product, Api.Core.Product>();

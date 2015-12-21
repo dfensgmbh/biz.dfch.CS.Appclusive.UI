@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<ul>
+    <table class="table table-striped table-hover">
+        <caption>This table shows all modifications to the underlying entities</caption>
+        <thead>
+            <tr>
+                <th>EntityId</th>
+                <th>EntityType</th>
+                <th>EntityState</th>
+                <th>Created</th>
+                <th>Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var auditTail in ViewBag.AuditTrails)
+            {
+                <tr class="@("Added" == auditTail.EntityState ? "success" : ("Deleted" == auditTail.EntityState ? "danger" : string.Empty))">
+                    <td>@auditTail.EntityId</td>
+                    <td>@auditTail.EntityType</td>
+                    <td>@auditTail.EntityState</td>
+                    <td>@auditTail.Created</td>
+                    <td>@auditTail.Modified</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</ul>

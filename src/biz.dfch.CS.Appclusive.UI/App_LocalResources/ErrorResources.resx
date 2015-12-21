@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="permissionAdded" xml:space="preserve">
+    <value>Permission added to role.</value>
+  </data>
+  <data name="permissionAlreadyAdded" xml:space="preserve">
+    <value>This permission is already added to this role.</value>
+  </data>
+  <data name="permissionNotExist" xml:space="preserve">
+    <value>Permission does not exist in role.</value>
+  </data>
+  <data name="permissionRemoved" xml:space="preserve">
+    <value>Permission removed from role.</value>
+  </data>
   <data name="requiredName" xml:space="preserve">
     <value>Name is required</value>
   </data>

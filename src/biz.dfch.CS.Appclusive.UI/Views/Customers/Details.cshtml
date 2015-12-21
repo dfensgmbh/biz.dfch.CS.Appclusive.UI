@@ -48,5 +48,12 @@
 </div>
 <p>
     <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
+    }
+    else
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    }
 </p>

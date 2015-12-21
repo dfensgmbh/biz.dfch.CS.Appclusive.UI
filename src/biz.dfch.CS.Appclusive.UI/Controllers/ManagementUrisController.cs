@@ -29,8 +29,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
 
         // GET: ManagementUris
-        public ActionResult Index(int pageNr = 1)
+        public ActionResult Index(int pageNr = 1, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 QueryOperationResponse<Api.Core.ManagementUri> items = CoreRepository.ManagementUris

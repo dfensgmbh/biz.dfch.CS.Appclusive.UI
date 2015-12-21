@@ -24,28 +24,23 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         public byte[] RowVersion { get; set; }
 
-        [Required]
         public Guid Tid { get; set; }
         
         public Tenant Tenant { get; set; }
         
-        [Required]
         public long CreatedById { get; set; }
         
         public User CreatedBy { get; set; }
         
-        [Required]
         public long ModifiedById { get; set; }
         
         public User ModifiedBy { get; set; }
-                
-        #endregion
-
-        [StringLength(1024)]
-        [Required(ErrorMessageResourceName = "requiredName", ErrorMessageResourceType = typeof(ErrorResources))]
+        
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        #endregion
 
     }
 }

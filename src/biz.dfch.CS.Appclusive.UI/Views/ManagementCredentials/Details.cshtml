@@ -1,4 +1,5 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.ManagementCredential
+@using biz.dfch.CS.Appclusive.UI.Models
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " details";
@@ -43,7 +44,10 @@
                     @Html.DisplayNameFor(model => model.Password)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Password)
+                    <a class="btn btn-primary" onclick="togglePW()" id="pwBtn">@GeneralResources.SeePassword</a>
+                    <div class="well hidden" id="pwBox">
+                        @Html.DisplayFor(model => model.Password)
+                    </div>
                 </dd>
 
                 <dt>
@@ -65,5 +69,28 @@
 </div>
 <p>
     <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
+    }
+    else
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    }
 </p>
+
+@using (Html.Delayed())
+{
+    <script type="text/javascript">
+        function togglePW() {
+            if ($("#pwBox").hasClass("hidden")) {
+                $("#pwBox").removeClass("hidden");
+                $("#pwBtn").text("@GeneralResources.HidePassword");
+                setTimeout('togglePW()', 5000);
+            } else {
+                $("#pwBox").addClass("hidden");
+                $("#pwBtn").text("@GeneralResources.SeePassword");
+            }
+        }
+    </script>
+}
