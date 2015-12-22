@@ -174,11 +174,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var permission = CoreRepository.Permissions.Where(c => c.Id == permissionId).FirstOrDefault();
                 Contract.Assert(null != permission);
 
+                role.Permissions.Remove(permission); // because auf caching bug in ServiceContext
                 this.CoreRepository.DeleteLink(role, "Permissions", permission);
                 this.CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, ErrorResources.permissionRemoved));
 
-                role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
+                // because auf caching bug in ServiceContext role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
                 return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(role.Permissions));
             }
             catch (Exception ex)
@@ -204,11 +205,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var permission = CoreRepository.Permissions.Where(c => c.Id == permissionId).FirstOrDefault();
                 Contract.Assert(null != permission);
 
+                role.Permissions.Add(permission); // because auf caching bug in ServiceContext
                 this.CoreRepository.AddLink(role, "Permissions", permission);
                 this.CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, ErrorResources.permissionAdded));
 
-                role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
+                // because auf caching bug in ServiceContext role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
                 System.Web.HttpContext.Current.Cache.Remove("role_" + roleId);
                 return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(role.Permissions));
             }
