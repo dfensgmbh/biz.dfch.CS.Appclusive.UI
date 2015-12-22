@@ -7,18 +7,12 @@
 @section Title{
     <h2>@GeneralResources.ResourceManager.GetString("KeyNameValue")@GeneralResources.List</h2>
 }
+
 <div class="row">
     <div class="col-md-1">
         <a class="btn btn-default" href="@Url.Action("Create")"><i class="fa fa-plus"></i> @GeneralResources.CreateNew</a>
     </div>
-    @using (Html.BeginForm("Index", "KeyNameValues", new { pageNr = 1 }, FormMethod.Get, new { @class = "col-md-8", @id = "searchForm", @style = "margin-bottom: 5px; margin-left: 24px;" }))
-    {
-        <div class="col-md-4">
-            <input name="pageNr" type="hidden" value="@ViewBag.Paging.PageNr" />
-            <input class="form-control text-box single-line ap-autocomplete" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" />
-        </div>
-        <input type="submit" value="@GeneralResources.Search" class="btn btn-primary" />
-    }
+    @Html.Partial("SearchForm")
 </div>
 <table class="table table-striped table-hover">
     <tr>
@@ -55,19 +49,3 @@
     }
 
 </table>
-
-@using (Html.Delayed())
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#searchTerm').autocomplete(
-              {
-                  source: '@Url.Action("Search")',
-                  select: function (event, ui) {
-                      $('#searchTerm').val(ui.item.value);
-                      $("#searchForm").submit();
-                  }
-              });
-        })
-    </script>
-}

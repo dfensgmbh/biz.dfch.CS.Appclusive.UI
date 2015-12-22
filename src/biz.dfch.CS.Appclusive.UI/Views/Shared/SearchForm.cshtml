@@ -1,0 +1,34 @@
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@{
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+}
+@using (Html.BeginForm(action, controller, new { pageNr = 1 }, FormMethod.Get, new { @class = "col-md-8", @id = "searchForm", @style = "margin-bottom: 5px; margin-left: 24px;" }))
+{
+    <div class="col-md-4">
+        @if (ViewBag.Paging != null)
+        {
+            <input name="pageNr" type="hidden" value="@ViewBag.Paging.PageNr" />
+        }
+        <input class="form-control text-box single-line ap-autocomplete" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" />
+    </div>
+    <input type="submit" value="@GeneralResources.Search" class="btn btn-primary" />
+}
+
+@using (Html.Delayed())
+{
+    // needs search Action on controller: public ActionResult Search(string term)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#searchTerm').autocomplete(
+              {
+                  source: '@Url.Action("Search")',
+                  select: function (event, ui) {
+                      $('#searchTerm').val(ui.item.value);
+                      $("#searchForm").submit();
+                  }
+              });
+        })
+    </script>
+}
