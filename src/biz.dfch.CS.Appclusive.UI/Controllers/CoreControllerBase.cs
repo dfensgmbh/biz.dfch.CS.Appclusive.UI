@@ -18,6 +18,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -53,9 +54,52 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
         }
 
+        #region basic list actions
+
+        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null)
+        {
+            ViewBag.SearchTerm = searchTerm;
+            try
+            {
+                query = AddSearchFilter(query, searchTerm);
+                query = AddPagingOptions(query, pageNr);
+
+                QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
+                return View(AutoMapper.Mapper.Map<List<M>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new List<M>());
+            }
+        }
+
+        protected ActionResult Search<T>(DataServiceQuery<T> query, string term)
+        {
+            query = AddSearchFilter(query, term);
+
+            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+            System.Reflection.PropertyInfo propId = typeof(T).GetProperty("Id");
+            System.Reflection.PropertyInfo propName = typeof(T).GetProperty("Name");
+            Contract.Assert(null != propId);
+            Contract.Assert(null != propName);
+
+            List<AjaxOption> options = new List<AjaxOption>();
+            foreach (var item in items)
+            {
+                options.Add(new AjaxOption((long)propId.GetValue(item), (string)propName.GetValue(item)));
+            }
+            return this.Json(options, JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
+
         #region basic query filters
 
-        protected DataServiceQuery<T> AddNameFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        protected virtual DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -74,7 +118,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             return query;
         }
-
         #endregion
 
         #region selection lists
