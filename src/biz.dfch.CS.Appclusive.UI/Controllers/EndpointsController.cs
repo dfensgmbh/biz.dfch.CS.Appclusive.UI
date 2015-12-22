@@ -21,31 +21,16 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
-using Api_Diagnostics = biz.dfch.CS.Appclusive.Core.OdataServices.Diagnostics; 
+using Api_Diagnostics = biz.dfch.CS.Appclusive.Core.OdataServices.Diagnostics;
+using M = biz.dfch.CS.Appclusive.UI.Models.Diagnostics.Endpoint;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class EndpointsController : DiagnosticsControllerBase
+    public class EndpointsController : DiagnosticsControllerBase<Api_Diagnostics.Endpoint, Models.Diagnostics.Endpoint>
     {
-        // GET: Endpoints
-        public ActionResult Index(int pageNr = 1)
+        public EndpointsController()
         {
-            try
-            {
-                QueryOperationResponse<Api_Diagnostics.Endpoint> items = DiagnosticsRepository.Endpoints
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api_Diagnostics.Endpoint>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Diagnostics.Endpoint>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Diagnostics.Endpoint>());
-            }
+            base.BaseQuery = DiagnosticsRepository.Endpoints;
         }
 
         // GET: Endpoints/Details/5
@@ -53,8 +38,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = DiagnosticsRepository.Endpoints.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Diagnostics.Endpoint>(item));
+                var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<M>(item));
             }
             catch (Exception ex)
             {
@@ -62,6 +47,5 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new Models.Diagnostics.Endpoint());
             }
         }
-
     }
 }
