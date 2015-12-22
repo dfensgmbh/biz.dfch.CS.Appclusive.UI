@@ -33,6 +33,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             base.BaseQuery = DiagnosticsRepository.Endpoints;
         }
 
+        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',tolower(Name))", searchTerm.ToLower()));
+            }
+            return query;
+        }
+
         // GET: Endpoints/Details/5
         public ActionResult Details(long id)
         {
