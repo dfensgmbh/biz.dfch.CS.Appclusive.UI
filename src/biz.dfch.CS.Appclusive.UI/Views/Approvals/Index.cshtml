@@ -2,9 +2,16 @@
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @model IEnumerable<Approval>
 
-
 @{
     ViewBag.Title = "Approval" + " List";
+
+    switch ((string)ViewBag.SearchTerm)
+    {
+        case "Created": ViewBag.CreatedLinkClass = "active"; break;
+        case "Approved": ViewBag.ApprovedLinkClass = "active"; break;
+        case "Declined": ViewBag.DeclinedLinkClass = "active"; break;
+        default: ViewBag.AllLinkClass = "active"; break;
+    }
 }
 @section Title{
     <h2>@GeneralResources.ResourceManager.GetString("Approval")@GeneralResources.List</h2>

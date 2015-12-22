@@ -10,28 +10,11 @@ using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class RolesController : CoreControllerBase
+    public class RolesController : CoreControllerBase<Api.Core.Role, Models.Core.Role>
     {
-
-        // GET: Roles
-        public ActionResult Index(int pageNr = 1)
+        public RolesController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Role> items = CoreRepository.Roles
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Role>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Role>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Role>());
-            }
+            base.BaseQuery = CoreRepository.Roles;
         }
 
         #region Role

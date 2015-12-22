@@ -8,30 +8,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ContractMappingsController : CoreControllerBase
+    public class ContractMappingsController : CoreControllerBase<Api.Core.ContractMapping, Models.Core.ContractMapping>
     {
-
-        // GET: ContractMappings
-        public ActionResult Index(int pageNr = 1)
+        public ContractMappingsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.ContractMapping> items = CoreRepository.ContractMappings.Expand("Customer")
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.ContractMapping>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.ContractMapping>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.ContractMapping>());
-            }
+            base.BaseQuery = CoreRepository.ContractMappings;
         }
-
+        
         #region ContractMapping
 
         // GET: ContractMappings/Details/5

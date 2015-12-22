@@ -25,27 +25,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CartsController : CoreControllerBase
+    public class CartsController : CoreControllerBase<Api.Core.Cart, Models.Core.Cart>
     {
-        // GET: Carts
-        public ActionResult Index(int pageNr = 1)
+        public CartsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Cart> items = CoreRepository.Carts
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Cart>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Cart>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Cart>());
-            }
+            base.BaseQuery = CoreRepository.Carts;
         }
 
         #region Cart

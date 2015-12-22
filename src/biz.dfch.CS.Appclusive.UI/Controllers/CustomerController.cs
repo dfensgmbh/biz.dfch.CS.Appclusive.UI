@@ -8,30 +8,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CustomersController : CoreControllerBase
+    public class CustomersController : CoreControllerBase<Api.Core.Customer, Models.Core.Customer>
     {
-
-        // GET: Customers
-        public ActionResult Index(int pageNr = 1)
+        public CustomersController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Customer> items = CoreRepository.Customers
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Customer>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Customer>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Customer>());
-            }
+            base.BaseQuery = CoreRepository.Customers;
         }
-
+        
         #region Customer
 
         // GET: Customers/Details/5

@@ -25,32 +25,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ProductsController : CoreControllerBase
+    public class ProductsController : CoreControllerBase<Api.Core.Product, Models.Core.Product>
     {
         public ProductsController()
-            : base()
         {
-            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
-        }
-        // GET: Products
-        public ActionResult Index(int pageNr = 1)
-        {
-            try
-            {
-                QueryOperationResponse<Api.Core.Product> items = CoreRepository.Products
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Product>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Product>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Product>());
-            }
+            base.BaseQuery = CoreRepository.Products;
         }
 
         #region Product

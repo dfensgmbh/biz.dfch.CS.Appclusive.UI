@@ -43,10 +43,5 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
         private biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics diagnosticsRepository;
 
-
-        public DiagnosticsControllerBase()
-        {
-            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
-        }
     }
 }

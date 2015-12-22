@@ -24,28 +24,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ManagementCredentialsController : CoreControllerBase
+    public class ManagementCredentialsController : CoreControllerBase<Api.Core.ManagementCredential, Models.Core.ManagementCredential>
     {
-
-        // GET: ManagementCredentials
-        public ActionResult Index(int pageNr = 1)
+        public ManagementCredentialsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.ManagementCredential> items = CoreRepository.ManagementCredentials
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.ManagementCredential>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementCredential>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.ManagementCredential>());
-            }
+            base.BaseQuery = CoreRepository.ManagementCredentials;
         }
 
         #region ManagementCredential

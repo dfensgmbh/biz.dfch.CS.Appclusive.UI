@@ -6,31 +6,15 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
 using Api_Cmp = biz.dfch.CS.Appclusive.Core.OdataServices.Cmp;
+using M= biz.dfch.CS.Appclusive.UI.Models.Cmp.CimiTarget;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CimiTargetsController : CmpControllerBase
+    public class CimiTargetsController : CmpControllerBase<Api_Cmp.CimiTarget, Models.Cmp.CimiTarget>
     {
-
-        // GET: CimiTargets
-        public ActionResult Index(int pageNr = 1)
+        public CimiTargetsController()
         {
-            try
-            {
-                QueryOperationResponse<Api_Cmp.CimiTarget> items = CmpRepository.CimiTargets
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api_Cmp.CimiTarget>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Cmp.CimiTarget>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Cmp.CimiTarget>());
-            }
+            base.BaseQuery = CmpRepository.CimiTargets;
         }
 
         // GET: CimiTargets/Details/5
@@ -38,13 +22,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var item = CmpRepository.CimiTargets.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Cmp.CimiTarget>(item));
+                var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<M>(item));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Cmp.CimiTarget());
+                return View(new Models.Diagnostics.Endpoint());
             }
         }
     }

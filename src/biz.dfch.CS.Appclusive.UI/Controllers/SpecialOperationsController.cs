@@ -5,11 +5,40 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class SpecialOperationsController : CoreControllerBase
+    public class SpecialOperationsController : Controller
     {
+        #region infrastructure
+
+        public SpecialOperationsController()
+        {
+            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
+        }
+        
+        /// <summary>
+        /// biz.dfch.CS.Appclusive.Api.Core.Core
+        /// </summary>
+        protected biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
+        {
+            get
+            {
+                if (coreRepository == null)
+                {
+                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
+                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    coreRepository.IgnoreMissingProperties = true;
+                    coreRepository.Format.UseJson();
+                    coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                }
+                return coreRepository;
+            }
+        }
+        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
+
+        #endregion
 
         // GET: SpecialOperations
         public ActionResult Index()

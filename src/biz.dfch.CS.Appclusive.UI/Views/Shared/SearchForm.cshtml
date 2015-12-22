@@ -4,7 +4,7 @@
     string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
     string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
 }
-@using (Html.BeginForm(action, controller, new { pageNr = 1 }, FormMethod.Get, new { @class = "col-md-8", @id = "searchForm", @style = "margin-bottom: 5px; margin-left: 24px;" }))
+@using (Html.BeginForm(action, controller, new { pageNr = 1 }, FormMethod.Get, new { @class = "col-md-8", @id = "searchForm", @style = "margin-bottom: 5px; padding-left: 0px;" }))
 {
     <div class="col-md-4">
         @if (ViewBag.Paging != null)

@@ -24,17 +24,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class KeyNameValuesController : CoreControllerBase
+    public class KeyNameValuesController : CoreControllerBase<Api.Core.KeyNameValue, Models.Core.KeyNameValue>
     {
-        // GET: KeyNameValues
-        public ActionResult Index(int pageNr = 1, string searchTerm = null)
+        public KeyNameValuesController()
         {
-            return base.Index<Api.Core.KeyNameValue, Models.Core.KeyNameValue>(CoreRepository.KeyNameValues, pageNr, searchTerm);
-        }
-
-        public ActionResult Search(string term)
-        {
-            return base.Search(CoreRepository.KeyNameValues, term);
+            base.BaseQuery = CoreRepository.KeyNameValues;
         }
         
         #region KeyNameValue

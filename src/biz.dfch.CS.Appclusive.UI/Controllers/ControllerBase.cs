@@ -27,6 +27,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public abstract class ControllerBase : Controller
     {
+        public ControllerBase()
+        {
+            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
+        }
+
         #region basic list actions
 
         protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null)

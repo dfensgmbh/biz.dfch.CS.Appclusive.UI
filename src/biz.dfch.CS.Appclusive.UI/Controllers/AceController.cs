@@ -8,30 +8,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AcesController : CoreControllerBase
+    public class AcesController : CoreControllerBase<Api.Core.Ace, Models.Core.Ace>
     {
-
-        // GET: Aces
-        public ActionResult Index(int pageNr = 1)
+        public AcesController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Ace> items = CoreRepository.Aces
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Ace>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Ace>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Ace>());
-            }
+            base.BaseQuery = CoreRepository.Aces.Expand("Acl");
         }
-
+        
         #region Ace
 
         // GET: Aces/Details/5
@@ -65,6 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
+                this.AddAclSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(ace);
@@ -82,7 +66,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddAclSeletionToViewBag();
                 return View(ace);
             }
         }

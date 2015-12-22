@@ -8,30 +8,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AclsController : CoreControllerBase
+    public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl>
     {
-
-        // GET: Acls
-        public ActionResult Index(int pageNr = 1)
+        public AclsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Acl> items = CoreRepository.Acls
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Acl>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Acl>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Acl>());
-            }
-        }
-
+            base.BaseQuery = CoreRepository.Acls;
+        }        
+        
         #region Acl
 
         // GET: Acls/Details/5

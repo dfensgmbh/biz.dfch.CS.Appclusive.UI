@@ -148,6 +148,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\AceController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
