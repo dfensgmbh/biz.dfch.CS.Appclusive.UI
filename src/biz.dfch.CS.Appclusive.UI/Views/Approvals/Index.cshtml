@@ -20,9 +20,9 @@
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li class="@ViewBag.AllLinkClass"><a href="?">all</a></li>
-        <li class="@ViewBag.CreatedLinkClass"><a href="?status=@Approval.CREATED_STATUS">Created</a></li>
-        <li class="@ViewBag.ApprovedLinkClass"><a href="?status=Approved">Approved</a></li>
-        <li class="@ViewBag.DeclinedLinkClass"><a href="?status=Declined">Declined</a></li>
+        <li class="@ViewBag.CreatedLinkClass"><a href="?searchTerm=@Approval.CREATED_STATUS">Created</a></li>
+        <li class="@ViewBag.ApprovedLinkClass"><a href="?searchTerm=Approved">Approved</a></li>
+        <li class="@ViewBag.DeclinedLinkClass"><a href="?searchTerm=Declined">Declined</a></li>
     </ul>
 </nav>
 <table class="table table-striped table-hover">

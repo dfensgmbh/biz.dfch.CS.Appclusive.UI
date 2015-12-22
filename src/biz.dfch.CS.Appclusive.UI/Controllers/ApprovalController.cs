@@ -22,6 +22,7 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -30,6 +31,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ApprovalsController()
         {
             base.BaseQuery = CoreRepository.Approvals;
+        }
+
+        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$filter", string.Format("Status eq '{0}'", searchTerm));
+            }
+            return query;
         }
 
         #region Approval

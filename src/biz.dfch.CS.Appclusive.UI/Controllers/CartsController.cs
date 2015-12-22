@@ -280,7 +280,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, "no valid vdi-name");
                 var catalogueItem = CoreRepository.CatalogueItems.Where(c => c.Name == vdiName).FirstOrDefault();
-                Contract.Assert(null != catalogueItem);
+                Contract.Assert(null != catalogueItem, "No catalog item for " + vdiName);
 
                 if (!ModelState.IsValid)
                 {

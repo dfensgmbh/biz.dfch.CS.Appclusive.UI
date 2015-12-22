@@ -31,14 +31,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             base.BaseQuery = CoreRepository.Catalogues;
         }
-
-        // GET: Nodes/Details/5
-        public ActionResult Details(long id)
-        {
-            var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
-        }
-        
+                
         #region Catalogue 
 
         // GET: Catalogues/Details/5
