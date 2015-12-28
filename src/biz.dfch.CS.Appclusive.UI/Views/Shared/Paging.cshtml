@@ -5,11 +5,11 @@
         @if (ViewBag.Paging.PageNr > 1)
         {
             <li>
-                <a href="@Url.Action("Index", new { pageNr = 1 })"><i class="fa fa-angle-double-left"></i></a>
+                <a href="@Url.Action("Index", new { pageNr = 1, searchTerm = @ViewBag.SearchTerm })"><i class="fa fa-angle-double-left"></i></a>
             </li>
             int prevPage = ViewBag.Paging.PageNr - 1;
             <li>
-                <a href="@Url.Action("Index", new { pageNr = prevPage })"><i class="fa fa-angle-left"></i></a>
+                <a href="@Url.Action("Index", new { pageNr = prevPage, searchTerm = @ViewBag.SearchTerm })"><i class="fa fa-angle-left"></i></a>
             </li>
         }
         else
@@ -39,13 +39,13 @@
             if (i == ViewBag.Paging.PageNr)
             {
                 <li class="active">
-                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                    <a href="@Url.Action("Index", new { pageNr = i, searchTerm = @ViewBag.SearchTerm })">@i</a>
                 </li>
             }
             else
             {
                 <li>
-                    <a href="@Url.Action("Index", new { pageNr = i })">@i</a>
+                    <a href="@Url.Action("Index", new { pageNr = i, searchTerm = @ViewBag.SearchTerm })">@i</a>
                 </li>
             }
         }
@@ -60,10 +60,10 @@
         {
             int nextPage = ViewBag.Paging.PageNr + 1;
             <li>
-                <a href="@Url.Action("Index", new { pageNr = nextPage })"><i class="fa fa-angle-right"></i></a>
+                <a href="@Url.Action("Index", new { pageNr = nextPage, searchTerm = @ViewBag.SearchTerm })"><i class="fa fa-angle-right"></i></a>
             </li>
             <li>
-                <a href="@Url.Action("Index", new { pageNr = ViewBag.Paging.PageCount })"><i class="fa fa-angle-double-right"></i></a>
+                <a href="@Url.Action("Index", new { pageNr = ViewBag.Paging.PageCount, searchTerm = @ViewBag.SearchTerm })"><i class="fa fa-angle-double-right"></i></a>
             </li>
         }
         else

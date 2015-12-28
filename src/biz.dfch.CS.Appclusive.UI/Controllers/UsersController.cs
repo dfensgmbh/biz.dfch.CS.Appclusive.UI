@@ -8,27 +8,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class UsersController : CoreControllerBase
+    public class UsersController : CoreControllerBase<Api.Core.User, Models.Core.User>
     {
-        // GET: Users
-        public ActionResult Index(int pageNr = 1)
+        public UsersController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.User> items = CoreRepository.Users
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.User>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.User>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.User>());
-            }
+            base.BaseQuery = CoreRepository.Users;
         }
 
         // GET: Users/Details/5

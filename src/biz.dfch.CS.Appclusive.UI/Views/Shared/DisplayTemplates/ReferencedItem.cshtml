@@ -1,0 +1,17 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Job
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@if (Model != null)
+{
+    if (Model.EntityKind != null && Model.EntityKind.Name == biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.NODE_ENTITYKIND_NAME)
+    {
+        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+        @Html.ActionLink(Model.ReferencedItemId, "Details", "Nodes", new { id = Model.ReferencedItemId, rId = id, rAction = action, rController = controller }, null)
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Id)
+    }
+}

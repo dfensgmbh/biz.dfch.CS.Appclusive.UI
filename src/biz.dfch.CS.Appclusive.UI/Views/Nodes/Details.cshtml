@@ -62,6 +62,19 @@
                 </dd>
 
             </dl>
+            @if (ViewBag.NodeJob != null)
+            {
+                <hr />
+                <dl>
+
+                    <dt>
+                        @GeneralResources.JobStatus
+                    </dt>
+                    <dd>
+                        @Html.Partial("JobStatus", (biz.dfch.CS.Appclusive.UI.Models.Core.Job)ViewBag.NodeJob)
+                    </dd>
+                </dl>
+            }
         </div>
         <div id="items" class="tab-pane fade">
             @Html.Partial("ItemList", Model.Children)

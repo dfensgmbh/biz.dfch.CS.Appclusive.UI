@@ -24,34 +24,33 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class NodesController : CoreControllerBase
+    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node>
     {
-        // GET: Nodes
-        public ActionResult Index(int pageNr = 1)
+        public NodesController()
         {
+            base.BaseQuery = CoreRepository.Nodes;
+        }
+
+        // GET: Nodes/Details/5
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
-                QueryOperationResponse<Api.Core.Node> items = CoreRepository.Nodes
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Node>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Node>>(items));
+                var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                // find job to node
+                var job = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(j => j.ReferencedItemId == id.ToString() && j.EntityKind.Name == Models.Core.EntityKind.NODE_ENTITYKIND_NAME).FirstOrDefault();
+                ViewBag.NodeJob = AutoMapper.Mapper.Map<Models.Core.Job>(job);
+                
+                return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Node>());
+                return View(new Models.Core.Node());
             }
-        }
-
-        // GET: Nodes/Details/5
-        public ActionResult Details(long id)
-        {
-            var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
         }
 
     }

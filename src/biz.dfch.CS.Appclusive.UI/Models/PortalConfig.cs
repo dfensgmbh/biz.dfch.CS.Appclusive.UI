@@ -24,5 +24,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
     public class PortalConfig
     {
         public static int Pagesize = Properties.Settings.Default.Pagesize;
+
+        public static int Searchsize = Properties.Settings.Default.Searchsize;
     }
 }

@@ -22,41 +22,24 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ApprovalsController : CoreControllerBase
-    {       
-        // GET: Approvals
-        public ActionResult Index(int page = 1, string status = null)
+    public class ApprovalsController : CoreControllerBase<Api.Core.Approval, Models.Core.Approval>
+    {
+        public ApprovalsController()
         {
-            try
+            base.BaseQuery = CoreRepository.Approvals;
+        }
+
+        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                IEnumerable<Api.Core.Approval> items;
-                if (string.IsNullOrWhiteSpace(status))
-                {
-                    int skipCount = page > 1 ? (page - 1) * PortalConfig.Pagesize : 0;
-                    items = CoreRepository.Approvals.Skip(skipCount).Take(PortalConfig.Pagesize).ToList();
-                    ViewBag.StatusFilter = status;
-                }
-                else
-                {
-                    items = CoreRepository.Approvals.Where(a => a.Status == status);
-                }
-                switch (status)
-                {
-                    case "Created": ViewBag.CreatedLinkClass = "active"; break;
-                    case "Approved": ViewBag.ApprovedLinkClass = "active"; break;
-                    case "Declined": ViewBag.DeclinedLinkClass = "active"; break;
-                    default: ViewBag.AllLinkClass = "active"; break;
-                }
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Approval>>(items));
+                query = query.AddQueryOption("$filter", string.Format("Status eq '{0}'", searchTerm));
             }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Approval>());
-            }
+            return query;
         }
 
         #region Approval

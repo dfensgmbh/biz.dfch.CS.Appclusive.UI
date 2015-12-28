@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CmpControllerBase : Controller
+    public class CmpControllerBase<T, M> : GenericControllerBase<T, M>
     {
 
         /// <summary>
@@ -46,12 +46,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         private biz.dfch.CS.Appclusive.Api.Cmp.Cmp cmpRepository;
-
-        public CmpControllerBase()
-            : base()
-        {
-            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
-        }
-
+        
     }
 }

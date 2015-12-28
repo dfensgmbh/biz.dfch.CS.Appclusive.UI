@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.1.1.17278, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.1.1\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.1.2.31214, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.1.2\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -148,6 +148,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\AceController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -190,7 +192,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AjaxHelperExtensions.cs" />
+    <Compile Include="Helpers\AjaxHelperExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
     <Compile Include="Models\AjaxOption.cs" />
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
@@ -230,7 +232,7 @@
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
     <Compile Include="Models\ExceptionHelper.cs" />
     <Compile Include="Models\Extensions.cs" />
-    <Compile Include="Models\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
     <Compile Include="Models\OdataError.cs" />
@@ -494,6 +496,9 @@
     <Content Include="Views\Roles\PermissionList.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Permission.cshtml" />
     <Content Include="Views\Roles\EditPermissionList.cshtml" />
+    <Content Include="Views\Shared\SearchForm.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ReferencedItem.cshtml" />
+    <Content Include="Views\Shared\JobStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

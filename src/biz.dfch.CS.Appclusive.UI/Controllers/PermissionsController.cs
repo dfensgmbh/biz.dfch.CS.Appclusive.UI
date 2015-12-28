@@ -8,28 +8,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class PermissionsController : CoreControllerBase
+    public class PermissionsController : CoreControllerBase<Api.Core.Permission, Models.Core.Permission>
     {
-
-        // GET: Permissions
-        public ActionResult Index(int pageNr = 1)
+        public PermissionsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Permission> items = CoreRepository.Permissions
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Permission>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Permission>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Permission>());
-            }
+            base.BaseQuery = CoreRepository.Permissions;
         }
 
         #region Permission

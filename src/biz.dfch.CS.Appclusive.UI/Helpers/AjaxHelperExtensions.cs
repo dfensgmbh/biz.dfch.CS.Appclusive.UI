@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Routing;
 
-namespace biz.dfch.CS.Appclusive.UI.Models
+namespace biz.dfch.CS.Appclusive.UI.Helpers
 {
     public static class AjaxHelperExtensions
     {

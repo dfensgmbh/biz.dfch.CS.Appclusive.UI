@@ -24,29 +24,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class OrdersController : CoreControllerBase
+    public class OrdersController : CoreControllerBase<Api.Core.Order, Models.Core.Order>
     {
-        // GET: Orders
-        public ActionResult Index(int pageNr = 1)
+        public OrdersController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Order> items = CoreRepository.Orders.Expand("CostCentre").Expand("Requester")
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Order>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Order>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Order>());
-            }
+            base.BaseQuery = CoreRepository.Orders.Expand("CostCentre").Expand("Requester");
         }
-
+        
         #region Order
 
         // GET: Orders/Details/5

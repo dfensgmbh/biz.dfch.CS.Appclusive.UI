@@ -25,29 +25,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CataloguesController : CoreControllerBase
+    public class CataloguesController : CoreControllerBase<Api.Core.Catalogue, Models.Core.Catalogue>
     {
-        // GET: Catalogues
-        public ActionResult Index(int pageNr = 1)
+        public CataloguesController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Catalogue> items = CoreRepository.Catalogues
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Catalogue>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Catalogue>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Catalogue>());
-            }
+            base.BaseQuery = CoreRepository.Catalogues;
         }
-
+                
         #region Catalogue 
 
         // GET: Catalogues/Details/5

@@ -46,7 +46,7 @@
                     @Html.DisplayNameFor(model => model.ReferencedItemId)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.ReferencedItemId)
+                    @Html.DisplayFor(model => model, "ReferencedItem")
                 </dd>
 
                 <dt>
@@ -64,6 +64,13 @@
                 </dd>
             </dl>
             <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
                 <dt>
                     @Html.DisplayNameFor(model => model.EntityKind)
                 </dt>
@@ -117,5 +124,12 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
+    }
+    else
+    {
+        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    }
 </p>

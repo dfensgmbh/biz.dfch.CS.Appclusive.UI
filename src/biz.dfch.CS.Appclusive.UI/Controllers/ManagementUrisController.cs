@@ -25,31 +25,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ManagementUrisController : CoreControllerBase
+    public class ManagementUrisController : CoreControllerBase<Api.Core.ManagementUri, Models.Core.ManagementUri>
     {
-
-        // GET: ManagementUris
-        public ActionResult Index(int pageNr = 1, int rId = 0, string rAction = null, string rController = null)
+        public ManagementUrisController()
         {
-            ViewBag.ReturnId = rId;
-            ViewBag.ReturnAction = rAction;
-            ViewBag.ReturnController = rController;
-            try
-            {
-                QueryOperationResponse<Api.Core.ManagementUri> items = CoreRepository.ManagementUris
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.ManagementUri>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.ManagementUri>());
-            }
+            base.BaseQuery = CoreRepository.ManagementUris;
         }
 
         #region ManagementUri

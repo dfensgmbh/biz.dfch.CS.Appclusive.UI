@@ -24,32 +24,19 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class JobsController : CoreControllerBase
+    public class JobsController : CoreControllerBase<Api.Core.Job, Models.Core.Job>
     {
-        // GET: Jobs
-        public ActionResult Index(int pageNr = 1)
+        public JobsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Job> items = CoreRepository.Jobs
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Job>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Job>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Job>());
-            }
+            base.BaseQuery = CoreRepository.Jobs;
         }
 
         // GET: Jobs/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

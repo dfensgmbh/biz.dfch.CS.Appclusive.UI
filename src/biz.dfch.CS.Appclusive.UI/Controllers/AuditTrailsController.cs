@@ -21,45 +21,52 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Api_Diagnostics = biz.dfch.CS.Appclusive.Core.OdataServices.Diagnostics; 
+using Api_Diagnostics = biz.dfch.CS.Appclusive.Core.OdataServices.Diagnostics;
+using M = biz.dfch.CS.Appclusive.UI.Models.Diagnostics.AuditTrail;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AuditTrailsController : DiagnosticsControllerBase
+    public class AuditTrailsController : DiagnosticsControllerBase<Api_Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>
     {
-        public ActionResult Index(int pageNr = 1)
+        public AuditTrailsController()
         {
-            try
-            {
-                QueryOperationResponse<Api_Diagnostics.AuditTrail> items = DiagnosticsRepository.AuditTrails
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api_Diagnostics.AuditTrail>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Diagnostics.AuditTrail>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Diagnostics.AuditTrail>());
-            }
+            base.BaseQuery = DiagnosticsRepository.AuditTrails;
         }
 
+        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',EntityType)", searchTerm));
+            }
+            return query;
+        }
+
+        protected override List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
+        {
+            List<AjaxOption> options = new List<AjaxOption>();
+            foreach (var item in items)
+            {
+                Api_Diagnostics.AuditTrail audit = item as Api_Diagnostics.AuditTrail;
+                options.Add(new AjaxOption(audit.Id, audit.EntityType));//string.Format("{0} - {1}", audit.EntityType, audit.Modified)));
+            }
+            return options;
+        }
+
+
+        // GET: AuditTrails/Details/5
         public ActionResult Details(long id)
         {
             try
             {
-                var item = DiagnosticsRepository.AuditTrails.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Diagnostics.AuditTrail>(item));
+                var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<M>(item));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new Models.Diagnostics.AuditTrail());
+                return View(new Models.Diagnostics.Endpoint());
             }
         }
-
     }
 }
