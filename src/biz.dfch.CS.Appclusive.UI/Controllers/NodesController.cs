@@ -32,10 +32,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Nodes/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
-            var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
+            try
+            {
+                var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(new Models.Core.Node());
+            }
         }
 
     }

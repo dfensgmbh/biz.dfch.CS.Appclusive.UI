@@ -497,6 +497,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Permission.cshtml" />
     <Content Include="Views\Roles\EditPermissionList.cshtml" />
     <Content Include="Views\Shared\SearchForm.cshtml" />
+    <Content Include="Views\Jobs\ReferencedItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
