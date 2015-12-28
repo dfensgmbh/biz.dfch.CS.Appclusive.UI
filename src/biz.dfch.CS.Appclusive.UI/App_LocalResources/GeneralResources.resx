@@ -501,4 +501,7 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="JobStatus" xml:space="preserve">
+    <value>Job state</value>
+  </data>
 </root>

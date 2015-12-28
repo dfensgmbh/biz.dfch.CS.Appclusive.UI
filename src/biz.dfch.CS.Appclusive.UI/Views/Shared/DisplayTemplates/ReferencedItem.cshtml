@@ -3,7 +3,7 @@
 
 @if (Model != null)
 {
-    if (Model.EntityKind != null && Model.EntityKind.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node")
+    if (Model.EntityKind != null && Model.EntityKind.Name == biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.NODE_ENTITYKIND_NAME)
     {
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];

@@ -40,6 +40,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                // find job to node
+                var job = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(j => j.ReferencedItemId == id.ToString() && j.EntityKind.Name == Models.Core.EntityKind.NODE_ENTITYKIND_NAME).FirstOrDefault();
+                ViewBag.NodeJob = AutoMapper.Mapper.Map<Models.Core.Job>(job);
+                
                 return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
             }
             catch (Exception ex)

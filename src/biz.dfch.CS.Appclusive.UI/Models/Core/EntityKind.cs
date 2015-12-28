@@ -23,6 +23,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class EntityKind : AppcusiveEntityViewModelBase
     {
+        public const string NODE_ENTITYKIND_NAME = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node";
+
         public EntityKind()
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
