@@ -24,29 +24,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class KeyNameValuesController : CoreControllerBase
+    public class KeyNameValuesController : CoreControllerBase<Api.Core.KeyNameValue, Models.Core.KeyNameValue>
     {
-        // GET: KeyNameValues
-        public ActionResult Index(int pageNr = 1)
+        public KeyNameValuesController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.KeyNameValue> items = CoreRepository.KeyNameValues
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.KeyNameValue>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.KeyNameValue>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.KeyNameValue>());
-            }
+            base.BaseQuery = CoreRepository.KeyNameValues;
         }
-
+        
         #region KeyNameValue
 
         // GET: KeyNameValues/Details/5

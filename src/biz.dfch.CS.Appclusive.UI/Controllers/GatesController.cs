@@ -24,30 +24,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class GatesController : CoreControllerBase
+    public class GatesController  : CoreControllerBase<Api.Core.Gate, Models.Core.Gate>
     {
-
-        // GET: Gates
-        public ActionResult Index(int pageNr = 1)
+        public GatesController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Gate> items = CoreRepository.Gates
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Gate>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Gate>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Gate>());
-            }
+            base.BaseQuery = CoreRepository.Gates;
         }
-
+        
         #region Gate
 
         // GET: Gates/Details/5

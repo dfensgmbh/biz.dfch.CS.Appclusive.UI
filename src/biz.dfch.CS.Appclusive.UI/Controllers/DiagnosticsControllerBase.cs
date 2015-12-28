@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class DiagnosticsControllerBase : Controller
+    public class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M>
     {
         protected biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository
         {
@@ -43,11 +43,5 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
         private biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics diagnosticsRepository;
 
-
-        public DiagnosticsControllerBase()
-            : base()
-        {
-            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
-        }
     }
 }

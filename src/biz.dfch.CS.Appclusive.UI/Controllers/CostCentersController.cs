@@ -8,30 +8,13 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CostCentresController : CoreControllerBase
+    public class CostCentresController : CoreControllerBase<Api.Core.CostCentre, Models.Core.CostCentre>
     {
-
-        // GET: CostCentres
-        public ActionResult Index(int pageNr = 1)
+        public CostCentresController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.CostCentre> items = CoreRepository.CostCentres
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.CostCentre>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.CostCentre>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.CostCentre>());
-            }
+            base.BaseQuery = CoreRepository.CostCentres;
         }
-
+        
         #region CostCentre
 
         // GET: CostCentres/Details/5

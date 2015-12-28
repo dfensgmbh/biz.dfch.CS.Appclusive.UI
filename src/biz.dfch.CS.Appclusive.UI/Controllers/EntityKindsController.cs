@@ -24,29 +24,12 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class EntityKindsController : CoreControllerBase
+    public class EntityKindsController : CoreControllerBase<Api.Core.EntityKind, Models.Core.EntityKind>
     {
-
-        // GET: EntityKinds
-        public ActionResult Index(int pageNr = 1)
+        public EntityKindsController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.EntityKind> items = CoreRepository.EntityKinds
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.EntityKind>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.EntityKind>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.EntityKind>());
-            }
-        }
+            base.BaseQuery = CoreRepository.EntityKinds;
+        }        
 
         #region EntityKind
 

@@ -24,27 +24,11 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class NodesController : CoreControllerBase
+    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node>
     {
-        // GET: Nodes
-        public ActionResult Index(int pageNr = 1)
+        public NodesController()
         {
-            try
-            {
-                QueryOperationResponse<Api.Core.Node> items = CoreRepository.Nodes
-                        .AddQueryOption("$inlinecount", "allpages")
-                        .AddQueryOption("$top", PortalConfig.Pagesize)
-                        .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
-                        .Execute() as QueryOperationResponse<Api.Core.Node>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<Models.Core.Node>>(items));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View(new List<Models.Core.Node>());
-            }
+            base.BaseQuery = CoreRepository.Nodes;
         }
 
         // GET: Nodes/Details/5

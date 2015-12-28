@@ -2,9 +2,16 @@
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @model IEnumerable<Approval>
 
-
 @{
     ViewBag.Title = "Approval" + " List";
+
+    switch ((string)ViewBag.SearchTerm)
+    {
+        case "Created": ViewBag.CreatedLinkClass = "active"; break;
+        case "Approved": ViewBag.ApprovedLinkClass = "active"; break;
+        case "Declined": ViewBag.DeclinedLinkClass = "active"; break;
+        default: ViewBag.AllLinkClass = "active"; break;
+    }
 }
 @section Title{
     <h2>@GeneralResources.ResourceManager.GetString("Approval")@GeneralResources.List</h2>
@@ -13,9 +20,9 @@
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li class="@ViewBag.AllLinkClass"><a href="?">all</a></li>
-        <li class="@ViewBag.CreatedLinkClass"><a href="?status=@Approval.CREATED_STATUS">Created</a></li>
-        <li class="@ViewBag.ApprovedLinkClass"><a href="?status=Approved">Approved</a></li>
-        <li class="@ViewBag.DeclinedLinkClass"><a href="?status=Declined">Declined</a></li>
+        <li class="@ViewBag.CreatedLinkClass"><a href="?searchTerm=@Approval.CREATED_STATUS">Created</a></li>
+        <li class="@ViewBag.ApprovedLinkClass"><a href="?searchTerm=Approved">Approved</a></li>
+        <li class="@ViewBag.DeclinedLinkClass"><a href="?searchTerm=Declined">Declined</a></li>
     </ul>
 </nav>
 <table class="table table-striped table-hover">

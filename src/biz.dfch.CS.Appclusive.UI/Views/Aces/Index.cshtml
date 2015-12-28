@@ -8,9 +8,12 @@
     <h2>@GeneralResources.ResourceManager.GetString("Ace")@GeneralResources.List</h2>
 }
 
-<p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Create")"><i class="fa fa-plus "></i> @GeneralResources.CreateNew</a>
-</p>
+<div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-default" href="@Url.Action("Create")"><i class="fa fa-plus"></i> @GeneralResources.CreateNew</a>
+    </div>
+    @Html.Partial("SearchForm")
+</div>
 @{ ViewBag.ShowEditLinks = true; }
 @Html.Partial("AceList", Model)
 

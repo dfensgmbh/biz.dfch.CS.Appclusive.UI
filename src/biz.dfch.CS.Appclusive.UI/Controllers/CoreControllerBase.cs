@@ -18,13 +18,14 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CoreControllerBase : Controller
+    public class CoreControllerBase<T, M> : GenericControllerBase<T, M>
     {
 
         /// <summary>
@@ -46,13 +47,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
-
-        public CoreControllerBase()
-            : base()
-        {
-            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
-        }
-
+        
         #region selection lists
 
         protected void AddProductSeletionToViewBag()
