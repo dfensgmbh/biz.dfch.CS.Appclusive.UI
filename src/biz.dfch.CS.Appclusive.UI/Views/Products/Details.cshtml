@@ -80,9 +80,6 @@
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
-        <div id="general" class="tab-pane fade">
-            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
-        </div>
         <div id="items" class="tab-pane fade">
             @Html.Partial("CatalogueItemList", Model.CatalogueItems)
         </div>
@@ -94,12 +91,5 @@
     {
         <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
     }
-    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
-    }
-    else
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
-    }
+    @Html.Partial("BackLink")
 </p>

@@ -42,8 +42,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Approval
 
         // GET: Approvals/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
+        
             Models.Core.Approval approval = new Models.Core.Approval();
             try
             {

@@ -53,7 +53,12 @@
                     @Html.DisplayNameFor(model => model.TenantId)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.TenantId)
+                    @{
+                        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+                        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+                        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+                    }
+                    @Html.ActionLink(Model.TenantId.ToString(), "Details", "Tenants", new { id = Model.TenantId, rId = id, rAction = action, rController = controller }, null)
                 </dd>
 
                 <dt>
@@ -124,12 +129,5 @@
     <hr />
 </div>
 <p>
-    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
-    }
-    else
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
-    }
+    @Html.Partial("BackLink")
 </p>
