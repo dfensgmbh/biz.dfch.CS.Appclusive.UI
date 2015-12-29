@@ -33,19 +33,19 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.CimiId)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.CimiType)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.CatalogueItemId)
             </td>
             @*<td class="ap-btn text-nowrap">

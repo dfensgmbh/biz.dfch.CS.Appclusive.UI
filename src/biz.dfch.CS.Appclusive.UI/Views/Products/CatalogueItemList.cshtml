@@ -19,10 +19,10 @@
     @foreach (var catalogItem in Model)
     {
         <tr>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => catalogItem.Name)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => catalogItem.Description)
             </td>
             <td class="ap-btn text-nowrap">

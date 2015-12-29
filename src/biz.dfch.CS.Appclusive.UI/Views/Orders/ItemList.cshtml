@@ -20,16 +20,16 @@
     @foreach (var orderItem in Model)
     {
         <tr>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                 @Html.DisplayFor(modeItem => orderItem.Name)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                 @Html.DisplayFor(modeItem => orderItem.Quantity)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                 @Html.DisplayFor(modeItem => orderItem.Type)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                 @Html.DisplayFor(modeItem => orderItem.Description)
             </td>
             <td class="ap-btn text-nowrap">

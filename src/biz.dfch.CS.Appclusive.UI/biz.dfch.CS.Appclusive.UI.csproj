@@ -504,6 +504,7 @@
     <Content Include="Views\Shared\DisplayTemplates\ReferencedItem.cshtml" />
     <Content Include="Views\Shared\JobStatus.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\BackLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

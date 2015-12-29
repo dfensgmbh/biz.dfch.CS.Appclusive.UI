@@ -80,3 +80,7 @@ ul.ui-autocomplete {
     border: 1px solid #ddd;
     background-color: white;
 }
+
+.ap-hand {
+ cursor: pointer;
+}
