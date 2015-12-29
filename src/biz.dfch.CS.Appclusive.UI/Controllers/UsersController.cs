@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class UsersController : CoreControllerBase<Api.Core.User, Models.Core.User>
     {
-        public UsersController()
-        {
-            base.BaseQuery = CoreRepository.Users;
-        }
+        protected override DataServiceQuery<Api.Core.User> BaseQuery { get { return CoreRepository.Users; } }
 
         // GET: Users/Details/5
         public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)

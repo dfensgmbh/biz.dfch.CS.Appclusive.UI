@@ -12,14 +12,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class CimiTargetsController : CmpControllerBase<Api_Cmp.CimiTarget, Models.Cmp.CimiTarget>
     {
-        public CimiTargetsController()
-        {
-            base.BaseQuery = CmpRepository.CimiTargets;
-        }
+        protected override DataServiceQuery<Api_Cmp.CimiTarget> BaseQuery { get { return CmpRepository.CimiTargets; } }
 
         // GET: CimiTargets/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

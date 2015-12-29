@@ -28,10 +28,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class EndpointsController : DiagnosticsControllerBase<Api_Diagnostics.Endpoint, Models.Diagnostics.Endpoint>
     {
-        public EndpointsController()
-        {
-            base.BaseQuery = DiagnosticsRepository.Endpoints;
-        }
+        protected override DataServiceQuery<Api_Diagnostics.Endpoint> BaseQuery { get { return DiagnosticsRepository.Endpoints; } }
 
         protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
         {
@@ -43,8 +40,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Endpoints/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

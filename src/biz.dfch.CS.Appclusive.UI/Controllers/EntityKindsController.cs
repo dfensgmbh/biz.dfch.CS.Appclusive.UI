@@ -26,16 +26,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class EntityKindsController : CoreControllerBase<Api.Core.EntityKind, Models.Core.EntityKind>
     {
-        public EntityKindsController()
-        {
-            base.BaseQuery = CoreRepository.EntityKinds;
-        }        
+        protected override DataServiceQuery<Api.Core.EntityKind> BaseQuery { get { return CoreRepository.EntityKinds; } }
 
         #region EntityKind
 
         // GET: EntityKinds/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = CoreRepository.EntityKinds.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

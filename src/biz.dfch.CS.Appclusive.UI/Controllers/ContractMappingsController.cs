@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class ContractMappingsController : CoreControllerBase<Api.Core.ContractMapping, Models.Core.ContractMapping>
     {
-        public ContractMappingsController()
-        {
-            base.BaseQuery = CoreRepository.ContractMappings;
-        }
+        protected override DataServiceQuery<Api.Core.ContractMapping> BaseQuery { get { return CoreRepository.ContractMappings; } }
         
         #region ContractMapping
 

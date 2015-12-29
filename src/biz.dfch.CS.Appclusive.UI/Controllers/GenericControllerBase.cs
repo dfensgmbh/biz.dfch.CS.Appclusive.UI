@@ -8,9 +8,9 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class GenericControllerBase<T,M>: ControllerBase
+    public abstract class GenericControllerBase<T, M> : ControllerBase
     {       
-        protected DataServiceQuery<T> BaseQuery { get; set; }
+        protected abstract DataServiceQuery<T> BaseQuery { get; }
 
         // GET: Endpoints
         public ActionResult Index(int pageNr = 1, string searchTerm = null)

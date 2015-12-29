@@ -26,16 +26,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class GatesController  : CoreControllerBase<Api.Core.Gate, Models.Core.Gate>
     {
-        public GatesController()
-        {
-            base.BaseQuery = CoreRepository.Gates;
-        }
+        protected override DataServiceQuery<Api.Core.Gate> BaseQuery { get { return CoreRepository.Gates; } }
         
         #region Gate
 
         // GET: Gates/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = CoreRepository.Gates.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

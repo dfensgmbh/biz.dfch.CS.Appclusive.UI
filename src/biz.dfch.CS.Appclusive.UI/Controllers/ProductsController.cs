@@ -27,10 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class ProductsController : CoreControllerBase<Api.Core.Product, Models.Core.Product>
     {
-        public ProductsController()
-        {
-            base.BaseQuery = CoreRepository.Products;
-        }
+        protected override DataServiceQuery<Api.Core.Product> BaseQuery { get { return CoreRepository.Products; } }
 
         #region Product
 

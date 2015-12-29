@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl>
     {
-        public AclsController()
-        {
-            base.BaseQuery = CoreRepository.Acls;
-        }        
+        protected override DataServiceQuery<Api.Core.Acl> BaseQuery { get { return CoreRepository.Acls; } }
         
         #region Acl
 

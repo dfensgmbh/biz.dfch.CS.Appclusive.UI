@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Ace>
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
+
 <table class="table table-striped table-hover">
     <tr>
         <th>
@@ -20,32 +21,37 @@
 
     @foreach (var item in Model)
     {
+        string detailLink = "";
+        if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
+        {
+            detailLink = Url.Action("Details", "Aces", new { id = item.Id });
+        }
+        else
+        {
+            detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
+        }
         <tr>
-            <td>
+            <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @if (null != item.Acl)
                 {
                     @Html.DisplayFor(modelItem => item.Acl.Name)
                 }
             </td>
-            <td>
+            <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Trustee)
             </td>
-            <td>
+            <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Action)
             </td>
             <td class="ap-btn text-nowrap">
+                <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
                     <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "Aces", new { id = item.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Aces", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                     <a class="btn btn-default btn-sm" href="@Url.Action("Delete", "Aces", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-                }
-                else
-                {
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 }
             </td>
         </tr>

@@ -24,8 +24,9 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M>
+    public abstract class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M>
     {
+
         protected biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository
         {
             get
@@ -33,10 +34,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (diagnosticsRepository == null)
                 {
                     diagnosticsRepository = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Diagnostics"));
-                    diagnosticsRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     diagnosticsRepository.IgnoreMissingProperties = true;
                     //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+
+                    LoginData data = Session["LoginData"] as LoginData;
+                    if (null != data)
+                    {
+                        diagnosticsRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                    }
+                    else
+                    {
+                        diagnosticsRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    }
                 }
                 return diagnosticsRepository;
             }

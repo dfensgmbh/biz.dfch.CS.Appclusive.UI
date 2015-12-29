@@ -26,10 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class OrdersController : CoreControllerBase<Api.Core.Order, Models.Core.Order>
     {
-        public OrdersController()
-        {
-            base.BaseQuery = CoreRepository.Orders.Expand("CostCentre").Expand("Requester");
-        }
+        protected override DataServiceQuery<Api.Core.Order> BaseQuery { get { return CoreRepository.Orders.Expand("CostCentre").Expand("Requester"); } }
         
         #region Order
 

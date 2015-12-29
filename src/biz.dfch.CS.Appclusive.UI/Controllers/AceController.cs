@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class AcesController : CoreControllerBase<Api.Core.Ace, Models.Core.Ace>
     {
-        public AcesController()
-        {
-            base.BaseQuery = CoreRepository.Aces.Expand("Acl");
-        }
+        protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces.Expand("Acl"); } }
         
         #region Ace
 

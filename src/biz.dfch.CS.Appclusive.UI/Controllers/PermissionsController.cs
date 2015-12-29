@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class PermissionsController : CoreControllerBase<Api.Core.Permission, Models.Core.Permission>
     {
-        public PermissionsController()
-        {
-            base.BaseQuery = CoreRepository.Permissions;
-        }
+        protected override DataServiceQuery<Api.Core.Permission> BaseQuery { get { return CoreRepository.Permissions; } }
 
         #region Permission
 

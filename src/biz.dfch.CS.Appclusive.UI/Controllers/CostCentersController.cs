@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class CostCentresController : CoreControllerBase<Api.Core.CostCentre, Models.Core.CostCentre>
     {
-        public CostCentresController()
-        {
-            base.BaseQuery = CoreRepository.CostCentres;
-        }
+        protected override DataServiceQuery<Api.Core.CostCentre> BaseQuery { get { return CoreRepository.CostCentres; } }
         
         #region CostCentre
 

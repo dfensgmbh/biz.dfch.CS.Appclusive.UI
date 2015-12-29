@@ -10,16 +10,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class TenantsController : CoreControllerBase<Api.Core.Tenant, Models.Core.Tenant>
     {
-        public TenantsController()
-        {
-            base.BaseQuery = CoreRepository.Tenants.Expand("Parent");
-        }
+        protected override DataServiceQuery<Api.Core.Tenant> BaseQuery { get { return CoreRepository.Tenants.Expand("Parent"); } }
 
         #region Tenant
 
         // GET: Tenants/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 Guid guid = Guid.Parse(id);

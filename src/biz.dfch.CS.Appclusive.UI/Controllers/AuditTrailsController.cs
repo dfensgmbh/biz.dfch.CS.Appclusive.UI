@@ -28,10 +28,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class AuditTrailsController : DiagnosticsControllerBase<Api_Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>
     {
-        public AuditTrailsController()
-        {
-            base.BaseQuery = DiagnosticsRepository.AuditTrails;
-        }
+        protected override DataServiceQuery<Api_Diagnostics.AuditTrail> BaseQuery { get { return DiagnosticsRepository.AuditTrails; } }
 
         protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
         {
@@ -55,8 +52,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
 
         // GET: AuditTrails/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
+
             try
             {
                 var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

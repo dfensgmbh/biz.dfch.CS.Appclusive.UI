@@ -34,7 +34,7 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
         public int Pagesize {
             get {
                 return ((int)(this["Pagesize"]));
@@ -43,7 +43,7 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int Searchsize {
             get {
                 return ((int)(this["Searchsize"]));

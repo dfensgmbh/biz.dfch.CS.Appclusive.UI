@@ -27,16 +27,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class CartsController : CoreControllerBase<Api.Core.Cart, Models.Core.Cart>
     {
-        public CartsController()
-        {
-            base.BaseQuery = CoreRepository.Carts;
-        }
+        protected override DataServiceQuery<Api.Core.Cart> BaseQuery { get { return CoreRepository.Carts; } }
 
         #region Cart
 
         // GET: Carts/Details/5
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 var item = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();

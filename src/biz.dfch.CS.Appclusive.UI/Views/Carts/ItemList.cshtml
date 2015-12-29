@@ -15,10 +15,10 @@
     @foreach (var cartItem in Model)
     {
         <tr>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = cartItem.Id })'" class="ap-hand">
                 @Html.DisplayFor(modeItem => cartItem.Name)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = cartItem.Id })'" class="ap-hand">
                 @Html.DisplayFor(modeItem => cartItem.Quantity)
             </td>
             <td class="ap-btn text-nowrap">
