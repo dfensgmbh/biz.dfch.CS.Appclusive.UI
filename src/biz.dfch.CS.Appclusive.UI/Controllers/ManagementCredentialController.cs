@@ -26,10 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class ManagementCredentialsController : CoreControllerBase<Api.Core.ManagementCredential, Models.Core.ManagementCredential>
     {
-        public ManagementCredentialsController()
-        {
-            base.BaseQuery = CoreRepository.ManagementCredentials;
-        }
+        protected override DataServiceQuery<Api.Core.ManagementCredential> BaseQuery { get { return CoreRepository.ManagementCredentials; } }
 
         #region ManagementCredential
 

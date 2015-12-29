@@ -27,10 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class CartsController : CoreControllerBase<Api.Core.Cart, Models.Core.Cart>
     {
-        public CartsController()
-        {
-            base.BaseQuery = CoreRepository.Carts;
-        }
+        protected override DataServiceQuery<Api.Core.Cart> BaseQuery { get { return CoreRepository.Carts; } }
 
         #region Cart
 

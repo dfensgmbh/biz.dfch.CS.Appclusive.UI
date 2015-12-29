@@ -27,10 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class ManagementUrisController : CoreControllerBase<Api.Core.ManagementUri, Models.Core.ManagementUri>
     {
-        public ManagementUrisController()
-        {
-            base.BaseQuery = CoreRepository.ManagementUris;
-        }
+        protected override DataServiceQuery<Api.Core.ManagementUri> BaseQuery { get { return CoreRepository.ManagementUris; } }
 
         #region ManagementUri
 

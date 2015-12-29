@@ -28,10 +28,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class ApprovalsController : CoreControllerBase<Api.Core.Approval, Models.Core.Approval>
     {
-        public ApprovalsController()
-        {
-            base.BaseQuery = CoreRepository.Approvals;
-        }
+        protected override DataServiceQuery<Api.Core.Approval> BaseQuery { get { return CoreRepository.Approvals; } }
 
         protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
         {

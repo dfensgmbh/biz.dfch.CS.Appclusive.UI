@@ -26,10 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class GatesController  : CoreControllerBase<Api.Core.Gate, Models.Core.Gate>
     {
-        public GatesController()
-        {
-            base.BaseQuery = CoreRepository.Gates;
-        }
+        protected override DataServiceQuery<Api.Core.Gate> BaseQuery { get { return CoreRepository.Gates; } }
         
         #region Gate
 

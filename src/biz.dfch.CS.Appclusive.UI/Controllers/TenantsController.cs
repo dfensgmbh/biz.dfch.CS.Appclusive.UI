@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class TenantsController : CoreControllerBase<Api.Core.Tenant, Models.Core.Tenant>
     {
-        public TenantsController()
-        {
-            base.BaseQuery = CoreRepository.Tenants.Expand("Parent");
-        }
+        protected override DataServiceQuery<Api.Core.Tenant> BaseQuery { get { return CoreRepository.Tenants.Expand("Parent"); } }
 
         #region Tenant
 

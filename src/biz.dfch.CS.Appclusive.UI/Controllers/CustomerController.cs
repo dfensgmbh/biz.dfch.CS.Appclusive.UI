@@ -10,10 +10,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class CustomersController : CoreControllerBase<Api.Core.Customer, Models.Core.Customer>
     {
-        public CustomersController()
-        {
-            base.BaseQuery = CoreRepository.Customers;
-        }
+        protected override DataServiceQuery<Api.Core.Customer> BaseQuery { get { return CoreRepository.Customers; } }
         
         #region Customer
 

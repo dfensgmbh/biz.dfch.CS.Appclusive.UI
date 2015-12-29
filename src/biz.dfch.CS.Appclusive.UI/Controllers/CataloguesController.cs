@@ -27,10 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class CataloguesController : CoreControllerBase<Api.Core.Catalogue, Models.Core.Catalogue>
     {
-        public CataloguesController()
-        {
-            base.BaseQuery = CoreRepository.Catalogues;
-        }
+        protected override DataServiceQuery<Api.Core.Catalogue> BaseQuery { get { return CoreRepository.Catalogues; } }
                 
         #region Catalogue 
 

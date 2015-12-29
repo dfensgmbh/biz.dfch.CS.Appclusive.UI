@@ -26,10 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class EntityKindsController : CoreControllerBase<Api.Core.EntityKind, Models.Core.EntityKind>
     {
-        public EntityKindsController()
-        {
-            base.BaseQuery = CoreRepository.EntityKinds;
-        }        
+        protected override DataServiceQuery<Api.Core.EntityKind> BaseQuery { get { return CoreRepository.EntityKinds; } }
 
         #region EntityKind
 

@@ -25,7 +25,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CoreControllerBase<T, M> : GenericControllerBase<T, M>
+    public abstract class CoreControllerBase<T, M> : GenericControllerBase<T, M>
     {
 
         /// <summary>
@@ -38,10 +38,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (coreRepository == null)
                 {
                     coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
-                    coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
                     coreRepository.IgnoreMissingProperties = true;
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+
+                    LoginData data = Session["LoginData"] as LoginData;
+                    if (null != data)
+                    {
+                        coreRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                    }
+                    else
+                    {
+                        coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    }
                 }
                 return coreRepository;
             }

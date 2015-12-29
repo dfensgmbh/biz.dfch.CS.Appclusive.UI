@@ -26,10 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class JobsController : CoreControllerBase<Api.Core.Job, Models.Core.Job>
     {
-        public JobsController()
-        {
-            base.BaseQuery = CoreRepository.Jobs;
-        }
+        protected override DataServiceQuery<Api.Core.Job> BaseQuery { get { return CoreRepository.Jobs; } }
 
         // GET: Jobs/Details/5
         public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)

@@ -12,10 +12,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class RolesController : CoreControllerBase<Api.Core.Role, Models.Core.Role>
     {
-        public RolesController()
-        {
-            base.BaseQuery = CoreRepository.Roles;
-        }
+        protected override DataServiceQuery<Api.Core.Role> BaseQuery { get { return CoreRepository.Roles; } }
 
         #region Role
 
