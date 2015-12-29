@@ -826,6 +826,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login with your Appclusive-API credentials.
+        /// </summary>
+        public static string LoginInfo {
+            get {
+                return ResourceManager.GetString("LoginInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         public static string Logout {

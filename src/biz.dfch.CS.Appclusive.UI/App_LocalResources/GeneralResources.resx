@@ -510,4 +510,7 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="LoginInfo" xml:space="preserve">
+    <value>Login with your Appclusive-API credentials</value>
+  </data>
 </root>

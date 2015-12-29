@@ -4,7 +4,8 @@
     ViewBag.Title = "Login";
 }
 @section Title{
-    <h2>Login</h2>
+    <h2>@GeneralResources.Login</h2>
+    <h4>@GeneralResources.LoginInfo</h4>
 }
 
 <div>
@@ -14,8 +15,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>LoginData</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ReturnUrl)
 
