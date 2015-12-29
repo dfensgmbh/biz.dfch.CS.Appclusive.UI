@@ -36,20 +36,19 @@
         @foreach (var item in Model)
         {
             <tr class="table table-striped table-hover @("Added" == item.EntityState ? "success" : ("Deleted" == item.EntityState ? "danger" : string.Empty))">
-                <td>
+                <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.EntityId)
                 </td>
-                <td>
+                <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.EntityType)
                 </td>
-
-                <td>
+                <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.EntityState)
                 </td>
-                <td>
+                <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.Created)
                 </td>
-                <td>
+                <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.Modified)
                 </td>
                 <td class="ap-btn text-nowrap">

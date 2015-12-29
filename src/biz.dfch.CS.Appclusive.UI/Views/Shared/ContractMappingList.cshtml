@@ -29,25 +29,25 @@
     @foreach (var contract in Model)
     {
         <tr>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.Name)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.Customer)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.ExternalId)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.ExternalType)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.IsPrimary)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.ValidFrom)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "ContractMappings", new { id = contract.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => contract.ValidUntil)
             </td>
             <td class="ap-btn text-nowrap">

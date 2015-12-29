@@ -17,10 +17,10 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "Tenants", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
+            <td onclick="window.location = '@Url.Action("Details", "Tenants", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
