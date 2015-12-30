@@ -83,10 +83,7 @@
                     <li>@Html.ActionLink(@GeneralResources.About, "About", "Home")</li>
                     <li>@Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
                 </ul>
-                @{
-                    biz.dfch.CS.Appclusive.UI.Models.LoginData data = Session["LoginData"] as biz.dfch.CS.Appclusive.UI.Models.LoginData;
-                  }
-                @if (null == data)
+                @if (null == Session["LoginData"])
                 {
                     <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
                 }

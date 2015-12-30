@@ -38,10 +38,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
 
-                    LoginData data = Session["LoginData"] as LoginData;
-                    if (null != data)
+                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
+                    if (null != apiCreds)
                     {
-                        diagnosticsRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                        diagnosticsRepository.Credentials = apiCreds;
                     }
                     else
                     {

@@ -42,10 +42,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
 
-                    LoginData data = Session["LoginData"] as LoginData;
-                    if (null != data)
+                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
+                    if (null != apiCreds)
                     {
-                        coreRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                        coreRepository.Credentials = apiCreds;
                     }
                     else
                     {
