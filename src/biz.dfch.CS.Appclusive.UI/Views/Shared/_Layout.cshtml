@@ -25,7 +25,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(@GeneralResources.Home, "Index", "Home")</li>
+
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Core <span class="caret"></span>
@@ -80,7 +80,7 @@
                             <li>@Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
                         </ul>
                     </li>
-                    <li>@Html.ActionLink(@GeneralResources.About, "About", "Home")</li>
+
                     <li>@Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
                 </ul>
                 @if (null == Session["LoginData"])
@@ -111,7 +111,12 @@
         @Html.Partial("Paging")
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year d-fens GmbH</p>
+            <table>
+                <tr>
+                    <td align='left' width="100%">&copy; @DateTime.Now.Year d-fens GmbH</td>
+                    <td align='right'><a>@Html.ActionLink(@GeneralResources.About, "About", "Home")</a></td>
+                </tr>
+            </table>
         </footer>
     </div>
 
@@ -120,7 +125,7 @@
     @Scripts.Render("~/bundles/sitescripts")
     @RenderSection("scripts", required: false)
     @Html.RenderDelayed()
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
