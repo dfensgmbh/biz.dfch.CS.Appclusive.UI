@@ -57,30 +57,93 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         protected ActionResult Search<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
+            query = AddSelectFilter(query, term);
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+
             return this.Json(CreateOptionList(items), JsonRequestBehavior.AllowGet);
         }
-
+        
+        /// <summary>
+        /// consider implementing AddSelectFilter and AddSearchFilter as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         protected virtual List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
         {
-            System.Reflection.PropertyInfo propId = typeof(T).GetProperty("Id");
-            System.Reflection.PropertyInfo propName = typeof(T).GetProperty("Name");
+            return CreateOptionList(items, "Name");
+        }
+  
+        /// <summary>
+        /// consider implementing AddSelectFilter and AddSearchFilter as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="keyPropertyName">can be null if only distinct values are used</param>
+        /// <param name="valuePropertyName"></param>
+        /// <returns></returns>
+        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string valuePropertyName, bool distinctValuesOnly = true)
+        {
+            string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id
+            
+            System.Reflection.PropertyInfo propId = typeof(T).GetProperty(keyPropertyName);
+            System.Reflection.PropertyInfo propName = typeof(T).GetProperty(valuePropertyName);
             Contract.Assert(null != propId);
             Contract.Assert(null != propName);
 
             List<AjaxOption> options = new List<AjaxOption>();
-            foreach (var item in items)
+            if (distinctValuesOnly)
             {
-                options.Add(new AjaxOption((long)propId.GetValue(item), (string)propName.GetValue(item)));
+                foreach (var item in items)
+                {
+                    string value = (string)propName.GetValue(item);
+                    if (null == options.FirstOrDefault(o => o.value == value))
+                    {
+                        options.Add(new AjaxOption(0, value));
+                    }
+                }
             }
-            return options;
+            else
+            {
+                foreach (var item in items)
+                {
+                    options.Add(new AjaxOption((long)propId.GetValue(item), (string)propName.GetValue(item)));
+                }
+            }
+            return options.OrderBy(o=>o.value).ToList();
         }
 
         #endregion
 
         #region basic query filters
+        /// <summary>
+        /// consider implementing CreateOptionList and AddSearchFilter as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
+        protected virtual DataServiceQuery<T> AddSelectFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$select", "Id,Name");// key must be present for ODATA and it is always the property Id
+            }
+            return query;
+        }
 
+        /// <summary>
+        /// consider implementing AddSelectFilter and CreateOptionList as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         protected virtual DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))

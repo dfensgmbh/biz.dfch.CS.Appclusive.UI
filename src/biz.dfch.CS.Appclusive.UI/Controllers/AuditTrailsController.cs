@@ -30,6 +30,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
         protected override DataServiceQuery<Api_Diagnostics.AuditTrail> BaseQuery { get { return DiagnosticsRepository.AuditTrails; } }
 
+        protected override DataServiceQuery<T> AddSelectFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$select", "Id,EntityType");// key must be present for ODATA and it is always the property Id
+            }
+            return query;
+        }
         protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -41,13 +49,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         protected override List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
         {
-            List<AjaxOption> options = new List<AjaxOption>();
-            foreach (var item in items)
-            {
-                Api_Diagnostics.AuditTrail audit = item as Api_Diagnostics.AuditTrail;
-                options.Add(new AjaxOption(audit.Id, audit.EntityType));//string.Format("{0} - {1}", audit.EntityType, audit.Modified)));
-            }
-            return options;
+            return base.CreateOptionList(items, "EntityType");
         }
 
 
