@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -23,9 +24,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Guid guid = Guid.Parse(id);
-                // no navigation properties yet on Api .Expand("CreatedBy").Expand("ModifiedBy")
                 var item = CoreRepository.Tenants.Expand("Customer").Expand("Parent").Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(item));
+                return View(AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(item)));
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var apiItem = CoreRepository.Tenants.Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
                 this.AddTenantSeletionToViewBag(apiItem);
                 this.AddCustomerSeletionToViewBag();
-                return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
+                return View(AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem)));
             }
             catch (Exception ex)
             {
@@ -104,8 +104,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (!ModelState.IsValid)
                 {
                     this.AddTenantSeletionToViewBag(AutoMapper.Mapper.Map<Api.Core.Tenant>(tenant));
-                    this.AddCustomerSeletionToViewBag(); 
-                    return View(tenant);
+                    this.AddCustomerSeletionToViewBag();
+                    if (tenant.Id == Guid.Empty) tenant.IdStr = id;
+                    return View(AddUsers(tenant));
                 }
                 else
                 {
@@ -126,7 +127,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
                     this.AddTenantSeletionToViewBag(apiItem);
                     this.AddCustomerSeletionToViewBag();
-                    return View(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
+                    return View(AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem)));
                 }
             }
             catch (Exception ex)
@@ -134,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 this.AddTenantSeletionToViewBag(apiItem); 
                 this.AddCustomerSeletionToViewBag();
-                return View(tenant);
+                return View(AddUsers(tenant));
             }
         }
 
@@ -153,13 +154,31 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem));
+                return View("Details", AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem)));
             }
         }
 
         #endregion
 
-
+        /// <summary>
+        /// Adds the user objects because they are not available through .Expand("CreatedBy").Expand("ModifiedBy")
+        /// </summary>
+        /// <param name="apiItem"></param>
+        private Models.Core.Tenant AddUsers(Models.Core.Tenant modelItem)
+        {
+            if (null != modelItem)
+            {
+                if (modelItem.CreatedById > 0)
+                {
+                    modelItem.CreatedBy = AutoMapper.Mapper.Map<Models.Core.User>(CoreRepository.Users.Where(c => c.Id == modelItem.CreatedById).FirstOrDefault());
+                }
+                if (modelItem.ModifiedById > 0)
+                {
+                    modelItem.ModifiedBy = AutoMapper.Mapper.Map<Models.Core.User>(CoreRepository.Users.Where(c => c.Id == modelItem.ModifiedById).FirstOrDefault());
+                }
+            }
+            return modelItem;
+        }
 
     }
 }
