@@ -40,7 +40,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Endpoints/Details/5
-        public ActionResult Details(long id, long rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

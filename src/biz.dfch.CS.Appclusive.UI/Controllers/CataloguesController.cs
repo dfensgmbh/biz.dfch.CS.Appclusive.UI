@@ -32,7 +32,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Catalogue 
 
         // GET: Catalogues/Details/5
-        public ActionResult Details(long id, long rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
