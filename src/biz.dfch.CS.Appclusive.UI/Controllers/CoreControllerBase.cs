@@ -101,12 +101,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant)
+        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant, bool includeEmpty = false)
         {
             try
             {
                 List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
-                tenants.Add(new Api.Core.Tenant());
+                if (includeEmpty)
+                {
+                    tenants.Add(new Api.Core.Tenant());
+                }
                 if (null == currentTenant || currentTenant.ParentId == currentTenant.Id)// special seed entry in DB
                 {
                     tenants.AddRange(CoreRepository.Tenants);
