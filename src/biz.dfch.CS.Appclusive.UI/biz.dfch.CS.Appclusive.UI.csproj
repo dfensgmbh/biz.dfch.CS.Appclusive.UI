@@ -308,6 +308,10 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\Neue Frutiger Com Regular.otf" />
+    <Content Include="fonts\Neue Frutiger Com Regular.woff" />
+    <Content Include="fonts\Neue Frutiger Pro Cyrillic Condensed Regular.otf" />
+    <Content Include="fonts\Neue Frutiger Pro Cyrillic Regular.otf" />
     <None Include="Properties\PublishProfiles\general-deployment-profile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
