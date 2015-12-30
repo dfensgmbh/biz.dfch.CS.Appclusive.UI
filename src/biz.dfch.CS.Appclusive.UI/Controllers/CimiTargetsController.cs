@@ -15,7 +15,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         protected override DataServiceQuery<Api_Cmp.CimiTarget> BaseQuery { get { return CmpRepository.CimiTargets; } }
 
         // GET: CimiTargets/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, long rId = 0, string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
