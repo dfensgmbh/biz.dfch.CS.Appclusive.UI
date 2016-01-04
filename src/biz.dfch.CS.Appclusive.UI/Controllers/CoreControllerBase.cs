@@ -73,18 +73,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         
-        protected void AddEntityKindSeletionToViewBag()
-        {
-            try
-            {
-                var entityKinds = CoreRepository.EntityKinds.ToList();
-                ViewBag.EntityKindSelection = new SelectList(entityKinds, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
+        //protected void AddEntityKindSeletionToViewBag()
+        //{
+        //    try
+        //    {
+        //        var entityKinds = CoreRepository.EntityKinds.ToList();
+        //        ViewBag.EntityKindSelection = new SelectList(entityKinds, "Id", "Name");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+        //    }
+        //}
 
         protected void AddManagementCredentialSelectionToViewBag()
         {

@@ -35,7 +35,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Acls/Create
         public ActionResult Create()
         {
-            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Acl());
         }
 
@@ -45,7 +44,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(acl);
@@ -72,7 +70,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
             }
@@ -89,7 +86,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(acl);
@@ -108,6 +104,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+
+                    apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                     return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
                 }
             }

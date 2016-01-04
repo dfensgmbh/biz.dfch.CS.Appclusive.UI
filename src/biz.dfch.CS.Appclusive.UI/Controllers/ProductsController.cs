@@ -109,7 +109,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 
