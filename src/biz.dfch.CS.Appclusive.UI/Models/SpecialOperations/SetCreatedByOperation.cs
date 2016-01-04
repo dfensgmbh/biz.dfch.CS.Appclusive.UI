@@ -11,7 +11,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
         public const string ACTION_NAME = "SetCreatedBy";
 
         [Required]
-        public long EntityKindId { get; set; }
+        public string EntitySet { get; set; }
 
         [Required]
         public string EntityId { get; set; }
