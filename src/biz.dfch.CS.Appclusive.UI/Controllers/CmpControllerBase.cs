@@ -39,6 +39,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     cmpRepository.IgnoreMissingProperties = true;
                     cmpRepository.Format.UseJson();
                     cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                    cmpRepository.MergeOption = MergeOption.PreserveChanges;
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
                     if (null != apiCreds)

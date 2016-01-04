@@ -37,6 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     diagnosticsRepository.IgnoreMissingProperties = true;
                     //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                    diagnosticsRepository.MergeOption = MergeOption.PreserveChanges;
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
                     if (null != apiCreds)
