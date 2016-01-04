@@ -412,6 +412,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new item.
+        /// </summary>
+        public static string CreateNewItem {
+            get {
+                return ResourceManager.GetString("CreateNewItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer.
         /// </summary>
         public static string Customer {

@@ -1,0 +1,40 @@
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@{
+    string action = ViewBag.AjaxItemSearchAction;
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxItemSearchTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+    System.Collections.Generic.Dictionary<string, Object> htmlAttributes = new System.Collections.Generic.Dictionary<string, Object>();
+    htmlAttributes.Add("class","col-md-8");
+    htmlAttributes.Add("id","itemSearchForm");
+    htmlAttributes.Add("style","margin-bottom: 5px; padding-left: 0px;");
+}
+@using (Ajax.BeginForm(action, controller, (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary, ajaxOptions, htmlAttributes))
+{
+    <div class="col-md-4">
+        @if (ViewBag.AjaxPaging != null)
+        {
+            <input name="pageNr" type="hidden" value="@ViewBag.AjaxPaging.PageNr" />
+        }
+        <input class="form-control text-box single-line ap-autocomplete" id="itemSearchTerm" name="itemSearchTerm" value="@ViewBag.ItemSearchTerm" />
+    </div>
+    <input type="submit" value="@GeneralResources.Search" class="btn btn-primary" />
+}
+
+@using (Html.Delayed())
+{
+    // needs item-search Action on controller: public ActionResult ItemSearch(string term)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#itemSearchTerm').autocomplete(
+              {
+                  source: '@Url.Action("ItemSearch", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
+                  select: function (event, ui) {
+                      $('#itemSearchTerm').val(ui.item.value);
+                      $("#itemSearchForm").submit();
+                  }
+              });
+        })
+    </script>
+}

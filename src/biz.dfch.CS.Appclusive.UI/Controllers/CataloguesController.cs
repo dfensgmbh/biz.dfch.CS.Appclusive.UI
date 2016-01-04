@@ -173,17 +173,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region CatalogItems
 
         // GET: Catalogues/ItemList
-        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1)
+        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null)
         {
-            try
-            {
-                return PartialView(LoadCatalogueItems(catalogueId, pageNr));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView(new List<Models.Core.CatalogueItem>());
-            }
+            ViewBag.catalogueId = catalogueId;
+            DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
+            string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
+            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
         }
 
         private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)
@@ -199,6 +194,42 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
 
             return AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(items);
+        }
+
+        public ActionResult ItemSearch(long catalogueId, string term)
+        {
+            DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
+            string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        /// <summary>
+        /// consider implementing AddItemSelectFilter and CreateItemOptionList as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
+        protected override DataServiceQuery<T> AddItemSearchFilter<T>(DataServiceQuery<T> query, string baseFilter, string searchTerm)
+        {
+            string filter = baseFilter;
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                if (string.IsNullOrWhiteSpace(filter))
+                {
+                    filter = string.Format("substringof('{0}',tolower(Name))", searchTerm.ToLower());
+                }
+                else
+                {
+                    filter = string.Format("{1} and substringof('{0}',tolower(Name))", searchTerm.ToLower(), filter);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                query = query.AddQueryOption("$filter", filter);
+            }
+            return query;
         }
 
         public ActionResult ItemDetails(long id)

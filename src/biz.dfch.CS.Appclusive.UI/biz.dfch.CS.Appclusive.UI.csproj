@@ -366,7 +366,7 @@
     <Content Include="Views\Catalogues\Index.cshtml" />
     <Content Include="Views\Catalogues\Details.cshtml" />
     <Content Include="Views\Catalogues\Edit.cshtml" />
-    <Content Include="Views\Catalogues\ItemList.cshtml" />
+    <Content Include="Views\Catalogues\ItemIndex.cshtml" />
     <Content Include="Views\Shared\IAppcusiveEntityBaseDetails.cshtml" />
     <Content Include="Views\Catalogues\Create.cshtml" />
     <Content Include="Views\Nodes\Index.cshtml" />
@@ -481,7 +481,7 @@
     <Content Include="Views\SpecialOperations\ClearAuditLog.cshtml" />
     <Content Include="Views\SpecialOperations\ReloadProducts.cshtml" />
     <Content Include="Views\SpecialOperations\RaiseUpdateConfigurationEvent.cshtml" />
-    <Content Include="Views\Catalogues\ItemIndex.cshtml" />
+    <Content Include="Views\Catalogues\ItemList.cshtml" />
     <Content Include="Views\Shared\AjaxPaging.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\User.cshtml" />
     <Content Include="Views\Catalogues\FormPartial.cshtml" />
@@ -509,6 +509,7 @@
     <Content Include="Views\Shared\JobStatus.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />
+    <Content Include="Views\Shared\AjaxItemSearchForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

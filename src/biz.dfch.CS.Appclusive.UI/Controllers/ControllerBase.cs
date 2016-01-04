@@ -119,6 +119,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #endregion
 
         #region basic query filters
+
         /// <summary>
         /// consider implementing CreateOptionList and AddSearchFilter as well,
         /// otherwise you load the wrong properties..
@@ -165,5 +166,97 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
         #endregion
 
+        #region Item Search
+
+        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int pageNr = 1, string itemSearchTerm = null)
+        {
+            ViewBag.ItemSearchTerm = itemSearchTerm;
+            try
+            {
+                query = AddItemSearchFilter(query, baseFilter, itemSearchTerm);
+                query = AddPagingOptions(query, pageNr);
+
+                QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
+
+                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
+                ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+                return PartialView(AutoMapper.Mapper.Map<List<M>>(items));
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return PartialView(new List<M>());
+            }
+        }
+
+        protected ActionResult ItemSearch<T>(DataServiceQuery<T> itemQuery, string baseFilter, string term)
+        {
+            itemQuery = AddItemSearchFilter(itemQuery, baseFilter, term);
+            itemQuery = AddItemSelectFilter(itemQuery, term);
+
+            QueryOperationResponse<T> items = itemQuery.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+
+            return this.Json(CreateItemOptionList(items), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// consider implementing CreateItemOptionList and AddItemSearchFilter as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
+        protected virtual DataServiceQuery<T> AddItemSelectFilter<T>(DataServiceQuery<T> query, string searchTerm)
+        {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.AddQueryOption("$select", "Id,Name");// key must be present for ODATA and it is always the property Id
+            }
+            return query;
+        }
+
+        /// <summary>
+        /// consider implementing AddItemSelectFilter and CreateItemOptionList as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
+        protected virtual DataServiceQuery<T> AddItemSearchFilter<T>(DataServiceQuery<T> query, string baseFilter, string searchTerm)
+        {
+            string filter = baseFilter;
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                if (string.IsNullOrWhiteSpace(filter))
+                {
+                    filter = string.Format("substringof('{0}',Name)", searchTerm);
+                }
+                else
+                {
+                    filter = string.Format("{1} and substringof('{0}',Name)", searchTerm, filter);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                query = query.AddQueryOption("$filter", filter);
+            }
+            return query;
+        }
+
+        /// <summary>
+        /// consider implementing AddItemSelectFilter and AddItemSearchFilter as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        protected virtual List<AjaxOption> CreateItemOptionList<T>(QueryOperationResponse<T> items)
+        {
+            return CreateOptionList(items, "Name");
+        }
+
+        #endregion
     }
 }
