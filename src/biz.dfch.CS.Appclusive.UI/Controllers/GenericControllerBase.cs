@@ -23,6 +23,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return base.Search(BaseQuery, term);
         }
 
+        public ActionResult Select(string term)
+        {
+            return base.Select(BaseQuery, term);
+        }
+
         //// GET: Endpoints/Details/5
         //public ActionResult Details(long id)
         //{

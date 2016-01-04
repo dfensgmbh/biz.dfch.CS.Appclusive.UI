@@ -1,0 +1,32 @@
+﻿@model long
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@{
+    long modelKey = Model;
+    string modelKeyId = ViewData.TemplateInfo.HtmlFieldPrefix; 
+    
+    string searchSource = ViewBag.SelectUrl;
+    string searchTerm = ViewBag.Value;
+
+    // use if multiple autocomplete boxes are used on the same screen
+    string searchTermId = string.IsNullOrWhiteSpace(ViewBag.SearchTermId) ? "searchTermId" : ViewBag.SearchTermId;
+}
+@Html.HiddenFor(model=> model)
+<input class="form-control text-box single-line ap-autocomplete" id="@searchTermId" name="@searchTermId" value="@searchTerm" />
+
+@using (Html.Delayed())
+{
+    // needs search Action on controller: public ActionResult Search(string term)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#@searchTermId').autocomplete(
+              {
+                  source: '@searchSource',
+                  select: function (event, ui) {
+                      $('#@searchTermId').val(ui.item.value);
+                      $('#@modelKeyId').val(ui.item.key);
+                  }
+              });
+        })
+    </script>
+}

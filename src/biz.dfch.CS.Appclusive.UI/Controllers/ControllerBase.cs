@@ -64,6 +64,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return this.Json(CreateOptionList(items), JsonRequestBehavior.AllowGet);
         }
         
+        protected ActionResult Select<T>(DataServiceQuery<T> query, string term)
+        {
+            query = AddSearchFilter(query, term);
+            query = AddSelectFilter(query, term);
+
+            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+
+            return this.Json(CreateOptionList(items, "Name", false), JsonRequestBehavior.AllowGet);
+        }
+        
         /// <summary>
         /// consider implementing AddSelectFilter and AddSearchFilter as well,
         /// otherwise you load the wrong properties..

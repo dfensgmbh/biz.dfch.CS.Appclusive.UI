@@ -40,7 +40,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Products.Expand("EntityKind").Expand("CatalogueItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                this.AddEntityKindSeletionToViewBag();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(item));
             }
             catch (Exception ex)
@@ -53,7 +52,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Product());
         }
 
@@ -63,7 +61,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(product);
@@ -90,8 +87,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
-                var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
             catch (Exception ex)
@@ -106,9 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult Edit(long id, Models.Core.Product product)
         {
             try
-            {
-                this.AddEntityKindSeletionToViewBag();
-                
+            {                
                 if (!ModelState.IsValid)
                 {
                     return View(product);
@@ -132,6 +126,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    
+                    apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                     return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
                 }
             }

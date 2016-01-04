@@ -513,6 +513,7 @@
     <Content Include="Views\Nodes\ItemIndex.cshtml" />
     <Content Include="Views\Orders\ItemIndex.cshtml" />
     <Content Include="Views\Carts\ItemIndex.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
