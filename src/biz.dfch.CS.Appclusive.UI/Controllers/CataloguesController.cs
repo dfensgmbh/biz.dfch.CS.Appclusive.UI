@@ -170,12 +170,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
-        #region CatalogItems
+        #region CatalogItems list and search
 
         // GET: Catalogues/ItemList
         public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null)
         {
-            ViewBag.catalogueId = catalogueId;
+            ViewBag.ParentId = catalogueId;
             DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
             string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
             return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
@@ -190,7 +190,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
                     .Execute() as QueryOperationResponse<Api.Core.CatalogueItem>;
 
-            ViewBag.catalogueId = catalogueId;
+            ViewBag.ParentId = catalogueId;
             ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
 
             return AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(items);
@@ -231,6 +231,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             return query;
         }
+
+        #endregion CatalogItems list
+
+        #region edit CatalogItems
 
         public ActionResult ItemDetails(long id)
         {

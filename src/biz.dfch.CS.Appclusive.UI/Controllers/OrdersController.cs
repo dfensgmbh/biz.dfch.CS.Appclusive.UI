@@ -38,8 +38,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Orders.Expand("OrderItems").Expand("CostCentre").Expand("Requester").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Order>(item));
+                var item = CoreRepository.Orders.Expand("CostCentre").Expand("Requester").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+               
+                Models.Core.Order modelItem = AutoMapper.Mapper.Map<Models.Core.Order>(item);
+                if (null != modelItem)
+                {
+                    modelItem.OrderItems = LoadOrderItems(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -67,6 +73,41 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         #endregion
+
+        #region Order Items list and search
+
+        // GET: Nodes/ItemList
+        public PartialViewResult ItemIndex(long orderId, int pageNr = 1, string itemSearchTerm = null)
+        {
+            ViewBag.ParentId = orderId;
+            DataServiceQuery<Api.Core.OrderItem> itemsBaseQuery = CoreRepository.OrderItems;
+            string itemsBaseFilter = "OrderId eq " + orderId;
+            return base.ItemIndex<Api.Core.OrderItem, Models.Core.OrderItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+        }
+
+        private List<Models.Core.OrderItem> LoadOrderItems(long orderId, int pageNr)
+        {
+            QueryOperationResponse<Api.Core.OrderItem> items = CoreRepository.OrderItems
+                    .AddQueryOption("$filter", "OrderId eq " + orderId)
+                    .AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .Execute() as QueryOperationResponse<Api.Core.OrderItem>;
+
+            ViewBag.ParentId = orderId;
+            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+
+            return AutoMapper.Mapper.Map<List<Models.Core.OrderItem>>(items);
+        }
+
+        public ActionResult ItemSearch(long orderId, string term)
+        {
+            DataServiceQuery<Api.Core.OrderItem> itemsBaseQuery = CoreRepository.OrderItems;
+            string itemsBaseFilter = "OrderId eq " + orderId;
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        #endregion Order Items list
 
         #region edit OrderItems
 

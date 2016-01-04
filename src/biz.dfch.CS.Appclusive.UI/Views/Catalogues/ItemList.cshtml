@@ -5,14 +5,14 @@
     ViewBag.AjaxItemSearchAction = "ItemIndex";
 
     RouteValueDictionary sd = new RouteValueDictionary();
-    sd.Add("catalogueId", ViewBag.CatalogueId);
+    sd.Add("catalogueId", ViewBag.ParentId);
     ViewBag.AjaxSearchRouteValueDictionary = sd;
 }
-@if (ViewBag.catalogueId > 0)
+@if (ViewBag.ParentId > 0)
 {
     <div class="row">
         <div class="col-md-2">
-            <a class="btn btn-default btn-sm" href="@Url.Action("ItemCreate", new { catalogueId = ViewBag.catalogueId })"><i class="fa fa-plus "></i> @GeneralResources.CreateNewItem</a>
+            <a class="btn btn-default btn-sm" href="@Url.Action("ItemCreate", new { catalogueId = ViewBag.ParentId })"><i class="fa fa-plus "></i> @GeneralResources.CreateNewItem</a>
         </div>
         @Html.Partial("AjaxItemSearchForm")
     </div>

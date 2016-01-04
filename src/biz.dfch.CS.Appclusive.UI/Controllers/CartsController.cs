@@ -39,14 +39,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Carts.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 if (null == item)
                 {
                     return View(new Models.Core.Cart());
                 }
                 else
                 {
-                    return View(AutoMapper.Mapper.Map<Models.Core.Cart>(item));
+                    Models.Core.Cart modelItem = AutoMapper.Mapper.Map<Models.Core.Cart>(item);
+                    if (null != modelItem)
+                    {
+                        modelItem.CartItems = LoadCartItems(id, 1);
+                    }
+                    return View(modelItem);
                 }
             }
             catch (Exception ex)
@@ -61,8 +66,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var apiItem = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem));
+                var item = CoreRepository.Carts.Expand("CartItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                Models.Core.Cart modelItem = AutoMapper.Mapper.Map<Models.Core.Cart>(item);
+                if (null != modelItem)
+                {
+                    modelItem.CartItems = LoadCartItems(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -95,7 +105,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                    return View(AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem));
+                    
+                    Models.Core.Cart modelItem = AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem);
+                    if (null != modelItem)
+                    {
+                        modelItem.CartItems = LoadCartItems(id, 1);
+                    }
+                    return View(modelItem);
                 }
             }
             catch (Exception ex)
@@ -157,6 +173,41 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
         
         #endregion
+
+        #region Node-children list and search
+
+        // GET: Nodes/ItemList
+        public PartialViewResult ItemIndex(long cartId, int pageNr = 1, string itemSearchTerm = null)
+        {
+            ViewBag.ParentId = cartId;
+            DataServiceQuery<Api.Core.CartItem> itemsBaseQuery = CoreRepository.CartItems;
+            string itemsBaseFilter = "CartId eq " + cartId;
+            return base.ItemIndex<Api.Core.CartItem, Models.Core.CartItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+        }
+
+        private List<Models.Core.CartItem> LoadCartItems(long cartId, int pageNr)
+        {
+            QueryOperationResponse<Api.Core.CartItem> items = CoreRepository.CartItems
+                    .AddQueryOption("$filter", "CartId eq " + cartId)
+                    .AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .Execute() as QueryOperationResponse<Api.Core.CartItem>;
+
+            ViewBag.ParentId = cartId;
+            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+
+            return AutoMapper.Mapper.Map<List<Models.Core.CartItem>>(items);
+        }
+
+        public ActionResult ItemSearch(long cartId, string term)
+        {
+            DataServiceQuery<Api.Core.CartItem> itemsBaseQuery = CoreRepository.CartItems;
+            string itemsBaseFilter = "CartId eq " + cartId;
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        #endregion Node-children list
 
         #region edit CartItems
 
@@ -249,7 +300,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         #endregion
-
 
         #region VDI
 

@@ -1,33 +1,17 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CartItem>
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.AjaxItemSearchTargetId = "itemListAjax";
+    ViewBag.AjaxItemSearchAction = "ItemIndex";
 
-<table class="table table-striped table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var cartItem in Model)
-    {
-        <tr>
-            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = cartItem.Id })'" class="ap-hand">
-                @Html.DisplayFor(modeItem => cartItem.Name)
-            </td>
-            <td onclick="window.location = '@Url.Action("ItemDetails", new { id = cartItem.Id })'" class="ap-hand">
-                @Html.DisplayFor(modeItem => cartItem.Quantity)
-            </td>
-            <td class="ap-btn text-nowrap">
-                <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = cartItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = cartItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.EditLink</a>
-                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = cartItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-            </td>
-        </tr>
-    }
-
-</table>
-         
+    RouteValueDictionary sd = new RouteValueDictionary();
+    sd.Add("cartId", ViewBag.ParentId);
+    ViewBag.AjaxSearchRouteValueDictionary = sd;
+}
+@if (ViewBag.ParentId > 0)
+{
+    <div class="row">
+        @Html.Partial("AjaxItemSearchForm")
+    </div>
+}
+@Html.Partial("ItemIndex", Model)
