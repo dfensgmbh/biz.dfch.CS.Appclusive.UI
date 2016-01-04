@@ -8,6 +8,11 @@
     <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
 }
+@{
+    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+}
 <div>
     <hr />
 
@@ -38,7 +43,10 @@
                     @Html.DisplayNameFor(model => model.CostCentre)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.CostCentre)
+                    @if (null != Model.CostCentreId)
+                    {
+                        @Html.ActionLink(Model.CostCentreId.ToString(), "Details", "CostCentres", new { id = Model.CostCentreId, rId = id, rAction = action, rController = controller }, null)
+                    }
                 </dd>
 
                 <dt>
@@ -73,13 +81,6 @@
     </div>
     <hr />
 </div>
-<p>    
-    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
-    }
-    else
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
-    }
+<p>
+    @Html.Partial("BackLink")
 </p>

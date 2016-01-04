@@ -40,10 +40,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     cmpRepository.Format.UseJson();
                     cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
 
-                    LoginData data = Session["LoginData"] as LoginData;
-                    if (null != data)
+                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
+                    if (null != apiCreds)
                     {
-                        cmpRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                        cmpRepository.Credentials = apiCreds;
                     }
                     else
                     {

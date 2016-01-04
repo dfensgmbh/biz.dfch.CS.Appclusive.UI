@@ -1,3 +1,10 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
-@Html.DisplayFor(model => model.Name)
+@if (Model != null)
+{
+    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+    @Html.ActionLink(Model.Name, "Details", "EntityKinds", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
+}

@@ -7,6 +7,13 @@
     <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
 }
+
+@{
+    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+}
+
 <div>
     <hr />
 
@@ -37,7 +44,7 @@
                     @Html.DisplayNameFor(model => model.ParentId)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.ParentId)
+                    @Html.ActionLink(Model.ParentId.ToString(), "Details", "Nodes", new { id = Model.ParentId, rId = id, rAction = action, rController = controller }, null)
                 </dd>
 
                 <dt>
@@ -86,12 +93,5 @@
     <hr />
 </div>
 <p>
-    @if (!string.IsNullOrWhiteSpace(ViewBag.ReturnAction) && !string.IsNullOrWhiteSpace(ViewBag.ReturnController))
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action(ViewBag.ReturnAction, ViewBag.ReturnController, new { id= ViewBag.ReturnId })"><i class="fa fa-arrow-left "></i> @GeneralResources.Back</a>
-    }
-    else
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
-    }
+    @Html.Partial("BackLink")
 </p>

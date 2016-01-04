@@ -42,10 +42,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
 
-                    LoginData data = Session["LoginData"] as LoginData;
-                    if (null != data)
+                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
+                    if (null != apiCreds)
                     {
-                        coreRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                        coreRepository.Credentials = apiCreds;
                     }
                     else
                     {
@@ -101,12 +101,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant)
+        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant, bool includeEmpty = false)
         {
             try
             {
                 List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
-                tenants.Add(new Api.Core.Tenant());
+                if (includeEmpty)
+                {
+                    tenants.Add(new Api.Core.Tenant());
+                }
                 if (null == currentTenant || currentTenant.ParentId == currentTenant.Id)// special seed entry in DB
                 {
                     tenants.AddRange(CoreRepository.Tenants);
