@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class CmpControllerBase<T, M> : GenericControllerBase<T, M>
+    public abstract class CmpControllerBase<T, M> : GenericControllerBase<T, M, object>
     {
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core

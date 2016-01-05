@@ -9,7 +9,7 @@ using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class TenantsController : CoreControllerBase<Api.Core.Tenant, Models.Core.Tenant>
+    public class TenantsController : CoreControllerBase<Api.Core.Tenant, Models.Core.Tenant, object>
     {
         protected override DataServiceQuery<Api.Core.Tenant> BaseQuery { get { return CoreRepository.Tenants.Expand("Parent"); } }
 

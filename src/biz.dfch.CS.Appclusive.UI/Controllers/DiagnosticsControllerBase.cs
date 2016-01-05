@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M>
+    public abstract class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M, object>
     {
 
         protected biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository

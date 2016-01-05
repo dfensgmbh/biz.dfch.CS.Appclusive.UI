@@ -26,19 +26,10 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ApprovalsController : CoreControllerBase<Api.Core.Approval, Models.Core.Approval>
+    public class ApprovalsController : CoreControllerBase<Api.Core.Approval, Models.Core.Approval, object>
     {
         protected override DataServiceQuery<Api.Core.Approval> BaseQuery { get { return CoreRepository.Approvals; } }
-
-        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
-        {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.AddQueryOption("$filter", string.Format("Status eq '{0}'", searchTerm));
-            }
-            return query;
-        }
-
+        
         #region Approval
 
         // GET: Approvals/Details/5

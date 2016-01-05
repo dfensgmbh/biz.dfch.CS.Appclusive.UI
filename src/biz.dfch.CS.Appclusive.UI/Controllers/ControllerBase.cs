@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        public ControllerBase()
+        public ControllerBase(Type itemType)
         {
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
+
+            this.SearchConfiguration = SearchConfig.GetConfig(this.GetType().Name);
+            this.ItemSearchConfiguration = SearchConfig.GetConfig(itemType.Name);
         }
+
+        EntityElement SearchConfiguration;
+        EntityElement ItemSearchConfiguration;
 
         #region basic list actions
 
@@ -71,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
 
-            return this.Json(CreateOptionList(items, "Name", false), JsonRequestBehavior.AllowGet);
+            return this.Json(CreateOptionList(items, this.SearchConfiguration.Display, false), JsonRequestBehavior.AllowGet);
         }
         
         /// <summary>
@@ -83,7 +90,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <returns></returns>
         protected virtual List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, "Name");
+            return CreateOptionList(items, this.SearchConfiguration.Display, true);
         }
   
         /// <summary>
@@ -95,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <param name="keyPropertyName">can be null if only distinct values are used</param>
         /// <param name="valuePropertyName"></param>
         /// <returns></returns>
-        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string valuePropertyName, bool distinctValuesOnly = true)
+        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string valuePropertyName, bool distinctValuesOnly)
         {
             string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id
             
@@ -142,7 +149,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$select", "Id,Name");// key must be present for ODATA and it is always the property Id
+                query = query.AddQueryOption("$select", this.SearchConfiguration.Select); // key must be present for ODATA and it is always the property Id
             }
             return query;
         }
@@ -159,7 +166,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',Name)", searchTerm));
+                query = query.AddQueryOption("$filter", string.Format(this.SearchConfiguration.Filter, searchTerm));
             }
             return query;
         }
@@ -221,7 +228,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$select", "Id,Name");// key must be present for ODATA and it is always the property Id
+                query = query.AddQueryOption("$select", this.ItemSearchConfiguration.Select);// key must be present for ODATA and it is always the property Id
             }
             return query;
         }
@@ -241,11 +248,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(filter))
                 {
-                    filter = string.Format("substringof('{0}',Name)", searchTerm);
+                    filter = string.Format(this.ItemSearchConfiguration.Filter, searchTerm);
                 }
                 else
                 {
-                    filter = string.Format("{1} and substringof('{0}',Name)", searchTerm, filter);
+                    filter = string.Format("{1} and " + this.ItemSearchConfiguration.Filter, searchTerm, filter);
                 }
             }
             if (!string.IsNullOrWhiteSpace(filter))
@@ -264,7 +271,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <returns></returns>
         protected virtual List<AjaxOption> CreateItemOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, "Name");
+            return CreateOptionList(items, this.ItemSearchConfiguration.Display, true);
         }
 
         #endregion

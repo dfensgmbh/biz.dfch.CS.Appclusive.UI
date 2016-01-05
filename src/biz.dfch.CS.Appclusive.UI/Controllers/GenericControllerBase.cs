@@ -8,8 +8,10 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class GenericControllerBase<T, M> : ControllerBase
-    {       
+    public abstract class GenericControllerBase<T, M, I> : ControllerBase
+    {
+        public GenericControllerBase() : base(typeof(I)) { }
+
         protected abstract DataServiceQuery<T> BaseQuery { get; }
 
         // GET: Endpoints

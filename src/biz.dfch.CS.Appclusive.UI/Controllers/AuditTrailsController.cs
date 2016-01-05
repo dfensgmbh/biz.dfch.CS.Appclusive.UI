@@ -29,30 +29,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class AuditTrailsController : DiagnosticsControllerBase<Api_Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>
     {
         protected override DataServiceQuery<Api_Diagnostics.AuditTrail> BaseQuery { get { return DiagnosticsRepository.AuditTrails; } }
-
-        protected override DataServiceQuery<T> AddSelectFilter<T>(DataServiceQuery<T> query, string searchTerm)
-        {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.AddQueryOption("$select", "Id,EntityType");// key must be present for ODATA and it is always the property Id
-            }
-            return query;
-        }
-        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
-        {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',EntityType)", searchTerm));
-            }
-            return query;
-        }
-
-        protected override List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
-        {
-            return base.CreateOptionList(items, "EntityType");
-        }
-
-
+        
         // GET: AuditTrails/Details/5
         public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {

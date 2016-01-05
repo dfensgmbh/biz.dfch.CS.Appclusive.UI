@@ -8,7 +8,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl>
+    public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl, object>
     {
         protected override DataServiceQuery<Api.Core.Acl> BaseQuery { get { return CoreRepository.Acls; } }
         

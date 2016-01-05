@@ -8,7 +8,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ContractMappingsController : CoreControllerBase<Api.Core.ContractMapping, Models.Core.ContractMapping>
+    public class ContractMappingsController : CoreControllerBase<Api.Core.ContractMapping, Models.Core.ContractMapping, object>
     {
         protected override DataServiceQuery<Api.Core.ContractMapping> BaseQuery { get { return CoreRepository.ContractMappings; } }
         

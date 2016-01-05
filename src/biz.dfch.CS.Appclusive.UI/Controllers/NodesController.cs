@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node>
+    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node, Models.Core.Node>
     {
         protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes; } }
 

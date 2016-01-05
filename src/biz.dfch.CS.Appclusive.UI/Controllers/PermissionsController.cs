@@ -8,7 +8,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class PermissionsController : CoreControllerBase<Api.Core.Permission, Models.Core.Permission>
+    public class PermissionsController : CoreControllerBase<Api.Core.Permission, Models.Core.Permission, object>
     {
         protected override DataServiceQuery<Api.Core.Permission> BaseQuery { get { return CoreRepository.Permissions; } }
 

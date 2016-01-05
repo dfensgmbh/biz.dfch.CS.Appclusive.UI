@@ -24,7 +24,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ManagementCredentialsController : CoreControllerBase<Api.Core.ManagementCredential, Models.Core.ManagementCredential>
+    public class ManagementCredentialsController : CoreControllerBase<Api.Core.ManagementCredential, Models.Core.ManagementCredential, object>
     {
         protected override DataServiceQuery<Api.Core.ManagementCredential> BaseQuery { get { return CoreRepository.ManagementCredentials; } }
 

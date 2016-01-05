@@ -10,7 +10,7 @@ using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class RolesController : CoreControllerBase<Api.Core.Role, Models.Core.Role>
+    public class RolesController : CoreControllerBase<Api.Core.Role, Models.Core.Role, object>
     {
         protected override DataServiceQuery<Api.Core.Role> BaseQuery { get { return CoreRepository.Roles; } }
 

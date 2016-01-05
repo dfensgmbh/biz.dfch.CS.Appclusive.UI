@@ -148,6 +148,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Config\EntityElement.cs" />
+    <Compile Include="Config\EntityElementCollection.cs" />
+    <Compile Include="Config\EntitySearchConfigurationSection.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -239,7 +242,8 @@
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
-    <Compile Include="Models\PortalConfig.cs" />
+    <Compile Include="Config\PortalConfig.cs" />
+    <Compile Include="Config\SearchConfig.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
     <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />

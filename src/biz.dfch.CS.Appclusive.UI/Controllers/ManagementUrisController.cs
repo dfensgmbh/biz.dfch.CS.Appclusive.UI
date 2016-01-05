@@ -25,7 +25,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ManagementUrisController : CoreControllerBase<Api.Core.ManagementUri, Models.Core.ManagementUri>
+    public class ManagementUrisController : CoreControllerBase<Api.Core.ManagementUri, Models.Core.ManagementUri, object>
     {
         protected override DataServiceQuery<Api.Core.ManagementUri> BaseQuery { get { return CoreRepository.ManagementUris; } }
 

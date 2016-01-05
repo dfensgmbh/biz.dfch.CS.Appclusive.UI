@@ -22,10 +22,11 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using System.Data.Services.Client;
+using biz.dfch.CS.Appclusive.UI.Config;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CartsController : CoreControllerBase<Api.Core.Cart, Models.Core.Cart>
+    public class CartsController : CoreControllerBase<Api.Core.Cart, Models.Core.Cart, Models.Core.CartItem>
     {
         protected override DataServiceQuery<Api.Core.Cart> BaseQuery { get { return CoreRepository.Carts; } }
 
