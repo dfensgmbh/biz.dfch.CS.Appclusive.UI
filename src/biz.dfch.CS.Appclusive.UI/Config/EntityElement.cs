@@ -28,7 +28,7 @@ namespace biz.dfch.CS.Appclusive.UI.Config
 
 
         /// <summary>
-        /// Controller name
+        /// Entity name
         /// </summary>
         [ConfigurationProperty(EntityNameAttribute, IsRequired = true)]
         public string EntityName
