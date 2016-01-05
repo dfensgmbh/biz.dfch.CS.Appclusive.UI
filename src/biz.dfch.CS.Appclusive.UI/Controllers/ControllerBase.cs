@@ -99,38 +99,51 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
-        /// <param name="keyPropertyName">can be null if only distinct values are used</param>
-        /// <param name="valuePropertyName"></param>
+        /// <param name="displayStringFormat">"{Name} - {Created} ({Created})"</param>
+        /// <param name="distinctValuesOnly"></param>
         /// <returns></returns>
-        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string valuePropertyName, bool distinctValuesOnly)
+        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string displayStringFormat, bool distinctValuesOnly)
         {
-            string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id
-            
+            Contract.Requires(null != items);
+            Contract.Requires(null != displayStringFormat);
+
+            string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id            
             System.Reflection.PropertyInfo propId = typeof(T).GetProperty(keyPropertyName);
-            System.Reflection.PropertyInfo propName = typeof(T).GetProperty(valuePropertyName);
             Contract.Assert(null != propId);
-            Contract.Assert(null != propName);
+
+            // parse display string
+            FormatStringExpression exp = new FormatStringExpression(displayStringFormat);
+
+            List<System.Reflection.PropertyInfo> valueProps = new List<System.Reflection.PropertyInfo>();
+            foreach (string valuePropertyName in exp.PropertyNames)
+            {
+                System.Reflection.PropertyInfo propName = typeof(T).GetProperty(valuePropertyName);
+                if (null != propName)
+                {
+                    valueProps.Add(propName);
+                }
+            }
 
             List<AjaxOption> options = new List<AjaxOption>();
-            if (distinctValuesOnly)
+
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                List<object> values = new List<object>();
+                valueProps.ForEach(p => values.Add(p.GetValue(item)));
+                string value = string.Format(exp.FormatString, values.ToArray());
+                if (distinctValuesOnly)
                 {
-                    string value = (string)propName.GetValue(item);
                     if (null == options.FirstOrDefault(o => o.value == value))
                     {
                         options.Add(new AjaxOption(0, value));
                     }
                 }
-            }
-            else
-            {
-                foreach (var item in items)
+                else
                 {
-                    options.Add(new AjaxOption((long)propId.GetValue(item), (string)propName.GetValue(item)));
+                    options.Add(new AjaxOption((long)propId.GetValue(item), value));
                 }
             }
-            return options.OrderBy(o=>o.value).ToList();
+            return options.OrderBy(o => o.value).ToList();
         }
 
         #endregion

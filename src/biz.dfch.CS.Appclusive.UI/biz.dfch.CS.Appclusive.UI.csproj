@@ -151,6 +151,7 @@
     <Compile Include="Config\EntityElement.cs" />
     <Compile Include="Config\EntityElementCollection.cs" />
     <Compile Include="Config\EntitySearchConfigurationSection.cs" />
+    <Compile Include="Config\FormatStringExpression.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\LoginController.cs" />
