@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
         public string EntityId { get; set; }
 
         [Required]
-        public string CreatedBy { get; set; }
+        [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))] 
+        public long CreatedById { get; set; }
         
         public object GetRequestPramsObject()
         {

@@ -10,6 +10,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
     {
         public const string ACTION_NAME = "SetTenantOperation";
 
+        public SetTenantOperation()
+        {
+            TenantId = string.Empty;
+        }
+
         [Required]
         public string EntitySet { get; set; }
 
