@@ -120,6 +120,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     apiItem.ParentId = tenant.ParentId;
                     apiItem.ExternalType = tenant.ExternalType;
                     apiItem.ExternalId = tenant.ExternalId;
+                    apiItem.CustomerId = tenant.CustomerId;
 
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
