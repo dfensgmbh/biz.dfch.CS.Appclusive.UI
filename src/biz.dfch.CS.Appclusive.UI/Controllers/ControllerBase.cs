@@ -153,7 +153,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    options.Add(new AjaxOption((long)propId.GetValue(item), value));
+                    options.Add(new AjaxOption(propId.GetValue(item), value));
                 }
             }
             return options.OrderBy(o => o.value).ToList();

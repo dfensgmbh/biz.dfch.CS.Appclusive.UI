@@ -10,13 +10,13 @@ namespace biz.dfch.CS.Appclusive.UI.Models
     /// </summary>
     public class AjaxOption
     {
-        public AjaxOption(long keyParam, string nameParam)
+        public AjaxOption(object keyParam, string nameParam)
         {
             key = keyParam;
             value=nameParam;
         }
             
-        public long key { get; set; }
+        public object key { get; set; }
         public string value { get; set; }
     }
 }

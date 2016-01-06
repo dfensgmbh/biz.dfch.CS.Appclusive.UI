@@ -1,9 +1,10 @@
-﻿@model long
+﻿@model object
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @{
-    long modelKey = Model;
-    string modelKeyId = ViewData.TemplateInfo.HtmlFieldPrefix; 
+    object modelKey = Model;
+    string modelKeyId = string.IsNullOrWhiteSpace(ViewBag.ModelKeyId) ? ViewData.TemplateInfo.HtmlFieldPrefix : ViewBag.ModelKeyId; 
+    bool showKeyId = ViewBag.ShowKeyId != null && ViewBag.ShowKeyId;
     
     string searchSource = ViewBag.SelectUrl;
     string searchTerm = ViewBag.Value;
@@ -11,8 +12,24 @@
     // use if multiple autocomplete boxes are used on the same screen
     string searchTermId = string.IsNullOrWhiteSpace(ViewBag.SearchTermId) ? "searchTermId" : ViewBag.SearchTermId;
 }
-@Html.HiddenFor(model=> model)
-<input class="form-control text-box single-line ap-autocomplete" id="@searchTermId" name="@searchTermId" value="@searchTerm" />
+@if (showKeyId)
+{
+    <div>
+        <div class="row">
+            <div class="col-md-2">
+                <input class="form-control" id="@modelKeyId" name="@modelKeyId" value="@modelKey" />
+            </div>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line ap-autocomplete" id="@searchTermId" name="@searchTermId" value="@searchTerm" />
+            </div>           
+        </div>
+    </div>
+}
+else
+{
+    <input type="hidden" id="@modelKeyId" name="@modelKeyId" value="@modelKey" />
+    <input class="form-control text-box single-line ap-autocomplete" id="@searchTermId" name="@searchTermId" value="@searchTerm" />
+}
 
 @using (Html.Delayed())
 {
