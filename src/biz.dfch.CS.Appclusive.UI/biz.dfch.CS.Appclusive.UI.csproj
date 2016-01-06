@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.1.2.31214, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.1.2\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.0.19708, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.0\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -519,6 +519,7 @@
     <Content Include="Views\Orders\ItemIndex.cshtml" />
     <Content Include="Views\Carts\ItemIndex.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Job.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

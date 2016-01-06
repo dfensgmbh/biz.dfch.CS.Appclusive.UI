@@ -26,10 +26,10 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model.Job)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Status)
+                    @Html.DisplayFor(model => model.Job)
                 </dd>
 
                 <dt>
@@ -63,7 +63,7 @@
 </div>
 <p>
     <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
-    @if (Model.Status == biz.dfch.CS.Appclusive.UI.Models.Core.Approval.CREATED_STATUS)
+    @if (Model.Job.Status == biz.dfch.CS.Appclusive.UI.Models.Core.Approval.CREATED_STATUS)
     {
         <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
         <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>

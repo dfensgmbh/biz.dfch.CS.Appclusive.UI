@@ -18,6 +18,7 @@ using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -52,5 +53,26 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public long EntityKindId { get; set; }
 
         public EntityKind EntityKind { get; set; }
+
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        public Job Job { get; set; }
+
+        /// <summary>
+        /// Find Order by Approval 
+        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
+        /// </summary>
+        /// <param name="coreRepository"></param>
+        internal void ResolveJob(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Node)
+                .FirstOrDefault();
+
+            Contract.Assert(null != job, "no node-job available");
+            this.Job = AutoMapper.Mapper.Map<Job>(job);
+        }
+
     }
 }

@@ -30,6 +30,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
         protected override DataServiceQuery<Api.Core.Approval> BaseQuery { get { return CoreRepository.Approvals; } }
         
+        protected override void OnBeforeRender<M>(M model)
+        {
+            Models.Core.Approval m = model as Models.Core.Approval;
+            try
+            {
+                m.ResolveJob(this.CoreRepository);
+            }
+            catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+        }
+
         #region Approval
 
         // GET: Approvals/Details/5
@@ -38,7 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
-        
+
             Models.Core.Approval approval = new Models.Core.Approval();
             try
             {
@@ -63,7 +73,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
-                approval.Status = Models.Core.Approval.APPROVED_STATUS_CHANGE;
+                approval.Continue = Models.Core.Approval.APPROVED_STATUS_CHANGE;
                 approval.HelpText = GeneralResources.HelpTextApprove;
                 approval.ResolveOrderId(this.CoreRepository);
                 return View("Edit", approval);
@@ -83,8 +93,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
-                approval.Status = Models.Core.Approval.DECLINED_STATUS_CHANGE;
-                approval.HelpText = GeneralResources.HelpTextDecline; 
+                approval.Continue = Models.Core.Approval.DECLINED_STATUS_CHANGE;
+                approval.HelpText = GeneralResources.HelpTextDecline;
                 approval.ResolveOrderId(this.CoreRepository);
                 return View("Edit", approval);
             }
@@ -118,32 +128,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    CoreRepository.InvokeEntitySetActionWithVoidResult("Approvals", "InvokeAction",
+                        new
+                        {
+                            Parameters = approval.Description,
+                            Name = approval.Continue
+                        });
 
-                    #region copy all edited properties
-
-                    apiItem.Status = approval.Status;
-                    apiItem.Description = approval.Description;
-
-                    #endregion
-
-                    CoreRepository.UpdateObject(apiItem);
-                    CoreRepository.SaveChanges();
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully " + approval.Continue));
 
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
             {
-                //TODO: once server api sends a readable response for approval updates use the outcommented lines instead
-                // ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                // return View("Edit", approval);
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully " + approval.Status));
-                return View("Details", approval);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View("Edit", approval);
             }
         }
 
         #endregion
-
     }
 }

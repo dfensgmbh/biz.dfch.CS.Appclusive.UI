@@ -52,7 +52,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<M>>(items));
+                List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
+                models.ForEach(m => this.OnBeforeRender<M>(m));
+
+                return View(models);
             }
             catch (Exception ex)
             {
@@ -60,7 +63,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new List<M>());
             }
         }
-
+        
         protected ActionResult Search<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
@@ -80,7 +83,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             return this.Json(CreateOptionList(items, this.SearchConfiguration.Display, false), JsonRequestBehavior.AllowGet);
         }
-        
+
+        /// <summary>
+        /// called on vm results before rendering
+        /// </summary>
+        /// <typeparam name="M"></typeparam>
+        /// <param name="model"></param>
+        protected virtual void OnBeforeRender<M>(M model)
+        {
+            // method to override
+        }
+
         /// <summary>
         /// consider implementing AddSelectFilter and AddSearchFilter as well,
         /// otherwise you load the wrong properties..

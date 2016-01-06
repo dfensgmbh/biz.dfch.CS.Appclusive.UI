@@ -36,16 +36,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                // find job to node
-                var job = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(j => j.ReferencedItemId == id.ToString() && j.EntityKind.Name == Models.Core.EntityKind.NODE_ENTITYKIND_NAME).FirstOrDefault();
-                ViewBag.NodeJob = AutoMapper.Mapper.Map<Models.Core.Job>(job);
-
                 // load Node and Children
                 var item = CoreRepository.Nodes.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
                 if (null != modelItem)
                 {
                     modelItem.Children = LoadNodeChildren(id, 1);
+                    try
+                    {
+                        modelItem.ResolveJob(this.CoreRepository);
+                    }
+                    catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
                 }
                 return View(modelItem);
             }

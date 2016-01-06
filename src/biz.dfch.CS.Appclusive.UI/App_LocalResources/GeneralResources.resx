@@ -516,4 +516,7 @@
   <data name="CreateNewItem" xml:space="preserve">
     <value>Create new item</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
 </root>
