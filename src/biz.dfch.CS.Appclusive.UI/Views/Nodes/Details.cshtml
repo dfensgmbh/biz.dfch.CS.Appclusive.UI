@@ -68,20 +68,14 @@
                     @Html.DisplayFor(model => model.EntityKind)
                 </dd>
 
+                <dt>
+                    @Html.DisplayNameFor(model => model.Job)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Job)
+                </dd>
             </dl>
-            @if (ViewBag.NodeJob != null)
-            {
-                <hr />
-                <dl>
 
-                    <dt>
-                        @GeneralResources.JobStatus
-                    </dt>
-                    <dd>
-                        @Html.Partial("JobStatus", (biz.dfch.CS.Appclusive.UI.Models.Core.Job)ViewBag.NodeJob)
-                    </dd>
-                </dl>
-            }
         </div>
         <div id="items" class="tab-pane fade">
             @Html.Partial("ItemList", Model.Children)

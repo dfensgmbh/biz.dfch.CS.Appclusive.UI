@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -40,8 +43,26 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public long? RequesterId { get; set; }
 
         public User Requester { get; set; }
+        
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        public Job Job { get; set; }
 
-        public string Status { get; set; }
 
+        /// <summary>
+        /// Find Job by Approval 
+        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order') 
+        /// </summary>
+        /// <param name="coreRepository"></param>
+        internal void ResolveJob(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Order)
+                .FirstOrDefault();
+
+            Contract.Assert(null != job, "no order-job available");
+            this.Job = AutoMapper.Mapper.Map<Job>(job);
+        }
     }
 }

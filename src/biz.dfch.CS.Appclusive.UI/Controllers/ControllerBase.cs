@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        public ControllerBase()
+        public ControllerBase(Type itemType)
         {
             ViewBag.Notifications = new List<AjaxNotificationViewModel>();
+
+            this.SearchConfiguration = SearchConfig.GetConfig(this.GetType().Name);
+            this.ItemSearchConfiguration = SearchConfig.GetConfig(itemType.Name);
         }
+
+        EntityElement SearchConfiguration;
+        EntityElement ItemSearchConfiguration;
 
         #region basic list actions
 
@@ -45,7 +52,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
                 ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                return View(AutoMapper.Mapper.Map<List<M>>(items));
+                List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
+                models.ForEach(m => this.OnBeforeRender<M>(m));
+
+                return View(models);
             }
             catch (Exception ex)
             {
@@ -53,7 +63,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new List<M>());
             }
         }
-
+        
         protected ActionResult Search<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
@@ -71,9 +81,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
 
-            return this.Json(CreateOptionList(items, "Name", false), JsonRequestBehavior.AllowGet);
+            return this.Json(CreateOptionList(items, this.SearchConfiguration.Display, false), JsonRequestBehavior.AllowGet);
         }
-        
+
+        /// <summary>
+        /// called on vm results before rendering
+        /// </summary>
+        /// <typeparam name="M"></typeparam>
+        /// <param name="model"></param>
+        protected virtual void OnBeforeRender<M>(M model)
+        {
+            // method to override
+        }
+
         /// <summary>
         /// consider implementing AddSelectFilter and AddSearchFilter as well,
         /// otherwise you load the wrong properties..
@@ -83,7 +103,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <returns></returns>
         protected virtual List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, "Name");
+            return CreateOptionList(items, this.SearchConfiguration.Display, true);
         }
   
         /// <summary>
@@ -92,38 +112,51 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
-        /// <param name="keyPropertyName">can be null if only distinct values are used</param>
-        /// <param name="valuePropertyName"></param>
+        /// <param name="displayStringFormat">"{Name} - {Created} ({Created})"</param>
+        /// <param name="distinctValuesOnly"></param>
         /// <returns></returns>
-        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string valuePropertyName, bool distinctValuesOnly = true)
+        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string displayStringFormat, bool distinctValuesOnly)
         {
-            string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id
-            
+            Contract.Requires(null != items);
+            Contract.Requires(null != displayStringFormat);
+
+            string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id            
             System.Reflection.PropertyInfo propId = typeof(T).GetProperty(keyPropertyName);
-            System.Reflection.PropertyInfo propName = typeof(T).GetProperty(valuePropertyName);
             Contract.Assert(null != propId);
-            Contract.Assert(null != propName);
+
+            // parse display string
+            FormatStringExpression exp = new FormatStringExpression(displayStringFormat);
+
+            List<System.Reflection.PropertyInfo> valueProps = new List<System.Reflection.PropertyInfo>();
+            foreach (string valuePropertyName in exp.PropertyNames)
+            {
+                System.Reflection.PropertyInfo propName = typeof(T).GetProperty(valuePropertyName);
+                if (null != propName)
+                {
+                    valueProps.Add(propName);
+                }
+            }
 
             List<AjaxOption> options = new List<AjaxOption>();
-            if (distinctValuesOnly)
+
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                List<object> values = new List<object>();
+                valueProps.ForEach(p => values.Add(p.GetValue(item)));
+                string value = string.Format(exp.FormatString, values.ToArray());
+                if (distinctValuesOnly)
                 {
-                    string value = (string)propName.GetValue(item);
                     if (null == options.FirstOrDefault(o => o.value == value))
                     {
                         options.Add(new AjaxOption(0, value));
                     }
                 }
-            }
-            else
-            {
-                foreach (var item in items)
+                else
                 {
-                    options.Add(new AjaxOption((long)propId.GetValue(item), (string)propName.GetValue(item)));
+                    options.Add(new AjaxOption(propId.GetValue(item), value));
                 }
             }
-            return options.OrderBy(o=>o.value).ToList();
+            return options.OrderBy(o => o.value).ToList();
         }
 
         #endregion
@@ -142,7 +175,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$select", "Id,Name");// key must be present for ODATA and it is always the property Id
+                query = query.AddQueryOption("$select", this.SearchConfiguration.Select); // key must be present for ODATA and it is always the property Id
             }
             return query;
         }
@@ -159,7 +192,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',Name)", searchTerm));
+                query = query.AddQueryOption("$filter", string.Format(this.SearchConfiguration.Filter, searchTerm));
             }
             return query;
         }
@@ -221,7 +254,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$select", "Id,Name");// key must be present for ODATA and it is always the property Id
+                query = query.AddQueryOption("$select", this.ItemSearchConfiguration.Select);// key must be present for ODATA and it is always the property Id
             }
             return query;
         }
@@ -241,11 +274,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(filter))
                 {
-                    filter = string.Format("substringof('{0}',Name)", searchTerm);
+                    filter = string.Format(this.ItemSearchConfiguration.Filter, searchTerm);
                 }
                 else
                 {
-                    filter = string.Format("{1} and substringof('{0}',Name)", searchTerm, filter);
+                    filter = string.Format("{1} and " + this.ItemSearchConfiguration.Filter, searchTerm, filter);
                 }
             }
             if (!string.IsNullOrWhiteSpace(filter))
@@ -264,7 +297,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <returns></returns>
         protected virtual List<AjaxOption> CreateItemOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, "Name");
+            return CreateOptionList(items, this.ItemSearchConfiguration.Display, true);
         }
 
         #endregion

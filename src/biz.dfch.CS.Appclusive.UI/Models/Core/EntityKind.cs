@@ -23,7 +23,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class EntityKind : AppcusiveEntityViewModelBase
     {
-        public const string NODE_ENTITYKIND_NAME = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node";
+        public const string VERSION_OF_Approval = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval";
+        public const string VERSION_OF_Job = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Job";
+        public const string VERSION_OF_Node = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node";
+        public const string VERSION_OF_Order = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order";
 
         public EntityKind()
         {

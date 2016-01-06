@@ -36,8 +36,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         
         [Display(Name = "NotBefore", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset NotBefore { get; set; }
-        
-        public string Status { get; set; }
+
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        public string Continue { get; set; }
+
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        public Job Job { get; set; }
         
         #region approve/decline
 
@@ -52,7 +56,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             get
             {
-                return (this.Status == DECLINED_STATUS_CHANGE) ?
+                if (null == this.Job) return ErrorResources.NoJobAvailable;
+                return (this.Job.Status == DECLINED_STATUS_CHANGE) ?
                     GeneralResources.Decline
                     :
                     GeneralResources.Approve;
@@ -65,6 +70,23 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         /// set through call of ResolveOrderId()
         /// </summary>
         public int OrderId { get; private set; }
+        
+        /// <summary>
+        /// Find Order by Approval 
+        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
+        /// </summary>
+        /// <param name="coreRepository"></param>
+        internal void ResolveJob(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Approval)
+                .FirstOrDefault();
+
+            Contract.Assert(null != job, "no approval-job available");
+            this.Job = AutoMapper.Mapper.Map<Job>(job);
+        }
 
         /// <summary>
         /// Find Order by Approval 
@@ -77,17 +99,19 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             Contract.Requires(null != coreRepository);
 
-            var jobs = coreRepository.Jobs.Where(j => j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval" & j.ReferencedItemId == this.Id.ToString());
-            Api.Core.Job approvalJob = jobs.FirstOrDefault();
-            Contract.Assert(null != approvalJob, "no approval-job available");
-            Contract.Assert(approvalJob.ParentId>0, "no approval-job parent available");
+            if (null == this.Job)
+            {
+                this.ResolveJob(coreRepository);
+            }
 
-            jobs = coreRepository.Jobs.Where(j => j.Id == approvalJob.ParentId && j.Name == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order");
-            Api.Core.Job orderJob = jobs.FirstOrDefault();
+            Api.Core.Job orderJob = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Order)
+                .FirstOrDefault();
+
             Contract.Assert(null != orderJob, "no Order-job available");
 
             int orderId = 0;
-            int.TryParse(orderJob.ReferencedItemId, out orderId);
+            int.TryParse(orderJob.RefId, out orderId);
             this.OrderId = orderId;
         }
 

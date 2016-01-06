@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node>
+    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node, Models.Core.Node>
     {
         protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes; } }
 
@@ -36,16 +36,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                // find job to node
-                var job = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(j => j.ReferencedItemId == id.ToString() && j.EntityKind.Name == Models.Core.EntityKind.NODE_ENTITYKIND_NAME).FirstOrDefault();
-                ViewBag.NodeJob = AutoMapper.Mapper.Map<Models.Core.Job>(job);
-
                 // load Node and Children
                 var item = CoreRepository.Nodes.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
                 if (null != modelItem)
                 {
                     modelItem.Children = LoadNodeChildren(id, 1);
+                    try
+                    {
+                        modelItem.ResolveJob(this.CoreRepository);
+                    }
+                    catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
                 }
                 return View(modelItem);
             }

@@ -25,7 +25,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ProductsController : CoreControllerBase<Api.Core.Product, Models.Core.Product>
+    public class ProductsController : CoreControllerBase<Api.Core.Product, Models.Core.Product, object>
     {
         protected override DataServiceQuery<Api.Core.Product> BaseQuery { get { return CoreRepository.Products; } }
 

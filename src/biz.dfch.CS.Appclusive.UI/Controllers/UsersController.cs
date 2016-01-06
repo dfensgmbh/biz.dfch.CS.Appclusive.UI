@@ -8,7 +8,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class UsersController : CoreControllerBase<Api.Core.User, Models.Core.User>
+    public class UsersController : CoreControllerBase<Api.Core.User, Models.Core.User, object>
     {
         protected override DataServiceQuery<Api.Core.User> BaseQuery { get { return CoreRepository.Users; } }
 

@@ -24,7 +24,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class KeyNameValuesController : CoreControllerBase<Api.Core.KeyNameValue, Models.Core.KeyNameValue>
+    public class KeyNameValuesController : CoreControllerBase<Api.Core.KeyNameValue, Models.Core.KeyNameValue, object>
     {
         protected override DataServiceQuery<Api.Core.KeyNameValue> BaseQuery { get { return CoreRepository.KeyNameValues; } }
         

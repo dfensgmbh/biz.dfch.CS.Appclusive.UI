@@ -24,7 +24,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class GatesController  : CoreControllerBase<Api.Core.Gate, Models.Core.Gate>
+    public class GatesController : CoreControllerBase<Api.Core.Gate, Models.Core.Gate, object>
     {
         protected override DataServiceQuery<Api.Core.Gate> BaseQuery { get { return CoreRepository.Gates; } }
         

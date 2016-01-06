@@ -24,7 +24,7 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class JobsController : CoreControllerBase<Api.Core.Job, Models.Core.Job>
+    public class JobsController : CoreControllerBase<Api.Core.Job, Models.Core.Job, object>
     {
         protected override DataServiceQuery<Api.Core.Job> BaseQuery { get { return CoreRepository.Jobs; } }
 

@@ -25,7 +25,13 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class CoreControllerBase<T, M> : GenericControllerBase<T, M>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T">API-Type</typeparam>
+    /// <typeparam name="M">(View-) Model-Type</typeparam>
+    /// <typeparam name="I">ModelItem-Type (if no items: object)</typeparam>
+    public abstract class CoreControllerBase<T, M, I> : GenericControllerBase<T, M, I>
     {
 
         /// <summary>

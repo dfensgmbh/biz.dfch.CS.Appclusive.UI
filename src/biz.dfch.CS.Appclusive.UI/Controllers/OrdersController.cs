@@ -14,20 +14,30 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class OrdersController : CoreControllerBase<Api.Core.Order, Models.Core.Order>
+    public class OrdersController : CoreControllerBase<Api.Core.Order, Models.Core.Order, Models.Core.OrderItem>
     {
         protected override DataServiceQuery<Api.Core.Order> BaseQuery { get { return CoreRepository.Orders.Expand("CostCentre").Expand("Requester"); } }
-        
+
+        protected override void OnBeforeRender<M>(M model)
+        {
+            Models.Core.Order m = model as Models.Core.Order;
+            try
+            {
+                m.ResolveJob(this.CoreRepository);
+            }
+            catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+        }
+
         #region Order
 
         // GET: Orders/Details/5
@@ -44,6 +54,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (null != modelItem)
                 {
                     modelItem.OrderItems = LoadOrderItems(id, 1);
+                    try
+                    {
+                        modelItem.ResolveJob(this.CoreRepository);
+                    }
+                    catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
                 }
                 return View(modelItem);
             }

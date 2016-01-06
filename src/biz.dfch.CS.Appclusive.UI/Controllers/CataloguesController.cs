@@ -22,10 +22,11 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using System.Data.Services.Client;
+using biz.dfch.CS.Appclusive.UI.Config;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CataloguesController : CoreControllerBase<Api.Core.Catalogue, Models.Core.Catalogue>
+    public class CataloguesController : CoreControllerBase<Api.Core.Catalogue, Models.Core.Catalogue, Models.Core.CatalogueItem>
     {
         protected override DataServiceQuery<Api.Core.Catalogue> BaseQuery { get { return CoreRepository.Catalogues; } }
                 
@@ -201,35 +202,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
             string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
             return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
-        }
-
-        /// <summary>
-        /// consider implementing AddItemSelectFilter and CreateItemOptionList as well,
-        /// otherwise you load the wrong properties..
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="searchTerm"></param>
-        /// <returns></returns>
-        protected override DataServiceQuery<T> AddItemSearchFilter<T>(DataServiceQuery<T> query, string baseFilter, string searchTerm)
-        {
-            string filter = baseFilter;
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                if (string.IsNullOrWhiteSpace(filter))
-                {
-                    filter = string.Format("substringof('{0}',tolower(Name))", searchTerm.ToLower());
-                }
-                else
-                {
-                    filter = string.Format("{1} and substringof('{0}',tolower(Name))", searchTerm.ToLower(), filter);
-                }
-            }
-            if (!string.IsNullOrWhiteSpace(filter))
-            {
-                query = query.AddQueryOption("$filter", filter);
-            }
-            return query;
         }
 
         #endregion CatalogItems list

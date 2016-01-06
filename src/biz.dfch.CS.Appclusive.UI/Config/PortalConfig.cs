@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace biz.dfch.CS.Appclusive.UI.Models
+namespace biz.dfch.CS.Appclusive.UI.Config
 {
     public class PortalConfig
     {

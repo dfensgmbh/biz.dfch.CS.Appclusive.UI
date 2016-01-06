@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M>
+    public abstract class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M, object>
     {
 
         protected biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository
@@ -37,6 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     diagnosticsRepository.IgnoreMissingProperties = true;
                     //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                    diagnosticsRepository.MergeOption = MergeOption.PreserveChanges;
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
                     if (null != apiCreds)

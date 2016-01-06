@@ -61,6 +61,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No job is available.
+        /// </summary>
+        public static string NoJobAvailable {
+            get {
+                return ResourceManager.GetString("NoJobAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission added to role..
         /// </summary>
         public static string permissionAdded {
