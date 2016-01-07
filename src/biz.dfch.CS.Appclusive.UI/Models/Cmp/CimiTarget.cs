@@ -17,6 +17,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using biz.dfch.CS.Appclusive.UI.Models.Core;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Cmp
 {
@@ -30,12 +31,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Cmp
         }
 
         [Required]
+        [Display(Name = "CimiId", ResourceType = typeof(GeneralResources))] 
         public string CimiId { get; set; }
 
         [Required]
+        [Display(Name = "CimiType", ResourceType = typeof(GeneralResources))] 
         public string CimiType { get; set; }
 
         [Required]
+        [Display(Name = "CatalogueItemId", ResourceType = typeof(GeneralResources))] 
         public long CatalogueItemId { get; set; }
 
     }
