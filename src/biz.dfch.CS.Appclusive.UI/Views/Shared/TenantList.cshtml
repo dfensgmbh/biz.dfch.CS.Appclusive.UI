@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Tenant>
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
@@ -32,11 +33,11 @@
                 @Html.ActionLink(item.ParentId.ToString(), "Details", "Tenants", new { id = item.ParentId, rId = id, rAction = action, rController = controller }, null)
             </td>
             <td class="ap-btn text-nowrap">
-                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                @Html.SecuredButton("Details", Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller }))
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "Tenants", new { id = item.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Delete", "Tenants", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                    @Html.SecuredButton("Edit", Url.Action("Edit", "Tenants", new { id = item.Id }))
+                    @Html.SecuredButton("Delete", Url.Action("Delete", "Tenants", new { id = item.Id }))
                 }
             </td>
         </tr>

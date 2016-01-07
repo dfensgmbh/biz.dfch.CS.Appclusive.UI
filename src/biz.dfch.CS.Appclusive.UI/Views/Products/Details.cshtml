@@ -1,4 +1,5 @@
-﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Product
+﻿@using biz.dfch.CS.Appclusive.UI.Helpers
+@model biz.dfch.CS.Appclusive.UI.Models.Core.Product
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @{
@@ -89,7 +90,7 @@
 <p>
     @if (Model.Id > 0)
     {
-        <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+        @Html.SecuredButton("Edit", Url.Action("Edit", new { id = Model.Id }))
     }
     @Html.Partial("BackLink")
 </p>

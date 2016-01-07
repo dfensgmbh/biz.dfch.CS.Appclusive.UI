@@ -1,4 +1,5 @@
-﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.ManagementCredential
+﻿@using biz.dfch.CS.Appclusive.UI.Helpers
+@model biz.dfch.CS.Appclusive.UI.Models.Core.ManagementCredential
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
@@ -68,8 +69,8 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-   @Html.Partial("BackLink")
+    @Html.SecuredButton("Edit", Url.Action("Edit", new { id = Model.Id }))
+    @Html.Partial("BackLink")
 </p>
 
 @using (Html.Delayed())

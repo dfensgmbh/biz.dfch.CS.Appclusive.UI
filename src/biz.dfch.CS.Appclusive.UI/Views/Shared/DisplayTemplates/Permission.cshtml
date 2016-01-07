@@ -1,7 +1,7 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Permission
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
-@if (Model != null)
+@if (Model != null && !string.IsNullOrEmpty(Model.Name))
 {
     string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
     string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];

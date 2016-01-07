@@ -1,4 +1,8 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models.Core
+@using biz.dfch.CS.Appclusive.UI.Models.Cmp
+@using biz.dfch.CS.Appclusive.UI.Models.Diagnostics
+@using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     var title = "biz.dfch.CS.Appclusive.UI";
@@ -13,7 +17,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" id="navMenu" >
+    <div class="navbar navbar-inverse navbar-fixed-top" id="navMenu">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,24 +35,24 @@
                             Core <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Product, "Index", "Products")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Node, "Index", "Nodes")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Cart, "Index", "Carts")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Order, "Index", "Orders")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Job, "Index", "Jobs")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals")</li>
-                            <li>@Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues")</li>
-                            <li>@Html.ActionLink(@GeneralResources.EntityKind, "Index", "EntityKinds")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Gate, "Index", "Gates")</li>
-                            <li>@Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris")</li>
-                            <li>@Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials")</li>
-                            <li>@Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants")</li>
-                            <li>@Html.ActionLink(@GeneralResources.User, "Index", "Users")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Customer, "Index", "Customers")</li>
-                            <li>@Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings")</li>
-                            <li>@Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets")</li>
+                            @Html.SecuredListItem(typeof(Catalogue), Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues"))
+                            @Html.SecuredListItem(typeof(Product), Html.ActionLink(@GeneralResources.Product, "Index", "Products"))
+                            @Html.SecuredListItem(typeof(Node), Html.ActionLink(@GeneralResources.Node, "Index", "Nodes"))
+                            @Html.SecuredListItem(typeof(Cart), Html.ActionLink(@GeneralResources.Cart, "Index", "Carts"))
+                            @Html.SecuredListItem(typeof(Order), Html.ActionLink(@GeneralResources.Order, "Index", "Orders"))
+                            @Html.SecuredListItem(typeof(Job), Html.ActionLink(@GeneralResources.Job, "Index", "Jobs"))
+                            @Html.SecuredListItem(typeof(Approval), Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals"))
+                            @Html.SecuredListItem(typeof(KeyNameValue), Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues"))
+                            @Html.SecuredListItem(typeof(EntityKind), Html.ActionLink(@GeneralResources.EntityKind, "Index", "EntityKinds"))
+                            @Html.SecuredListItem(typeof(Gate), Html.ActionLink(@GeneralResources.Gate, "Index", "Gates"))
+                            @Html.SecuredListItem(typeof(ManagementUri), Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris"))
+                            @Html.SecuredListItem(typeof(ManagementCredential), Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials"))
+                            @Html.SecuredListItem(typeof(CostCentre), Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres"))
+                            @Html.SecuredListItem(typeof(Tenant), Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants"))
+                            @Html.SecuredListItem(typeof(User), Html.ActionLink(@GeneralResources.User, "Index", "Users"))
+                            @Html.SecuredListItem(typeof(Customer), Html.ActionLink(@GeneralResources.Customer, "Index", "Customers"))
+                            @Html.SecuredListItem(typeof(ContractMapping), Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings"))
+                            @Html.SecuredListItem(typeof(CimiTarget), Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets"))
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -56,8 +60,8 @@
                             Diagnostics <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints")</li>
+                            @Html.SecuredListItem(typeof(AuditTrail), Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails"))
+                            @Html.SecuredListItem(typeof(Endpoint), Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints"))
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -65,10 +69,10 @@
                             Security <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink(@GeneralResources.Permission, "Index", "Permissions")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Role, "Index", "Roles")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Ace, "Index", "Aces")</li>
-                            <li>@Html.ActionLink(@GeneralResources.Acl, "Index", "Acls")</li>
+                            @Html.SecuredListItem(typeof(Permission), Html.ActionLink(@GeneralResources.Permission, "Index", "Permissions"))
+                            @Html.SecuredListItem(typeof(Roles), Html.ActionLink(@GeneralResources.Role, "Index", "Roles"))
+                            @Html.SecuredListItem(typeof(Ace), Html.ActionLink(@GeneralResources.Ace, "Index", "Aces"))
+                            @Html.SecuredListItem(typeof(Acl), Html.ActionLink(@GeneralResources.Acl, "Index", "Acls"))
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -76,8 +80,8 @@
                             VDI <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null)</li>
-                            <li>@Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null)</li>
+                            @Html.SecuredListItem(typeof(Cart), Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null))
+                            @Html.SecuredListItem(typeof(Cart), Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null))
                         </ul>
                     </li>
 
@@ -103,9 +107,9 @@
             </div>
         </div>
     </div>
-   
+
     <!-- Div that navbar on multiple lines does not cover body. See Site.js-->
-    <div class="godown-60" id="godown" ></div>
+    <div class="godown-60" id="godown"></div>
 
     <div class="container body-content">
 

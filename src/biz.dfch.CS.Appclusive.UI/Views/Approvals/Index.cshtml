@@ -1,4 +1,5 @@
-﻿@using biz.dfch.CS.Appclusive.UI.Models.Core
+﻿@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models.Core
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @model IEnumerable<Approval>
 
@@ -18,13 +19,13 @@
 }
 
 @*<nav class="navbar navbar-default">
-    <ul class="nav navbar-nav">
-        <li class="@ViewBag.AllLinkClass"><a href="?">all</a></li>
-        <li class="@ViewBag.CreatedLinkClass"><a href="?searchTerm=@Approval.CREATED_STATUS">Created</a></li>
-        <li class="@ViewBag.ApprovedLinkClass"><a href="?searchTerm=Approved">Approved</a></li>
-        <li class="@ViewBag.DeclinedLinkClass"><a href="?searchTerm=Declined">Declined</a></li>
-    </ul>
-</nav>*@
+        <ul class="nav navbar-nav">
+            <li class="@ViewBag.AllLinkClass"><a href="?">all</a></li>
+            <li class="@ViewBag.CreatedLinkClass"><a href="?searchTerm=@Approval.CREATED_STATUS">Created</a></li>
+            <li class="@ViewBag.ApprovedLinkClass"><a href="?searchTerm=Approved">Approved</a></li>
+            <li class="@ViewBag.DeclinedLinkClass"><a href="?searchTerm=Declined">Declined</a></li>
+        </ul>
+    </nav>*@
 <div class="row">
     @Html.Partial("SearchForm")
 </div>
@@ -67,11 +68,11 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td class="ap-btn text-nowrap">
-                <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                @if (item.Job !=null && item.Job.Status == Approval.CREATED_STATUS)
+                @Html.SecuredButton("Details", Url.Action("Details", new { id = item.Id }))
+                @if (item.Job != null && item.Job.Status == Approval.CREATED_STATUS)
                 {
-                    <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>
+                    @Html.SecuredButton("Approve", Url.Action("Approve", new { id = item.Id }))
+                    @Html.SecuredButton("Decline", Url.Action("Decline", new { id = item.Id }))
                 }
             </td>
         </tr>

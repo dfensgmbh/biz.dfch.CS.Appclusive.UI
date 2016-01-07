@@ -169,7 +169,7 @@
     <Compile Include="Controllers\CostCentersController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
@@ -198,6 +198,7 @@
       <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelperSecuredExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
     <Compile Include="Models\AjaxOption.cs" />
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Config\PortalConfig.cs" />
     <Compile Include="Config\SearchConfig.cs" />
+    <Compile Include="Models\PermissionDecisions.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
     <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
