@@ -41,10 +41,10 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.ParentId)
+                    @Html.DisplayNameFor(model => model.Parent)
                 </dt>
-                <dd>
-                    @Html.ActionLink(Model.ParentId.ToString(), "Details", "Nodes", new { id = Model.ParentId, rId = id, rAction = action, rController = controller }, null)
+                <dd>                    
+                    @Html.DisplayFor(model => model.Parent)
                 </dd>
 
                 <dt>
