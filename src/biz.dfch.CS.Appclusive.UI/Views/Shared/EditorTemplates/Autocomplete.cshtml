@@ -3,9 +3,9 @@
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @{
     object modelKey = Model;
-    string modelKeyId = string.IsNullOrWhiteSpace(ViewBag.ModelKeyId) ? ViewData.TemplateInfo.HtmlFieldPrefix : ViewBag.ModelKeyId; 
+    string modelKeyId = string.IsNullOrWhiteSpace(ViewBag.ModelKeyId) ? ViewData.TemplateInfo.HtmlFieldPrefix : ViewBag.ModelKeyId;
     bool showKeyId = ViewBag.ShowKeyId != null && ViewBag.ShowKeyId;
-    
+
     string searchSource = ViewBag.SelectUrl;
     string searchTerm = ViewBag.Value;
 
@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-10">
                 <input class="form-control text-box single-line ap-autocomplete" id="@searchTermId" name="@searchTermId" value="@searchTerm" />
-            </div>           
+            </div>
         </div>
     </div>
 }
@@ -31,7 +31,10 @@ else
     <input class="form-control text-box single-line ap-autocomplete" id="@searchTermId" name="@searchTermId" value="@searchTerm" />
 }
 
-@using (Html.Delayed())
+@{
+    biz.dfch.CS.Appclusive.UI.Controllers.IExtendedController extController = ViewContext.Controller as biz.dfch.CS.Appclusive.UI.Controllers.IExtendedController;
+}
+@if (null != extController && extController.IsAjaxRequest)
 {
     // needs search Action on controller: public ActionResult Search(string term)
     <script type="text/javascript">
@@ -46,4 +49,23 @@ else
               });
         })
     </script>
+}
+else
+{
+    using (Html.Delayed())
+    {
+        // needs search Action on controller: public ActionResult Search(string term)
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#@searchTermId').autocomplete(
+                  {
+                      source: '@searchSource',
+                      select: function (event, ui) {
+                          $('#@searchTermId').val(ui.item.value);
+                          $('#@modelKeyId').val(ui.item.key);
+                      }
+                  });
+            })
+        </script>
+    }
 }

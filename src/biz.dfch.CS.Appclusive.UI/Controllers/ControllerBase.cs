@@ -26,7 +26,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class ControllerBase : Controller
+    public abstract class ControllerBase : Controller, IExtendedController
     {
         public ControllerBase(Type itemType)
         {
@@ -39,6 +39,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         EntityElement SearchConfiguration;
         EntityElement ItemSearchConfiguration;
 
+        /// <summary>
+        /// Has Header
+        /// X-Requested-With: XMLHttpRequest
+        /// </summary>
+        public Boolean IsAjaxRequest
+        {
+            get
+            {
+                return this.Request.Headers["X-Requested-With"] != null && this.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            }
+        }
+        
         #region basic list actions
 
         protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null)
