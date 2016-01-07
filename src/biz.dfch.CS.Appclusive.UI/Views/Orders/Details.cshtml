@@ -8,6 +8,11 @@
     <h2>@Html.DisplayFor(model => model.Name)</h2>
     <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
 }
+@{
+    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+}
 <div>
     <hr />
 
@@ -28,17 +33,20 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model.Job)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Status)
+                    @Html.DisplayFor(model => model.Job)
                 </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.CostCentre)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.CostCentre)
+                    @if (null != Model.CostCentreId)
+                    {
+                        @Html.ActionLink(Model.CostCentreId.ToString(), "Details", "CostCentres", new { id = Model.CostCentreId, rId = id, rAction = action, rController = controller }, null)
+                    }
                 </dd>
 
                 <dt>
@@ -73,6 +81,6 @@
     </div>
     <hr />
 </div>
-<p>    
-   @Html.Partial("BackLink")
+<p>
+    @Html.Partial("BackLink")
 </p>

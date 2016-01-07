@@ -25,14 +25,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ProductsController : CoreControllerBase<Api.Core.Product, Models.Core.Product>
+    public class ProductsController : CoreControllerBase<Api.Core.Product, Models.Core.Product, object>
     {
         protected override DataServiceQuery<Api.Core.Product> BaseQuery { get { return CoreRepository.Products; } }
 
         #region Product
 
         // GET: Products/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -40,7 +40,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Products.Expand("EntityKind").Expand("CatalogueItems").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                this.AddEntityKindSeletionToViewBag();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(item));
             }
             catch (Exception ex)
@@ -53,7 +52,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Product());
         }
 
@@ -63,7 +61,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(product);
@@ -90,8 +87,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
-                var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
             }
             catch (Exception ex)
@@ -106,16 +102,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult Edit(long id, Models.Core.Product product)
         {
             try
-            {
-                this.AddEntityKindSeletionToViewBag();
-                
+            {                
                 if (!ModelState.IsValid)
                 {
                     return View(product);
                 }
                 else
                 {
-                    var apiItem = CoreRepository.Products.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 
@@ -132,6 +126,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    
+                    apiItem = CoreRepository.Products.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                     return View(AutoMapper.Mapper.Map<Models.Core.Product>(apiItem));
                 }
             }

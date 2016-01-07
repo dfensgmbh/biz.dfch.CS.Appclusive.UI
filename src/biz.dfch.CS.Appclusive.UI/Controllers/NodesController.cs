@@ -14,34 +14,41 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node>
+    public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node, Models.Core.Node>
     {
         protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes; } }
 
         // GET: Nodes/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                // find job to node
-                var job = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(j => j.ReferencedItemId == id.ToString() && j.EntityKind.Name == Models.Core.EntityKind.NODE_ENTITYKIND_NAME).FirstOrDefault();
-                ViewBag.NodeJob = AutoMapper.Mapper.Map<Models.Core.Job>(job);
-                
-                return View(AutoMapper.Mapper.Map<Models.Core.Node>(item));
+                // load Node and Children
+                var item = CoreRepository.Nodes.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
+                if (null != modelItem)
+                {
+                    modelItem.Children = LoadNodeChildren(id, 1);
+                    try
+                    {
+                        modelItem.ResolveJob(this.CoreRepository);
+                    }
+                    catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -50,5 +57,39 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
+        #region Node-children list and search
+
+        // GET: Nodes/ItemList
+        public PartialViewResult ItemIndex(long parentId, int pageNr = 1, string itemSearchTerm = null)
+        {
+            ViewBag.ParentId = parentId;
+            DataServiceQuery<Api.Core.Node> itemsBaseQuery = CoreRepository.Nodes;
+            string itemsBaseFilter = "ParentId eq " + parentId; 
+            return base.ItemIndex<Api.Core.Node, Models.Core.Node>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+        }
+
+        private List<Models.Core.Node> LoadNodeChildren(long parentId, int pageNr)
+        {
+            QueryOperationResponse<Api.Core.Node> items = CoreRepository.Nodes
+                    .AddQueryOption("$filter", "ParentId eq " + parentId)
+                    .AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .Execute() as QueryOperationResponse<Api.Core.Node>;
+
+            ViewBag.ParentId = parentId;
+            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+
+            return AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
+        }
+
+        public ActionResult ItemSearch(long parentId, string term)
+        {
+            DataServiceQuery<Api.Core.Node> itemsBaseQuery = CoreRepository.Nodes;
+            string itemsBaseFilter = "ParentId eq " + parentId;
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        #endregion Node-children list
     }
 }

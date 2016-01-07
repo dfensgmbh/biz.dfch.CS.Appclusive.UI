@@ -85,16 +85,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             if (isAuthenticated)
             {
                 FormsAuthentication.RedirectFromLoginPage(data.Username, false);
-                Session["LoginData"] = data;
-                ////this.HttpContext. .GetOwinContext().Authentication
-                ////         .SignOut(DefaultAuthenticationTypes.ExternalCookie);
-
-                ////Claim claim1 = new Claim(ClaimTypes.Name, username);
-                ////Claim[] claims = new Claim[] { claim1 };
-                ////ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-
-                ////this.HttpContext.GetOwinContext().Authentication
-                ////    .SignIn(new AuthenticationProperties() { IsPersistent = false }, claimsIdentity);
+                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain); 
             }
             return isAuthenticated;
         }

@@ -24,14 +24,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class ManagementCredentialsController : CoreControllerBase<Api.Core.ManagementCredential, Models.Core.ManagementCredential>
+    public class ManagementCredentialsController : CoreControllerBase<Api.Core.ManagementCredential, Models.Core.ManagementCredential, object>
     {
         protected override DataServiceQuery<Api.Core.ManagementCredential> BaseQuery { get { return CoreRepository.ManagementCredentials; } }
 
         #region ManagementCredential
 
         // GET: ManagementCredentials/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

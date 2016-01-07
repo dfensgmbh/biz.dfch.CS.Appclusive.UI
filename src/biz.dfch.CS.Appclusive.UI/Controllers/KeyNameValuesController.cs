@@ -24,14 +24,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class KeyNameValuesController : CoreControllerBase<Api.Core.KeyNameValue, Models.Core.KeyNameValue>
+    public class KeyNameValuesController : CoreControllerBase<Api.Core.KeyNameValue, Models.Core.KeyNameValue, object>
     {
         protected override DataServiceQuery<Api.Core.KeyNameValue> BaseQuery { get { return CoreRepository.KeyNameValues; } }
         
         #region KeyNameValue
 
         // GET: KeyNameValues/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

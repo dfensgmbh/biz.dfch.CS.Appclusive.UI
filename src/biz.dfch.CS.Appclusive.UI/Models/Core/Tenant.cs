@@ -17,6 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.Children = new List<Tenant>();
         }
         public Guid Id { get; set; }
+        [Required]
         public string IdStr
         {
             get { return this.Id != null ? this.Id.ToString() : ""; }

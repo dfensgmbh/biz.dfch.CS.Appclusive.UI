@@ -8,14 +8,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CustomersController : CoreControllerBase<Api.Core.Customer, Models.Core.Customer>
+    public class CustomersController : CoreControllerBase<Api.Core.Customer, Models.Core.Customer, object>
     {
         protected override DataServiceQuery<Api.Core.Customer> BaseQuery { get { return CoreRepository.Customers; } }
         
         #region Customer
 
         // GET: Customers/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -23,7 +23,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Customer>(item));
+                Models.Core.Customer modelItem = AutoMapper.Mapper.Map<Models.Core.Customer>(item);
+                if (null != modelItem)
+                {
+                    modelItem.Tenants = LoadTenants(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -71,7 +76,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.Customers.Expand("ContractMappings").Expand("Tenants").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
+                Models.Core.Customer modelItem = AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.Tenants = LoadTenants(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -104,7 +114,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                    return View(AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem));
+
+                    Models.Core.Customer modelItem = AutoMapper.Mapper.Map<Models.Core.Customer>(apiItem);
+                    if (null != modelItem)
+                    {
+                        modelItem.Tenants = LoadTenants(id, 1);
+                    }
+                    return View(modelItem);
                 }
             }
             catch (Exception ex)
@@ -134,6 +150,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
+
+        private List<Models.Core.Tenant> LoadTenants(long customerId, int pageNr)
+        {
+            List<Api.Core.Tenant> items = CoreRepository.Tenants.Where(t=>t.CustomerId==customerId).ToList();
+            return AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(items);
+        }
 
         #endregion
 

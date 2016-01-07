@@ -29,18 +29,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class EndpointsController : DiagnosticsControllerBase<Api_Diagnostics.Endpoint, Models.Diagnostics.Endpoint>
     {
         protected override DataServiceQuery<Api_Diagnostics.Endpoint> BaseQuery { get { return DiagnosticsRepository.Endpoints; } }
-
-        protected override DataServiceQuery<T> AddSearchFilter<T>(DataServiceQuery<T> query, string searchTerm)
-        {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.AddQueryOption("$filter", string.Format("substringof('{0}',tolower(Name))", searchTerm.ToLower()));
-            }
-            return query;
-        }
-
+        
         // GET: Endpoints/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

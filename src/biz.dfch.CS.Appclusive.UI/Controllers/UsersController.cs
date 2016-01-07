@@ -8,12 +8,12 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class UsersController : CoreControllerBase<Api.Core.User, Models.Core.User>
+    public class UsersController : CoreControllerBase<Api.Core.User, Models.Core.User, object>
     {
         protected override DataServiceQuery<Api.Core.User> BaseQuery { get { return CoreRepository.Users; } }
 
         // GET: Users/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

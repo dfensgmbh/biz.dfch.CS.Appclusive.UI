@@ -4,6 +4,12 @@
     ViewBag.Title = @Model.GetType().Name + " details";
 }
 
+@{
+    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+}
+
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
@@ -53,19 +59,14 @@
                     @Html.DisplayNameFor(model => model.TenantId)
                 </dt>
                 <dd>
-                    @{
-                        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
-                        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
-                        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-                    }
-                    @Html.ActionLink(Model.TenantId.ToString(), "Details", "Tenants", new { id = Model.TenantId, rId = id, rAction = action, rController = controller }, null)
+                   @Html.ActionLink(Model.TenantId.ToString(), "Details", "Tenants", new { id = Model.TenantId, rId = id, rAction = action, rController = controller }, null)
                 </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.ParentId)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.ParentId)
+                    @Html.ActionLink(Model.ParentId.ToString(), "Details", "Jobs", new { id = Model.ParentId, rId = id, rAction = action, rController = controller }, null)
                 </dd>
             </dl>
             <dl>

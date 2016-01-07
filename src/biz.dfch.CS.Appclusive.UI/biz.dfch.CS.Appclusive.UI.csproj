@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.1.2.31214, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.1.2\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.1.29520, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.1\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -148,6 +148,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Config\EntityElement.cs" />
+    <Compile Include="Config\EntityElementCollection.cs" />
+    <Compile Include="Config\EntitySearchConfigurationSection.cs" />
+    <Compile Include="Config\FormatStringExpression.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -239,7 +243,8 @@
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
-    <Compile Include="Models\PortalConfig.cs" />
+    <Compile Include="Config\PortalConfig.cs" />
+    <Compile Include="Config\SearchConfig.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
     <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
@@ -308,6 +313,10 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\Neue Frutiger Com Regular.otf" />
+    <Content Include="fonts\Neue Frutiger Com Regular.woff" />
+    <Content Include="fonts\Neue Frutiger Pro Cyrillic Condensed Regular.otf" />
+    <Content Include="fonts\Neue Frutiger Pro Cyrillic Regular.otf" />
     <None Include="Properties\PublishProfiles\general-deployment-profile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -362,7 +371,7 @@
     <Content Include="Views\Catalogues\Index.cshtml" />
     <Content Include="Views\Catalogues\Details.cshtml" />
     <Content Include="Views\Catalogues\Edit.cshtml" />
-    <Content Include="Views\Catalogues\ItemList.cshtml" />
+    <Content Include="Views\Catalogues\ItemIndex.cshtml" />
     <Content Include="Views\Shared\IAppcusiveEntityBaseDetails.cshtml" />
     <Content Include="Views\Catalogues\Create.cshtml" />
     <Content Include="Views\Nodes\Index.cshtml" />
@@ -477,7 +486,7 @@
     <Content Include="Views\SpecialOperations\ClearAuditLog.cshtml" />
     <Content Include="Views\SpecialOperations\ReloadProducts.cshtml" />
     <Content Include="Views\SpecialOperations\RaiseUpdateConfigurationEvent.cshtml" />
-    <Content Include="Views\Catalogues\ItemIndex.cshtml" />
+    <Content Include="Views\Catalogues\ItemList.cshtml" />
     <Content Include="Views\Shared\AjaxPaging.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\User.cshtml" />
     <Content Include="Views\Catalogues\FormPartial.cshtml" />
@@ -505,6 +514,12 @@
     <Content Include="Views\Shared\JobStatus.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />
+    <Content Include="Views\Shared\AjaxItemSearchForm.cshtml" />
+    <Content Include="Views\Nodes\ItemIndex.cshtml" />
+    <Content Include="Views\Orders\ItemIndex.cshtml" />
+    <Content Include="Views\Carts\ItemIndex.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Job.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

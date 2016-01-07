@@ -22,17 +22,18 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using System.Data.Services.Client;
+using biz.dfch.CS.Appclusive.UI.Config;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class CataloguesController : CoreControllerBase<Api.Core.Catalogue, Models.Core.Catalogue>
+    public class CataloguesController : CoreControllerBase<Api.Core.Catalogue, Models.Core.Catalogue, Models.Core.CatalogueItem>
     {
         protected override DataServiceQuery<Api.Core.Catalogue> BaseQuery { get { return CoreRepository.Catalogues; } }
                 
         #region Catalogue 
 
         // GET: Catalogues/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -170,20 +171,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
-        #region CatalogItems
+        #region CatalogItems list and search
 
         // GET: Catalogues/ItemList
-        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1)
+        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null)
         {
-            try
-            {
-                return PartialView(LoadCatalogueItems(catalogueId, pageNr));
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView(new List<Models.Core.CatalogueItem>());
-            }
+            ViewBag.ParentId = catalogueId;
+            DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
+            string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
+            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
         }
 
         private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)
@@ -195,11 +191,22 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
                     .Execute() as QueryOperationResponse<Api.Core.CatalogueItem>;
 
-            ViewBag.catalogueId = catalogueId;
+            ViewBag.ParentId = catalogueId;
             ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
 
             return AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(items);
         }
+
+        public ActionResult ItemSearch(long catalogueId, string term)
+        {
+            DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
+            string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        #endregion CatalogItems list
+
+        #region edit CatalogItems
 
         public ActionResult ItemDetails(long id)
         {

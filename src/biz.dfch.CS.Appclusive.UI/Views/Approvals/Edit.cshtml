@@ -15,7 +15,7 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.Status)
+        @Html.HiddenFor(model => model.Continue)
         <dl>
 
             <dt>
@@ -26,10 +26,10 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.Job)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Status)
+                @Html.DisplayFor(model => model.Job)
             </dd>
 
             <dt>

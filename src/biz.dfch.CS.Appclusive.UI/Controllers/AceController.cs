@@ -8,14 +8,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AcesController : CoreControllerBase<Api.Core.Ace, Models.Core.Ace>
+    public class AcesController : CoreControllerBase<Api.Core.Ace, Models.Core.Ace, object>
     {
         protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces.Expand("Acl"); } }
         
         #region Ace
 
         // GET: Aces/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

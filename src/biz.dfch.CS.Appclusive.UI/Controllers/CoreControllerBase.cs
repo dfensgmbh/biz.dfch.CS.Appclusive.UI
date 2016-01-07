@@ -25,7 +25,13 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class CoreControllerBase<T, M> : GenericControllerBase<T, M>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T">API-Type</typeparam>
+    /// <typeparam name="M">(View-) Model-Type</typeparam>
+    /// <typeparam name="I">ModelItem-Type (if no items: object)</typeparam>
+    public abstract class CoreControllerBase<T, M, I> : GenericControllerBase<T, M, I>
     {
 
         /// <summary>
@@ -41,11 +47,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     coreRepository.IgnoreMissingProperties = true;
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                    coreRepository.MergeOption = MergeOption.PreserveChanges;
 
-                    LoginData data = Session["LoginData"] as LoginData;
-                    if (null != data)
+                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
+                    if (null != apiCreds)
                     {
-                        coreRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                        coreRepository.Credentials = apiCreds;
                     }
                     else
                     {
@@ -72,18 +79,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         
-        protected void AddEntityKindSeletionToViewBag()
-        {
-            try
-            {
-                var entityKinds = CoreRepository.EntityKinds.ToList();
-                ViewBag.EntityKindSelection = new SelectList(entityKinds, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
+        //protected void AddEntityKindSeletionToViewBag()
+        //{
+        //    try
+        //    {
+        //        var entityKinds = CoreRepository.EntityKinds.ToList();
+        //        ViewBag.EntityKindSelection = new SelectList(entityKinds, "Id", "Name");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+        //    }
+        //}
 
         protected void AddManagementCredentialSelectionToViewBag()
         {
@@ -101,12 +108,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant)
+        protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant, bool includeEmpty = false)
         {
             try
             {
                 List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
-                tenants.Add(new Api.Core.Tenant());
+                if (includeEmpty)
+                {
+                    tenants.Add(new Api.Core.Tenant());
+                }
                 if (null == currentTenant || currentTenant.ParentId == currentTenant.Id)// special seed entry in DB
                 {
                     tenants.AddRange(CoreRepository.Tenants);

@@ -24,14 +24,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class EntityKindsController : CoreControllerBase<Api.Core.EntityKind, Models.Core.EntityKind>
+    public class EntityKindsController : CoreControllerBase<Api.Core.EntityKind, Models.Core.EntityKind, object>
     {
         protected override DataServiceQuery<Api.Core.EntityKind> BaseQuery { get { return CoreRepository.EntityKinds; } }
 
         #region EntityKind
 
         // GET: EntityKinds/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

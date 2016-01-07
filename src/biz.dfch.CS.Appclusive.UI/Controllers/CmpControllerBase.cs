@@ -24,7 +24,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class CmpControllerBase<T, M> : GenericControllerBase<T, M>
+    public abstract class CmpControllerBase<T, M> : GenericControllerBase<T, M, object>
     {
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
@@ -39,11 +39,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     cmpRepository.IgnoreMissingProperties = true;
                     cmpRepository.Format.UseJson();
                     cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+                    cmpRepository.MergeOption = MergeOption.PreserveChanges;
 
-                    LoginData data = Session["LoginData"] as LoginData;
-                    if (null != data)
+                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
+                    if (null != apiCreds)
                     {
-                        cmpRepository.Credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                        cmpRepository.Credentials = apiCreds;
                     }
                     else
                     {

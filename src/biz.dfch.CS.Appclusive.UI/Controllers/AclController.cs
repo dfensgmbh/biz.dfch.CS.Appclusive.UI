@@ -8,14 +8,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl>
+    public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl, object>
     {
         protected override DataServiceQuery<Api.Core.Acl> BaseQuery { get { return CoreRepository.Acls; } }
         
         #region Acl
 
         // GET: Acls/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
@@ -35,7 +35,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Acls/Create
         public ActionResult Create()
         {
-            this.AddEntityKindSeletionToViewBag();
             return View(new Models.Core.Acl());
         }
 
@@ -45,7 +44,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(acl);
@@ -72,7 +70,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
             }
@@ -89,7 +86,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddEntityKindSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(acl);
@@ -108,6 +104,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+
+                    apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                     return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
                 }
             }

@@ -8,14 +8,14 @@ using System.Data.Services.Client;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public class PermissionsController : CoreControllerBase<Api.Core.Permission, Models.Core.Permission>
+    public class PermissionsController : CoreControllerBase<Api.Core.Permission, Models.Core.Permission, object>
     {
         protected override DataServiceQuery<Api.Core.Permission> BaseQuery { get { return CoreRepository.Permissions; } }
 
         #region Permission
 
         // GET: Permissions/Details/5
-        public ActionResult Details(long id, int rId = 0, string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;

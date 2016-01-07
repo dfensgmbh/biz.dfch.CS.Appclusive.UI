@@ -1,19 +1,59 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.AjaxPagingTargetId = "catalogItemListAjax";
+    ViewBag.AjaxPagingAction = "ItemIndex";
 
+    RouteValueDictionary rd = new RouteValueDictionary();
+    rd.Add("catalogueId", ViewBag.ParentId);
+    rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
+    rd.Add("pageNr", 1);
+    ViewBag.AjaxRouteValueDictionary = rd;
+}
 <div id="catalogItemListAjax">
     @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
     @Html.Partial("Messages")
 
-    @Html.Partial("ItemList", Model)
-    
-    @{
-        ViewBag.AjaxPagingTargetId = "catalogItemListAjax";
-        ViewBag.AjaxPagingAction = "ItemIndex";
-        RouteValueDictionary rd = new RouteValueDictionary();
-        rd.Add("catalogueId", ViewBag.CatalogueId);
-        rd.Add("pageNr", 1);
-        ViewBag.AjaxRouteValueDictionary = rd; 
-    }
-    @Html.Partial("AjaxPaging", Model)
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
 
+        @foreach (var catalogItem in Model)
+        {
+            <tr>
+                <td onclick="window.location = '@Url.Action("ItemDetails", new { id = catalogItem.Id })'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => catalogItem.Name)
+                </td>
+                <td onclick="window.location = '@Url.Action("ItemDetails", new { id = catalogItem.Id })'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => catalogItem.Description)
+                </td>
+                <td class="ap-btn text-nowrap">
+                    @Ajax.ActionLink(GeneralResources.AddToCart, "AddToCart", new { Id = catalogItem.Id },
+                         new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
+                            new { @class = "btn btn-success" })
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = catalogItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+
+                    @{
+        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+                    }
+
+                    <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { id = catalogItem.ProductId, rId = id, rAction = action, rController = controller }) "><i class="fa fa-cog"></i> Product @GeneralResources.DetailsLink</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = catalogItem.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
+                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = catalogItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.Partial("AjaxPaging", Model)
 </div>
