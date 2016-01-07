@@ -127,7 +127,7 @@
     <value>This permission is already added to this role.</value>
   </data>
   <data name="permissionNotExist" xml:space="preserve">
-    <value>Permission does not exist in role.</value>
+    <value>Permission does not exist.</value>
   </data>
   <data name="permissionRemoved" xml:space="preserve">
     <value>Permission removed from role.</value>
@@ -140,5 +140,17 @@
   </data>
   <data name="requiredVersion" xml:space="preserve">
     <value>Version is required</value>
+  </data>
+  <data name="userAdded" xml:space="preserve">
+    <value>User added to role.</value>
+  </data>
+  <data name="userAlreadyAdded" xml:space="preserve">
+    <value>This user is already added to role.</value>
+  </data>
+  <data name="userNotExist" xml:space="preserve">
+    <value>User does not exist</value>
+  </data>
+  <data name="userRemoved" xml:space="preserve">
+    <value>User removed from role.</value>
   </data>
 </root>

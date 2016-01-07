@@ -31,7 +31,7 @@
               {
                   source: '@Url.Action("ItemSearch", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
                   select: function (event, ui) {
-                      $('#itemSearchTerm').val(ui.item.value);
+                      $('#itemSearchTerm').val(ui.item.key);
                       $("#itemSearchForm").submit();
                   }
               });

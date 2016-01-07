@@ -44,6 +44,7 @@
         <ul class="list-group">
             @Html.SecuredListItem2(typeof(Ace), "fa fa-umbrella", Html.ActionLink(@GeneralResources.Ace, "Index", "Aces"))
             @Html.SecuredListItem2(typeof(Acl), "fa fa-briefcase", Html.ActionLink(@GeneralResources.Acl, "Index", "Acls"))
+            @Html.SecuredListItem2(typeof(User), "fa fa-user", Html.ActionLink(@GeneralResources.User, "Index", "Users"))
             @Html.SecuredListItem2(typeof(Role), "fa fa-user-secret", Html.ActionLink(@GeneralResources.Role, "Index", "Roles"))
             @Html.SecuredListItem2(typeof(Permission), "fa fa-terminal", Html.ActionLink(@GeneralResources.Permission, "Index", "Permissions"))
         </ul>
@@ -53,7 +54,6 @@
         <ul class="list-group">
             @Html.SecuredListItem2(typeof(Tenant), "fa fa-university", Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants"))
             @Html.SecuredListItem2(typeof(Customer), "fa fa-child", Html.ActionLink(@GeneralResources.Customer, "Index", "Customers"))
-            @Html.SecuredListItem2(typeof(User), "fa fa-user", Html.ActionLink(@GeneralResources.User, "Index", "Users"))
             @Html.SecuredListItem2(typeof(CimiTarget), "fa fa-map-signs", Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets"))
             @Html.SecuredListItem2(typeof(ContractMapping), "fa fa-pencil-square-o", Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings"))
             @Html.SecuredListItem2(typeof(Cart), "fa fa-check-square", Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null))

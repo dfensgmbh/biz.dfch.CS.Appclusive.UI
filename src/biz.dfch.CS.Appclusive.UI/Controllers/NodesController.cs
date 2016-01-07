@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 // load Node and Children
-                var item = CoreRepository.Nodes.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Nodes.Expand("Parent").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
                 if (null != modelItem)
                 {

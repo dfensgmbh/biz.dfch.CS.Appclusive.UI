@@ -49,7 +49,6 @@
                             @Html.SecuredListItem(typeof(ManagementCredential), Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials"))
                             @Html.SecuredListItem(typeof(CostCentre), Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres"))
                             @Html.SecuredListItem(typeof(Tenant), Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants"))
-                            @Html.SecuredListItem(typeof(User), Html.ActionLink(@GeneralResources.User, "Index", "Users"))
                             @Html.SecuredListItem(typeof(Customer), Html.ActionLink(@GeneralResources.Customer, "Index", "Customers"))
                             @Html.SecuredListItem(typeof(ContractMapping), Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings"))
                             @Html.SecuredListItem(typeof(CimiTarget), Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets"))
@@ -71,6 +70,7 @@
                         <ul class="dropdown-menu" role="menu">
                             @Html.SecuredListItem(typeof(Permission), Html.ActionLink(@GeneralResources.Permission, "Index", "Permissions"))
                             @Html.SecuredListItem(typeof(Roles), Html.ActionLink(@GeneralResources.Role, "Index", "Roles"))
+                            @Html.SecuredListItem(typeof(User), Html.ActionLink(@GeneralResources.User, "Index", "Users"))
                             @Html.SecuredListItem(typeof(Ace), Html.ActionLink(@GeneralResources.Ace, "Index", "Aces"))
                             @Html.SecuredListItem(typeof(Acl), Html.ActionLink(@GeneralResources.Acl, "Index", "Acls"))
                         </ul>

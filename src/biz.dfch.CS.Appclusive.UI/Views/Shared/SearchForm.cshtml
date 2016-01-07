@@ -25,7 +25,7 @@
               {
                   source: '@Url.Action("Search")',
                   select: function (event, ui) {
-                      $('#searchTerm').val(ui.item.value);
+                      $('#searchTerm').val(ui.item.key);
                       $("#searchForm").submit();
                   }
               });

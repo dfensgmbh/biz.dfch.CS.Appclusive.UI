@@ -281,6 +281,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Contract.Requires(null != catalogueItem);
+                this.AddProductSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(catalogueItem);
@@ -298,7 +299,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddProductSeletionToViewBag();
                 var apiCatalog = CoreRepository.Catalogues.Where(c => c.Id == catalogueItem.CatalogueId).FirstOrDefault();
                 catalogueItem.Catalogue = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiCatalog);
                 return View(catalogueItem);
