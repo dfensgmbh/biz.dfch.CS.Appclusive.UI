@@ -138,34 +138,41 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region Permissions
 
-        public PartialViewResult RemovePermission(long roleId, int userId)
+        public PartialViewResult RemovePermission(long roleId, int permissionId)
         {
             Contract.Requires(roleId > 0);
-            Contract.Requires(userId > 0);
+            Contract.Requires(permissionId > 0);
             ViewBag.AjaxCall = true;
             ViewBag.Id = roleId;
+            Api.Core.Role role = null;
             try
             {
-                var role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
+                role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
                 Contract.Assert(null != role);
                 Contract.Assert(null != role.Permissions);
-                Contract.Assert(role.Permissions.Where(p => p.Id == userId).Count() == 1, ErrorResources.userNotExist);
+                Contract.Assert(role.Permissions.Where(p => p.Id == permissionId).Count() == 1, ErrorResources.userNotExist);
 
-                var user = CoreRepository.Permissions.Where(c => c.Id == userId).FirstOrDefault();
+                var user = CoreRepository.Permissions.Where(c => c.Id == permissionId).FirstOrDefault();
                 Contract.Assert(null != user);
 
-                role.Permissions.Remove(user); // because auf caching bug in ServiceContext
+                role.Permissions.Remove(user);
                 this.CoreRepository.DeleteLink(role, "Permissions", user);
                 this.CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, ErrorResources.userRemoved));
 
-                // because auf caching bug in ServiceContext role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
                 return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(role.Permissions));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(new List<Models.Core.Permission>()));
+                if (role != null)
+                {
+                    return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(role.Permissions));
+                }
+                else
+                {
+                    return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.User>>(new List<Models.Core.Permission>()));
+                }
             }
         }
 
@@ -175,9 +182,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Contract.Requires(permissionId > 0);
             ViewBag.AjaxCall = true;
             ViewBag.Id = roleId;
+            Api.Core.Role role = null;
             try
             {
-                var role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
+                role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
                 Contract.Assert(null != role);
                 Contract.Assert(null != role.Permissions);
                 Contract.Assert(role.Permissions.Where(p => p.Id == permissionId).Count() == 0, ErrorResources.permissionAlreadyAdded);
@@ -185,37 +193,38 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var permission = CoreRepository.Permissions.Where(c => c.Id == permissionId).FirstOrDefault();
                 Contract.Assert(null != permission);
 
-                role.Permissions.Add(permission); // because auf caching bug in ServiceContext
+                role.Permissions.Add(permission); 
                 this.CoreRepository.AddLink(role, "Permissions", permission);
                 this.CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, ErrorResources.permissionAdded));
 
-                // because auf caching bug in ServiceContext role = CoreRepository.Roles.Expand("Permissions").Where(c => c.Id == roleId).FirstOrDefault();
                 System.Web.HttpContext.Current.Cache.Remove("role_" + roleId);
                 return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(role.Permissions));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(new List<Models.Core.Permission>()));
+                if (role != null)
+                {
+                    return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.Permission>>(role.Permissions));
+                }
+                else
+                {
+                    return PartialView("PermissionList", AutoMapper.Mapper.Map<List<Models.Core.User>>(new List<Models.Core.Permission>()));
+                }
             }
         }
 
         public ActionResult PermissionSearch(long roleId, string term)
         {
-            string cacheKeyPermissions = "permission_options";
+            string cacheKeyPermissions = "permission_options_role_" + roleId;
             List<AjaxOption> options = (List<AjaxOption>)System.Web.HttpContext.Current.Cache.Get(cacheKeyPermissions);
             if (null == options)
             {
                 options = new List<AjaxOption>();
 
                 string cacheKeyRole = "role_" + roleId;
-                Api.Core.Role role = (Api.Core.Role)System.Web.HttpContext.Current.Cache.Get(cacheKeyPermissions);
-                if (null == role)
-                {
-                    role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
-                    System.Web.HttpContext.Current.Cache.Add(cacheKeyRole, role, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
-                }
+                Api.Core.Role role = GetCachedRole(roleId);
                 foreach (var perm in CoreRepository.Permissions)
                 {
                     if (role == null || role.Permissions == null || role.Permissions.Count == 0 
@@ -226,7 +235,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 System.Web.HttpContext.Current.Cache.Add(cacheKeyPermissions, options, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
-            return this.Json(options.Where(t => t.value.StartsWith(term, StringComparison.InvariantCultureIgnoreCase)), JsonRequestBehavior.AllowGet);
+            return this.Json(options.Where(t => t.value.ToLower().Contains(term.ToLower())), JsonRequestBehavior.AllowGet);
 
         }
         #endregion
@@ -239,9 +248,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Contract.Requires(userId > 0);
             ViewBag.AjaxCall = true;
             ViewBag.Id = roleId;
+            Api.Core.Role role = null;
             try
             {
-                var role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
+                role = CoreRepository.Roles.Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
                 Contract.Assert(null != role);
                 Contract.Assert(null != role.Users);
                 Contract.Assert(role.Users.Where(p => p.Id == userId).Count() == 1, ErrorResources.userNotExist);
@@ -249,18 +259,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 var user = CoreRepository.Users.Where(c => c.Id == userId).FirstOrDefault();
                 Contract.Assert(null != user);
 
-                role.Users.Remove(user); // because auf caching bug in ServiceContext
+                role.Users.Remove(user); 
                 this.CoreRepository.DeleteLink(role, "Users", user);
                 this.CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, ErrorResources.userRemoved));
 
-                // because auf caching bug in ServiceContext role = CoreRepository.Roles.Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
                 return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(role.Users));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(new List<Models.Core.User>()));
+                if (role != null)
+                {
+                    return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(role.Users));
+                }
+                else
+                {
+                    return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(new List<Models.Core.User>()));
+                }
             }
         }
 
@@ -270,9 +286,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Contract.Requires(userId > 0);
             ViewBag.AjaxCall = true;
             ViewBag.Id = roleId;
+
+            Api.Core.Role role = null;
             try
             {
-                var role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
+                role = CoreRepository.Roles.Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
                 Contract.Assert(null != role);
                 Contract.Assert(null != role.Users);
                 Contract.Assert(role.Users.Where(p => p.Id == userId).Count() == 0, ErrorResources.userAlreadyAdded);
@@ -285,46 +303,58 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 this.CoreRepository.SaveChanges();
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, ErrorResources.userAdded));
 
-                // because auf caching bug in ServiceContext role = CoreRepository.Roles.Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
                 System.Web.HttpContext.Current.Cache.Remove("role_" + roleId);
                 return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(role.Users));
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(new List<Models.Core.User>()));
+                if (role != null)
+                {
+                    return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(role.Users));
+                }
+                else
+                {
+                    return PartialView("UserList", AutoMapper.Mapper.Map<List<Models.Core.User>>(new List<Models.Core.User>()));
+                }
             }
         }
 
         public ActionResult UserSearch(long roleId, string term)
         {
-            string cacheKeyUsers = "user_options";
+            string cacheKeyUsers = "user_options_role_" + roleId;
             List<AjaxOption> options = (List<AjaxOption>)System.Web.HttpContext.Current.Cache.Get(cacheKeyUsers);
             if (null == options)
             {
                 options = new List<AjaxOption>();
-
-                string cacheKeyRole = "role_" + roleId;
-                Api.Core.Role role = (Api.Core.Role)System.Web.HttpContext.Current.Cache.Get(cacheKeyUsers);
-                if (null == role)
-                {
-                    role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
-                    System.Web.HttpContext.Current.Cache.Add(cacheKeyRole, role, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
-                }
-                foreach (var perm in CoreRepository.Users)
+                Api.Core.Role role = GetCachedRole(roleId);
+                foreach (var user in CoreRepository.Users)
                 {
                     if (role == null || role.Users == null || role.Users.Count == 0
-                        || role.Users.Where(p => p.Id == perm.Id).Count() == 0)
+                        || role.Users.Where(p => p.Id == user.Id).Count() == 0)
                     {
-                        options.Add(new AjaxOption(perm.Id, perm.Name));
+                        options.Add(new AjaxOption(user.Id, user.Name));
                     }
                 }
                 System.Web.HttpContext.Current.Cache.Add(cacheKeyUsers, options, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
-            return this.Json(options.Where(t => t.value.StartsWith(term, StringComparison.InvariantCultureIgnoreCase)), JsonRequestBehavior.AllowGet);
+            return this.Json(options.Where(t => t.value.ToLower().Contains(term.ToLower())), JsonRequestBehavior.AllowGet);
 
         }
 
         #endregion
+
+        private Api.Core.Role GetCachedRole(long roleId)
+        {
+            string cacheKeyRole = "role_" + roleId;
+            Api.Core.Role role = (Api.Core.Role)System.Web.HttpContext.Current.Cache.Get(cacheKeyRole);
+            if (null == role)
+            {
+                role = CoreRepository.Roles.Expand("Permissions").Expand("Users").Where(c => c.Id == roleId).FirstOrDefault();
+                System.Web.HttpContext.Current.Cache.Add(cacheKeyRole, role, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+            }
+            return role;
+        }
+
     }
 }

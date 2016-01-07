@@ -520,6 +520,8 @@
     <Content Include="Views\Carts\ItemIndex.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Job.cshtml" />
+    <Content Include="Views\Roles\EditUserList.cshtml" />
+    <Content Include="Views\Roles\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

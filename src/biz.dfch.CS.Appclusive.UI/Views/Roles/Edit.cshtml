@@ -14,7 +14,8 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
         <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
-        <li><a data-toggle="tab" href="#aclList">@GeneralResources.Aces</a></li>
+        <li><a data-toggle="tab" href="#permissionList">@GeneralResources.Permissions</a></li>
+        <li><a data-toggle="tab" href="#userList">@GeneralResources.Users</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -23,9 +24,13 @@
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
-        <div id="aclList" class="tab-pane fade">
+        <div id="permissionList" class="tab-pane fade">
             @{ ViewBag.Id = Model.Id; }
             @Html.Partial("EditPermissionList", Model.Permissions)
+        </div>
+        <div id="userList" class="tab-pane fade">
+            @{ ViewBag.Id = Model.Id; }
+            @Html.Partial("EditUserList", Model.Users)
         </div>
     </div>
 </div>

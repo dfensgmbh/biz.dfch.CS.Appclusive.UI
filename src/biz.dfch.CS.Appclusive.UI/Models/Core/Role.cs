@@ -11,9 +11,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
             this.Permissions = new List<Permission>();
+            this.Users = new List<User>();
         }
 
         public List<Permission> Permissions { get; set; }
+
+        public List<User> Users { get; set; }
 
     }
 }

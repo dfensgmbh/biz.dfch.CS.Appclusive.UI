@@ -25,7 +25,7 @@
                     @Html.DisplayFor(modelItem => item)
                 </td>
                 <td class="ap-btn text-nowrap">                 
-                    @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-remove", "RemovePermission", new { roleId = ViewBag.Id,  permissionId = item.Id }, ajaxRemoveOptions, null)
+                    @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-remove", "RemovePermission", new { roleId = ViewBag.Id, permissionId = item.Id }, ajaxRemoveOptions, GeneralResources.Delete, new { onclick = "return confirm('" + GeneralResources.ConfirmDelete + "')" })
                 </td>
             </tr>
         }
