@@ -52,6 +52,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "HelpText", ResourceType = typeof(GeneralResources))]
         public string HelpText { get; set; }
 
+        [Display(Name = "ActionText", ResourceType = typeof(GeneralResources))] 
         public string ActionText
         {
             get
@@ -69,6 +70,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         /// <summary>
         /// set through call of ResolveOrderId()
         /// </summary>
+        [Display(Name = "OrderId", ResourceType = typeof(GeneralResources))] 
         public int OrderId { get; private set; }
         
         /// <summary>

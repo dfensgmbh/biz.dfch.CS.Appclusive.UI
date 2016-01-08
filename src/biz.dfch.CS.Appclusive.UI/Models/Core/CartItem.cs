@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -28,16 +30,22 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             AppcusiveEntityBaseHelper.InitEntity(this);
         }
 
+        [Display(Name = "Cart", ResourceType = typeof(GeneralResources))]
         public Cart Cart { get; set; }
 
+        [Display(Name = "CartId", ResourceType = typeof(GeneralResources))]
         public long CartId { get; set; }
 
+        [Display(Name = "CatalogueItem", ResourceType = typeof(GeneralResources))]
         public CatalogueItem CatalogueItem { get; set; }
 
+        [Display(Name = "CatalogueItemId", ResourceType = typeof(GeneralResources))]
         public long CatalogueItemId { get; set; }
 
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
 
+        [Display(Name = "Quantity", ResourceType = typeof(GeneralResources))]
         public int Quantity { get; set; }
 
     }

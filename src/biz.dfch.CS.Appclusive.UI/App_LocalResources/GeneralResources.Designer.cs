@@ -97,6 +97,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acl id.
+        /// </summary>
+        public static string AclId {
+            get {
+                return ResourceManager.GetString("AclId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ACLs.
         /// </summary>
         public static string Acls {
@@ -106,11 +115,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string Action {
+            get {
+                return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action text.
+        /// </summary>
+        public static string ActionText {
+            get {
+                return ResourceManager.GetString("ActionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
             }
         }
         
@@ -223,11 +259,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cart id.
+        /// </summary>
+        public static string CartId {
+            get {
+                return ResourceManager.GetString("CartId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cart item.
         /// </summary>
         public static string CartItem {
             get {
                 return ResourceManager.GetString("CartItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cart items.
+        /// </summary>
+        public static string CartItems {
+            get {
+                return ResourceManager.GetString("CartItems", resourceCulture);
             }
         }
         
@@ -241,11 +295,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Catalogue id.
+        /// </summary>
+        public static string CatalogueId {
+            get {
+                return ResourceManager.GetString("CatalogueId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Catalogue item.
         /// </summary>
         public static string CatalogueItem {
             get {
                 return ResourceManager.GetString("CatalogueItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catalogue item id.
+        /// </summary>
+        public static string CatalogueItemId {
+            get {
+                return ResourceManager.GetString("CatalogueItemId", resourceCulture);
             }
         }
         
@@ -304,11 +376,56 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cimi id.
+        /// </summary>
+        public static string CimiId {
+            get {
+                return ResourceManager.GetString("CimiId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cimi target.
         /// </summary>
         public static string CimiTarget {
             get {
                 return ResourceManager.GetString("CimiTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cimi type.
+        /// </summary>
+        public static string CimiType {
+            get {
+                return ResourceManager.GetString("CimiType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to code.
+        /// </summary>
+        public static string code {
+            get {
+                return ResourceManager.GetString("code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Condition.
+        /// </summary>
+        public static string Condition {
+            get {
+                return ResourceManager.GetString("Condition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Condition parameters.
+        /// </summary>
+        public static string ConditionParameters {
+            get {
+                return ResourceManager.GetString("ConditionParameters", resourceCulture);
             }
         }
         
@@ -336,6 +453,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ConfirmRemove {
             get {
                 return ResourceManager.GetString("ConfirmRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
@@ -385,6 +511,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cost centre id.
+        /// </summary>
+        public static string CostCentreId {
+            get {
+                return ResourceManager.GetString("CostCentreId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Create {
@@ -394,11 +529,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        public static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created by.
         /// </summary>
         public static string CreatedBy {
             get {
                 return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created by id.
+        /// </summary>
+        public static string CreatedById {
+            get {
+                return ResourceManager.GetString("CreatedById", resourceCulture);
             }
         }
         
@@ -421,11 +574,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current.
+        /// </summary>
+        public static string Current {
+            get {
+                return ResourceManager.GetString("Current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer.
         /// </summary>
         public static string Customer {
             get {
                 return ResourceManager.GetString("Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer id.
+        /// </summary>
+        public static string CustomerId {
+            get {
+                return ResourceManager.GetString("CustomerId", resourceCulture);
             }
         }
         
@@ -448,6 +619,33 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description en.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        public static string Destination {
+            get {
+                return ResourceManager.GetString("Destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination id.
+        /// </summary>
+        public static string DestinationId {
+            get {
+                return ResourceManager.GetString("DestinationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -466,11 +664,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Domain.
+        /// </summary>
+        public static string Domain {
+            get {
+                return ResourceManager.GetString("Domain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string EditLink {
             get {
                 return ResourceManager.GetString("EditLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted password.
+        /// </summary>
+        public static string EncryptedPassword {
+            get {
+                return ResourceManager.GetString("EncryptedPassword", resourceCulture);
             }
         }
         
@@ -493,11 +709,56 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End time.
+        /// </summary>
+        public static string EndTime {
+            get {
+                return ResourceManager.GetString("EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity id.
+        /// </summary>
+        public static string EntityId {
+            get {
+                return ResourceManager.GetString("EntityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity kind.
         /// </summary>
         public static string EntityKind {
             get {
                 return ResourceManager.GetString("EntityKind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity kind id.
+        /// </summary>
+        public static string EntityKindId {
+            get {
+                return ResourceManager.GetString("EntityKindId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity set.
+        /// </summary>
+        public static string EntitySet {
+            get {
+                return ResourceManager.GetString("EntitySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity state.
+        /// </summary>
+        public static string EntityState {
+            get {
+                return ResourceManager.GetString("EntityState", resourceCulture);
             }
         }
         
@@ -511,11 +772,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expires at.
         /// </summary>
         public static string ExpiresAt {
             get {
                 return ResourceManager.GetString("ExpiresAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External id.
+        /// </summary>
+        public static string ExternalId {
+            get {
+                return ResourceManager.GetString("ExternalId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External type.
+        /// </summary>
+        public static string ExternalType {
+            get {
+                return ResourceManager.GetString("ExternalType", resourceCulture);
             }
         }
         
@@ -646,6 +934,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has more.
+        /// </summary>
+        public static string HasMore {
+            get {
+                return ResourceManager.GetString("HasMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help Text.
         /// </summary>
         public static string HelpText {
@@ -696,6 +993,69 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id str.
+        /// </summary>
+        public static string IdStr {
+            get {
+                return ResourceManager.GetString("IdStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming assocs.
+        /// </summary>
+        public static string IncomingAssocs {
+            get {
+                return ResourceManager.GetString("IncomingAssocs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to innererror.
+        /// </summary>
+        public static string innererror {
+            get {
+                return ResourceManager.GetString("innererror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to internalexception.
+        /// </summary>
+        public static string internalexception {
+            get {
+                return ResourceManager.GetString("internalexception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is primary.
+        /// </summary>
+        public static string IsPrimary {
+            get {
+                return ResourceManager.GetString("IsPrimary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item count.
+        /// </summary>
+        public static string ItemCount {
+            get {
+                return ResourceManager.GetString("ItemCount", resourceCulture);
             }
         }
         
@@ -817,11 +1177,47 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to key.
+        /// </summary>
+        public static string key {
+            get {
+                return ResourceManager.GetString("key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string KeyDisplay {
+            get {
+                return ResourceManager.GetString("KeyDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration (KNV).
         /// </summary>
         public static string KeyNameValue {
             get {
                 return ResourceManager.GetString("KeyNameValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lang.
+        /// </summary>
+        public static string lang {
+            get {
+                return ResourceManager.GetString("lang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
             }
         }
         
@@ -862,11 +1258,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail.
+        /// </summary>
+        public static string Mail {
+            get {
+                return ResourceManager.GetString("Mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management credential.
         /// </summary>
         public static string ManagementCredential {
             get {
                 return ResourceManager.GetString("ManagementCredential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Management credential id.
+        /// </summary>
+        public static string ManagementCredentialId {
+            get {
+                return ResourceManager.GetString("ManagementCredentialId", resourceCulture);
             }
         }
         
@@ -898,11 +1312,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified.
+        /// </summary>
+        public static string Modified {
+            get {
+                return ResourceManager.GetString("Modified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modified by.
         /// </summary>
         public static string ModifiedBy {
             get {
                 return ResourceManager.GetString("ModifiedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified by id.
+        /// </summary>
+        public static string ModifiedById {
+            get {
+                return ResourceManager.GetString("ModifiedById", resourceCulture);
             }
         }
         
@@ -948,6 +1389,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string NotBefore {
             get {
                 return ResourceManager.GetString("NotBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to odata _error.
+        /// </summary>
+        public static string odata_error {
+            get {
+                return ResourceManager.GetString("odata_error", resourceCulture);
             }
         }
         
@@ -1033,6 +1483,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order id class.
+        /// </summary>
+        public static string OrderIdClass {
+            get {
+                return ResourceManager.GetString("OrderIdClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order item.
         /// </summary>
         public static string OrderItem {
@@ -1042,11 +1501,92 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order items.
+        /// </summary>
+        public static string OrderItems {
+            get {
+                return ResourceManager.GetString("OrderItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        public static string Original {
+            get {
+                return ResourceManager.GetString("Original", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outgoing assocs.
+        /// </summary>
+        public static string OutgoingAssocs {
+            get {
+                return ResourceManager.GetString("OutgoingAssocs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page count.
+        /// </summary>
+        public static string PageCount {
+            get {
+                return ResourceManager.GetString("PageCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page nr.
+        /// </summary>
+        public static string PageNr {
+            get {
+                return ResourceManager.GetString("PageNr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        public static string Parameters {
+            get {
+                return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent.
+        /// </summary>
+        public static string Parent {
+            get {
+                return ResourceManager.GetString("Parent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parent id.
         /// </summary>
         public static string ParentId {
             get {
                 return ResourceManager.GetString("ParentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent id str.
+        /// </summary>
+        public static string ParentIdStr {
+            get {
+                return ResourceManager.GetString("ParentIdStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -1078,11 +1618,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        public static string Priority {
+            get {
+                return ResourceManager.GetString("Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product.
         /// </summary>
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product id.
+        /// </summary>
+        public static string ProductId {
+            get {
+                return ResourceManager.GetString("ProductId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        public static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
             }
         }
         
@@ -1105,11 +1672,65 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Requester.
+        /// </summary>
+        public static string Requester {
+            get {
+                return ResourceManager.GetString("Requester", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requester id.
+        /// </summary>
+        public static string RequesterId {
+            get {
+                return ResourceManager.GetString("RequesterId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return url.
+        /// </summary>
+        public static string ReturnUrl {
+            get {
+                return ResourceManager.GetString("ReturnUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string Role {
             get {
                 return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Route prefix.
+        /// </summary>
+        public static string RoutePrefix {
+            get {
+                return ResourceManager.GetString("RoutePrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Route template.
+        /// </summary>
+        public static string RouteTemplate {
+            get {
+                return ResourceManager.GetString("RouteTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Row version.
+        /// </summary>
+        public static string RowVersion {
+            get {
+                return ResourceManager.GetString("RowVersion", resourceCulture);
             }
         }
         
@@ -1150,11 +1771,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        public static string Source {
+            get {
+                return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source id.
+        /// </summary>
+        public static string SourceId {
+            get {
+                return ResourceManager.GetString("SourceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Special operations.
         /// </summary>
         public static string SpecialOperations {
             get {
                 return ResourceManager.GetString("SpecialOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stacktrace.
+        /// </summary>
+        public static string stacktrace {
+            get {
+                return ResourceManager.GetString("stacktrace", resourceCulture);
             }
         }
         
@@ -1195,11 +1843,74 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tid.
+        /// </summary>
+        public static string Tid {
+            get {
+                return ResourceManager.GetString("Tid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token.
+        /// </summary>
+        public static string Token {
+            get {
+                return ResourceManager.GetString("Token", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trustee.
+        /// </summary>
+        public static string Trustee {
+            get {
+                return ResourceManager.GetString("Trustee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type selection.
+        /// </summary>
+        public static string TypeSelection {
+            get {
+                return ResourceManager.GetString("TypeSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.
         /// </summary>
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         
@@ -1222,11 +1933,38 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid from date time.
+        /// </summary>
+        public static string ValidFromDateTime {
+            get {
+                return ResourceManager.GetString("ValidFromDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid until.
         /// </summary>
         public static string ValidUntil {
             get {
                 return ResourceManager.GetString("ValidUntil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to value.
+        /// </summary>
+        public static string value {
+            get {
+                return ResourceManager.GetString("value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string ValueDisplay {
+            get {
+                return ResourceManager.GetString("ValueDisplay", resourceCulture);
             }
         }
         
@@ -1281,6 +2019,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string VdiCartItem {
             get {
                 return ResourceManager.GetString("VdiCartItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vdi name.
+        /// </summary>
+        public static string VdiName {
+            get {
+                return ResourceManager.GetString("VdiName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

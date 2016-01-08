@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -23,15 +25,20 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Diagnostics
 {
     public class AuditTrail : AppcusiveEntityViewModelBase
     {
-        
+
+        [Display(Name = "Current", ResourceType = typeof(GeneralResources))] 
         public string Current { get; set; }
-        
+
+        [Display(Name = "EntityId",ResourceType = typeof(GeneralResources))] 
         public string EntityId { get; set; }
-        
+
+        [Display(Name = "EntityState", ResourceType = typeof(GeneralResources))] 
         public string EntityState { get; set; }
-        
+
+        [Display(Name = "EntityType", ResourceType = typeof(GeneralResources))] 
         public string EntityType { get; set; }
-        
+
+        [Display(Name = "Original", ResourceType = typeof(GeneralResources))] 
         public string Original { get; set; }
         
     }

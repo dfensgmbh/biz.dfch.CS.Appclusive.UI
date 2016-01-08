@@ -34,27 +34,35 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.Children = new List<Node>();
         }
 
+        [Display(Name = "Children", ResourceType = typeof(GeneralResources))]
         public List<Node> Children { get; set; }
-        
+
+        [Display(Name = "IncomingAssocs", ResourceType = typeof(GeneralResources))]
         public List<Assoc> IncomingAssocs { get; set; }
-        
+
+        [Display(Name = "OutgoingAssocs", ResourceType = typeof(GeneralResources))]
         public List<Assoc> OutgoingAssocs { get; set; }
-        
+
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
-        
+
+        [Display(Name = "Parent", ResourceType = typeof(GeneralResources))]
         public Node Parent { get; set; }
 
         [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
-        
+
+        [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
         public string Type { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 
+        [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))]
         public EntityKind EntityKind { get; set; }
 
-        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        [Display(Name = "Job", ResourceType = typeof(GeneralResources))]
         public Job Job { get; set; }
 
         /// <summary>

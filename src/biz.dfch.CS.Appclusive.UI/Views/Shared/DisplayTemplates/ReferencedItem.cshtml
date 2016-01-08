@@ -3,15 +3,32 @@
 
 @if (Model != null)
 {
-    if (Model.EntityKind != null && Model.EntityKind.Name == biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.NODE_ENTITYKIND_NAME)
+    if (Model.EntityKind != null && !string.IsNullOrEmpty(Model.RefId))
     {
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
         string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-        @Html.ActionLink(Model.ReferencedItemId, "Details", "Nodes", new { id = Model.ReferencedItemId, rId = id, rAction = action, rController = controller }, null)
+        switch (Model.EntityKind.Version)
+        {
+            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Approval:
+                @Html.ActionLink(Model.RefId, "Details", "Approval", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
+                break;
+            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Job:
+                @Html.ActionLink(Model.RefId, "Details", "Jobs", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
+                break;
+            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Node:
+                @Html.ActionLink(Model.RefId, "Details", "Nodes", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
+                break;
+            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Order:
+                @Html.ActionLink(Model.RefId, "Details", "Orders", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
+                break;
+            default:
+                @Html.DisplayFor(model => model.RefId)
+                break;
+        }
     }
     else
     {
-        @Html.DisplayFor(model => model.Id)
+        @Html.DisplayFor(model => model.RefId)
     }
 }

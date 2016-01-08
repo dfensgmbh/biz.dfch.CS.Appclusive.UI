@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -29,6 +31,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.CartItems = new List<CartItem>();
         }
 
+        [Display(Name = "CartItems", ResourceType = typeof(GeneralResources))]
         public List<CartItem> CartItems { get; set; }
 
     }
