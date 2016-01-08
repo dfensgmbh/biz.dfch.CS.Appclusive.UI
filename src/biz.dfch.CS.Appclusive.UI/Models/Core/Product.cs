@@ -33,14 +33,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.CatalogueItems = new List<CatalogueItem>();
         }
 
+        [Display(Name = "CatalogueItems", ResourceType = typeof(GeneralResources))]
         public List<CatalogueItem> CatalogueItems { get; set; }
         
         [Display(Name = "EndOfLife", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset EndOfLife { get; set; }
-                
+
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
-        
+
         [Required]
+        [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
         public string Type { get; set; }
 
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
@@ -65,8 +68,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public DateTimeOffset ValidUntil { get; set; }
 
         [Required]
+        [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
-        
+
+        [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))]
         public EntityKind EntityKind { get; set; }
         
     }

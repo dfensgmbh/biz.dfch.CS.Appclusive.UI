@@ -12,9 +12,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
         public const string ACTION_NAME = "SetCreatedBy";
 
         [Required]
+        [Display(Name = "EntitySet", ResourceType = typeof(GeneralResources))]
         public string EntitySet { get; set; }
 
         [Required]
+        [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
         public string EntityId { get; set; }
 
         [Required]

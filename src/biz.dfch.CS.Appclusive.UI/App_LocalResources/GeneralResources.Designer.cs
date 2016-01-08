@@ -1186,6 +1186,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        public static string KeyDisplay {
+            get {
+                return ResourceManager.GetString("KeyDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration (KNV).
         /// </summary>
         public static string KeyNameValue {
@@ -1947,6 +1956,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string value {
             get {
                 return ResourceManager.GetString("value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string ValueDisplay {
+            get {
+                return ResourceManager.GetString("ValueDisplay", resourceCulture);
             }
         }
         

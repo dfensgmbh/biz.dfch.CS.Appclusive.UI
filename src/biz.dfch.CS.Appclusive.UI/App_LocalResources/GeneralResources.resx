@@ -771,4 +771,10 @@
   <data name="EntitySet" xml:space="preserve">
     <value>Entity set</value>
   </data>
+  <data name="KeyDisplay" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="ValueDisplay" xml:space="preserve">
+    <value>Value</value>
+  </data>
 </root>

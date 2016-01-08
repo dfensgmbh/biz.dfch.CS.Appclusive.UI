@@ -32,19 +32,25 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.OrderItems = new List<OrderItem>();       
         }
 
+        [Display(Name = "CostCentre", ResourceType = typeof(GeneralResources))]
         public CostCentre CostCentre { get; set; }
 
+        [Display(Name = "CostCentreId", ResourceType = typeof(GeneralResources))]
         public long? CostCentreId { get; set; }
 
+        [Display(Name = "OrderItems", ResourceType = typeof(GeneralResources))]
         public List<OrderItem> OrderItems { get; set; }
 
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
 
+        [Display(Name = "RequesterId", ResourceType = typeof(GeneralResources))]
         public long? RequesterId { get; set; }
 
+        [Display(Name = "Requester", ResourceType = typeof(GeneralResources))]
         public User Requester { get; set; }
-        
-        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+
+        [Display(Name = "Job", ResourceType = typeof(GeneralResources))]
         public Job Job { get; set; }
 
 
