@@ -53,14 +53,21 @@ namespace biz.dfch.CS.Appclusive.UI.Models
                 return current;
             }
         }
-        public static bool generalDefaultValue = false; // TODO cwi: FALSE: Everything that has no explizit permission is NOT accessible. 
+        public static bool generalDefaultValue = true; // TODO cwi: FALSE: Everything that has no explizit permission is NOT accessible. 
         private Dictionary<Type, List<string>> permissions = new Dictionary<Type, List<string>>(); 
 
         public PermissionDecisions(string username, string domain)
         {
             if (!string.IsNullOrEmpty(username))
             {
-                // TODO: only users permission load
+                //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;                
+                //List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
+                //    .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
+                //    .ToList();
+
+                //List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
+                //userRoles.ForEach(r => permissions.AddRange(r.Permissions));
+
                 List<Api.Core.Permission> permissions = CoreRepository.Permissions.ToList();
 
                 // Permissions must be loaded here. 
