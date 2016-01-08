@@ -25,18 +25,23 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Diagnostics
 {
     public class Endpoint : AppcusiveEntityViewModelBase
     {
-        
+
+        [Display(Name = "Address", ResourceType = typeof(GeneralResources))] 
         public string Address { get; set; }
-        
+
+        [Display(Name = "Priority", ResourceType = typeof(GeneralResources))] 
         public int Priority { get; set; }
-        
+
+        [Display(Name = "RoutePrefix", ResourceType = typeof(GeneralResources))] 
         public string RoutePrefix { get; set; }
-        
+
+        [Display(Name = "RouteTemplate", ResourceType = typeof(GeneralResources))] 
         public string RouteTemplate { get; set; }
         
         [Display(Name = "ServerRole", ResourceType = typeof(GeneralResources))]
         public string ServerRole { get; set; }
-      
+
+        [Display(Name = "Version", ResourceType = typeof(GeneralResources))] 
         public string Version { get; set; }
     }
 }

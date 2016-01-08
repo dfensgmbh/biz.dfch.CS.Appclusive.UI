@@ -155,7 +155,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             if (PermissionDecisions.Current.CanRead(type))
             {
                 // <li class="list-group-item"><i class="fa fa-book"></i> @Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues")</li>
-                string link = @"<li class=""list-group-item""><i class=""{0}""></i>{1}</li>";
+                string link = @"<li class=""list-group-item""><i class=""{0}""></i> {1}</li>";
                 return new MvcHtmlString(string.Format(link, iconclass, urlAction));
             }
             return MvcHtmlString.Create(string.Empty);

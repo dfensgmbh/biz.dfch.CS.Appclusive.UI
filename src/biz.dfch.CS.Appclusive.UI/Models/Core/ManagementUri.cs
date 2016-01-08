@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -27,13 +29,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
         }
-        
+
+        [Display(Name = "ManagementCredential", ResourceType = typeof(GeneralResources))]
         public ManagementCredential ManagementCredential { get; set; }
-        
+
+        [Display(Name = "ManagementCredentialId", ResourceType = typeof(GeneralResources))]
         public long? ManagementCredentialId { get; set; }
-        
+
+        [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
         public string Type { get; set; }
-        
+
+        [Display(Name = "ValueDisplay", ResourceType = typeof(GeneralResources))]
         public string Value { get; set; }
 
         public string[] TypeSelection

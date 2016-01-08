@@ -11,13 +11,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
     {
         public const string ACTION_NAME = "SetCreatedBy";
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntitySet", ResourceType = typeof(GeneralResources))]
         public string EntitySet { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
         public string EntityId { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))] 
         public long CreatedById { get; set; }
         

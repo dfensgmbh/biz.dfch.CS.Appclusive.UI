@@ -106,6 +106,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} field is required..
+        /// </summary>
+        public static string requiredField {
+            get {
+                return ResourceManager.GetString("requiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name is required.
         /// </summary>
         public static string requiredName {
