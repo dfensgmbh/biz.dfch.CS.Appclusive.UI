@@ -17,7 +17,7 @@
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReferencedItemId)
+            @Html.DisplayNameFor(model => model.RefId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Created)
@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.ReferencedItemId)
+                @Html.DisplayFor(modelItem => item.RefId)
             </td>
             <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Created)
