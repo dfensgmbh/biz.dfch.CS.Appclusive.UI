@@ -30,15 +30,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Cmp
             CatalogueItemId = 0;
         }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CimiId", ResourceType = typeof(GeneralResources))] 
         public string CimiId { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CimiType", ResourceType = typeof(GeneralResources))] 
         public string CimiType { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CatalogueItemId", ResourceType = typeof(GeneralResources))] 
         public long CatalogueItemId { get; set; }
 

@@ -9,26 +9,26 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class ContractMapping : AppcusiveEntityViewModelBase
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ExternalType", ResourceType = typeof(GeneralResources))]
         public string ExternalType { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ExternalId", ResourceType = typeof(GeneralResources))]
         public string ExternalId { get; set; }
 
         [Display(Name = "IsPrimary", ResourceType = typeof(GeneralResources))]
         public bool IsPrimary { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidFrom { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ValidUntil", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidUntil { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CustomerId", ResourceType = typeof(GeneralResources))]
         public long CustomerId { get; set; }
         

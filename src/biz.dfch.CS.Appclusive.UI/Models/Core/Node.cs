@@ -55,7 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
         public string Type { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 

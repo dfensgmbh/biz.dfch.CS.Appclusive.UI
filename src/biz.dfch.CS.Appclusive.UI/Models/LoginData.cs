@@ -9,15 +9,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public class LoginData
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Username", ResourceType = typeof(GeneralResources))]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Password", ResourceType = typeof(GeneralResources))]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Domain", ResourceType = typeof(GeneralResources))]
         public string Domain { get; set; }
 

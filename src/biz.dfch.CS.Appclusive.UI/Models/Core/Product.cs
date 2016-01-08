@@ -42,7 +42,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
         public string Type { get; set; }
 
@@ -67,7 +67,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "ValidUntil", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset ValidUntil { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 

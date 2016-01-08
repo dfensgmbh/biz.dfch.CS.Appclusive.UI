@@ -38,21 +38,21 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         [Display(Name = "RowVersion", ResourceType = typeof(GeneralResources))]
         byte[] RowVersion { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Tid", ResourceType = typeof(GeneralResources))]
         Guid Tid { get; set; }
 
         [Display(Name = "Tenant", ResourceType = typeof(GeneralResources))]
         Tenant Tenant { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CreatedById", ResourceType = typeof(GeneralResources))]
         long CreatedById { get; set; }
 
         [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))]
         User CreatedBy { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ModifiedById", ResourceType = typeof(GeneralResources))]
         long ModifiedById { get; set; }
 

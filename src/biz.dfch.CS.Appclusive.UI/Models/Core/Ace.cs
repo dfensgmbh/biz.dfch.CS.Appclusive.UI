@@ -9,14 +9,14 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Ace : AppcusiveEntityViewModelBase
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [MaxLength(64)]
         [Display(Name = "Trustee", ResourceType = typeof(GeneralResources))] 
         public string Trustee { get; set; }
 
         private AceActionEnum _action;
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [MaxLength(64)]
         [Display(Name = "Action", ResourceType = typeof(GeneralResources))] 
         public string Action

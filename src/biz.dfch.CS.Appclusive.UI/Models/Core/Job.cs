@@ -59,7 +59,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Token", ResourceType = typeof(GeneralResources))]
         public string Token { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 

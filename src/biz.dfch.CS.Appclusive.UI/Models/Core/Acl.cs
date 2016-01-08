@@ -17,7 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Aces", ResourceType = typeof(GeneralResources))] 
         public List<Ace> Aces { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))] 
         public long EntityKindId { get; set; }
 

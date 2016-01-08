@@ -21,7 +21,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Id", ResourceType = typeof(GeneralResources))]
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Id", ResourceType = typeof(GeneralResources))]
         public string IdStr
         {
@@ -39,7 +39,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             }
         }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [StringLength(1024)]
         [Display(Name = "Name", ResourceType = typeof(GeneralResources))]
         public string Name { get; set; }
@@ -53,32 +53,32 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "ExternalType", ResourceType = typeof(GeneralResources))]
         public string ExternalType { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CreatedById", ResourceType = typeof(GeneralResources))]
         public long CreatedById { get; set; }
 
         [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))]
         public User CreatedBy { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ModifiedById", ResourceType = typeof(GeneralResources))]
         public long ModifiedById { get; set; }
 
         [Display(Name = "ModifiedBy", ResourceType = typeof(GeneralResources))]
         public User ModifiedBy { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Created", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset Created { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Modified", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset Modified { get; set; }
 
         [Display(Name = "Parent", ResourceType = typeof(GeneralResources))]
         public Tenant Parent { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public Guid ParentId { get; set; }
 
@@ -101,7 +101,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Children", ResourceType = typeof(GeneralResources))]
         public List<Tenant> Children { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "CustomerId", ResourceType = typeof(GeneralResources))]
         public long CustomerId { get; set; }
 

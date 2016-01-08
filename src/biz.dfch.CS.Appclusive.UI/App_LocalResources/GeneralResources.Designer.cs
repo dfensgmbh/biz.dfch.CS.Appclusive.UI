@@ -619,7 +619,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
+        ///   Looks up a localized string similar to Description en.
         /// </summary>
         public static string Description {
             get {
