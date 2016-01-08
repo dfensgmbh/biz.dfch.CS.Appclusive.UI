@@ -50,7 +50,7 @@
                 <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
-                    @Html.SecuredButton("Edit", Url.Action("Edit", "Aces", new { id = item.Id }))
+                    @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
                     @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
                 }
             </td>

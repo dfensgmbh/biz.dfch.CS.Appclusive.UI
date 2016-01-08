@@ -39,7 +39,7 @@
             </td>
             <td class="ap-btn text-nowrap">
                 <a class="btn btn-default btn-sm disabled" href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.EditLink</a>
-                @Html.SecuredButton("Details", Url.Action("Details", new { id = item.Id }))
+                @Html.SecuredButton("Read", Url.Action("Details", new { id = item.Id }))
                 @Html.SecuredButton("Delete", Url.Action("Delete", new { id = item.Id }))
             </td>
         </tr>

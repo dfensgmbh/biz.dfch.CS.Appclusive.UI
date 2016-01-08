@@ -10,59 +10,48 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
 {
     public static class HtmlHelperSecuredExtensions
     {
-        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string actionName, string urlAction)
+        #region Secured buttons
+
+        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "")
         {
+            string ret = string.Empty;
+            string iclass = string.Empty;
+            string link = @"<a class=""btn {0}"" href=""{1}""><i class=""fa {2} ""></i> {3}</a>";
             Type type = GetItemType(typeof(TModel));
 
-            // ActionName: Create , UrlAction: /Aces/Create
-            // ActionName: Edit , UrlAction: /Aces/Edit/4
-            // ActionName: Details , UrlAction: /Catalogues/Details/4
-            // ActionName: Delete , UrlAction: /Catalogues/Delete/4
-            // ActionName: Approve , UrlAction: /Approvals/Approve/49
-            // ActionName: Decline , UrlAction: /Approvals/Decline/49
-
-
-            // create: a class, href, i class, text
-            // edit: a class, href, i class, text
-            // details: a class, href, i class, text
-            // delete: a class, href, i class, text, a onclick, a title, a data-toggle
-            // item create: a class, href, i class, text
-            // approve: a class, href, i class, text
-            // decline: a class, href, i class, text
-
-            switch (actionName.ToLower())
+            switch (permissionCRUD.ToLower())
             {
-
                 case "create":
-
                     if (PermissionDecisions.Current.CanCreate(type))
                     {
                         // <a class="btn btn-default" href="@Url.Action("Create")"><i class="fa fa-plus"></i> @GeneralResources.CreateNew</a>
-                        string link = @"<a class=""btn btn-default"" href=""{0}""><i class=""fa fa-plus ""></i> {1}</a>";
-                        string s = string.Format(link, urlAction, GeneralResources.CreateNew);
-                        return new MvcHtmlString(s);
-                    }
-
-                    break;
-
-                case "edit":
-
-                    if (PermissionDecisions.Current.CanUpdate(type))
-                    {
-                        // <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-                        string link = @"<a class=""btn btn-default btn-sm"" href=""{0}""><i class=""fa fa-pencil ""></i> {1}</a>";
-                        string s = string.Format(link, urlAction, GeneralResources.EditLink);
-                        return new MvcHtmlString(s);
+                        if (string.IsNullOrEmpty(aclass)) aclass = "btn-default";
+                        if (string.IsNullOrEmpty(iclass)) iclass = "fa-plus";
+                        if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.CreateNew;
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText);
                     }
                     break;
 
-                case "details":
+                case "read":
                     if (PermissionDecisions.Current.CanRead(type))
                     {
                         // <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                        string link = @"<a class=""btn btn-primary btn-sm"" href=""{0}""><i class=""fa fa-cog ""></i> {1}</a>";
-                        string s = string.Format(link, urlAction, GeneralResources.DetailsLink);
-                        return new MvcHtmlString(s);
+                        if (string.IsNullOrEmpty(aclass)) aclass = "btn-primary btn-sm";
+                        if (string.IsNullOrEmpty(iclass)) iclass = "fa-cog";
+                        if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.DetailsLink;
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText);
+
+                    }
+                    break;
+
+                case "update":
+                    if (PermissionDecisions.Current.CanUpdate(type))
+                    {
+                        // <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = item.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+                        if (string.IsNullOrEmpty(aclass)) aclass = "btn-default btn-sm";
+                        if (string.IsNullOrEmpty(iclass)) iclass = "fa-pencil";
+                        if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.EditLink;
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText);
                     }
                     break;
 
@@ -70,73 +59,37 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                     if (PermissionDecisions.Current.CanDelete(type))
                     {
                         // <a class="btn btn-default btn-sm" href="@Url.Action("Delete", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-                        string link = @"<a class=""btn btn-default btn-sm"" href=""{0}"" onclick=""return confirm('{1}')"" title=""{2}"" data-toggle=""tooltip""><i class=""fa fa-trash-o""></i></a>";
+                        link = @"<a class=""btn {0}"" href=""{1}"" onclick=""return confirm('{4}')"" title=""{3}"" data-toggle=""tooltip""><i class=""fa {2} ""></i></a>";
+                        if (string.IsNullOrEmpty(aclass)) aclass = "btn-default btn-sm";
+                        if (string.IsNullOrEmpty(iclass)) iclass = "fa-trash-o";
+                        if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.ConfirmDelete;
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, GeneralResources.Delete);
 
-                        string s = string.Format(link, urlAction, GeneralResources.ConfirmDelete, "Delete"); // TODO cwi: GeneralResources.DeleteLink
-                        return new MvcHtmlString(s);
-                    }
-                    break;
-
-                case "itemcreate":
-
-                    if (PermissionDecisions.Current.CanCreate(type))
-                    {
-                        // <a class="btn btn-default btn-sm" href="@Url.Action("ItemCreate", new { catalogueId = ViewBag.ParentId })"><i class="fa fa-plus "></i> @GeneralResources.CreateNewItem</a>
-                        string link = @"<a class=""btn btn-default btn-sm"" href=""{0}""><i class=""fa fa-plus ""></i> {1}</a>";
-                        string s = string.Format(link, urlAction, GeneralResources.CreateNewItem);
-                        return new MvcHtmlString(s);
-                    }
-                    break;
-
-                case "approve":
-                    if (PermissionDecisions.Current.CanRead(type))
-                    {
-                        // <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
-                        string link = @"<a class=""btn btn-success btn-sm"" href=""{0}""><i class=""fa fa-cog ""></i> {1}</a>";
-                        string s = string.Format(link, urlAction, GeneralResources.Approve);
-                        return new MvcHtmlString(s);
-                    }
-                    break;
-
-                case "decline":
-                    if (PermissionDecisions.Current.CanRead(type))
-                    {
-                        // <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = item.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>
-                        string link = @"<a class=""btn btn-warning btn-sm"" href=""{0}""><i class=""fa fa-cog ""></i> {1}</a>";
-                        string s = string.Format(link, urlAction, GeneralResources.Decline);
-                        return new MvcHtmlString(s);
                     }
                     break;
 
                 default:
                     break;
             }
-            return MvcHtmlString.Create(string.Empty);
+            return new MvcHtmlString(ret);
         }
 
-        // TODO cwi: Specialfall See password
         public static MvcHtmlString SecuredButtonSeePassword<TModel>(this HtmlHelper<TModel> htmlHelper)
         {
             Type type = GetItemType(typeof(TModel));
-
-            // seepassword: a class, onclick, id, text
-
             if (PermissionDecisions.Current.CanDecrypt(type))
             {
                 // <a class="btn btn-primary" onclick="togglePW()" id="pwBtn">@GeneralResources.SeePassword</a>
                 string link = @"<a class=""btn btn-primary"" onclick=""togglePW()"" id=""pwBtn"">{0}</a>";
-
-                string s = string.Format(link, GeneralResources.SeePassword); 
+                string s = string.Format(link, GeneralResources.SeePassword);
                 return new MvcHtmlString(s);
             }
-
             return MvcHtmlString.Create(string.Empty);
         }
 
+        #endregion
 
-
-
-
+        #region SecuredListItems
 
         public static MvcHtmlString SecuredListItem<TModel>(this HtmlHelper<TModel> htmlHelper, Type type, MvcHtmlString urlAction)
         {
@@ -149,7 +102,6 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             return MvcHtmlString.Create(string.Empty);
         }
 
-        // TODO cwi: Merge with SecuredListItem 
         public static MvcHtmlString SecuredListItem2<TModel>(this HtmlHelper<TModel> htmlHelper, Type type, string iconclass, MvcHtmlString urlAction)
         {
             if (PermissionDecisions.Current.CanRead(type))
@@ -160,6 +112,10 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             }
             return MvcHtmlString.Create(string.Empty);
         }
+
+        #endregion
+
+        #region private helpers
 
         /// <summary>
         /// Returns T from IEnumerable<T>, if t is of type IEnumerable<>. (GetItemType(IEnumerable<Customer>))
@@ -175,5 +131,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             }
             return t;
         }
+
+        #endregion
     }
 }

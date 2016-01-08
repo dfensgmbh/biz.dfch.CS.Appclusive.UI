@@ -52,10 +52,10 @@
                 @Html.DisplayFor(modelItem => contract.ValidUntil)
             </td>
             <td class="ap-btn text-nowrap">
-                @Html.SecuredButton("Details", Url.Action("Details", "ContractMappings", new { id = contract.Id }))
+                @Html.SecuredButton("Read", Url.Action("Details", "ContractMappings", new { id = contract.Id }))
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
-                    @Html.SecuredButton("Edit", Url.Action("Edit", "ContractMappings", new { id = contract.Id }))
+                    @Html.SecuredButton("Update", Url.Action("Edit", "ContractMappings", new { id = contract.Id }))
                 }
             </td>
         </tr>

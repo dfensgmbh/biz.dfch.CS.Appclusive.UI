@@ -12,9 +12,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public class PermissionDecisions
     {
-
-        public static bool generalDefaultValue = false; // TODO cwi: FALSE: Everything that has no explizit permission is NOT accessible. 
-
+        #region Core Repository
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
@@ -45,6 +43,16 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         }
         private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
 
+        #endregion
+
+        #region private variables
+
+        private List<Api.Core.Permission> permissions = null;
+
+        #endregion
+
+        #region Current instance
+
         public static PermissionDecisions Current
         {
             get
@@ -58,60 +66,43 @@ namespace biz.dfch.CS.Appclusive.UI.Models
             }
         }
 
-        private Dictionary<Type, List<string>> permissions = new Dictionary<Type, List<string>>();
+        #endregion
+
+        #region Constructors
 
         public PermissionDecisions(string username, string domain)
         {
+            //if (!string.IsNullOrEmpty(username))
+            //{
+            //    string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
+            //    List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
+            //        .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
+            //        .ToList();
 
-            permissions.Add(typeof(Customer), new List<string>() { "CanCreate", "CanRead", "CanUpdate", "CanDelete" });
-            permissions.Add(typeof(ManagementCredential), new List<string>() { "CanCreate", "CanRead", "CanUpdate", "CanDelete" });
-            permissions.Add(typeof(Tenant), new List<string>() { "CanRead" });
-            permissions.Add(typeof(User), new List<string>() { "CanRead" });
-            permissions.Add(typeof(Catalogue), new List<string>() { "CanCreate", "CanRead" });
-            permissions.Add(typeof(CimiTarget), new List<string>() { "CanDelete" });
-            permissions.Add(typeof(Approval), new List<string>() { "CanRead" });
-            permissions.Add(typeof(CatalogueItem), new List<string>() { "CanCreate", "CanRead" });
-            permissions.Add(typeof(Ace), new List<string>() { "CanCreate", "CanRead" });
-
-
-            if (!string.IsNullOrEmpty(username))
-            {
-                //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;                
-                //List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
-                //    .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
-                //    .ToList();
-
-                //List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
-                //userRoles.ForEach(r => permissions.AddRange(r.Permissions));
-
-                //      List<Api.Core.Permission> permissions = CoreRepository.Permissions.ToList();
-
-                // Permissions must be loaded here. 
-                // TODO cwi: IEnumerable
-                //permissions.Add(typeof(IEnumerable<Customer>), new List<string>() { "CanCreate", "CanRead", "CanUpdate", "CanDelete" });
-                //permissions.Add(typeof(IEnumerable<Tenant>), new List<string>() { "CanCreate", "CanRead", "CanUpdate" });
-                //permissions.Add(typeof(IEnumerable<User>), new List<string>() { "CanCreate", "CanRead" });
-                //permissions.Add(typeof(IEnumerable<Approval>), new List<string>() { "CanCreate", "CanRead", "CanUpdate", "CanDelete" });
-
-                //// TODO cwi: Menus ohne IEnumerable
-                //permissions.Add(typeof(Customer), new List<string>() { "CanRead" });
-                //permissions.Add(typeof(Tenant), new List<string>() { "CanRead" });
-                //permissions.Add(typeof(User), new List<string>() { "CanRead" });
-                //permissions.Add(typeof(Catalogue), new List<string>() { "CanRead" });
-                //permissions.Add(typeof(CimiTarget), new List<string>() { "CanDelete" });
-                //permissions.Add(typeof(Approval), new List<string>() { "CanRead" });
-            }
+            //    List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
+            //    userRoles.ForEach(r => permissions.AddRange(r.Permissions));
+            //}
+            //else
+            //{
+                permissions = CoreRepository.Permissions.AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", 10000).ToList();
+            //}
         }
+
+        #endregion
+
+        #region Private Helpers
 
         private bool GetPermission(Type modelType, string operation)
         {
-            if (permissions.ContainsKey(modelType))
-            {
-                return permissions[modelType].Contains(operation);
-            }
-
-            return generalDefaultValue;
+            string permissionName = string.Format("Apc:{0}s{1}", modelType.Name, operation); // Apc:CataloguesCanRead 
+            Api.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
+            return true; // TODO cwi:  (permission != null);
         }
+
+        #endregion
+
+        #region internal methods
 
         internal bool CanCreate(Type modelType)
         {
@@ -132,11 +123,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         {
             return GetPermission(modelType, "CanDelete");
         }
-
-
+        
         internal bool CanDecrypt(Type modelType)
         {
             return GetPermission(modelType, "CanDecrypt");
         }
+
+        #endregion
     }
 }

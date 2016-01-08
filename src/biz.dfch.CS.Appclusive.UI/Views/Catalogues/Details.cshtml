@@ -62,7 +62,7 @@
 <p>
     @if (Model.Id > 0)
     {
-        @Html.SecuredButton("Edit", Url.Action("Edit", new { id = Model.Id }))
+        @Html.SecuredButton("Update", Url.Action("Edit", new { id = Model.Id }))
     }
    @Html.Partial("BackLink") 
 </p>

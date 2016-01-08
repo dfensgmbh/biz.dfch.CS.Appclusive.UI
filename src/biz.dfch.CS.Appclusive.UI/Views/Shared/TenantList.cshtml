@@ -33,10 +33,10 @@
                 @Html.ActionLink(item.ParentId.ToString(), "Details", "Tenants", new { id = item.ParentId, rId = id, rAction = action, rController = controller }, null)
             </td>
             <td class="ap-btn text-nowrap">
-                @Html.SecuredButton("Details", Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller }))
+                @Html.SecuredButton("Read", Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller }))
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
-                    @Html.SecuredButton("Edit", Url.Action("Edit", "Tenants", new { id = item.Id }))
+                    @Html.SecuredButton("Update", Url.Action("Edit", "Tenants", new { id = item.Id }))
                     @Html.SecuredButton("Delete", Url.Action("Delete", "Tenants", new { id = item.Id }))
                 }
             </td>

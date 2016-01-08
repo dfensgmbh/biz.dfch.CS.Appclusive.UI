@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem>
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @{
     ViewBag.AjaxItemSearchTargetId = "catalogItemListAjax";
     ViewBag.AjaxItemSearchAction = "ItemIndex";
@@ -12,10 +13,9 @@
 {
     <div class="row">
         <div class="col-md-2">
-            <a class="btn btn-default btn-sm" href="@Url.Action("ItemCreate", new { catalogueId = ViewBag.ParentId })"><i class="fa fa-plus "></i> @GeneralResources.CreateNewItem</a>
+            @Html.SecuredButton("Create", Url.Action("ItemCreate", new { catalogueId = ViewBag.ParentId }), "btn-default btn-sm", GeneralResources.CreateNewItem)
         </div>
         @Html.Partial("AjaxItemSearchForm")
     </div>
 }
 @Html.Partial("ItemIndex", Model)
- 

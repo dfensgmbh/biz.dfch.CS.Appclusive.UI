@@ -65,7 +65,7 @@
 <p>
     @if (Model.Id > 0)
     {
-        @Html.SecuredButton("Edit", Url.Action("Edit", new { id = Model.Id }))
+        @Html.SecuredButton("Update", Url.Action("Edit", new { id = Model.Id }))
     }
     <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
 </p>

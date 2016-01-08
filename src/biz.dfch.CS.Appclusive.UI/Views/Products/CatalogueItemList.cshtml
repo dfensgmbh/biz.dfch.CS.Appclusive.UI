@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem>
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @if (ViewBag.ParentId > 0)
-{ 
-<p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("ItemCreate", new { catalogueId = ViewBag.ParentId })"><i class="fa fa-plus "></i> Create New Item</a>
-</p>
+{
+    <p>
+        @Html.SecuredButton("Create", Url.Action("ItemCreate", new { catalogueId = ViewBag.ParentId }), "btn-default btn-sm", GeneralResources.CreateNewItem)
+    </p>
 }
 <table class="table table-striped table-hover">
     <tr>
@@ -27,7 +28,7 @@
                 @Html.DisplayFor(modelItem => catalogItem.Description)
             </td>
             <td class="ap-btn text-nowrap">
-                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" }) "><i class="fa fa-cog"></i> @GeneralResources.CatalogueItem @GeneralResources.DetailsLink</a>   
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" }) "><i class="fa fa-cog"></i> @GeneralResources.CatalogueItem @GeneralResources.DetailsLink</a>
             </td>
         </tr>
     }
@@ -36,4 +37,4 @@
 
 
 
-         
+

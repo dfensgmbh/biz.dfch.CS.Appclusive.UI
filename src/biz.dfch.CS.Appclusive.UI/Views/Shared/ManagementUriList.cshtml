@@ -38,10 +38,10 @@
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td class="ap-btn text-nowrap">
-                @Html.SecuredButton("Details", Url.Action("Details", "ManagementUris", new { id = item.Id, rId = id, rAction = action, rController = controller }))
+                @Html.SecuredButton("Read", Url.Action("Details", "ManagementUris", new { id = item.Id, rId = id, rAction = action, rController = controller }))
                 @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
                 {
-                    @Html.SecuredButton("Edit", Url.Action("Edit", "ManagementUris", new { id = item.Id }))
+                    @Html.SecuredButton("Update", Url.Action("Edit", "ManagementUris", new { id = item.Id }))
                     @Html.SecuredButton("Delete", Url.Action("Delete", "ManagementUris", new { id = item.Id }))
                 }
             </td>
