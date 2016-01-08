@@ -85,7 +85,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             if (isAuthenticated)
             {
                 FormsAuthentication.RedirectFromLoginPage(data.Username, false);
-                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain); 
+                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                Session["PermissionDecisions"] = new PermissionDecisions(data.Username, data.Domain);
             }
             return isAuthenticated;
         }
