@@ -358,6 +358,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changed properties.
+        /// </summary>
+        public static string ChangedPropertiesTable {
+            get {
+                return ResourceManager.GetString("ChangedPropertiesTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check out cart.
         /// </summary>
         public static string CheckOutCart {

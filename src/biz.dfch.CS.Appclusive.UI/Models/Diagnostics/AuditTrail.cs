@@ -40,6 +40,51 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Diagnostics
 
         [Display(Name = "Original", ResourceType = typeof(GeneralResources))] 
         public string Original { get; set; }
-        
+
+        /// <summary>
+        /// Gets creted by method ParseChangedPropertyTable()
+        /// </summary>
+        [Display(Name = "ChangedPropertiesTable", ResourceType = typeof(GeneralResources))]
+        public Dictionary<string, object[]> ChangedPropertiesTable { get; set; }
+
+        public void ParseChangedPropertyTable()
+        {
+            ChangedPropertiesTable = new Dictionary<string, object[]>();
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(this.Original))
+                {
+                    Newtonsoft.Json.Linq.JObject before = Newtonsoft.Json.Linq.JObject.Parse(this.Original);
+                    foreach (var prop in before.Properties())
+                    {
+                        if (!ChangedPropertiesTable.ContainsKey(prop.Name))
+                        {
+                            ChangedPropertiesTable.Add(prop.Name, new object[2]);
+                        }
+                        ChangedPropertiesTable[prop.Name][0] = prop.Value;
+                    }
+                }
+            }
+            catch { }
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(this.Current))
+                {
+                    Newtonsoft.Json.Linq.JObject after = Newtonsoft.Json.Linq.JObject.Parse(this.Current);
+                    foreach (var prop in after.Properties())
+                    {
+                        if (!ChangedPropertiesTable.ContainsKey(prop.Name))
+                        {
+                            ChangedPropertiesTable.Add(prop.Name, new object[2]);
+                        }
+                        ChangedPropertiesTable[prop.Name][1] = prop.Value;
+                    }
+                }
+            }
+            catch { }
+
+        }
     }
 }

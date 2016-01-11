@@ -789,4 +789,7 @@
   <data name="VDI" xml:space="preserve">
     <value>VDI</value>
   </data>
+  <data name="ChangedPropertiesTable" xml:space="preserve">
+    <value>Changed properties</value>
+  </data>
 </root>

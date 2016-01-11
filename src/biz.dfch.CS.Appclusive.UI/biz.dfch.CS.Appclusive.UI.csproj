@@ -545,6 +545,7 @@
     <Content Include="Views\Shared\DisplayTemplates\CatalogueItem.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Order.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ChangedPropertiesTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
