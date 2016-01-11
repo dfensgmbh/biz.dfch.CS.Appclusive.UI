@@ -17,8 +17,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Models.LoginData data = new Models.LoginData()
             {
                 ReturnUrl = returnUrl,
-                Username = "Administrator",
-                Domain = "mgmtscc"
+                Username = Properties.Settings.Default.DefaultLoginUsername,
+                Domain = Properties.Settings.Default.DefaultLoginDomain
             };
             return View(data);
         }
