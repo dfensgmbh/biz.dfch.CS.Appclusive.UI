@@ -46,6 +46,13 @@
                 @Html.DisplayFor(model => model.ExpiresAt)
             </dd>
 
+            <dt>
+                @Html.DisplayNameFor(model => model.Order)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Order)
+            </dd>
+
         </dl>
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
@@ -61,6 +68,5 @@
 </div>
 <hr />
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
-    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> @GeneralResources.Order</a>
+    @Html.Partial("BackLink")
 </p>

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CartItem>
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.AjaxPagingTargetId = "itemListAjax";
@@ -34,10 +35,10 @@
                 <td onclick="window.location = '@Url.Action("ItemDetails", new { id = cartItem.Id })'" class="ap-hand">
                     @Html.DisplayFor(modeItem => cartItem.Quantity)
                 </td>
-                <td class="ap-btn text-nowrap">
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = cartItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = cartItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.EditLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = cartItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                <td class="ap-btn text-nowrap">                   
+                    @Html.SecuredButton("Read", Url.Action("ItemDetails", new { id = cartItem.Id }))
+                    @Html.SecuredButton("Update", Url.Action("ItemEdit", new { id = cartItem.Id }))
+                    @Html.SecuredButton("Delete", Url.Action("ItemDelete", new { id = cartItem.Id }))
                 </td>
             </tr>
         }

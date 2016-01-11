@@ -1,6 +1,6 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.CartItem
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
-
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @{
     ViewBag.Title = @Model.GetType().Name + " details";
 }
@@ -29,14 +29,7 @@
                     Catalog Item Name
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.CatalogueItem.Name)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.CatalogueItemId)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.CatalogueItemId)
+                    @Html.DisplayFor(model => model.CatalogueItem)
                 </dd>
 
                 <dt>
@@ -78,14 +71,11 @@
 <p>
     @if (Model.Id > 0)
     {
-        <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+        @Html.SecuredButton("Update", Url.Action("ItemEdit", new { id = Model.Id }))
     }
-    @if (Model.CatalogueItemId > 0)
+    @if (Model.Cart != null)
     {
-        <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { Id = Model.CatalogueItemId })"><i class="fa fa-arrow-left "></i> @GeneralResources.CatalogueItem</a>
+        @Html.SecuredButton("Read", Url.Action("Details", new { id = Model.Cart.Id }), "btn btn-info btn-sm", @GeneralResources.BackToCart, "fa-arrow-left")
     }
-    @if (Model.Id > 0)
-    {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.Cart.Id })"><i class="fa fa-arrow-left "></i> @GeneralResources.BackToCart</a>
-    }
+    @Html.Partial("BackLink")    
 </p>

@@ -29,9 +29,7 @@
                     @Html.DisplayNameFor(model => model.Product)
                 </dt>
                 <dd>
-                    @if (Model.Product != null) {
-                        @Html.DisplayFor(model => model.Product.Name);
-                    }
+                    @Html.DisplayFor(model => model.Product);
                 </dd>
 
                 <dt>
@@ -78,16 +76,13 @@
     <hr />
 </div>
 <p>
-    @if (Model.ProductId > 0)
-    {
-        <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { Id = Model.ProductId })"><i class=" fa fa-arrow-left "></i> @GeneralResources.GoToProduct</a>
-    }
     @if (Model.Id > 0)
     {
-        <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+        @Html.SecuredButton("Update", Url.Action("ItemEdit", new { id = Model.Id }))
     }
     @if (Model.CatalogueId > 0)
     {
-        <a class="btn btn-info btn-sm" href="@Url.Action("Details", new { Id = Model.CatalogueId })"><i class="fa fa-arrow-left "></i> @GeneralResources.BackToCatalogue</a>
+        @Html.SecuredButton("Read", Url.Action("Details", new { id = Model.CatalogueId }), "btn btn-info btn-sm", @GeneralResources.BackToCatalogue, "fa-arrow-left")
     }
+    @Html.Partial("BackLink") 
 </p>

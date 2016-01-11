@@ -9,10 +9,9 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
     {
         #region Secured buttons
 
-        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "")
+        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "", string iclass = "")
         {
-            string ret = string.Empty;
-            string iclass = string.Empty;
+            string ret = string.Empty;           
             string link = @"<a class=""btn {0}"" href=""{1}""><i class=""fa {2} ""></i> {3}</a>";
             Type type = GetItemType(typeof(TModel));
 

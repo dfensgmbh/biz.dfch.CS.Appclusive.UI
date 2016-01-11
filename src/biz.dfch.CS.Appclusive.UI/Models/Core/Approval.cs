@@ -72,6 +72,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         /// </summary>
         [Display(Name = "OrderId", ResourceType = typeof(GeneralResources))] 
         public int OrderId { get; private set; }
+
+        /// <summary>
+        /// set through call of ResolveOrderId()
+        /// </summary>
+        [Display(Name = "OrderId", ResourceType = typeof(GeneralResources))]
+        public Order Order { get; private set; }
         
         /// <summary>
         /// Find Order by Approval 
@@ -115,10 +121,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             int orderId = 0;
             int.TryParse(orderJob.RefId, out orderId);
             this.OrderId = orderId;
+
+            if (this.OrderId > 0)
+            {
+                this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.Orders.FirstOrDefault(o => o.Id == orderId));
+            }
         }
 
-        public string OrderIdClass {
-            get { return this.OrderId > 0 ? "" : " disabled"; }
-        }
     }
 }

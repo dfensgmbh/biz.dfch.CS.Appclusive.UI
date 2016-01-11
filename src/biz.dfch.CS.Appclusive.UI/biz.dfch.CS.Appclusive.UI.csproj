@@ -542,6 +542,9 @@
     <Content Include="Views\Shared\DisplayTemplates\Node.cshtml" />
     <Content Include="Views\SpecialOperations\OperationTab.cshtml" />
     <Content Include="Views\SpecialOperations\OperationTabContent.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CatalogueItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

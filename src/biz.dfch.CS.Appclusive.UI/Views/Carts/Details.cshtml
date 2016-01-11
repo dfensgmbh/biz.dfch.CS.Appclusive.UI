@@ -50,13 +50,16 @@
         <hr />
     </div>
     <p>
-        <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return confirm('@GeneralResources.ConfirmCheckOut')"><i class="fa fa-shopping-cart"></i> @GeneralResources.CheckOutCart</a>
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+        @if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(biz.dfch.CS.Appclusive.UI.Models.Core.Order), "CanCreate"))
+        {
+            <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return confirm('@GeneralResources.ConfirmCheckOut')"><i class="fa fa-shopping-cart"></i> @GeneralResources.CheckOutCart</a>
+        }
+        @Html.Partial("BackLink") 
     </p>
 }
 else
 {
     <p>
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+        @Html.Partial("BackLink") 
     </p>
 }

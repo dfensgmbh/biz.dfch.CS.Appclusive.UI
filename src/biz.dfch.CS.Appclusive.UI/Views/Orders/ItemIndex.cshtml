@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.OrderItem>
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.AjaxPagingTargetId = "itemListAjax";
@@ -32,7 +33,7 @@
         </tr>
 
         @foreach (var orderItem in Model)
-    {
+        {
             <tr>
                 <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                     @Html.DisplayFor(modeItem => orderItem.Name)
@@ -46,12 +47,12 @@
                 <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                     @Html.DisplayFor(modeItem => orderItem.Description)
                 </td>
-                <td class="ap-btn text-nowrap">
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = orderItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = orderItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                <td class="ap-btn text-nowrap">                  
+                    @Html.SecuredButton("Read", Url.Action("ItemDetails", new { id = orderItem.Id }))
+                    @Html.SecuredButton("Delete", Url.Action("ItemDelete", new { id = orderItem.Id }))
                 </td>
             </tr>
-    }
+        }
 
     </table>
 
