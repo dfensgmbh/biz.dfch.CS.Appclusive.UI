@@ -84,3 +84,9 @@ ul.ui-autocomplete {
 .ap-hand {
  cursor: pointer;
 }
+
+span.ap-nav-icon{
+    width: 38px; 
+    display: inline-block;
+    text-align:center;
+}
