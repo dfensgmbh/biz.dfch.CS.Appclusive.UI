@@ -304,6 +304,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region VDI
 
+        public ActionResult VdiPersonal()
+        {
+            return RedirectToAction("VdiCreate", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME });
+        }
+        public ActionResult VdiTechnical()
+        {
+            return RedirectToAction("VdiCreate", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME });
+        }
         public ActionResult VdiCreate(string vdiName)
         {
             try
