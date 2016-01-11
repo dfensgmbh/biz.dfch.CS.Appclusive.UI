@@ -1,4 +1,5 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Permission
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " create";
@@ -16,6 +17,6 @@
     </div>
     <p>
         <hr />
-        <a class="btn btn-default btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.CancelLink</a>
+        @Html.SecuredButton("Read", Url.Action("Index"), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-arrow-left")
     </p>
 </div>

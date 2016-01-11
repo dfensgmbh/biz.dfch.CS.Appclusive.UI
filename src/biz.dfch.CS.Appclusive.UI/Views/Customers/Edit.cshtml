@@ -37,7 +37,7 @@
     <hr />
     @if (Model.Id > 0)
     {
-        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.CancelLink</a>
+        @Html.SecuredButton("Read", Url.Action("Details", new { id = Model.Id }), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-cog")
     }
     @Html.Partial("BackLink")
 </p>
