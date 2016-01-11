@@ -56,7 +56,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                     {
                         // <a class="btn btn-default btn-sm" href="@Url.Action("Delete", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
                         link = @"<a class=""btn {0}"" href=""{1}"" onclick=""return confirm('{4}')"" title=""{3}"" data-toggle=""tooltip""><i class=""fa {2} ""></i></a>";
-                        if (string.IsNullOrEmpty(aclass)) aclass = "btn-default btn-sm";
+                        if (string.IsNullOrEmpty(aclass)) aclass = "btn-danger btn-sm";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-trash-o";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.ConfirmDelete;
                         ret = string.Format(link, aclass, urlAction, iclass, displayText, GeneralResources.Delete);
