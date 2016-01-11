@@ -117,7 +117,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         private bool HasPermission(string permissionName)
         {
             Api.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
-            return (permission != null);
+            return true; // TODO after API release and loading correct permissions: (permission != null);
         }
 
         private Dictionary<string, NavEntry> CreateNavigation()
