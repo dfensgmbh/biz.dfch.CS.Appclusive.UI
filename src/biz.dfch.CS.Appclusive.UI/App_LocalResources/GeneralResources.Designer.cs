@@ -502,6 +502,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Core.
+        /// </summary>
+        public static string Core {
+            get {
+                return ResourceManager.GetString("Core", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cost centre.
         /// </summary>
         public static string CostCentre {
@@ -660,6 +669,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string DetailsLink {
             get {
                 return ResourceManager.GetString("DetailsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnostics.
+        /// </summary>
+        public static string Diagnostics {
+            get {
+                return ResourceManager.GetString("Diagnostics", resourceCulture);
             }
         }
         
@@ -1753,6 +1771,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Security.
+        /// </summary>
+        public static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See password.
         /// </summary>
         public static string SeePassword {
@@ -1965,6 +1992,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ValueDisplay {
             get {
                 return ResourceManager.GetString("ValueDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VDI.
+        /// </summary>
+        public static string VDI {
+            get {
+                return ResourceManager.GetString("VDI", resourceCulture);
             }
         }
         

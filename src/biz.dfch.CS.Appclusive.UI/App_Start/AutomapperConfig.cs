@@ -29,7 +29,6 @@ namespace biz.dfch.CS.Appclusive.UI
         public static void MapInit()
         {
             // navigation
-            Mapper.CreateMap<Navigation.NavGroupElement, Navigation.NavGroup>();
             Mapper.CreateMap<Navigation.NavEntryElement, Navigation.NavEntry>();
 
             // entities:

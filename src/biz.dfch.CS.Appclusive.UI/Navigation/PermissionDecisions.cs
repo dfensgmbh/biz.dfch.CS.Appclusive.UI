@@ -7,9 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Services.Client;
-using biz.dfch.CS.Appclusive.UI.Navigation;
 
-namespace biz.dfch.CS.Appclusive.UI.Models
+namespace biz.dfch.CS.Appclusive.UI.Navigation
 {
     public class PermissionDecisions
     {
@@ -49,7 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         #region private variables
 
         private List<Api.Core.Permission> permissions = null;
-        private Dictionary<string, NavGroup> Navigation;
+        public Dictionary<string, NavEntry> Navigation;
 
         #endregion
 
@@ -121,22 +120,27 @@ namespace biz.dfch.CS.Appclusive.UI.Models
             return (permission != null);
         }
 
-        private Dictionary<string, NavGroup> CreateNavigation()
+        private Dictionary<string, NavEntry> CreateNavigation()
         {
             NavigationConfigurationSection configSection = (NavigationConfigurationSection)System.Configuration.ConfigurationManager.GetSection(NavigationConfigurationSection.SectionName);
-            Dictionary<string, NavGroup> navigation = new Dictionary<string, NavGroup>();
+            Dictionary<string, NavEntry> navigation = new Dictionary<string, NavEntry>();
 
-            foreach (NavGroupElement groupConfig in configSection.NavGroups)
+            foreach (NavEntryElement groupConfig in configSection.NavGroups)
             {
-                NavGroup group = AutoMapper.Mapper.Map<NavGroup>(groupConfig);
-                foreach (NavEntryElement entryConfig in groupConfig.NavEntries)
+                NavEntry group = AutoMapper.Mapper.Map<NavEntry>(groupConfig);
+                foreach (NavEntryElement entryConfig in groupConfig.NavEntryElements)
                 {
-                    if (String.IsNullOrWhiteSpace(entryConfig.Permission) || IsAllowed(entryConfig.Permission))
+                    string permissionName = entryConfig.Permission; 
+                    if (String.IsNullOrWhiteSpace(permissionName))
+                    {
+                        permissionName = string.Format("Apc:{0}CanRead", entryConfig.Controller); //Apc:AcesCanRead
+                    }
+                    if (permissionName == "*" || IsAllowed(permissionName))
                     {
                         group.NavEntries.Add(AutoMapper.Mapper.Map<NavEntry>(entryConfig));
                     }
                 }
-                if (group.NavEntries.Count>0)
+                if (group.NavEntries.Count > 0)
                 {
                     navigation.Add(group.Name, group);
                 }

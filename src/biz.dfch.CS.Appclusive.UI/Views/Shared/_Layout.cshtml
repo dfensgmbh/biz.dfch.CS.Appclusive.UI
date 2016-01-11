@@ -3,6 +3,7 @@
 @using biz.dfch.CS.Appclusive.UI.Models.Cmp
 @using biz.dfch.CS.Appclusive.UI.Models.Diagnostics
 @using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
+@using biz.dfch.CS.Appclusive.UI.Navigation
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     var title = "biz.dfch.CS.Appclusive.UI";
@@ -29,71 +30,34 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Core <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            @Html.SecuredListItem(typeof(Catalogue), Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues"))
-                            @Html.SecuredListItem(typeof(Product), Html.ActionLink(@GeneralResources.Product, "Index", "Products"))
-                            @Html.SecuredListItem(typeof(Node), Html.ActionLink(@GeneralResources.Node, "Index", "Nodes"))
-                            @Html.SecuredListItem(typeof(Cart), Html.ActionLink(@GeneralResources.Cart, "Index", "Carts"))
-                            @Html.SecuredListItem(typeof(Order), Html.ActionLink(@GeneralResources.Order, "Index", "Orders"))
-                            @Html.SecuredListItem(typeof(Job), Html.ActionLink(@GeneralResources.Job, "Index", "Jobs"))
-                            @Html.SecuredListItem(typeof(Approval), Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals"))
-                            @Html.SecuredListItem(typeof(KeyNameValue), Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues"))
-                            @Html.SecuredListItem(typeof(EntityKind), Html.ActionLink(@GeneralResources.EntityKind, "Index", "EntityKinds"))
-                            @Html.SecuredListItem(typeof(Gate), Html.ActionLink(@GeneralResources.Gate, "Index", "Gates"))
-                            @Html.SecuredListItem(typeof(ManagementUri), Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris"))
-                            @Html.SecuredListItem(typeof(ManagementCredential), Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials"))
-
-                            @Html.SecuredListItem(typeof(CostCentre), Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres"))
-                            @Html.SecuredListItem(typeof(Tenant), Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants"))
-                            @Html.SecuredListItem(typeof(Customer), Html.ActionLink(@GeneralResources.Customer, "Index", "Customers"))
-                            @Html.SecuredListItem(typeof(ContractMapping), Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings"))
-                            @Html.SecuredListItem(typeof(CimiTarget), Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets"))
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Diagnostics <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            @Html.SecuredListItem(typeof(AuditTrail), Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails"))
-                            @Html.SecuredListItem(typeof(Endpoint), Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints"))
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Security <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            @Html.SecuredListItem(typeof(Permission), Html.ActionLink(@GeneralResources.Permission, "Index", "Permissions"))
-                            @Html.SecuredListItem(typeof(Roles), Html.ActionLink(@GeneralResources.Role, "Index", "Roles"))
-                            @Html.SecuredListItem(typeof(User), Html.ActionLink(@GeneralResources.User, "Index", "Users"))
-                            @Html.SecuredListItem(typeof(Ace), Html.ActionLink(@GeneralResources.Ace, "Index", "Aces"))
-                            @Html.SecuredListItem(typeof(Acl), Html.ActionLink(@GeneralResources.Acl, "Index", "Acls"))
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            VDI <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            @Html.SecuredListItem(typeof(Cart), Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null))
-                            @Html.SecuredListItem(typeof(Cart), Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null))
-                        </ul>
-                    </li>
-
-                    <li>@Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
+                    @foreach (NavEntry group in PermissionDecisions.Current.Navigation.Values)
+                    {
+                        if (string.IsNullOrEmpty(group.Controller))
+                        {                            
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                @GeneralResources.ResourceManager.GetString(group.Name) <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach (NavEntry entry in group.NavEntries)
+                                {
+                                    <li>@Html.ActionLink( @GeneralResources.ResourceManager.GetString(entry.Name), entry.Action, entry.Controller)</li>
+                                }
+                            </ul>
+                        </li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(@GeneralResources.ResourceManager.GetString(group.Name), group.Action, group.Controller)</li>
+                        }
+                    }
                 </ul>
-                @if (null == Session["LoginData"])
+                @*@if (null == Session["LoginData"])
                 {
                     <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
                 }
                 else
-                {
+                {*@
                     <ul class="nav navbar-nav navbar-right ">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -104,7 +68,7 @@
                             </ul>
                         </li>
                     </ul>
-                }
+                @*}*@
             </div>
         </div>
     </div>

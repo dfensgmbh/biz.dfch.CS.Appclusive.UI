@@ -777,4 +777,16 @@
   <data name="ValueDisplay" xml:space="preserve">
     <value>Value</value>
   </data>
+  <data name="Core" xml:space="preserve">
+    <value>Core</value>
+  </data>
+  <data name="Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="VDI" xml:space="preserve">
+    <value>VDI</value>
+  </data>
 </root>

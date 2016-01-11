@@ -25,6 +25,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         private const string ControllerAttribute = "controller";
         private const string IconAttribute = "icon";
         private const string PermissionAttribute = "permission";
+        private const string EntriesNode = "navigationEntries";
 
         /// <summary>
         /// Name
@@ -74,6 +75,13 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         {
             get { return Convert.ToString(this[PermissionAttribute]); }
             set { this[PermissionAttribute] = value; }
+        }
+
+        [ConfigurationProperty(EntriesNode, IsRequired = false)]
+        public NavEntryElementCollection NavEntryElements
+        {
+            get { return (NavEntryElementCollection)this[EntriesNode]; }
+            set { this[EntriesNode] = value; }
         }
     }
 }

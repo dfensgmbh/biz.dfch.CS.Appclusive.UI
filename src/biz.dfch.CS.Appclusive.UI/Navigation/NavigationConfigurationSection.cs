@@ -29,9 +29,9 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         private const string NavgroupsNode = "navigationGroups";
 
         [ConfigurationProperty(NavgroupsNode, IsRequired = false)]
-        public NavGroupElementCollection NavGroups
+        public NavEntryElementCollection NavGroups
         {
-            get { return (NavGroupElementCollection)this[NavgroupsNode]; }
+            get { return (NavEntryElementCollection)this[NavgroupsNode]; }
             set { this[NavgroupsNode] = value; }
         }
     }

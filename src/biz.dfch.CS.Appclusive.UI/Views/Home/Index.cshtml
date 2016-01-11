@@ -4,6 +4,7 @@
 @using biz.dfch.CS.Appclusive.UI.Models.Cmp
 @using biz.dfch.CS.Appclusive.UI.Models.Diagnostics
 @using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
+@using biz.dfch.CS.Appclusive.UI.Navigation
 @{
     var title = "biz.dfch.CS.Appclusive.UI";
     ViewBag.Title = title;
@@ -16,52 +17,38 @@
     <p><a href="http://appclusive.net" class="btn btn-primary btn-lg" target="_blank">Learn more &raquo;</a></p>
 </div>
 <div class="row">
-    <div class="col-sm-4">
-        <ul class="list-group">
-            @Html.SecuredListItem2(typeof(Catalogue), "fa fa-book", Html.ActionLink(@GeneralResources.Catalogue, "Index", "Catalogues"))
-            @Html.SecuredListItem2(typeof(Product), "fa fa-bicycle", Html.ActionLink(@GeneralResources.Product, "Index", "Products"))
-            @Html.SecuredListItem2(typeof(Node), "fa fa-cubes", Html.ActionLink(@GeneralResources.Node, "Index", "Nodes"))
-            @Html.SecuredListItem2(typeof(Cart), "fa fa-shopping-cart", Html.ActionLink(@GeneralResources.Cart, "Index", "Carts"))
-            @Html.SecuredListItem2(typeof(Order), "fa fa-ship", Html.ActionLink(@GeneralResources.Order, "Index", "Orders"))
-            @Html.SecuredListItem2(typeof(Job), "fa fa-spinner", Html.ActionLink(@GeneralResources.Job, "Index", "Jobs"))
-            @Html.SecuredListItem2(typeof(Approval), "fa fa-thumbs-up", Html.ActionLink(@GeneralResources.Approval, "Index", "Approvals"))
-            @Html.SecuredListItem2(typeof(KeyNameValue), "fa fa-database", Html.ActionLink(@GeneralResources.KeyNameValue, "Index", "KeyNameValues"))
-            @Html.SecuredListItem2(typeof(EntityKind), "fa fa-cogs", Html.ActionLink(@GeneralResources.EntityKind, "Index", "EntityKinds"))
-            @Html.SecuredListItem2(typeof(Gate), "fa fa-subway", Html.ActionLink(@GeneralResources.Gate, "Index", "Gates"))
-            @Html.SecuredListItem2(typeof(ManagementUri), "fa fa-external-link", Html.ActionLink(@GeneralResources.ManagementUri, "Index", "ManagementUris"))
-            @Html.SecuredListItem2(typeof(ManagementCredential), "fa fa-credit-card", Html.ActionLink(@GeneralResources.ManagementCredential, "Index", "ManagementCredentials"))
-            @Html.SecuredListItem2(typeof(CostCentre), "fa fa-balance-scale", Html.ActionLink(@GeneralResources.CostCentre, "Index", "CostCentres"))
-        </ul>
-    </div>
-    <div class="col-sm-4">
-        <ul class="list-group">
-            @Html.SecuredListItem2(typeof(AuditTrail), "fa fa-user-secret", Html.ActionLink(@GeneralResources.AuditTrail, "Index", "AuditTrails"))
-            @Html.SecuredListItem2(typeof(Endpoint), "fa fa-terminal", Html.ActionLink(@GeneralResources.Endpoint, "Index", "Endpoints"))
-        </ul>
-        <br />
-    </div>
-    <div class="col-sm-4">
-        <ul class="list-group">
-            @Html.SecuredListItem2(typeof(Ace), "fa fa-umbrella", Html.ActionLink(@GeneralResources.Ace, "Index", "Aces"))
-            @Html.SecuredListItem2(typeof(Acl), "fa fa-briefcase", Html.ActionLink(@GeneralResources.Acl, "Index", "Acls"))
-            @Html.SecuredListItem2(typeof(User), "fa fa-user", Html.ActionLink(@GeneralResources.User, "Index", "Users"))
-            @Html.SecuredListItem2(typeof(Role), "fa fa-user-secret", Html.ActionLink(@GeneralResources.Role, "Index", "Roles"))
-            @Html.SecuredListItem2(typeof(Permission), "fa fa-terminal", Html.ActionLink(@GeneralResources.Permission, "Index", "Permissions"))
-        </ul>
-        <br />
-    </div>
-    <div class="col-sm-4">
-        <ul class="list-group">
-            @Html.SecuredListItem2(typeof(Tenant), "fa fa-university", Html.ActionLink(@GeneralResources.Tenant, "Index", "Tenants"))
-            @Html.SecuredListItem2(typeof(Customer), "fa fa-child", Html.ActionLink(@GeneralResources.Customer, "Index", "Customers"))
-            @Html.SecuredListItem2(typeof(CimiTarget), "fa fa-map-signs", Html.ActionLink(@GeneralResources.CimiTarget, "Index", "CimiTargets"))
-            @Html.SecuredListItem2(typeof(ContractMapping), "fa fa-pencil-square-o", Html.ActionLink(@GeneralResources.ContractMappings, "Index", "ContractMappings"))
-            @Html.SecuredListItem2(typeof(Cart), "fa fa-check-square", Html.ActionLink(@GeneralResources.VDI_PERSONAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_PERSONAL_NAME }, null))
-            @Html.SecuredListItem2(typeof(Cart), "fa fa-check-square-o", Html.ActionLink(@GeneralResources.VDI_TECHNICAL, "VdiCreate", "Carts", new { vdiName = biz.dfch.CS.Appclusive.UI.Models.Core.VdiCartItem.VDI_TECHNICAL_NAME }, null))
-            <li class="list-group-item"><i class="fa fa-life-ring"></i> @Html.ActionLink(@GeneralResources.SpecialOperations, "Index", "SpecialOperations")</li>
-
-        </ul>
-    </div>
+    @foreach (NavEntry group in PermissionDecisions.Current.Navigation.Values)
+    {
+        <div class="col-sm-4">
+            <ul class="list-group">
+                @if (string.IsNullOrEmpty(group.Controller))
+                {
+                    foreach (NavEntry entry in group.NavEntries)
+                    {
+                        <li class="list-group-item">
+                            @if (!string.IsNullOrWhiteSpace(entry.Icon))
+                            {
+                                <i class="fa @entry.Icon"></i>
+                                Html.Raw("&nbsp;");
+                            }
+                            @Html.ActionLink(@GeneralResources.ResourceManager.GetString(entry.Name), entry.Action, entry.Controller)
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        @if (!string.IsNullOrWhiteSpace(group.Icon))
+                        {
+                            <i class="fa @group.Icon"></i>
+                            Html.Raw("&nbsp;");
+                        }
+                        @Html.ActionLink(@GeneralResources.ResourceManager.GetString(group.Name), group.Action, group.Controller)
+                    </li>
+                }
+            </ul>
+        </div>
+    }
 </div>
 <div class="row">
     <div class="col-sm-4">

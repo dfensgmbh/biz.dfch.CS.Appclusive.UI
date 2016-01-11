@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace biz.dfch.CS.Appclusive.UI.Navigation
 {
     public class NavEntry
     {
+        public NavEntry()
+        {
+            this.NavEntries = new List<NavEntry>();
+        }
+
         /// <summary>
         /// Name
         /// </summary>
@@ -40,5 +46,6 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// </summary>
         public string Icon { get; set; }
 
+        public List<NavEntry> NavEntries { get; set; }
     }
 }
