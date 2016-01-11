@@ -3,8 +3,15 @@
 
 @if (Model != null && !string.IsNullOrWhiteSpace(Model.Name))
 {
-    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
-    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
-    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-    @Html.ActionLink(Model.Name, "Details", "Nodes", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
+    if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(Model.GetType(), "CanRead"))
+    {
+        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+        @Html.ActionLink(Model.Name, "Details", "Nodes", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Name)
+    }
 }

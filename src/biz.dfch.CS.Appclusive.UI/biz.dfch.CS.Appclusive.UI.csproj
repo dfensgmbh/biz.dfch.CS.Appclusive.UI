@@ -540,6 +540,8 @@
     <Content Include="Views\Roles\EditUserList.cshtml" />
     <Content Include="Views\Roles\UserList.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Node.cshtml" />
+    <Content Include="Views\SpecialOperations\OperationTab.cshtml" />
+    <Content Include="Views\SpecialOperations\OperationTabContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

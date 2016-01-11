@@ -102,19 +102,19 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// 
         /// </summary>
         /// <param name="modelType"></param>
-        /// <param name="action">without entity</param>
+        /// <param name="action">without entity: CanRead</param>
         /// <returns></returns>
-        private bool HasPermisssion(Type modelType, string action)
+        public bool HasPermission(Type modelType, string action)
         {
             string permissionName = string.Format("Apc:{0}s{1}", modelType.Name, action); // Apc:CataloguesCanRead 
-            return HasPermisssion(permissionName);
+            return HasPermission(permissionName);
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="permissionName">Apc:CataloguesCanRead</param>
         /// <returns></returns>
-        private bool HasPermisssion(string permissionName)
+        private bool HasPermission(string permissionName)
         {
             Api.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
             return (permission != null);
@@ -135,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                     {
                         permissionName = string.Format("Apc:{0}CanRead", entryConfig.Controller); //Apc:AcesCanRead
                     }
-                    if (permissionName == "*" || HasPermisssion(permissionName))
+                    if (permissionName == "*" || HasPermission(permissionName))
                     {
                         group.NavEntries.Add(AutoMapper.Mapper.Map<NavEntry>(entryConfig));
                     }
@@ -154,27 +154,27 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         internal bool CanCreate(Type modelType)
         {
-            return HasPermisssion(modelType, "CanCreate");
+            return HasPermission(modelType, "CanCreate");
         }
 
         internal bool CanRead(Type modelType)
         {
-            return HasPermisssion(modelType, "CanRead");
+            return HasPermission(modelType, "CanRead");
         }
 
         internal bool CanUpdate(Type modelType)
         {
-            return HasPermisssion(modelType, "CanUpdate");
+            return HasPermission(modelType, "CanUpdate");
         }
 
         internal bool CanDelete(Type modelType)
         {
-            return HasPermisssion(modelType, "CanDelete");
+            return HasPermission(modelType, "CanDelete");
         }
         
         internal bool CanDecrypt(Type modelType)
         {
-            return HasPermisssion(modelType, "CanDecrypt");
+            return HasPermission(modelType, "CanDecrypt");
         }
 
         #endregion
