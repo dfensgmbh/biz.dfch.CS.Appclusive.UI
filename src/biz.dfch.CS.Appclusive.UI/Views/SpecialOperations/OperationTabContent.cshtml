@@ -1,0 +1,20 @@
+﻿@using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Navigation
+@using System.Linq
+
+@if (PermissionDecisions.Current.Navigation["SpecialOperations"].NavEntries.Exists(e => e.Name == ViewBag.operationName))
+{
+    if (ViewBag.operationName == ViewBag.ActiveOperation)
+    {
+        <div id="@ViewBag.operationName" class="tab-pane fade in active">
+            @Html.Partial((string)@ViewBag.operationName, (object)@ViewBag.operationObject)
+        </div>
+    }
+    else
+    {
+        <div id="@ViewBag.operationName" class="tab-pane fade">
+            @Html.Partial((string)@ViewBag.operationName, (object)@ViewBag.operationObject)
+        </div>
+    }
+}
