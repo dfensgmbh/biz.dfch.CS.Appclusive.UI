@@ -261,6 +261,13 @@
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
     <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
+    <Compile Include="Navigation\NavEntry.cs" />
+    <Compile Include="Navigation\NavGroup.cs" />
+    <Compile Include="Navigation\NavGroupElementCollection.cs" />
+    <Compile Include="Navigation\NavigationConfigurationSection.cs" />
+    <Compile Include="Navigation\NavEntryElementCollection.cs" />
+    <Compile Include="Navigation\NavEntryElement.cs" />
+    <Compile Include="Navigation\NavGroupElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

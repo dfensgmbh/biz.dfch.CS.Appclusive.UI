@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Services.Client;
+using biz.dfch.CS.Appclusive.UI.Navigation;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
@@ -48,6 +49,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         #region private variables
 
         private List<Api.Core.Permission> permissions = null;
+        private Dictionary<string, NavGroup> Navigation;
 
         #endregion
 
@@ -72,32 +74,74 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         public PermissionDecisions(string username, string domain)
         {
-            //if (!string.IsNullOrEmpty(username))
-            //{
-            //    string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
-            //    List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
-            //        .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
-            //        .ToList();
-
-            //    List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
-            //    userRoles.ForEach(r => permissions.AddRange(r.Permissions));
-            //}
-            //else
-            //{
+            // Load permissions:
+            if (!string.IsNullOrEmpty(username))
+            {
                 permissions = CoreRepository.Permissions.AddQueryOption("$inlinecount", "allpages")
                     .AddQueryOption("$top", 10000).ToList();
-            //}
+                //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
+                //List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
+                //    .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
+                //    .ToList();
+
+                //List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
+                //userRoles.ForEach(r => permissions.AddRange(r.Permissions));
+            }
+            else
+            {
+                permissions = new List<Api.Core.Permission>();
+            }
+
+            Navigation = CreateNavigation();
         }
 
         #endregion
 
         #region Private Helpers
 
-        private bool GetPermission(Type modelType, string operation)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="action">without entity</param>
+        /// <returns></returns>
+        private bool IsAllowed(Type modelType, string action)
         {
-            string permissionName = string.Format("Apc:{0}s{1}", modelType.Name, operation); // Apc:CataloguesCanRead 
+            string permissionName = string.Format("Apc:{0}s{1}", modelType.Name, action); // Apc:CataloguesCanRead 
+            return IsAllowed(permissionName);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="permissionName">Apc:CataloguesCanRead</param>
+        /// <returns></returns>
+        private bool IsAllowed(string permissionName)
+        {
             Api.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
-            return true; // TODO cwi:  (permission != null);
+            return (permission != null);
+        }
+
+        private Dictionary<string, NavGroup> CreateNavigation()
+        {
+            NavigationConfigurationSection configSection = (NavigationConfigurationSection)System.Configuration.ConfigurationManager.GetSection(NavigationConfigurationSection.SectionName);
+            Dictionary<string, NavGroup> navigation = new Dictionary<string, NavGroup>();
+
+            foreach (NavGroupElement groupConfig in configSection.NavGroups)
+            {
+                NavGroup group = AutoMapper.Mapper.Map<NavGroup>(groupConfig);
+                foreach (NavEntryElement entryConfig in groupConfig.NavEntries)
+                {
+                    if (String.IsNullOrWhiteSpace(entryConfig.Permission) || IsAllowed(entryConfig.Permission))
+                    {
+                        group.NavEntries.Add(AutoMapper.Mapper.Map<NavEntry>(entryConfig));
+                    }
+                }
+                if (group.NavEntries.Count>0)
+                {
+                    navigation.Add(group.Name, group);
+                }
+            }
+            return navigation;
         }
 
         #endregion
@@ -106,27 +150,27 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         internal bool CanCreate(Type modelType)
         {
-            return GetPermission(modelType, "CanCreate");
+            return IsAllowed(modelType, "CanCreate");
         }
 
         internal bool CanRead(Type modelType)
         {
-            return GetPermission(modelType, "CanRead");
+            return IsAllowed(modelType, "CanRead");
         }
 
         internal bool CanUpdate(Type modelType)
         {
-            return GetPermission(modelType, "CanUpdate");
+            return IsAllowed(modelType, "CanUpdate");
         }
 
         internal bool CanDelete(Type modelType)
         {
-            return GetPermission(modelType, "CanDelete");
+            return IsAllowed(modelType, "CanDelete");
         }
         
         internal bool CanDecrypt(Type modelType)
         {
-            return GetPermission(modelType, "CanDecrypt");
+            return IsAllowed(modelType, "CanDecrypt");
         }
 
         #endregion
