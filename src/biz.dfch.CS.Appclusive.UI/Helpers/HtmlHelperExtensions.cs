@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -28,7 +29,47 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
 {
     public static class HtmlHelperExtensions
     {
-        
+        public static MvcHtmlString DisplayNameForSort<TModel, TValue>(this HtmlHelper<System.Collections.Generic.IEnumerable<TModel>> html, Expression<Func<TModel, TValue>> expression)
+        {
+            MemberExpression memberExp = expression.Body as MemberExpression;
+            if (memberExp != null)
+            {
+                string columnName = memberExp.Member.Name;
+                string href = "?orderBy=" + columnName;
+                string title = html.DisplayNameFor(expression).ToString();
+
+                string iconName = "";
+                if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["orderBy"]))
+                {
+                    string[] orderBys= HttpContext.Current.Request.QueryString["orderBy"].ToLower().Split(',');
+                    if (orderBys.Contains(columnName.ToLower()))
+                    {
+                        // ascending
+                        iconName = "fa-long-arrow-up";
+                        href += " desc";
+                    }
+                    if (orderBys.Contains((columnName + " desc").ToLower()))
+                    {
+                        // descending
+                        iconName = "fa-long-arrow-down";
+                    }
+                }
+
+                // other query filters
+                if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["searchTerm"]))
+                {
+                    href += "&searchTerm=" + HttpContext.Current.Request.QueryString["searchTerm"];
+                }
+
+                string htmlStr = "<div class=\"ap-sortedHeader\"><a href=\"{0}\">{1}</a><i class=\"ap-sortedHeader fa {2}\"></i></div>";
+                return new MvcHtmlString(string.Format(htmlStr, href, title, iconName));
+            }
+            else
+            {
+                return html.DisplayNameFor(expression);
+            }
+        }
+
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes){
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (string enumName in Enum.GetNames(enumType))

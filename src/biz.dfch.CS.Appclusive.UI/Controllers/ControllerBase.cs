@@ -53,13 +53,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         
         #region basic list actions
 
-        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null)
+        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null)
         {
             ViewBag.SearchTerm = searchTerm;
             try
             {
                 query = AddSearchFilter(query, searchTerm);
                 query = AddPagingOptions(query, pageNr);
+                query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
@@ -220,6 +221,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 query = query.AddQueryOption("$inlinecount", "allpages")
                     .AddQueryOption("$top", PortalConfig.Pagesize)
                     .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize);
+            }
+            return query;
+        }
+
+        protected DataServiceQuery<T> AddOrderOptions<T>(DataServiceQuery<T> query, string orderBy)
+        {
+            if (!String.IsNullOrWhiteSpace(orderBy))
+            {
+                query = query.AddQueryOption("$orderby", orderBy);
             }
             return query;
         }

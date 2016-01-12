@@ -82,7 +82,14 @@ ul.ui-autocomplete {
 }
 
 .ap-hand {
- cursor: pointer;
+    cursor: pointer;
+}
+
+div.ap-sortedHeader{
+
+}
+i.ap-sortedHeader{
+    padding-left:5px;
 }
 
 span.ap-nav-icon{
