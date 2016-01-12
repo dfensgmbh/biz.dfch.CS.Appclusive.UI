@@ -4,6 +4,15 @@
 @if (ViewBag.AjaxPaging != null && ViewBag.AjaxPaging.PageCount > 1)
 {
     AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+    if (ViewBag.AjaxRouteValueDictionary.ContainsKey("orderBy"))
+    {
+        ViewBag.AjaxRouteValueDictionary["orderBy"] = HttpContext.Current.Request.QueryString["orderBy"];
+    }
+    else
+    {
+        ViewBag.AjaxRouteValueDictionary.Add("orderBy", HttpContext.Current.Request.QueryString["orderBy"]);
+    }
+    
     <ul class="pagination">
         @if (ViewBag.AjaxPaging.PageNr > 1)
         {

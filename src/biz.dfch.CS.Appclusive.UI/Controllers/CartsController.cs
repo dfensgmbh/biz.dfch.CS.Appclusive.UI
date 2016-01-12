@@ -178,12 +178,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Node-children list and search
 
         // GET: Nodes/ItemList
-        public PartialViewResult ItemIndex(long cartId, int pageNr = 1, string itemSearchTerm = null)
+        public PartialViewResult ItemIndex(long cartId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = cartId;
             DataServiceQuery<Api.Core.CartItem> itemsBaseQuery = CoreRepository.CartItems;
             string itemsBaseFilter = "CartId eq " + cartId;
-            return base.ItemIndex<Api.Core.CartItem, Models.Core.CartItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+            return base.ItemIndex<Api.Core.CartItem, Models.Core.CartItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
         }
 
         private List<Models.Core.CartItem> LoadCartItems(long cartId, int pageNr)

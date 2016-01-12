@@ -10,6 +10,8 @@
     rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
     rd.Add("pageNr", 1);
     ViewBag.AjaxRouteValueDictionary = rd;
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
 }
 <div id="itemListAjax">
     @if ("ItemIndex" == (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"])
@@ -20,16 +22,16 @@
     <table class="table table-striped table-hover">
         <tr>
             <th>
-                @Html.DisplayNameForSort(model => model.Name)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Name).ToString(), "Name", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameForSort(model => model.Type)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Type).ToString(), "Type", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameForSort(model => model.Description)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Description).ToString(), "Description", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameForSort(model => model.Tid)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Tid).ToString(), "Tid", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th></th>
         </tr>

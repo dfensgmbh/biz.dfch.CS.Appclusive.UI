@@ -60,12 +60,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Node-children list and search
 
         // GET: Nodes/ItemList
-        public PartialViewResult ItemIndex(long parentId, int pageNr = 1, string itemSearchTerm = null)
+        public PartialViewResult ItemIndex(long parentId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = parentId;
             DataServiceQuery<Api.Core.Node> itemsBaseQuery = CoreRepository.Nodes;
-            string itemsBaseFilter = "ParentId eq " + parentId; 
-            return base.ItemIndex<Api.Core.Node, Models.Core.Node>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+            string itemsBaseFilter = "ParentId eq " + parentId;
+            return base.ItemIndex<Api.Core.Node, Models.Core.Node>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
         }
 
         private List<Models.Core.Node> LoadNodeChildren(long parentId, int pageNr)

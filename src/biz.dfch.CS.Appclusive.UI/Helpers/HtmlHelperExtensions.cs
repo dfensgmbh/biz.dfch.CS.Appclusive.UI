@@ -34,41 +34,49 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             MemberExpression memberExp = expression.Body as MemberExpression;
             if (memberExp != null)
             {
+                string orderBy;
+                string iconName;
                 string columnName = memberExp.Member.Name;
-                string href = "?orderBy=" + columnName;
+                GetListOrderParams(columnName, out orderBy, out iconName);
                 string title = html.DisplayNameFor(expression).ToString();
 
-                string iconName = "";
-                if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["orderBy"]))
-                {
-                    string[] orderBys= HttpContext.Current.Request.QueryString["orderBy"].ToLower().Split(',');
-                    if (orderBys.Contains(columnName.ToLower()))
-                    {
-                        // ascending
-                        iconName = "fa-long-arrow-up";
-                        href += " desc";
-                    }
-                    if (orderBys.Contains((columnName + " desc").ToLower()))
-                    {
-                        // descending
-                        iconName = "fa-long-arrow-down";
-                    }
-                }
-
-                // other query filters
-                if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["searchTerm"]))
-                {
-                    href += "&searchTerm=" + HttpContext.Current.Request.QueryString["searchTerm"];
-                }
-
-                string htmlStr = "<div class=\"ap-sortedHeader\"><a href=\"{0}\">{1}</a><i class=\"ap-sortedHeader fa {2}\"></i></div>";
-                return new MvcHtmlString(string.Format(htmlStr, href, title, iconName));
+                string htmlStr = "<div class=\"ap-sortedHeader\"><a href=\"?orderBy={0}\">{1}</a><i class=\"ap-sortedHeader fa {2}\"></i></div>";
+                return new MvcHtmlString(string.Format(htmlStr, orderBy, title, iconName));
             }
             else
             {
                 return html.DisplayNameFor(expression);
             }
         }
+
+        public static void GetListOrderParams(string columnName, out string orderBy, out string iconName)
+        {
+            orderBy = columnName;
+
+            iconName = "";
+            if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["orderBy"]))
+            {
+                string[] orderBys = HttpContext.Current.Request.QueryString["orderBy"].ToLower().Split(',');
+                if (orderBys.Contains(columnName.ToLower()))
+                {
+                    // ascending
+                    iconName = "fa-long-arrow-up";
+                    orderBy += " desc";
+                }
+                if (orderBys.Contains((columnName + " desc").ToLower()))
+                {
+                    // descending
+                    iconName = "fa-long-arrow-down";
+                }
+            }
+
+            // other query filters
+            if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["searchTerm"]))
+            {
+                orderBy += "&searchTerm=" + HttpContext.Current.Request.QueryString["searchTerm"];
+            }
+        }
+
 
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes){
             List<SelectListItem> items = new List<SelectListItem>();

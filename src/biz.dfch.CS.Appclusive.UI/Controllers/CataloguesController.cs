@@ -174,12 +174,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region CatalogItems list and search
 
         // GET: Catalogues/ItemList
-        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null)
+        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = catalogueId;
             DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
             string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
-            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
         }
 
         private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)

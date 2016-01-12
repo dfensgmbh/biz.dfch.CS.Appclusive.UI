@@ -237,13 +237,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region Item Search
 
-        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int pageNr = 1, string itemSearchTerm = null)
+        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ItemSearchTerm = itemSearchTerm;
             try
             {
                 query = AddItemSearchFilter(query, baseFilter, itemSearchTerm);
                 query = AddPagingOptions(query, pageNr);
+                query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 

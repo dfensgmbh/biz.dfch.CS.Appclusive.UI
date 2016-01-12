@@ -10,6 +10,8 @@
     rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
     rd.Add("pageNr", 1);
     ViewBag.AjaxRouteValueDictionary = rd;
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
 }
 <div id="itemListAjax">
     @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
@@ -17,17 +19,17 @@
 
     <table class="table table-striped table-hover">
         <tr>
-            <th>
-                @Html.DisplayNameForSortAjax(model => model.Name)
+            <th>                
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Name).ToString(), "Name", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameForSortAjax(model => model.Quantity)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Quantity).ToString(), "Quantity", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameForSortAjax(model => model.Type)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Type).ToString(), "Type", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameForSortAjax(model => model.Description)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Description).ToString(), "Description", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th></th>
         </tr>
