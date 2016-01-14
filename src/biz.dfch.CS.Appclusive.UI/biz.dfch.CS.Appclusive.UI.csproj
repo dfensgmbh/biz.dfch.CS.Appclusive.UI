@@ -259,6 +259,8 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Config\PortalConfig.cs" />
     <Compile Include="Config\SearchConfig.cs" />
+    <Compile Include="Models\Tree\Node.cs" />
+    <Compile Include="Models\Tree\State.cs" />
     <Compile Include="Navigation\PermissionDecisions.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
@@ -279,6 +281,8 @@
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-treeview.css" />
+    <Content Include="Content\bootstrap-treeview.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -344,6 +348,8 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-treeview.js" />
+    <Content Include="Scripts\bootstrap-treeview.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -553,6 +559,7 @@
     <Content Include="Views\Shared\DisplayTemplates\StringMaxlength.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Trustee.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
+    <Content Include="Views\Nodes\Tree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

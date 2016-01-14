@@ -1,0 +1,56 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Tree.Node >
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = "Node tree test";
+    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
+}
+@section Title{
+    <h2>Tree </h2>
+}
+
+<div class="row">
+    <div id="tree" class="col-md-3" ></div>
+
+    <div id="tree" class="col-md-3">
+        <div class="btn btn-info" onclick="$('#tree').treeview('collapseAll', { silent: true });">collaps all</div>
+        <div class="btn btn-success" onclick="$('#tree').treeview('clearSearch');">clear search</div>
+        <div class="btn btn-default" onclick="$('#tree').treeview(true).checkAll(true);">check all</div>
+        <input id="treeSearch" class="form-control form-group-sm" value="name" />        <div class="btn btn-default" onclick="searchTree()">search</div>
+    </div>
+</div>
+
+
+@using (Html.Delayed())
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var kids = [{"text":"CHild 1" }, {"text":"again"}];
+            var data = @Html.Raw(jsonData);
+            // expanded to 5 levels
+            // with a background color of green
+            $('#tree').treeview({
+                data: data,         // data is not optional
+                levels: 5,
+                backColor: 'green',
+                onNodeExpanded: function (event, node) {
+                    node.nodes = kids;
+                    alert("expanded node " + node.text);
+                }
+
+            });
+
+        })
+
+        function searchTree(){
+            $('#tree').treeview('clearSearch');
+            $('#tree').treeview('search', [ $("#treeSearch").val(), {
+                ignoreCase: true,     // case insensitive
+                exactMatch: false,    // like or equals
+                revealResults: true,  // reveal matching nodes
+            }]);
+        }
+   
+     </script>
+}

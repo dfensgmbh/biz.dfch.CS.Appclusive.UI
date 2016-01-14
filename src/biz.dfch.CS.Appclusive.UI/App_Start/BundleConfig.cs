@@ -45,7 +45,8 @@ namespace biz.dfch.CS.Appclusive.UI
 
             bundles.Add(new ScriptBundle("~/bundles/sitescripts").Include(
                         "~/Scripts/notify.min.js",
-                        "~/Scripts/Site.js"));
+                        "~/Scripts/Site.js",
+                        "~/Scripts/bootstrap-treeview.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/font-awesome.min.css",

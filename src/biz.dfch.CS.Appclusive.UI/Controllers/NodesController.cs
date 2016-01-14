@@ -91,5 +91,41 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         #endregion Node-children list
+
+        #region treeview
+
+        public ActionResult Tree()
+        {
+            List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
+            try
+            {
+                // load root Node and Children
+                long id = 1;
+                var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+
+                Models.Tree.Node root = new Models.Tree.Node()
+                {
+                    text = item.Name
+                };
+                foreach (var child in item.Children)
+                {
+                    root.nodes.Add(new Models.Tree.Node()
+                    {
+                        text = child.Name,
+                         selectable = true
+                    });
+                }
+
+                nodeList.Add(root);
+                return View(nodeList);
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return View(nodeList);
+            }
+        }
+
+        #endregion
     }
 }
