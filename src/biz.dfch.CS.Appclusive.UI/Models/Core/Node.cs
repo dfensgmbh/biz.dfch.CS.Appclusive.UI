@@ -52,15 +52,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
 
-        [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
-        public string Type { get; set; }
-
         [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 
         [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))]
         public EntityKind EntityKind { get; set; }
+
+        [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
+        public long? EntityId { get; set; }
 
         [Display(Name = "Job", ResourceType = typeof(GeneralResources))]
         public Job Job { get; set; }

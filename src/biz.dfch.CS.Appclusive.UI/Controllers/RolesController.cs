@@ -100,6 +100,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                     apiItem.Name = role.Name;
                     apiItem.Description = role.Description;
+                    apiItem.MailAddress = role.MailAddress;
+                    apiItem.RoleType = role.RoleType;
 
                     #endregion
                     CoreRepository.UpdateObject(apiItem);

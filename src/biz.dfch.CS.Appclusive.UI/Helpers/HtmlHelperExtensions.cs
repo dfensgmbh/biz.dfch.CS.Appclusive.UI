@@ -78,14 +78,15 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
         }
 
 
-        public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes){
+        public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes, bool useValue = false){
             List<SelectListItem> items = new List<SelectListItem>();
-            foreach (string enumName in Enum.GetNames(enumType))
+            foreach (var enumValue in Enum.GetValues(enumType))
             {
+                string enumName = Enum.GetName(enumType, enumValue);
                 string enumText = biz.dfch.CS.Appclusive.UI.App_LocalResources.GeneralResources.ResourceManager.GetString(enumType.Name + "_" + enumName);
                 items.Add(new SelectListItem() {
                     Text = String.IsNullOrEmpty(enumText) ? enumName : enumText,
-                    Value = enumName 
+                    Value = useValue ? enumValue.GetHashCode().ToString() : enumName 
                 });            
             }
             

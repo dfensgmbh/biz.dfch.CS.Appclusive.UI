@@ -22,6 +22,12 @@
         <th>
             @Html.DisplayNameForSort(model => model.Description)
         </th>
+        <th>
+            @Html.DisplayNameForSort(model => model.RoleType)
+        </th>
+        <th>
+            @Html.DisplayNameForSort(model => model.MailAddress)
+        </th>
         <th></th>
     </tr>
 
@@ -33,6 +39,12 @@
             </td>
             <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+                @Html.DisplayFor(modelItem => item.RoleType)
+            </td>
+            <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+                @Html.DisplayFor(modelItem => item.MailAddress)
             </td>
             <td class="ap-btn text-nowrap">
                 @Html.SecuredButton("Update", Url.Action("Edit", new { id = item.Id }))

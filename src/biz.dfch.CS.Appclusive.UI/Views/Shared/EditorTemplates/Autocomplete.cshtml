@@ -39,33 +39,41 @@ else
     // needs search Action on controller: public ActionResult Search(string term)
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#@searchTermId').autocomplete(
-              {
-                  source: '@searchSource',
-                  select: function (event, ui) {
-                      $('#@searchTermId').val(ui.item.value);
-                      $('#@modelKeyId').val(ui.item.key);
-                  }
-              });
+            InitAutocomplete('#@searchTermId', '#@modelKeyId', '@searchSource');
         })
     </script>
 }
 else
 {
+
     using (Html.Delayed())
     {
         // needs search Action on controller: public ActionResult Search(string term)
         <script type="text/javascript">
+
             $(document).ready(function () {
-                $('#@searchTermId').autocomplete(
+                InitAutocomplete('#@searchTermId', '#@modelKeyId', '@searchSource');
+            })
+
+        </script>
+    }
+
+    using (Html.Delayed(null, "autocompleteInit"))
+    {
+        // needs search Action on controller: public ActionResult Search(string term)
+        <script type="text/javascript">
+
+            function InitAutocomplete(searchTermId, modelKeyId, searchSource) {
+                $(searchTermId).autocomplete(
                   {
-                      source: '@searchSource',
+                      source: searchSource,
                       select: function (event, ui) {
-                          $('#@searchTermId').val(ui.item.value);
-                          $('#@modelKeyId').val(ui.item.key);
+                          $(searchTermId).val(ui.item.value);
+                          $(modelKeyId).val(ui.item.key);
                       }
                   });
-            })
+            }
+
         </script>
     }
 }

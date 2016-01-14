@@ -18,10 +18,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public List<Ace> Aces { get; set; }
 
         [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
+        public long EntityId { get; set; }
+
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))] 
         public long EntityKindId { get; set; }
 
         [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))] 
         public EntityKind EntityKind { get; set; }
+
+        [Display(Name = "NoInheritanceFromParent", ResourceType = typeof(GeneralResources))]
+        public bool NoInheritanceFromParent { get; set; }
     }
 }

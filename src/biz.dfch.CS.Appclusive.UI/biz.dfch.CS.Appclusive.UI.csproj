@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.1.29520, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.1\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.6.29705, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.6\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -154,6 +154,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneralResources.de.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_LocalResources\GeneralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AutomapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -203,11 +208,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="App_LocalResources\GeneralResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GeneralResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperSecuredExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
@@ -215,7 +215,8 @@
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
     <Compile Include="Models\Cmp\CimiTarget.cs" />
     <Compile Include="Models\Core\Ace.cs" />
-    <Compile Include="Models\Core\AceActionEnum.cs" />
+    <Compile Include="Models\Core\AceTypeEnum.cs" />
+    <Compile Include="Models\Core\RoleTypeEnum.cs" />
     <Compile Include="Models\Core\Acl.cs" />
     <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\Core\Product.cs" />
     <Compile Include="Models\Core\Role.cs" />
     <Compile Include="Models\Core\Tenant.cs" />
+    <Compile Include="Models\Core\TrusteeTypeEnum.cs" />
     <Compile Include="Models\Core\User.cs" />
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
@@ -496,7 +498,7 @@
     <Content Include="Views\Acls\Edit.cshtml" />
     <Content Include="Views\Acls\FormPartial.cshtml" />
     <Content Include="Views\Acls\Index.cshtml" />
-    <Content Include="Views\Shared\AceList.cshtml" />
+    <Content Include="Views\Acls\AceList.cshtml" />
     <Content Include="Views\SpecialOperations\Index.cshtml" />
     <Content Include="Views\SpecialOperations\SetCreatedBy.cshtml" />
     <Content Include="Views\SpecialOperations\SetTenant.cshtml" />
@@ -547,12 +549,18 @@
     <Content Include="Views\Shared\DisplayTemplates\Order.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ChangedPropertiesTable.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Acl.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StringMaxlength.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Trustee.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
@@ -571,8 +579,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\GeneralResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -593,7 +601,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
+          <IISUrl>http://localhost:60755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -98,6 +98,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                     apiItem.Name = acl.Name;
                     apiItem.Description = acl.Description;
+                    apiItem.EntityId = acl.EntityId;
                     apiItem.EntityKindId = acl.EntityKindId;
 
                     #endregion

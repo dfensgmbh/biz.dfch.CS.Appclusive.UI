@@ -8,43 +8,41 @@
             @Html.DisplayNameForSort(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Acl)
+            @Html.DisplayNameForSort(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permission)
+        </th>
+        <th>
+            @Html.DisplayNameForSort(model => model.TrusteeType)
         </th>
         <th>
             @Html.DisplayNameForSort(model => model.Trustee)
-        </th>
-        <th>
-            @Html.DisplayNameForSort(model => model.Action)
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        string detailLink = "";
-        if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
-        {
-            detailLink = Url.Action("Details", "Aces", new { id = item.Id });
-        }
-        else
-        {
-            detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
-        }
+        string detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
         <tr>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @if (null != item.Acl)
+                @Html.DisplayFor(modelItem => item.TypeStr)
+            </td>
+            <td onclick="window.location = '@detailLink'" class="ap-hand">
+                @if (item.Permission != null)
                 {
-                    @Html.DisplayFor(modelItem => item.Acl.Name)
+                    @Html.DisplayFor(modelItem => item.Permission.Name)
                 }
             </td>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.Trustee)
+                @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
             </td>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.Action)
+                @Html.DisplayFor(modelItem => item.Trustee, "Trustee", new { ShowLink = false })
             </td>
             <td class="ap-btn text-nowrap">
                 <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>

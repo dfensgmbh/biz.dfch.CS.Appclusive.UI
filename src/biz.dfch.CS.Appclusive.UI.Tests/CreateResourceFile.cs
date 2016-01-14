@@ -33,16 +33,24 @@ namespace biz.dfch.CS.Appclusive.UI.Tests
                     {
                         try
                         {
-                            string xPath = string.Format("/root/data[@name='{0}']", prop.Name);
-                            if (resourceDoc.SelectSingleNode(xPath) == null)
+                            string keyName = prop.Name;
+                            if (keyName != keyName.ToLower())
                             {
-                                // <data name="ExpiresAt" xml:space="preserve">
-                                //   <value>Expires at</value>
-                                // </data>
-                                XmlNode el = resourceDoc.DocumentElement.AppendChild(resourceDoc.CreateElement("data"));
-                                el.Attributes.Append(resourceDoc.CreateAttribute("name")).InnerText = prop.Name;
-                                el.Attributes.Append(resourceDoc.CreateAttribute("xml:space")).InnerText = "preserve";
-                                el.AppendChild(resourceDoc.CreateElement("value")).InnerText = this.SplitCamelCase(prop.Name);
+                                if ((new string[] { "Value", "Key" }).Contains(keyName))
+                                {
+                                    keyName += "Display";
+                                }
+                                string xPath = string.Format("/root/data[@name='{0}']", keyName);
+                                if (resourceDoc.SelectSingleNode(xPath) == null)
+                                {
+                                    // <data name="ExpiresAt" xml:space="preserve">
+                                    //   <value>Expires at</value>
+                                    // </data>
+                                    XmlNode el = resourceDoc.DocumentElement.AppendChild(resourceDoc.CreateElement("data"));
+                                    el.Attributes.Append(resourceDoc.CreateAttribute("name")).InnerText = keyName;
+                                    el.Attributes.Append(resourceDoc.CreateAttribute("xml:space")).InnerText = "preserve";
+                                    el.AppendChild(resourceDoc.CreateElement("value")).InnerText = this.SplitCamelCase(prop.Name);
+                                }
                             }
                         }
                         catch (Exception ex)

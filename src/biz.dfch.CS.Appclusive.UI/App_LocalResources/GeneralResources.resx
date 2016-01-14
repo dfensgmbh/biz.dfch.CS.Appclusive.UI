@@ -792,4 +792,25 @@
   <data name="ChangedPropertiesTable" xml:space="preserve">
     <value>Changed properties</value>
   </data>
+  <data name="TrusteeId" xml:space="preserve">
+    <value>Trustee id</value>
+  </data>
+  <data name="PermissionId" xml:space="preserve">
+    <value>Permission id</value>
+  </data>
+  <data name="TrusteeType" xml:space="preserve">
+    <value>Trustee type</value>
+  </data>
+  <data name="NoInheritanceFromParent" xml:space="preserve">
+    <value>No inheritance from parent</value>
+  </data>
+  <data name="RefId" xml:space="preserve">
+    <value>Ref id</value>
+  </data>
+  <data name="MailAddress" xml:space="preserve">
+    <value>Mail address</value>
+  </data>
+  <data name="RoleType" xml:space="preserve">
+    <value>Role type</value>
+  </data>
 </root>

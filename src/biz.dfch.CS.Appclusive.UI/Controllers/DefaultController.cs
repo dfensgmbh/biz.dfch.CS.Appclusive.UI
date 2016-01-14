@@ -24,14 +24,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class DefaultController : Controller
     {
-        //// GET: Default
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
 
-        // 
-        // GET: Default
+        public DefaultController()
+        {
+            ViewBag.Notifications = new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>();
+        }
 
         public string Index()
         {

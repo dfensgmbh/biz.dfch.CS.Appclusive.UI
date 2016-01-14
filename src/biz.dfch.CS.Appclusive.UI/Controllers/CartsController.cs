@@ -161,7 +161,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 Api.Core.Cart item = null;
                 try
                 {

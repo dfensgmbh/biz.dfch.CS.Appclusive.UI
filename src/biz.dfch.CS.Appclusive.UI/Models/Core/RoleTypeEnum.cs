@@ -16,18 +16,16 @@
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public enum AceActionEnum
+    public enum RoleTypeEnum
     {
-        BREAK_INHERITANCE = 0
+        Default = 0
         ,
-        ALLOW = 0x00004000
+        Security = 1
         ,
-        ALLOW_AND_INHERIT
+        Distribution
         ,
-        USE_BASE_PERMISSION = 0x00006000
+        BuiltIn
         ,
-        DENY = 0x00008000
-        ,
-        DENY_AND_INHERIT
+        External
     }
 }

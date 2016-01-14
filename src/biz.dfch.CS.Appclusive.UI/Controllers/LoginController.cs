@@ -10,6 +10,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        public LoginController()
+        {
+            ViewBag.Notifications = new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>();
+        }
+
         // GET: Login?ReturnUrl=%2fbiz.dfch.CS.Appclusive.UI%2f
         public ActionResult Index(string returnUrl=null)
         {

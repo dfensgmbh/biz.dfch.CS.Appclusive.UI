@@ -116,7 +116,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex);
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ViewBag.Notifications = ExceptionHelper.GetAjaxNotifications(ex));
                 return PartialView(action, inputViewModel);
             }
         }

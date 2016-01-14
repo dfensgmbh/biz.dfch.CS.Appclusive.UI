@@ -1,0 +1,21 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.IAppcusiveEntityBase
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@if (Model != null)
+{
+    if (ViewBag.ShowLink != null && ViewBag.ShowLink)
+    {
+        if (Model is biz.dfch.CS.Appclusive.UI.Models.Core.User)
+        {
+            @Html.DisplayFor(model => model, "User")
+        }
+        if (Model is biz.dfch.CS.Appclusive.UI.Models.Core.Role)
+        {
+            @Html.DisplayFor(model => model, "Role")
+        }
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Name)
+    }
+}

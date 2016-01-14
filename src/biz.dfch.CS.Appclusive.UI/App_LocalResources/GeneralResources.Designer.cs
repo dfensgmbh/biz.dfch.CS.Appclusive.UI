@@ -1294,6 +1294,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail address.
+        /// </summary>
+        public static string MailAddress {
+            get {
+                return ResourceManager.GetString("MailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management credential.
         /// </summary>
         public static string ManagementCredential {
@@ -1407,6 +1416,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Node {
             get {
                 return ResourceManager.GetString("Node", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No inheritance from parent.
+        /// </summary>
+        public static string NoInheritanceFromParent {
+            get {
+                return ResourceManager.GetString("NoInheritanceFromParent", resourceCulture);
             }
         }
         
@@ -1627,6 +1645,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission id.
+        /// </summary>
+        public static string PermissionId {
+            get {
+                return ResourceManager.GetString("PermissionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permissions.
         /// </summary>
         public static string Permissions {
@@ -1690,6 +1717,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ref id.
+        /// </summary>
+        public static string RefId {
+            get {
+                return ResourceManager.GetString("RefId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to request.
         /// </summary>
         public static string Request {
@@ -1731,6 +1767,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Role {
             get {
                 return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role type.
+        /// </summary>
+        public static string RoleType {
+            get {
+                return ResourceManager.GetString("RoleType", resourceCulture);
             }
         }
         
@@ -1911,6 +1956,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Trustee {
             get {
                 return ResourceManager.GetString("Trustee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trustee id.
+        /// </summary>
+        public static string TrusteeId {
+            get {
+                return ResourceManager.GetString("TrusteeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trustee type.
+        /// </summary>
+        public static string TrusteeType {
+            get {
+                return ResourceManager.GetString("TrusteeType", resourceCulture);
             }
         }
         

@@ -10,8 +10,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class AcesController : CoreControllerBase<Api.Core.Ace, Models.Core.Ace, object>
     {
-        protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces.Expand("Acl"); } }
+        protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces; } }
+        //protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces.Expand("Acl"); } }
         
+        protected override void OnBeforeRender<M>(M model)
+        {
+            Models.Core.Ace m = model as Models.Core.Ace;
+            try
+            {
+                m.ResolvePermissionAndTrustee(this.CoreRepository);
+            }
+            catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+        }
+
         #region Ace
 
         // GET: Aces/Details/5
@@ -22,8 +33,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Ace>(item));
+                var item = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                //var item = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var model = AutoMapper.Mapper.Map<Models.Core.Ace>(item);
+                model.ResolvePermissionAndTrustee(this.CoreRepository);
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -63,6 +77,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                ace.ResolvePermissionAndTrustee(CoreRepository);
                 return View(ace);
             }
         }
@@ -74,7 +89,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
+                var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
+                model.ResolvePermissionAndTrustee(this.CoreRepository);
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -102,20 +119,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                     apiItem.Name = ace.Name;
                     apiItem.Description = ace.Description;
-                    apiItem.Trustee = ace.Trustee;
-                    apiItem.Action = ace.Action;
+                    apiItem.TrusteeId = ace.TrusteeId;
+                    apiItem.TrusteeType = ace.TrusteeType;
+                    apiItem.Type = ace.Type;
+                    apiItem.PermissionId = ace.PermissionId;
+                    apiItem.TrusteeType = ace.TrusteeType;
                     apiItem.AclId = ace.AclId;
 
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
-                    return View(AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
+
+                    var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
+                    model.ResolvePermissionAndTrustee(this.CoreRepository);
+                    return View(model);
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                ace.ResolvePermissionAndTrustee(CoreRepository);
                 return View(ace);
             }
         }
