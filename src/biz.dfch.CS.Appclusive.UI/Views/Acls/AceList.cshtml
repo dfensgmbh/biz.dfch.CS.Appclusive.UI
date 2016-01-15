@@ -2,6 +2,13 @@
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
+
+<div class="row" style="margin-bottom:5px">
+    <div class="col-md-2">
+        @Html.SecuredButton("Create", Url.Action("Create", "Aces", new { AclId = ViewBag.AclId }))
+    </div>
+</div>
+
 <table class="table table-striped table-hover">
     <tr>
         <th>
@@ -46,11 +53,8 @@
             </td>
             <td class="ap-btn text-nowrap">
                 <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
-                {
-                    @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
-                    @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
-                }
+                @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
+                @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
             </td>
         </tr>
     }

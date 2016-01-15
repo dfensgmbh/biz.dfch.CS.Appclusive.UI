@@ -60,7 +60,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); 
+                acl.ResolveNavigationProperties(CoreRepository);
                 return View(acl);
             }
         }
@@ -113,6 +114,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                acl.ResolveNavigationProperties(CoreRepository);
                 return View(acl);
             }
         }

@@ -3,6 +3,7 @@
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " edit";
+    ViewBag.AclId = Model.Id;
 }
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>

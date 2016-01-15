@@ -45,10 +45,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Aces/Create
-        public ActionResult Create()
+        public ActionResult Create(long aclId = 0)
         {
             this.AddAclSeletionToViewBag();
-            return View(new Models.Core.Ace());
+            Models.Core.Ace ace = new Models.Core.Ace(){
+                AclId = aclId,
+                Type = Models.Core.AceTypeEnum.ALLOW.GetHashCode()
+            };
+            return View(ace);
         }
 
         // POST: Aces/Create
@@ -69,7 +73,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.AddToAces(apiItem);
                     CoreRepository.SaveChanges();
 
-                    return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
+                    //return RedirectToAction("Details", new { id = apiItem.Id });
                 }
             }
             catch (Exception ex)
@@ -128,9 +133,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
 
-                    var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
-                    model.ResolveNavigationProperties(this.CoreRepository);
-                    return View(model);
+                    return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
+                    //var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
+                    //model.ResolveNavigationProperties(this.CoreRepository);
+                    //return View(model);
                 }
             }
             catch (Exception ex)
@@ -147,17 +153,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Ace apiItem = null;
             try
             {
-                apiItem = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
-                model.ResolveNavigationProperties(this.CoreRepository);
-                return View("Details", model);
+                if (apiItem != null)
+                {
+                    model.ResolveNavigationProperties(this.CoreRepository);
+                    return View("Details", model);
+                }
+                else
+                {
+                    return View("Details", new Models.Core.Ace());
+                }
             }
         }
 

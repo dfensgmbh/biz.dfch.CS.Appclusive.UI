@@ -13,11 +13,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Trustee", ResourceType = typeof(GeneralResources))] 
         public IAppcusiveEntityBase Trustee { get; set; }
 
-        [Range(1,long.MaxValue)]
+        [Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "TrusteeId", ResourceType = typeof(GeneralResources))]
         public long TrusteeId { get; set; }
 
-        [Range(1, long.MaxValue)]
+        [Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "PermissionId", ResourceType = typeof(GeneralResources))]
         public long PermissionId { get; set; }
 
@@ -54,10 +54,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Permission", ResourceType = typeof(GeneralResources))]
         public Permission Permission { get; set; }
 
-        /// <summary>
-        /// Find Order by Approval 
-        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
-        /// </summary>
         /// <param name="coreRepository"></param>
         internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
         {
