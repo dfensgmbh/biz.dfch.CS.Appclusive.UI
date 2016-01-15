@@ -816,4 +816,13 @@
   <data name="Contents" xml:space="preserve">
     <value>Contents</value>
   </data>
+  <data name="EffectivAces" xml:space="preserve">
+    <value>Effective permissions</value>
+  </data>
+  <data name="ExplicitAcl" xml:space="preserve">
+    <value>Explicit permissions</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>none</value>
+  </data>
 </root>

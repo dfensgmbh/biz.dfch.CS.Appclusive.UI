@@ -718,6 +718,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effective permissions.
+        /// </summary>
+        public static string EffectivAces {
+            get {
+                return ResourceManager.GetString("EffectivAces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encrypted password.
         /// </summary>
         public static string EncryptedPassword {
@@ -822,6 +831,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ExpiresAt {
             get {
                 return ResourceManager.GetString("ExpiresAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explicit permissions.
+        /// </summary>
+        public static string ExplicitAcl {
+            get {
+                return ResourceManager.GetString("ExplicitAcl", resourceCulture);
             }
         }
         
@@ -1434,6 +1452,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string NoInheritanceFromParent {
             get {
                 return ResourceManager.GetString("NoInheritanceFromParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to none.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         

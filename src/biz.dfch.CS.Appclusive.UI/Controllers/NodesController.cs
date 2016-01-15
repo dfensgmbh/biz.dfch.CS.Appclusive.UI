@@ -42,6 +42,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (null != modelItem)
                 {
                     modelItem.Children = LoadNodeChildren(id, 1);
+                    modelItem.ResolveSecurity(this.CoreRepository);
                     try
                     {
                         modelItem.ResolveJob(this.CoreRepository);

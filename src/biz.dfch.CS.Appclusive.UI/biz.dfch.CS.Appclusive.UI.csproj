@@ -498,7 +498,7 @@
     <Content Include="Views\Acls\Edit.cshtml" />
     <Content Include="Views\Acls\FormPartial.cshtml" />
     <Content Include="Views\Acls\Index.cshtml" />
-    <Content Include="Views\Acls\AceList.cshtml" />
+    <Content Include="Views\Shared\AceList.cshtml" />
     <Content Include="Views\SpecialOperations\Index.cshtml" />
     <Content Include="Views\SpecialOperations\SetCreatedBy.cshtml" />
     <Content Include="Views\SpecialOperations\SetTenant.cshtml" />
@@ -553,6 +553,8 @@
     <Content Include="Views\Shared\DisplayTemplates\StringMaxlength.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
     <Content Include="Views\Nodes\ChildList.cshtml" />
+    <Content Include="Views\Nodes\Security.cshtml" />
+    <Content Include="Views\Shared\CheckPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
