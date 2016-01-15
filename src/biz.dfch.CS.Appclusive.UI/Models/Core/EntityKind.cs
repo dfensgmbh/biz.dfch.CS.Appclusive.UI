@@ -40,7 +40,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 {
                     if (!idCache.ContainsKey(version))
                     {
-                        var ekind = coreRepository.EntityKinds.FirstOrDefault(e => e.Version == version);
+                        var ekind = coreRepository.EntityKinds.Where(e => e.Version == version).FirstOrDefault();
                         Contract.Assert(null==ekind);
                         idCache.Add(version, ekind.Id);
                     }
