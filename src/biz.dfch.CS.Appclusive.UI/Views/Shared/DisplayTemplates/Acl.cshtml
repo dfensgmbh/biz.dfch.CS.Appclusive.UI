@@ -8,7 +8,7 @@
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
         string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-        @Html.ActionLink(Model.Name, "ItemDetails", "Acls", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
+        @Html.ActionLink(Model.Name, "Details", "Acls", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
     }
     else
     {
