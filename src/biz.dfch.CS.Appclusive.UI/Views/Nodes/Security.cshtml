@@ -12,9 +12,8 @@
     ViewDataDictionary aceListViewData = new ViewDataDictionary();
     aceListViewData.Add("Readonly", true);
 }
-<div>
+@Html.Partial("CheckPermission", (biz.dfch.CS.Appclusive.UI.Models.SpecialOperations.CheckPermission)ViewBag.CheckNodePermission)
 
-</div>
 <div>
     <h4>@Html.DisplayNameFor(model => model.Acl)</h4>
     @if (Model.Acl == null)

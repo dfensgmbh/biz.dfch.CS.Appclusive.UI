@@ -376,6 +376,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check permission.
+        /// </summary>
+        public static string CheckPermission {
+            get {
+                return ResourceManager.GetString("CheckPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Children.
         /// </summary>
         public static string Children {
@@ -642,6 +651,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denied.
+        /// </summary>
+        public static string Denied {
+            get {
+                return ResourceManager.GetString("Denied", resourceCulture);
             }
         }
         
@@ -984,6 +1002,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string GoToProduct {
             get {
                 return ResourceManager.GetString("GoToProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Granted.
+        /// </summary>
+        public static string Granted {
+            get {
+                return ResourceManager.GetString("Granted", resourceCulture);
             }
         }
         
@@ -1443,6 +1470,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Node {
             get {
                 return ResourceManager.GetString("Node", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node id.
+        /// </summary>
+        public static string NodeId {
+            get {
+                return ResourceManager.GetString("NodeId", resourceCulture);
             }
         }
         

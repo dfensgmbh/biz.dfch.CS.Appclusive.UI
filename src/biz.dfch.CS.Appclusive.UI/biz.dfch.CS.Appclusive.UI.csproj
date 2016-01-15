@@ -259,6 +259,7 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Config\PortalConfig.cs" />
     <Compile Include="Config\SearchConfig.cs" />
+    <Compile Include="Models\SpecialOperations\CheckPermission.cs" />
     <Compile Include="Navigation\PermissionDecisions.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
