@@ -4,7 +4,8 @@
 
 @if (Model != null)
 {
-    if (Model.EntityKind != null && !string.IsNullOrEmpty(Model.RefId))
+    bool showLink = ViewBag.ShowLink == null ? true : (bool)ViewBag.ShowLink;
+    if (showLink && Model.EntityKind != null && !string.IsNullOrEmpty(Model.RefId))
     {
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
