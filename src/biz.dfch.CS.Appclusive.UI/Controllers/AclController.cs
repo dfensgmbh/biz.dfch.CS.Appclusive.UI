@@ -24,7 +24,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Acl>(item));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(item);
+                if (model != null)
+                {
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -79,7 +87,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                if (model != null)
+                {
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -115,13 +131,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
 
                     apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                    return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                    Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                    if (model != null)
+                    {
+                        foreach (var ace in model.Aces)
+                        {
+                            ace.ResolveNavigationProperties(this.CoreRepository);
+                        }
+                    }
+                    return View(model);
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 acl.ResolveNavigationProperties(CoreRepository);
+                foreach (var ace in acl.Aces)
+                {
+                    ace.ResolveNavigationProperties(this.CoreRepository);
+                }
                 return View(acl);
             }
         }
@@ -140,7 +168,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                if (model != null)
+                {
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View(model);
             }
         }
 

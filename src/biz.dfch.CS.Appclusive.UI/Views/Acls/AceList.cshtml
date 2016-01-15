@@ -24,7 +24,7 @@
             @Html.DisplayNameForSort(model => model.TrusteeType)
         </th>
         <th>
-            @Html.DisplayNameForSort(model => model.Trustee)
+            @Html.DisplayNameFor(model => model.Trustee)
         </th>
         <th></th>
     </tr>
@@ -39,17 +39,14 @@
             <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.TypeStr)
             </td>
-            <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @if (item.Permission != null)
-                {
-                    @Html.DisplayFor(modelItem => item.Permission.Name)
-                }
+            <td>
+                @Html.DisplayFor(modelItem => item.Permission)
             </td>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
             </td>
-            <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.Trustee, "Trustee", new { ShowLink = false })
+            <td class="ap-hand">
+                @Html.DisplayFor(modelItem => item.Trustee)
             </td>
             <td class="ap-btn text-nowrap">
                 <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
