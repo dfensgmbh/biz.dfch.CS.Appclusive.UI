@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -35,7 +36,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Acls/Create
         public ActionResult Create()
         {
-            return View(new Models.Core.Acl());
+            Models.Core.Acl acl = new Models.Core.Acl()
+            {
+                EntityKindId = 1 // fix "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node" id from database seed
+            };
+            acl.ResolveNavigationProperties(CoreRepository);
+            Contract.Assert(acl.EntityKind.Version == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node");
+            return View(acl);
         }
 
         // POST: Acls/Create

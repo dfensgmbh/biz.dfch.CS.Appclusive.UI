@@ -42,10 +42,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.EntityKind, htmlAttributes: new { @class = "control-label" })
-        <div>
-            @*@Html.DropDownListFor(model => model.EntityKindId, (IEnumerable<SelectListItem>)ViewBag.EntityKindSelection, new { @class = "form-control" })*@
-            @Html.EditorFor(model => model.EntityKindId, "Autocomplete", new { Value = Model.EntityKind == null ? "" : Model.EntityKind.Name, SelectUrl = @Url.Action("Select", "EntityKinds") })
-            @Html.ValidationMessageFor(model => model.EntityKindId, "", new { @class = "text-danger" })
+        <div>           
+            @Html.DisplayFor(model => model.EntityKind)
+            @*@Html.EditorFor(model => model.EntityKindId, "Autocomplete", new { Value = Model.EntityKind == null ? "" : Model.EntityKind.Name, SelectUrl = @Url.Action("Select", "EntityKinds") })
+            @Html.ValidationMessageFor(model => model.EntityKindId, "", new { @class = "text-danger" })*@
         </div>
     </div>
     

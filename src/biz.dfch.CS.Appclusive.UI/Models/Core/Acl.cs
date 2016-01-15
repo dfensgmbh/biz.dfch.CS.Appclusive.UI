@@ -22,7 +22,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
         public long EntityId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        //[Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Range(1, 1, ErrorMessageResourceName = "onlyNodeAllowed", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))] 
         public long EntityKindId { get; set; }
 
