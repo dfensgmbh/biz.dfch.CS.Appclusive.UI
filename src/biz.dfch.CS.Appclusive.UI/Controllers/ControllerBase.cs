@@ -26,7 +26,7 @@ using System.Web.Mvc;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    public abstract class ControllerBase : Controller
+    public abstract class ControllerBase : Controller, IExtendedController
     {
         public ControllerBase(Type itemType)
         {
@@ -39,15 +39,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         EntityElement SearchConfiguration;
         EntityElement ItemSearchConfiguration;
 
+        /// <summary>
+        /// Has Header
+        /// X-Requested-With: XMLHttpRequest
+        /// </summary>
+        public Boolean IsAjaxRequest
+        {
+            get
+            {
+                return this.Request.Headers["X-Requested-With"] != null && this.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            }
+        }
+        
         #region basic list actions
 
-        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null)
+        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null)
         {
             ViewBag.SearchTerm = searchTerm;
             try
             {
                 query = AddSearchFilter(query, searchTerm);
                 query = AddPagingOptions(query, pageNr);
+                query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
@@ -71,7 +84,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
 
-            return this.Json(CreateOptionList(items), JsonRequestBehavior.AllowGet);
+            return this.Json(CreateSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
         
         protected ActionResult Select<T>(DataServiceQuery<T> query, string term)
@@ -81,7 +94,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
 
-            return this.Json(CreateOptionList(items, this.SearchConfiguration.Display, false), JsonRequestBehavior.AllowGet);
+            return this.Json(CreateSelectOptionList(items), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -101,9 +114,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
         /// <returns></returns>
-        protected virtual List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items)
+        protected virtual List<AjaxOption> CreateSearchOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, this.SearchConfiguration.Display, true);
+            return CreateOptionList(items, this.SearchConfiguration.SearchKey, this.SearchConfiguration.Display, true);
+        }
+
+        /// <summary>
+        /// consider implementing AddSelectFilter and AddSearchFilter as well,
+        /// otherwise you load the wrong properties..
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        protected virtual List<AjaxOption> CreateSelectOptionList<T>(QueryOperationResponse<T> items)
+        {
+            return CreateOptionList(items, "Id", this.SearchConfiguration.Display, true);
         }
   
         /// <summary>
@@ -115,12 +140,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <param name="displayStringFormat">"{Name} - {Created} ({Created})"</param>
         /// <param name="distinctValuesOnly"></param>
         /// <returns></returns>
-        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string displayStringFormat, bool distinctValuesOnly)
+        protected List<AjaxOption> CreateOptionList<T>(QueryOperationResponse<T> items, string keyPropertyName, string displayStringFormat, bool distinctValuesOnly)
         {
             Contract.Requires(null != items);
             Contract.Requires(null != displayStringFormat);
-
-            string keyPropertyName = "Id"; // key must be present for ODATA and it is always the property Id            
+      
             System.Reflection.PropertyInfo propId = typeof(T).GetProperty(keyPropertyName);
             Contract.Assert(null != propId);
 
@@ -144,14 +168,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 List<object> values = new List<object>();
                 valueProps.ForEach(p => values.Add(p.GetValue(item)));
                 string value = string.Format(exp.FormatString, values.ToArray());
-                if (distinctValuesOnly)
-                {
-                    if (null == options.FirstOrDefault(o => o.value == value))
-                    {
-                        options.Add(new AjaxOption(0, value));
-                    }
-                }
-                else
+                if (!distinctValuesOnly || null == options.FirstOrDefault(o => o.value == value))
                 {
                     options.Add(new AjaxOption(propId.GetValue(item), value));
                 }
@@ -164,8 +181,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region basic query filters
 
         /// <summary>
-        /// consider implementing CreateOptionList and AddSearchFilter as well,
-        /// otherwise you load the wrong properties..
+        /// Adds all properties to load from this.SearchConfiguration.Select
+        ///  key must be present for ODATA and it is always the property Id
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
@@ -175,7 +192,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$select", this.SearchConfiguration.Select); // key must be present for ODATA and it is always the property Id
+                query = query.AddQueryOption("$select", this.SearchConfiguration.Select); 
             }
             return query;
         }
@@ -207,17 +224,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             return query;
         }
+
+        protected DataServiceQuery<T> AddOrderOptions<T>(DataServiceQuery<T> query, string orderBy)
+        {
+            if (!String.IsNullOrWhiteSpace(orderBy))
+            {
+                query = query.AddQueryOption("$orderby", orderBy);
+            }
+            return query;
+        }
         #endregion
 
         #region Item Search
 
-        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int pageNr = 1, string itemSearchTerm = null)
+        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ItemSearchTerm = itemSearchTerm;
             try
             {
                 query = AddItemSearchFilter(query, baseFilter, itemSearchTerm);
                 query = AddPagingOptions(query, pageNr);
+                query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
@@ -239,7 +266,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             QueryOperationResponse<T> items = itemQuery.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
 
-            return this.Json(CreateItemOptionList(items), JsonRequestBehavior.AllowGet);
+            return this.Json(CreateItemSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -295,9 +322,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
         /// <returns></returns>
-        protected virtual List<AjaxOption> CreateItemOptionList<T>(QueryOperationResponse<T> items)
+        protected virtual List<AjaxOption> CreateItemSearchOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, this.ItemSearchConfiguration.Display, true);
+            return CreateOptionList(items, this.ItemSearchConfiguration.SearchKey , this.ItemSearchConfiguration.Display, true);
         }
 
         #endregion

@@ -1,6 +1,9 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Ace
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @using biz.dfch.CS.Appclusive.UI.Helpers
+@{
+    bool isCreate = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"] == "Create";
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,14 +17,21 @@
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(model => model.Acl, htmlAttributes: new { @class = "control-label" })
         <div>
-            @Html.DropDownListFor(model => model.AclId, (IEnumerable<SelectListItem>)ViewBag.AclSelection, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.AclId, "", new { @class = "text-danger" })
-        </div>
+            @if (isCreate)
+            {
+                @Html.DropDownListFor(model => model.AclId, (IEnumerable<SelectListItem>)ViewBag.AclSelection, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AclId, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Acl)
+            }
     </div>
+</div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
@@ -30,25 +40,70 @@
             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
     <div class="form-group">
-        @Html.LabelFor(model => model.Trustee, htmlAttributes: new { @class = "control-label" })
+        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
         <div>
-            @Html.EditorFor(model => model.Trustee, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Trustee, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.Type, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.AceTypeEnum), new { @class = "form-control" }, true)
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Action, htmlAttributes: new { @class = "control-label" })
+        @Html.LabelFor(model => model.Permission, htmlAttributes: new { @class = "control-label" })
         <div>
-            @Html.DropDownListFor(model => model.Action, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.AceActionEnum), new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.PermissionId, "Autocomplete", new { Value = Model.Permission == null ? "" : Model.Permission.Name, SelectUrl = @Url.Action("Select", "Permissions") })
+            @Html.ValidationMessageFor(model => model.PermissionId, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TrusteeType, htmlAttributes: new { @class = "control-label" })
+        <div>
+            @if (isCreate)
+            {
+                @Html.DropDownListFor(model => model.TrusteeType, typeof(biz.dfch.CS.Appclusive.UI.Models.Core.TrusteeTypeEnum), new { @class = "form-control", @onchange = "InitTrusteeAuto(this.value);" }, true)
+                @Html.ValidationMessageFor(model => model.TrusteeType, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.TrusteeTypeStr)
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Trustee, htmlAttributes: new { @class = "control-label" })
+        <div>
+            @if (isCreate)
+            {
+                @Html.EditorFor(model => model.TrusteeId, "Autocomplete", new { Value = Model.Trustee == null ? "" : Model.Trustee.Name, SearchTermId = "TrusteeIdSearch", SelectUrl = @Url.Action("Select", Model.TrusteeTypeStr + "s") })
+                @Html.ValidationMessageFor(model => model.TrusteeId, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Trustee)
+
+            }
+        </div>
+    </div>
 
     <div class="form-group">
         <input type="submit" value="@GeneralResources.Save" class="btn btn-primary" />
     </div>
+}
+@using (Html.Delayed())
+{
+    // needs search Action on controller: public ActionResult Search(string term)
+    <script type="text/javascript">
+
+        function InitTrusteeAuto(trusteeTypeId) {
+            if (trusteeTypeId == 0) {
+                InitAutocomplete('#TrusteeIdSearch', '#TrusteeId', '@Url.Action("Select", "Roles")')
+            } else {
+                InitAutocomplete('#TrusteeIdSearch', '#TrusteeId', '@Url.Action("Select", "Users")')
+            }
+        }
+
+    </script>
 }

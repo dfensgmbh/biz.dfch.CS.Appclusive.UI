@@ -32,6 +32,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         public const string VDI_PERSONAL_NAME = "VDI Personal";
         public const string VDI_TECHNICAL_NAME = "VDI Technical";
 
+        [Display(Name = "VdiName", ResourceType = typeof(GeneralResources))]
         public string VdiName { get; set; }
 
         [Display(Name = "HelpText", ResourceType = typeof(GeneralResources))]
@@ -51,6 +52,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             }
         }
 
+        [Display(Name = "Title", ResourceType = typeof(GeneralResources))]
         public string Title
         {
             get
@@ -67,7 +69,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             }
         }
 
-
+        [Display(Name = "Requester", ResourceType = typeof(GeneralResources))]
         public string Requester { get; set; }
 
         internal string RequesterToParameters()

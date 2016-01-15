@@ -88,7 +88,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Permission does not exist in role..
+        ///   Looks up a localized string similar to Permission does not exist..
         /// </summary>
         public static string permissionNotExist {
             get {
@@ -102,6 +102,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string permissionRemoved {
             get {
                 return ResourceManager.GetString("permissionRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} field is required..
+        /// </summary>
+        public static string requiredField {
+            get {
+                return ResourceManager.GetString("requiredField", resourceCulture);
             }
         }
         
@@ -129,6 +138,42 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string requiredVersion {
             get {
                 return ResourceManager.GetString("requiredVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User added to role..
+        /// </summary>
+        public static string userAdded {
+            get {
+                return ResourceManager.GetString("userAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is already added to role..
+        /// </summary>
+        public static string userAlreadyAdded {
+            get {
+                return ResourceManager.GetString("userAlreadyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User does not exist.
+        /// </summary>
+        public static string userNotExist {
+            get {
+                return ResourceManager.GetString("userNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User removed from role..
+        /// </summary>
+        public static string userRemoved {
+            get {
+                return ResourceManager.GetString("userRemoved", resourceCulture);
             }
         }
     }

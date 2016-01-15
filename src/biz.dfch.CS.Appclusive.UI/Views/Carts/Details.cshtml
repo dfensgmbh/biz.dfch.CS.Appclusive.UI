@@ -18,7 +18,7 @@
         <hr />
 
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#items">Contents</a></li>
+            <li class="active"><a data-toggle="tab" href="#items">@GeneralResources.Contents</a></li>
             <li><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
             <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
         </ul>
@@ -50,13 +50,16 @@
         <hr />
     </div>
     <p>
-        <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return confirm('@GeneralResources.ConfirmCheckOut')"><i class="fa fa-shopping-cart"></i> @GeneralResources.CheckOutCart</a>
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+        @if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(biz.dfch.CS.Appclusive.UI.Models.Core.Order), "CanCreate"))
+        {
+            <a class="btn btn-success btn-sm" href="@Url.Action("CheckoutCart", new { Id = Model.Id })" onclick="return confirm('@GeneralResources.ConfirmCheckOut')"><i class="fa fa-shopping-cart"></i> @GeneralResources.CheckOutCart</a>
+        }
+        @Html.Partial("BackLink") 
     </p>
 }
 else
 {
     <p>
-        <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+        @Html.Partial("BackLink") 
     </p>
 }

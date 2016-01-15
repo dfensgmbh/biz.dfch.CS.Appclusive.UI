@@ -1,4 +1,5 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Tenant
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " edit";
@@ -34,5 +35,5 @@
     {
         <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = Model.Id.ToString() })"><i class="fa fa-pencil "></i> @GeneralResources.CancelLink</a>
     }
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @Html.Partial("BackLink")
 </p>

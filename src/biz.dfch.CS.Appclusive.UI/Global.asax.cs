@@ -18,5 +18,6 @@ namespace biz.dfch.CS.Appclusive.UI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutomapperConfig.MapInit();
         }
+
     }
 }

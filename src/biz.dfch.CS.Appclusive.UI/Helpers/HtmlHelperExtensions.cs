@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -28,15 +29,64 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
 {
     public static class HtmlHelperExtensions
     {
-        
-        public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes){
-            List<SelectListItem> items = new List<SelectListItem>();
-            foreach (string enumName in Enum.GetNames(enumType))
+        public static MvcHtmlString DisplayNameForSort<TModel, TValue>(this HtmlHelper<System.Collections.Generic.IEnumerable<TModel>> html, Expression<Func<TModel, TValue>> expression)
+        {
+            MemberExpression memberExp = expression.Body as MemberExpression;
+            if (memberExp != null)
             {
+                string orderBy;
+                string iconName;
+                string columnName = memberExp.Member.Name;
+                GetListOrderParams(columnName, out orderBy, out iconName);
+                string title = html.DisplayNameFor(expression).ToString();
+
+                string htmlStr = "<div class=\"ap-sortedHeader\"><a href=\"?orderBy={0}\">{1}</a><i class=\"ap-sortedHeader fa {2}\"></i></div>";
+                return new MvcHtmlString(string.Format(htmlStr, orderBy, title, iconName));
+            }
+            else
+            {
+                return html.DisplayNameFor(expression);
+            }
+        }
+
+        public static void GetListOrderParams(string columnName, out string orderBy, out string iconName)
+        {
+            orderBy = columnName;
+
+            iconName = "";
+            if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["orderBy"]))
+            {
+                string[] orderBys = HttpContext.Current.Request.QueryString["orderBy"].ToLower().Split(',');
+                if (orderBys.Contains(columnName.ToLower()))
+                {
+                    // ascending
+                    iconName = "fa-long-arrow-up";
+                    orderBy += " desc";
+                }
+                if (orderBys.Contains((columnName + " desc").ToLower()))
+                {
+                    // descending
+                    iconName = "fa-long-arrow-down";
+                }
+            }
+
+            // other query filters
+            if (!string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["searchTerm"]))
+            {
+                orderBy += "&searchTerm=" + HttpContext.Current.Request.QueryString["searchTerm"];
+            }
+        }
+
+
+        public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType, object htmlAttributes, bool useValue = false){
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var enumValue in Enum.GetValues(enumType))
+            {
+                string enumName = Enum.GetName(enumType, enumValue);
                 string enumText = biz.dfch.CS.Appclusive.UI.App_LocalResources.GeneralResources.ResourceManager.GetString(enumType.Name + "_" + enumName);
                 items.Add(new SelectListItem() {
                     Text = String.IsNullOrEmpty(enumText) ? enumName : enumText,
-                    Value = enumName 
+                    Value = useValue ? enumValue.GetHashCode().ToString() : enumName 
                 });            
             }
             

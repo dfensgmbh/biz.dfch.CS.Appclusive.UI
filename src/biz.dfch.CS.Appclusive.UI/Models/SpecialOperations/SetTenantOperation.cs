@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,13 +16,16 @@ namespace biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
             TenantId = string.Empty;
         }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntitySet", ResourceType = typeof(GeneralResources))]
         public string EntitySet { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
         public string EntityId { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "TenantId", ResourceType = typeof(GeneralResources))]
         public string TenantId { get; set; }
 
 

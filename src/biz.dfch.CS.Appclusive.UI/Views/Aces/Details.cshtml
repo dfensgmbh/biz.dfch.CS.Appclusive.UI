@@ -1,4 +1,5 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Ace
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " details";
@@ -28,14 +29,7 @@
                     @Html.DisplayNameFor(model => model.Acl)
                 </dt>
                 <dd>
-                    @if (null != Model.Acl)
-                    {
-                        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
-                        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
-                        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-                        
-                        @Html.ActionLink(Model.Acl.Id.ToString(), "Details", "Acls", new { id = Model.AclId, rId = id, rAction = action, rController = controller }, null)
-                    }
+                    @Html.DisplayFor(model => model.Acl)
                 </dd>
 
                 <dt>
@@ -43,6 +37,27 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Description)
+                </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TypeStr)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Permission)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Permission)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrusteeType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TrusteeTypeStr)
                 </dd>
 
                 <dt>
@@ -52,12 +67,6 @@
                     @Html.DisplayFor(model => model.Trustee)
                 </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Action)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Action)
-                </dd>
             </dl>
         </div>
         <div id="general" class="tab-pane fade">
@@ -67,6 +76,6 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+    @Html.SecuredButton("Update", Url.Action("Edit", new { id = Model.Id }))
     @Html.Partial("BackLink") 
 </p>

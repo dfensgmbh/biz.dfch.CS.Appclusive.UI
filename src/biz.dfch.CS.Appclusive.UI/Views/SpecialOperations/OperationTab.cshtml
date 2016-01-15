@@ -1,0 +1,15 @@
+﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Navigation
+@using System.Linq
+
+@if (PermissionDecisions.Current.Navigation["SpecialOperations"].NavEntries.Exists(e => e.Name == ViewBag.operationName))
+{
+    if (ViewBag.operationName == ViewBag.ActiveOperation)
+    {
+        <li class="active"><a data-toggle="tab" href="#@ViewBag.operationName">@ViewBag.operationTitle</a></li>
+    }
+    else
+    {
+        <li><a data-toggle="tab" href="#@ViewBag.operationName">@ViewBag.operationTitle</a></li>
+    }
+}

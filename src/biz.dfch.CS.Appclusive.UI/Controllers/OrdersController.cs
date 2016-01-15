@@ -92,12 +92,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Order Items list and search
 
         // GET: Nodes/ItemList
-        public PartialViewResult ItemIndex(long orderId, int pageNr = 1, string itemSearchTerm = null)
+        public PartialViewResult ItemIndex(long orderId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = orderId;
             DataServiceQuery<Api.Core.OrderItem> itemsBaseQuery = CoreRepository.OrderItems;
             string itemsBaseFilter = "OrderId eq " + orderId;
-            return base.ItemIndex<Api.Core.OrderItem, Models.Core.OrderItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+            return base.ItemIndex<Api.Core.OrderItem, Models.Core.OrderItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
         }
 
         private List<Models.Core.OrderItem> LoadOrderItems(long orderId, int pageNr)

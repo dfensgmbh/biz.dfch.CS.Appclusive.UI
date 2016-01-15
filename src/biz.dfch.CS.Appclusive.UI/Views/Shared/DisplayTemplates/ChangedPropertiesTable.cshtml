@@ -1,0 +1,35 @@
+﻿@model Dictionary<string, object[]>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@if (Model != null)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="active">
+                <th></th>
+                <th>@GeneralResources.Original</th>
+                <th>@GeneralResources.Current</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (string prop in Model.Keys.OrderBy(k => k))
+            {
+                string changedClass = Model[prop][0] == null ? "success"
+                    : Model[prop][1] == null ? "danger" : "warning";
+                <tr class="table table-striped table-hover @changedClass">
+                    <td>
+                        @prop
+                    </td>
+                    <td>
+                        @Model[prop][0]
+                        @Html.DisplayFor(model => model[prop][0])
+                    </td>
+                    <td>
+                        @Model[prop][1]
+                        @Html.DisplayFor(model => model[prop][1])
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

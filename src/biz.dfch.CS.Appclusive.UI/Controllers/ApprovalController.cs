@@ -128,7 +128,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    CoreRepository.InvokeEntitySetActionWithVoidResult("Approvals", "InvokeAction",
+                    CoreRepository.InvokeEntityActionWithVoidResult("Approvals", id, "InvokeAction",
                         new
                         {
                             Parameters = approval.Description,

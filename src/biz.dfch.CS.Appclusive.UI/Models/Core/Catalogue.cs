@@ -33,12 +33,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         public static string[] StatusSelection = { "Published", "Revoked", "Hidden" };
 
+        [Display(Name = "CatalogueItems", ResourceType = typeof(GeneralResources))]
         public List<CatalogueItem> CatalogueItems { get; set; }
 
         [Required(ErrorMessageResourceName = "requiredStatus", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
         public string Status { get; set; }
 
         [Required(ErrorMessageResourceName = "requiredVersion", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "Version", ResourceType = typeof(GeneralResources))]
         public string Version { get; set; }
 
     }

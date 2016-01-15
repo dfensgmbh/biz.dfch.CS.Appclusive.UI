@@ -84,8 +84,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ExpressionTest.cs" />
+    <Compile Include="Models\AuditTrailTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="CreateResourceFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

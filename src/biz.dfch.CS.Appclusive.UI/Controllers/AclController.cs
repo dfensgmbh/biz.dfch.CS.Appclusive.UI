@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -23,7 +24,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Acl>(item));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(item);
+                if (model != null)
+                {
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -35,7 +44,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Acls/Create
         public ActionResult Create()
         {
-            return View(new Models.Core.Acl());
+            Models.Core.Acl acl = new Models.Core.Acl()
+            {
+                EntityKindId = Models.Core.EntityKind.GetId(Models.Core.EntityKind.VERSION_OF_Node, this.CoreRepository)
+            };
+            acl.ResolveNavigationProperties(CoreRepository);
+            return View(acl);
         }
 
         // POST: Acls/Create
@@ -60,7 +74,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); 
+                acl.ResolveNavigationProperties(CoreRepository);
                 return View(acl);
             }
         }
@@ -71,7 +86,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                if (model != null)
+                {
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -98,6 +121,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                     apiItem.Name = acl.Name;
                     apiItem.Description = acl.Description;
+                    apiItem.EntityId = acl.EntityId;
                     apiItem.EntityKindId = acl.EntityKindId;
 
                     #endregion
@@ -106,12 +130,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
 
                     apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                    return View(AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                    Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                    if (model != null)
+                    {
+                        foreach (var ace in model.Aces)
+                        {
+                            ace.ResolveNavigationProperties(this.CoreRepository);
+                        }
+                    }
+                    return View(model);
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                acl.ResolveNavigationProperties(CoreRepository);
+                foreach (var ace in acl.Aces)
+                {
+                    ace.ResolveNavigationProperties(this.CoreRepository);
+                }
                 return View(acl);
             }
         }
@@ -130,7 +167,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                if (model != null)
+                {
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View(model);
             }
         }
 

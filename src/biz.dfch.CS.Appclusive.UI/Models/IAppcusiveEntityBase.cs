@@ -26,25 +26,34 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 {
     public interface IAppcusiveEntityBase
     {
+        [Display(Name = "Id", ResourceType = typeof(GeneralResources))]
         long Id { get; set; }
 
+        [Display(Name = "Created", ResourceType = typeof(GeneralResources))]
         DateTimeOffset Created { get; set; }
+
+        [Display(Name = "Modified", ResourceType = typeof(GeneralResources))]
         DateTimeOffset Modified { get; set; }
 
+        [Display(Name = "RowVersion", ResourceType = typeof(GeneralResources))]
         byte[] RowVersion { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "Tid", ResourceType = typeof(GeneralResources))]
         Guid Tid { get; set; }
 
+        [Display(Name = "Tenant", ResourceType = typeof(GeneralResources))]
         Tenant Tenant { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "CreatedById", ResourceType = typeof(GeneralResources))]
         long CreatedById { get; set; }
 
         [Display(Name = "CreatedBy", ResourceType = typeof(GeneralResources))]
         User CreatedBy { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "ModifiedById", ResourceType = typeof(GeneralResources))]
         long ModifiedById { get; set; }
 
         [Display(Name = "ModifiedBy", ResourceType = typeof(GeneralResources))]
@@ -52,8 +61,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         [StringLength(1024)]
         [Required(ErrorMessageResourceName = "requiredName", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "Name", ResourceType = typeof(GeneralResources))]
         string Name { get; set; }
 
+        [Display(Name = "Description", ResourceType = typeof(GeneralResources))]
         string Description { get; set; }
     }
 }

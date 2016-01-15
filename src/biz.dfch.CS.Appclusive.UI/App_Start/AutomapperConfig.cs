@@ -28,7 +28,10 @@ namespace biz.dfch.CS.Appclusive.UI
     {
         public static void MapInit()
         {
-            // mapping back to API not neede because API-Entities are tracked and convetion by Automapper does not include that
+            // navigation
+            Mapper.CreateMap<Navigation.NavEntryElement, Navigation.NavEntry>();
+
+            // entities:
 
             Mapper.CreateMap<Api.Core.Catalogue, Models.Core.Catalogue>();
             Mapper.CreateMap<Models.Core.Catalogue, Api.Core.Catalogue>();

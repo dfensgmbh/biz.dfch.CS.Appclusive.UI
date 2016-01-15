@@ -1,7 +1,9 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Acl
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " details";
+    ViewBag.AclId = Model.Id;
 }
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>
@@ -11,18 +13,25 @@
     <hr />
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
         <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
-        <li><a data-toggle="tab" href="#aclList">@GeneralResources.Aces</a></li>
+        <li class="active"><a data-toggle="tab" href="#aclList">@GeneralResources.Aces</a></li>
     </ul>
     <div class="tab-content">
-        <div id="details" class="tab-pane fade in active">
+        <div id="details" class="tab-pane fade">
             <dl>
                 <dt>
                     @Html.DisplayNameFor(model => model.Name)
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NoInheritanceFromParent)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NoInheritanceFromParent)
                 </dd>
 
                 <dt>
@@ -38,18 +47,24 @@
                 <dd>
                     @Html.DisplayFor(model => model.EntityKind)
                 </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EntityId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EntityId)
+                </dd>
             </dl>
         </div>
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
-        <div id="aclList" class="tab-pane fade">
+        <div id="aclList" class="tab-pane fade in active">
             @Html.Partial("AceList", Model.Aces)
         </div>
     </div>
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
+    @Html.SecuredButton("Update", Url.Action("Edit", new { id = Model.Id }))
     @Html.Partial("BackLink") 
 </p>

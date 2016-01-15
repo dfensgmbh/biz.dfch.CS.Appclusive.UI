@@ -14,5 +14,11 @@
     <Setting Name="SearchLoadSize" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">500</Value>
     </Setting>
+    <Setting Name="DefaultLoginDomain" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">W2012R2-T6-10</Value>
+    </Setting>
+    <Setting Name="DefaultLoginUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Administrator</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

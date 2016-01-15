@@ -15,7 +15,7 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.1.29520, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.1\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.6.29705, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.6\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -139,10 +139,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_LocalResources\ErrorResources.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorResources.de.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_LocalResources\ErrorResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_LocalResources\GeneralResources.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralResources.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_LocalResources\GeneralResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\AutomapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -154,6 +169,7 @@
     <Compile Include="Config\FormatStringExpression.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
+    <Compile Include="Controllers\IExtendedController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\AceController.cs" />
@@ -169,7 +185,7 @@
     <Compile Include="Controllers\CostCentersController.cs" />
     <Compile Include="Controllers\DiagnosticsControllerBase.cs" />
     <Compile Include="Controllers\CoreControllerBase.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\EndpointsController.cs" />
     <Compile Include="Controllers\GatesController.cs" />
@@ -192,18 +208,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="App_LocalResources\GeneralResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GeneralResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelperSecuredExtensions.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
     <Compile Include="Models\AjaxOption.cs" />
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
     <Compile Include="Models\Cmp\CimiTarget.cs" />
     <Compile Include="Models\Core\Ace.cs" />
-    <Compile Include="Models\Core\AceActionEnum.cs" />
+    <Compile Include="Models\Core\AceTypeEnum.cs" />
+    <Compile Include="Models\Core\RoleTypeEnum.cs" />
     <Compile Include="Models\Core\Acl.cs" />
     <Compile Include="Models\Core\Approval.cs" />
     <Compile Include="Models\Core\Assoc.cs" />
@@ -231,6 +244,7 @@
     <Compile Include="Models\Core\Product.cs" />
     <Compile Include="Models\Core\Role.cs" />
     <Compile Include="Models\Core\Tenant.cs" />
+    <Compile Include="Models\Core\TrusteeTypeEnum.cs" />
     <Compile Include="Models\Core\User.cs" />
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
@@ -245,9 +259,15 @@
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Config\PortalConfig.cs" />
     <Compile Include="Config\SearchConfig.cs" />
+    <Compile Include="Models\SpecialOperations\CheckPermission.cs" />
+    <Compile Include="Navigation\PermissionDecisions.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
     <Compile Include="Models\SpecialOperations\SetCreatedByOperation.cs" />
     <Compile Include="Models\SpecialOperations\SetTenantOperation.cs" />
+    <Compile Include="Navigation\NavEntry.cs" />
+    <Compile Include="Navigation\NavigationConfigurationSection.cs" />
+    <Compile Include="Navigation\NavEntryElementCollection.cs" />
+    <Compile Include="Navigation\NavEntryElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -376,7 +396,7 @@
     <Content Include="Views\Catalogues\Create.cshtml" />
     <Content Include="Views\Nodes\Index.cshtml" />
     <Content Include="Views\Nodes\Details.cshtml" />
-    <Content Include="Views\Nodes\ItemList.cshtml" />
+    <Content Include="Views\Nodes\ItemIndex.cshtml" />
     <Content Include="Views\Carts\Details.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Carts\ItemDetails.cshtml" />
@@ -515,28 +535,55 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />
     <Content Include="Views\Shared\AjaxItemSearchForm.cshtml" />
-    <Content Include="Views\Nodes\ItemIndex.cshtml" />
+    <Content Include="Views\Nodes\ItemList.cshtml" />
     <Content Include="Views\Orders\ItemIndex.cshtml" />
     <Content Include="Views\Carts\ItemIndex.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Job.cshtml" />
+    <Content Include="Views\Roles\EditUserList.cshtml" />
+    <Content Include="Views\Roles\UserList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Node.cshtml" />
+    <Content Include="Views\SpecialOperations\OperationTab.cshtml" />
+    <Content Include="Views\SpecialOperations\OperationTabContent.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CatalogueItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Order.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ChangedPropertiesTable.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Acl.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StringMaxlength.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
+    <Content Include="Views\Nodes\ChildList.cshtml" />
+    <Content Include="Views\Nodes\Security.cshtml" />
+    <Content Include="Views\Shared\CheckPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="App_LocalResources\ErrorResources.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorResources.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\ErrorResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="App_LocalResources\GeneralResources.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralResources.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\GeneralResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -557,7 +604,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60755/</IISUrl>
+          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

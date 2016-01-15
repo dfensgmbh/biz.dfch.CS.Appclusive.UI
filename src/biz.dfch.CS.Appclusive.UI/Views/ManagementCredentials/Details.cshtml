@@ -1,8 +1,9 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.ManagementCredential
 @using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    ViewBag.Title = @Model.GetType().Name + " details";
+    ViewBag.Title =@Model.GetType().Name + " details";
 }
 @section Title{
     <h2>@Html.DisplayFor(model => model.Name)</h2>
@@ -44,6 +45,7 @@
                     @Html.DisplayNameFor(model => model.Password)
                 </dt>
                 <dd>
+                    @Html.SecuredButtonSeePassword()
                     <a class="btn btn-primary" onclick="togglePW()" id="pwBtn">@GeneralResources.SeePassword</a>
                     <div class="well hidden" id="pwBox">
                         @Html.DisplayFor(model => model.Password)
@@ -68,8 +70,8 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", new { id = Model.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-   @Html.Partial("BackLink")
+    @Html.SecuredButton("Update", Url.Action("Edit", new { id = Model.Id }))
+    @Html.Partial("BackLink")
 </p>
 
 @using (Html.Delayed())

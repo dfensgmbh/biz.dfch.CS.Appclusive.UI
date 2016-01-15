@@ -40,7 +40,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = BaseQuery.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<M>(item));
+                M model = AutoMapper.Mapper.Map<M>(item);
+                model.ParseChangedPropertyTable();
+                return View(model);
             }
             catch (Exception ex)
             {

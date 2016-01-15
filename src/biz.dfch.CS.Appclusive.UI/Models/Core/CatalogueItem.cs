@@ -30,14 +30,22 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             AppcusiveEntityBaseHelper.InitEntity(this);
         }
 
+        [Display(Name = "Catalogue", ResourceType = typeof(GeneralResources))]
         public Catalogue Catalogue { get; set; }
+
+        [Display(Name = "CatalogueId", ResourceType = typeof(GeneralResources))]
         public long CatalogueId { get; set; }
         
         [Display(Name = "EndOfLife", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset EndOfLife { get; set; }
-        
+
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
+
+        [Display(Name = "Product", ResourceType = typeof(GeneralResources))]
         public Product Product { get; set; }
+
+        [Display(Name = "ProductId", ResourceType = typeof(GeneralResources))]
         public long ProductId { get; set; }
         
         [Display(Name = "ValidFrom", ResourceType = typeof(GeneralResources))]

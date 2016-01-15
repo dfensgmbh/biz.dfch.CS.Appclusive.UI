@@ -32,37 +32,52 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.IncomingAssocs = new List<Assoc>();
             this.OutgoingAssocs = new List<Assoc>();
             this.Children = new List<Node>();
+            this.EffectivAces = new List<Ace>();
         }
 
+        [Display(Name = "Children", ResourceType = typeof(GeneralResources))]
         public List<Node> Children { get; set; }
-        
+
+        [Display(Name = "IncomingAssocs", ResourceType = typeof(GeneralResources))]
         public List<Assoc> IncomingAssocs { get; set; }
-        
+
+        [Display(Name = "OutgoingAssocs", ResourceType = typeof(GeneralResources))]
         public List<Assoc> OutgoingAssocs { get; set; }
-        
+
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
-        
+
+        [Display(Name = "Parent", ResourceType = typeof(GeneralResources))]
         public Node Parent { get; set; }
 
         [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
-        
-        public string Type { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 
+        [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))]
         public EntityKind EntityKind { get; set; }
 
-        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
+        public long? EntityId { get; set; }
+
+        [Display(Name = "Job", ResourceType = typeof(GeneralResources))]
         public Job Job { get; set; }
+
+        [Display(Name = "ExplicitAcl", ResourceType = typeof(GeneralResources))]
+        public Acl Acl { get; set; }
+
+        [Display(Name = "EffectivAces", ResourceType = typeof(GeneralResources))]
+        public List<Ace> EffectivAces { get; set; }
 
         /// <summary>
         /// Find Order by Approval 
         /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
         /// </summary>
         /// <param name="coreRepository"></param>
-        internal void ResolveJob(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        internal void ResolveJob(Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
 
@@ -74,5 +89,25 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
 
+
+        internal void ResolveSecurity(Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            // explicit permissions
+            Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
+                .Where(a => a.EntityId == this.Id && a.EntityKindId == Models.Core.EntityKind.GetId(Models.Core.EntityKind.VERSION_OF_Node, coreRepository))
+                .FirstOrDefault();
+
+            this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+
+            // effectiv permissions
+            // TODO: load from API
+            this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(coreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Take(20).ToList());
+            foreach(Models.Core.Ace ace in  this.EffectivAces)
+            {
+                ace.ResolveNavigationProperties(coreRepository);
+            }
+        }
     }
 }

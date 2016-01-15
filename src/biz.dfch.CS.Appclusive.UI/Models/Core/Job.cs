@@ -25,35 +25,45 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Job : AppcusiveEntityViewModelBase
     {
-        
+
+        [Display(Name = "Condition", ResourceType = typeof(GeneralResources))]
         public string Condition { get; set; }
-        
+
+        [Display(Name = "ConditionParameters", ResourceType = typeof(GeneralResources))]
         public string ConditionParameters { get; set; }
-        
+
+        [Display(Name = "EndTime", ResourceType = typeof(GeneralResources))]
         public DateTimeOffset? EndTime { get; set; }
-        
+
+        [Display(Name = "Error", ResourceType = typeof(GeneralResources))]
         public string Error { get; set; }
-        
+
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
-        
+
+        [Display(Name = "Parent", ResourceType = typeof(GeneralResources))]
         public Job Parent { get; set; }
 
         [Display(Name = "ParentId", ResourceType = typeof(GeneralResources))]
         public long? ParentId { get; set; }
         
         [Display(Name = "ReferencedItemId", ResourceType = typeof(GeneralResources))]
-        public string ReferencedItemId { get; set; }
-        
+        public string RefId { get; set; }
+
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
         public string Status { get; set; }
 
         [Display(Name = "TenantId", ResourceType = typeof(GeneralResources))]
         public string TenantId { get; set; }
-        
+
+        [Display(Name = "Token", ResourceType = typeof(GeneralResources))]
         public string Token { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Display(Name = "EntityKindId", ResourceType = typeof(GeneralResources))]
         public long EntityKindId { get; set; }
 
+        [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))]
         public EntityKind EntityKind { get; set; }
     }
 }

@@ -19,7 +19,8 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
-        <li><a data-toggle="tab" href="#items">Children</a></li>
+        <li><a data-toggle="tab" href="#items">@GeneralResources.Children</a></li>
+        <li><a data-toggle="tab" href="#security">@GeneralResources.Security</a></li>
         <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
     </ul>
     <div class="tab-content">
@@ -34,17 +35,23 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Type)
+                    @Html.DisplayNameFor(model => model.EntityKind)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Type)
+                    @Html.DisplayFor(model => model.EntityKind)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EntityId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EntityId)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.ParentId)
+                    @Html.DisplayNameFor(model => model.Parent)
                 </dt>
-                <dd>
-                    @Html.ActionLink(Model.ParentId.ToString(), "Details", "Nodes", new { id = Model.ParentId, rId = id, rAction = action, rController = controller }, null)
+                <dd>                    
+                    @Html.DisplayFor(model => model.Parent)
                 </dd>
 
                 <dt>
@@ -60,14 +67,7 @@
                 <dd>
                     @Html.DisplayFor(model => model.Description)
                 </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EntityKind)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.EntityKind)
-                </dd>
-
+                
                 <dt>
                     @Html.DisplayNameFor(model => model.Job)
                 </dt>
@@ -78,7 +78,10 @@
 
         </div>
         <div id="items" class="tab-pane fade">
-            @Html.Partial("ItemList", Model.Children)
+            @Html.Partial("ChildList", Model.Children)
+        </div>
+        <div id="security" class="tab-pane fade">
+            @Html.Partial("Security", Model)
         </div>
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)

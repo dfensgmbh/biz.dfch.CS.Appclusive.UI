@@ -1,8 +1,11 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Navigation
+@using System.Linq
 
 @{
     ViewBag.Title = @GeneralResources.SpecialOperations;
+    ViewBag.ActiveOperation = PermissionDecisions.Current.Navigation["SpecialOperations"].NavEntries.Select(e => e.Name).FirstOrDefault();
 }
 @section Title{
     <h2>@GeneralResources.SpecialOperations</h2>
@@ -10,27 +13,17 @@
 <div>
     <hr />
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#SetCreatedBy">@GeneralResources.OperationSetCreatedBy</a></li>
-        <li><a data-toggle="tab" href="#ClearAuditLog">@GeneralResources.OperationClearAuditLog</a></li>
-        <li><a data-toggle="tab" href="#ReloadProducts">@GeneralResources.OperationReloadProducts</a></li>
-        <li><a data-toggle="tab" href="#SetTenant">@GeneralResources.OperationSetTenant</a></li>
-        <li><a data-toggle="tab" href="#RaiseUpdateConfigurationEvent">@GeneralResources.OperationRaiseUpdateConfigurationEvent</a></li>
+        @Html.Partial("OperationTab", new ViewDataDictionary(this.ViewData) { { "operationName", "SetCreatedBy" }, { "operationTitle", @GeneralResources.OperationSetCreatedBy } })
+        @Html.Partial("OperationTab", new ViewDataDictionary(this.ViewData) { { "operationName", "ClearAuditLog" }, { "operationTitle", @GeneralResources.OperationClearAuditLog } })
+        @Html.Partial("OperationTab", new ViewDataDictionary(this.ViewData) { { "operationName", "ReloadProducts" }, { "operationTitle", @GeneralResources.OperationReloadProducts } })
+        @Html.Partial("OperationTab", new ViewDataDictionary(this.ViewData) { { "operationName", "SetTenant" }, { "operationTitle", @GeneralResources.OperationSetTenant } })
+        @Html.Partial("OperationTab", new ViewDataDictionary(this.ViewData) { { "operationName", "RaiseUpdateConfigurationEvent" }, { "operationTitle", @GeneralResources.OperationRaiseUpdateConfigurationEvent } })
     </ul>
     <div class="tab-content">
-        <div id="SetCreatedBy" class="tab-pane fade in active">
-            @Html.Partial("SetCreatedBy", new SetCreatedByOperation())
-        </div>
-        <div id="ClearAuditLog" class="tab-pane fade">
-            @Html.Partial("ClearAuditLog")
-        </div>
-        <div id="ReloadProducts" class="tab-pane fade">
-            @Html.Partial("ReloadProducts")
-        </div>
-        <div id="SetTenant" class="tab-pane fade">
-            @Html.Partial("SetTenant", new SetTenantOperation())
-        </div>
-        <div id="RaiseUpdateConfigurationEvent" class="tab-pane fade">
-            @Html.Partial("RaiseUpdateConfigurationEvent")
-        </div>
+        @Html.Partial("OperationTabContent", new ViewDataDictionary(this.ViewData) { { "operationName", "SetCreatedBy" }, { "operationObject", new SetCreatedByOperation() } })
+        @Html.Partial("OperationTabContent", new ViewDataDictionary(this.ViewData) { { "operationName", "ClearAuditLog" } })
+        @Html.Partial("OperationTabContent", new ViewDataDictionary(this.ViewData) { { "operationName", "ReloadProducts" } })
+        @Html.Partial("OperationTabContent", new ViewDataDictionary(this.ViewData) { { "operationName", "SetTenant" }, { "operationObject", new SetTenantOperation() } })
+        @Html.Partial("OperationTabContent", new ViewDataDictionary(this.ViewData) { { "operationName", "RaiseUpdateConfigurationEvent" } })
     </div>
 </div>

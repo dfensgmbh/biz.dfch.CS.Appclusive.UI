@@ -1,17 +1,27 @@
-﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Node>
-@using biz.dfch.CS.Appclusive.UI.App_LocalResources
-@{
-    ViewBag.AjaxItemSearchTargetId = "itemListAjax";
-    ViewBag.AjaxItemSearchAction = "ItemIndex";
+﻿@using biz.dfch.CS.Appclusive.UI.Helpers
+@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Node>
 
-    RouteValueDictionary sd = new RouteValueDictionary();
-    sd.Add("parentId", ViewBag.ParentId);
-    ViewBag.AjaxSearchRouteValueDictionary = sd;
-}
-@if (ViewBag.ParentId > 0)
+
+@foreach (var item in Model)
 {
-    <div class="row">
-        @Html.Partial("AjaxItemSearchForm")
-    </div>
+    <tr>
+        <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+            @Html.DisplayFor(modelItem => item.EntityKind)
+        </td>
+        <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+            @Html.DisplayFor(modelItem => item.EntityId)
+        </td>
+        <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
+            @Html.DisplayFor(modelItem => item.Tid)
+        </td>
+        <td class="ap-btn text-nowrap">
+            @Html.SecuredButton("Read", Url.Action("Details", new { id = item.Id }))
+        </td>
+    </tr>
 }
-@Html.Partial("ItemIndex", Model)

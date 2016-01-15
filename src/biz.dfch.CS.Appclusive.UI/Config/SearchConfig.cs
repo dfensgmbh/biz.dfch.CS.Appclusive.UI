@@ -30,15 +30,7 @@ namespace biz.dfch.CS.Appclusive.UI.Config
         /// <returns></returns>
         public static EntityElement GetConfig(string controllerName)
         {
-            string entityname = controllerName;
-            if (controllerName.EndsWith("Controller"))
-            {
-                entityname = entityname.Substring(0, entityname.Length - "Controller".Length);
-                if (!Configs.ContainsKey(entityname) && entityname.EndsWith("s"))
-                {
-                    entityname = entityname.Substring(0, entityname.Length - 1);
-                }
-            }
+            string entityname = GetEntityNameFromControllerName(controllerName);
             if (!Configs.ContainsKey(entityname))
             {
                 entityname = "default-values";
@@ -66,6 +58,20 @@ namespace biz.dfch.CS.Appclusive.UI.Config
                 #endregion
             }
             return Configs[entityname];
+        }
+
+        internal static string GetEntityNameFromControllerName(string controllerName)
+        {
+            string entityname = controllerName;
+            if (controllerName.EndsWith("Controller"))
+            {
+                entityname = entityname.Substring(0, entityname.Length - "Controller".Length);
+                if (!Configs.ContainsKey(entityname) && entityname.EndsWith("s"))
+                {
+                    entityname = entityname.Substring(0, entityname.Length - 1);
+                }
+            }
+            return entityname;
         }
 
         #region infrastructure

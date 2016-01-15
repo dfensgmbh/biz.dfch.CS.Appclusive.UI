@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -28,13 +30,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             AppcusiveEntityBaseHelper.InitEntity(this);
             this.ManagementUris = new List<ManagementUri>();
         }
-        
+
+        [Display(Name = "EncryptedPassword", ResourceType = typeof(GeneralResources))]
         public string EncryptedPassword { get; set; }
-        
+
+        [Display(Name = "ManagementUris", ResourceType = typeof(GeneralResources))]
         public List<ManagementUri> ManagementUris { get; set; }
-        
+
+        [Display(Name = "Password", ResourceType = typeof(GeneralResources))]
         public string Password { get; set; }
-        
+
+        [Display(Name = "Username", ResourceType = typeof(GeneralResources))]
         public string Username { get; set; }
     }
 }

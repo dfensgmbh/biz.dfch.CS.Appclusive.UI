@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CatalogueItem>
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.AjaxPagingTargetId = "catalogItemListAjax";
@@ -9,6 +10,8 @@
     rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
     rd.Add("pageNr", 1);
     ViewBag.AjaxRouteValueDictionary = rd;
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
 }
 <div id="catalogItemListAjax">
     @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
@@ -17,10 +20,10 @@
     <table class="table table-striped table-hover">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Name).ToString(), "Name", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Description).ToString(), "Description", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th></th>
         </tr>
@@ -38,22 +41,20 @@
                     @Ajax.ActionLink(GeneralResources.AddToCart, "AddToCart", new { Id = catalogItem.Id },
                          new AjaxOptions() { UpdateTargetId = "ajaxNotify", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
                             new { @class = "btn btn-success" })
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = catalogItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-
-                    @{
-        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
-        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
-        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+                    @Html.SecuredButton("Read", Url.Action("ItemDetails", new { id = catalogItem.Id }))
+                    @Html.SecuredButton("Update", Url.Action("ItemEdit", new { id = catalogItem.Id }))
+                    @if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(biz.dfch.CS.Appclusive.UI.Models.Core.Product), "CanRead"))
+                    {
+                        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+                        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+                        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+                        <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { id = catalogItem.ProductId, rId = id, rAction = action, rController = controller }) "><i class="fa fa-cog"></i> @GeneralResources.Product @GeneralResources.DetailsLink</a>
                     }
-
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Details", "Products", new { id = catalogItem.ProductId, rId = id, rAction = action, rController = controller }) "><i class="fa fa-cog"></i> Product @GeneralResources.DetailsLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemEdit", new { id = catalogItem.Id })"><i class="fa fa-pencil"></i> @GeneralResources.EditLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = catalogItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                    @Html.SecuredButton("Delete", Url.Action("ItemDelete", new { id = catalogItem.Id }))
                 </td>
             </tr>
         }
 
     </table>
-
     @Html.Partial("AjaxPaging", Model)
 </div>

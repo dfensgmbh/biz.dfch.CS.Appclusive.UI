@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.OrderItem>
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.AjaxPagingTargetId = "itemListAjax";
@@ -9,6 +10,8 @@
     rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
     rd.Add("pageNr", 1);
     ViewBag.AjaxRouteValueDictionary = rd;
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
 }
 <div id="itemListAjax">
     @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
@@ -16,23 +19,23 @@
 
     <table class="table table-striped table-hover">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+            <th>                
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Name).ToString(), "Name", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantity)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Quantity).ToString(), "Quantity", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Type).ToString(), "Type", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Description).ToString(), "Description", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th></th>
         </tr>
 
         @foreach (var orderItem in Model)
-    {
+        {
             <tr>
                 <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                     @Html.DisplayFor(modeItem => orderItem.Name)
@@ -46,12 +49,12 @@
                 <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
                     @Html.DisplayFor(modeItem => orderItem.Description)
                 </td>
-                <td class="ap-btn text-nowrap">
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("ItemDetails", new { id = orderItem.Id })"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("ItemDelete", new { id = orderItem.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                <td class="ap-btn text-nowrap">                  
+                    @Html.SecuredButton("Read", Url.Action("ItemDetails", new { id = orderItem.Id }))
+                    @Html.SecuredButton("Delete", Url.Action("ItemDelete", new { id = orderItem.Id }))
                 </td>
             </tr>
-    }
+        }
 
     </table>
 

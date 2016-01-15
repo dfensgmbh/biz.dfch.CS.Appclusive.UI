@@ -47,6 +47,20 @@
                 </dd>
 
                 <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChangedPropertiesTable)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ChangedPropertiesTable,"ChangedPropertiesTable")
+                </dd>
+
+                @*<dt>
                     @Html.DisplayNameFor(model => model.Original)
                 </dt>
                 <dd>
@@ -57,13 +71,7 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Current)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
+                </dd>*@
             </dl>
         </div>
         <div id="general" class="tab-pane fade">
@@ -73,5 +81,5 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @Html.Partial("BackLink")
 </p>

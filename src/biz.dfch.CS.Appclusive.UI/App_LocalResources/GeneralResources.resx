@@ -519,4 +519,322 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="key" xml:space="preserve">
+    <value>key</value>
+  </data>
+  <data name="value" xml:space="preserve">
+    <value>value</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Modified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="RowVersion" xml:space="preserve">
+    <value>Row version</value>
+  </data>
+  <data name="Tid" xml:space="preserve">
+    <value>Tid</value>
+  </data>
+  <data name="CreatedById" xml:space="preserve">
+    <value>Created by id</value>
+  </data>
+  <data name="ModifiedById" xml:space="preserve">
+    <value>Modified by id</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description en</value>
+  </data>
+  <data name="CimiId" xml:space="preserve">
+    <value>Cimi id</value>
+  </data>
+  <data name="CimiType" xml:space="preserve">
+    <value>Cimi type</value>
+  </data>
+  <data name="CatalogueItemId" xml:space="preserve">
+    <value>Catalogue item id</value>
+  </data>
+  <data name="Trustee" xml:space="preserve">
+    <value>Trustee</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="AclId" xml:space="preserve">
+    <value>Acl id</value>
+  </data>
+  <data name="EntityKindId" xml:space="preserve">
+    <value>Entity kind id</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="ActionText" xml:space="preserve">
+    <value>Action text</value>
+  </data>
+  <data name="OrderIdClass" xml:space="preserve">
+    <value>Order id class</value>
+  </data>
+  <data name="Destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="DestinationId" xml:space="preserve">
+    <value>Destination id</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="SourceId" xml:space="preserve">
+    <value>Source id</value>
+  </data>
+  <data name="CartItems" xml:space="preserve">
+    <value>Cart items</value>
+  </data>
+  <data name="CartId" xml:space="preserve">
+    <value>Cart id</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="CatalogueId" xml:space="preserve">
+    <value>Catalogue id</value>
+  </data>
+  <data name="ProductId" xml:space="preserve">
+    <value>Product id</value>
+  </data>
+  <data name="ValidFromDateTime" xml:space="preserve">
+    <value>Valid from date time</value>
+  </data>
+  <data name="ExternalType" xml:space="preserve">
+    <value>External type</value>
+  </data>
+  <data name="ExternalId" xml:space="preserve">
+    <value>External id</value>
+  </data>
+  <data name="IsPrimary" xml:space="preserve">
+    <value>Is primary</value>
+  </data>
+  <data name="CustomerId" xml:space="preserve">
+    <value>Customer id</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="ConditionParameters" xml:space="preserve">
+    <value>Condition parameters</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End time</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Parent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="Token" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="EncryptedPassword" xml:space="preserve">
+    <value>Encrypted password</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ManagementCredentialId" xml:space="preserve">
+    <value>Management credential id</value>
+  </data>
+  <data name="TypeSelection" xml:space="preserve">
+    <value>Type selection</value>
+  </data>
+  <data name="IncomingAssocs" xml:space="preserve">
+    <value>Incoming assocs</value>
+  </data>
+  <data name="OutgoingAssocs" xml:space="preserve">
+    <value>Outgoing assocs</value>
+  </data>
+  <data name="CostCentreId" xml:space="preserve">
+    <value>Cost centre id</value>
+  </data>
+  <data name="OrderItems" xml:space="preserve">
+    <value>Order items</value>
+  </data>
+  <data name="RequesterId" xml:space="preserve">
+    <value>Requester id</value>
+  </data>
+  <data name="Requester" xml:space="preserve">
+    <value>Requester</value>
+  </data>
+  <data name="IdStr" xml:space="preserve">
+    <value>Id str</value>
+  </data>
+  <data name="ParentIdStr" xml:space="preserve">
+    <value>Parent id str</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="VdiName" xml:space="preserve">
+    <value>Vdi name</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Current" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="EntityId" xml:space="preserve">
+    <value>Entity id</value>
+  </data>
+  <data name="EntityState" xml:space="preserve">
+    <value>Entity state</value>
+  </data>
+  <data name="Original" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="RoutePrefix" xml:space="preserve">
+    <value>Route prefix</value>
+  </data>
+  <data name="RouteTemplate" xml:space="preserve">
+    <value>Route template</value>
+  </data>
+  <data name="Domain" xml:space="preserve">
+    <value>Domain</value>
+  </data>
+  <data name="ReturnUrl" xml:space="preserve">
+    <value>Return url</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>lang</value>
+  </data>
+  <data name="stacktrace" xml:space="preserve">
+    <value>stacktrace</value>
+  </data>
+  <data name="internalexception" xml:space="preserve">
+    <value>internalexception</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>code</value>
+  </data>
+  <data name="innererror" xml:space="preserve">
+    <value>innererror</value>
+  </data>
+  <data name="odata_error" xml:space="preserve">
+    <value>odata _error</value>
+  </data>
+  <data name="PageNr" xml:space="preserve">
+    <value>Page nr</value>
+  </data>
+  <data name="HasMore" xml:space="preserve">
+    <value>Has more</value>
+  </data>
+  <data name="PageCount" xml:space="preserve">
+    <value>Page count</value>
+  </data>
+  <data name="ItemCount" xml:space="preserve">
+    <value>Item count</value>
+  </data>
+  <data name="EntitySet" xml:space="preserve">
+    <value>Entity set</value>
+  </data>
+  <data name="KeyDisplay" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="ValueDisplay" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Core" xml:space="preserve">
+    <value>Core</value>
+  </data>
+  <data name="Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="VDI" xml:space="preserve">
+    <value>VDI</value>
+  </data>
+  <data name="ChangedPropertiesTable" xml:space="preserve">
+    <value>Changed properties</value>
+  </data>
+  <data name="TrusteeId" xml:space="preserve">
+    <value>Trustee id</value>
+  </data>
+  <data name="PermissionId" xml:space="preserve">
+    <value>Permission id</value>
+  </data>
+  <data name="TrusteeType" xml:space="preserve">
+    <value>Trustee type</value>
+  </data>
+  <data name="NoInheritanceFromParent" xml:space="preserve">
+    <value>No inheritance from parent</value>
+  </data>
+  <data name="RefId" xml:space="preserve">
+    <value>Ref id</value>
+  </data>
+  <data name="MailAddress" xml:space="preserve">
+    <value>Mail address</value>
+  </data>
+  <data name="RoleType" xml:space="preserve">
+    <value>Role type</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>Contents</value>
+  </data>
+  <data name="EffectivAces" xml:space="preserve">
+    <value>Effective permissions</value>
+  </data>
+  <data name="ExplicitAcl" xml:space="preserve">
+    <value>Explicit permissions</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="CheckPermission" xml:space="preserve">
+    <value>Check permission</value>
+  </data>
+  <data name="Denied" xml:space="preserve">
+    <value>Denied</value>
+  </data>
+  <data name="Granted" xml:space="preserve">
+    <value>Granted</value>
+  </data>
+  <data name="NodeId" xml:space="preserve">
+    <value>Node id</value>
+  </data>
 </root>

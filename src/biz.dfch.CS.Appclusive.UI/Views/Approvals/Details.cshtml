@@ -1,4 +1,6 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Approval
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models.Core
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " details";
@@ -53,6 +55,13 @@
                     @Html.DisplayFor(model => model.Description)
                 </dd>
 
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Order)
+                </dd>
+
             </dl>
         </div>
         <div id="general" class="tab-pane fade">
@@ -62,11 +71,10 @@
     <hr />
 </div>
 <p>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index")"><i class="fa fa-arrow-left "></i> @GeneralResources.Back2list</a>
+    @Html.Partial("BackLink") 
     @if (Model.Job.Status == biz.dfch.CS.Appclusive.UI.Models.Core.Approval.CREATED_STATUS)
     {
-        <a class="btn btn-success btn-sm" href="@Url.Action("Approve", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Approve</a>
-        <a class="btn btn-warning btn-sm" href="@Url.Action("Decline", new { id = Model.Id })"><i class="fa fa-cog"></i> @GeneralResources.Decline</a>
-    }
-    <a class="btn btn-default btn-sm @Model.OrderIdClass" href="@Url.Action("Details","Orders", new { id = Model.OrderId, rId = Model.Id, rAction="Details", rController="Approvals" })"><i class="fa fa-cog"></i> @GeneralResources.Order</a>
+        @Html.SecuredButton("Update", Url.Action("Approve", new { id = Model.Id }), "btn btn-success btn-sm", @GeneralResources.Approve, "fa-cog")
+        @Html.SecuredButton("Update", Url.Action("Decline", new { id = Model.Id }), "btn btn-warning btn-sm", @GeneralResources.Decline, "fa-cog")
+    }    
 </p>

@@ -1,0 +1,10 @@
+﻿@model String
+
+@if (Model != null && ViewBag.MaxLength != null && Model.Length > ViewBag.MaxLength)
+{
+    @(Model.Substring(0, ViewBag.MaxLength) + "...")
+}
+else
+{
+    @Model
+}

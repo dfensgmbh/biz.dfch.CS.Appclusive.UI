@@ -174,12 +174,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region CatalogItems list and search
 
         // GET: Catalogues/ItemList
-        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null)
+        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = catalogueId;
             DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
             string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
-            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm);
+            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
         }
 
         private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)
@@ -281,6 +281,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Contract.Requires(null != catalogueItem);
+                this.AddProductSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     return View(catalogueItem);
@@ -298,7 +299,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddProductSeletionToViewBag();
                 var apiCatalog = CoreRepository.Catalogues.Where(c => c.Id == catalogueItem.CatalogueId).FirstOrDefault();
                 catalogueItem.Catalogue = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiCatalog);
                 return View(catalogueItem);

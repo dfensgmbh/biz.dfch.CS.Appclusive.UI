@@ -1,60 +1,85 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Ace>
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models.Core
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
-
+@if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
+{
+    <div class="row" style="margin-bottom:5px">
+        <div class="col-md-2">
+            @Html.SecuredButton("Create", Url.Action("Create", "Aces", new { AclId = ViewBag.AclId }))
+        </div>
+    </div>
+}
 <table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Acl)
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrusteeType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Trustee)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Action)
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        string detailLink = "";
-        if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
+        if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
         {
-            detailLink = Url.Action("Details", "Aces", new { id = item.Id });
+            string detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
+            <tr class="@item.CssClass">
+                <td onclick="window.location = '@detailLink'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td onclick="window.location = '@detailLink'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TypeStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Permission)
+                </td>
+                <td onclick="window.location = '@detailLink'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.Trustee)
+                </td>
+                <td class="ap-btn text-nowrap">
+                    <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                    @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
+                    @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
+                </td>
+            </tr>
         }
         else
         {
-            detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
+            <tr class="@item.CssClass">
+                <td class=" ap-hand">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TypeStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Permission)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.Trustee)
+                </td>
+                <td class="ap-btn text-nowrap"></td>
+            </tr>
         }
-        <tr>
-            <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @if (null != item.Acl)
-                {
-                    @Html.DisplayFor(modelItem => item.Acl.Name)
-                }
-            </td>
-            <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.Trustee)
-            </td>
-            <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @Html.DisplayFor(modelItem => item.Action)
-            </td>
-            <td class="ap-btn text-nowrap">
-                <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                @if (ViewBag.ShowEditLinks != null && ViewBag.ShowEditLinks)
-                {
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Edit", "Aces", new { id = item.Id })"><i class="fa fa-pencil "></i> @GeneralResources.EditLink</a>
-                    <a class="btn btn-default btn-sm" href="@Url.Action("Delete", "Aces", new { id = item.Id })" onclick="return confirm('@GeneralResources.ConfirmDelete')" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
-                }
-            </td>
-        </tr>
     }
 
 </table>

@@ -1,8 +1,7 @@
 ﻿using biz.dfch.CS.Appclusive.UI.Models;
+using biz.dfch.CS.Appclusive.UI.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -11,14 +10,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        public LoginController()
+        {
+            ViewBag.Notifications = new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>();
+        }
+
         // GET: Login?ReturnUrl=%2fbiz.dfch.CS.Appclusive.UI%2f
         public ActionResult Index(string returnUrl=null)
         {
             Models.LoginData data = new Models.LoginData()
             {
                 ReturnUrl = returnUrl,
-                Username = "Administrator",
-                Domain = "mgmtscc"
+                Username = Properties.Settings.Default.DefaultLoginUsername,
+                Domain = Properties.Settings.Default.DefaultLoginDomain
             };
             return View(data);
         }
@@ -85,7 +89,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             if (isAuthenticated)
             {
                 FormsAuthentication.RedirectFromLoginPage(data.Username, false);
-                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain); 
+                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                Session["PermissionDecisions"] = new PermissionDecisions(data.Username, data.Domain);
             }
             return isAuthenticated;
         }

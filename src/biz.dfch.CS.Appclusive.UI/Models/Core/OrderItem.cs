@@ -29,21 +29,29 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
         }
+
+        [Display(Name = "CostCentre", ResourceType = typeof(GeneralResources))]
         public CostCentre CostCentre { get; set; }
-        
+
+        [Display(Name = "CostCentreId", ResourceType = typeof(GeneralResources))]
         public long? CostCentreId { get; set; }
-        
+
+        [Display(Name = "Order", ResourceType = typeof(GeneralResources))]
         public Order Order { get; set; }
 
         [Display(Name = "OrderId", ResourceType = typeof(GeneralResources))]
         public long OrderId { get; set; }
-        
+
+        [Display(Name = "Parameters", ResourceType = typeof(GeneralResources))]
         public string Parameters { get; set; }
-        
+
+        [Display(Name = "Quantity", ResourceType = typeof(GeneralResources))]
         public int Quantity { get; set; }
-        
+
+        [Display(Name = "Type", ResourceType = typeof(GeneralResources))]
         public string Type { get; set; }
-        
+
+        [Display(Name = "Version", ResourceType = typeof(GeneralResources))]
         public string Version { get; set; }
     }
 }

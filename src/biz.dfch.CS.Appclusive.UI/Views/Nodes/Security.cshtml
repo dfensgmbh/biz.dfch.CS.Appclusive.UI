@@ -1,0 +1,50 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Node
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.AjaxItemSearchTargetId = "itemListAjax";
+    ViewBag.AjaxItemSearchAction = "ItemIndex";
+
+    RouteValueDictionary sd = new RouteValueDictionary();
+    sd.Add("parentId", ViewBag.ParentId);
+    ViewBag.AjaxSearchRouteValueDictionary = sd;
+
+    ViewDataDictionary aceListViewData = new ViewDataDictionary();
+    aceListViewData.Add("Readonly", true);
+}
+@Html.Partial("CheckPermission", (biz.dfch.CS.Appclusive.UI.Models.SpecialOperations.CheckPermission)ViewBag.CheckNodePermission)
+
+<div>
+    <h4>@Html.DisplayNameFor(model => model.Acl)</h4>
+    @if (Model.Acl == null)
+    {
+        @GeneralResources.None
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @GeneralResources.Acl
+            </div>
+            <div>
+                @Html.DisplayFor(model => model.Acl)
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom:10px">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Acl.NoInheritanceFromParent)
+            </div>
+            <div>
+                @Html.DisplayFor(model => model.Acl.NoInheritanceFromParent)
+            </div>
+        </div>
+
+        @Html.Partial("AceList", Model.Acl.Aces, aceListViewData)
+    }
+</div>
+
+<div>
+    <h4>@Html.DisplayNameFor(model => model.EffectivAces)</h4>
+    @Html.Partial("AceList", Model.EffectivAces, aceListViewData)
+</div>
