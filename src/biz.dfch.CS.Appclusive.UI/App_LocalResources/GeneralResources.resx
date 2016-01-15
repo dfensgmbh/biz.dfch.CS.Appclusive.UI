@@ -813,4 +813,7 @@
   <data name="RoleType" xml:space="preserve">
     <value>Role type</value>
   </data>
+  <data name="Contents" xml:space="preserve">
+    <value>Contents</value>
+  </data>
 </root>
