@@ -9,7 +9,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
-            @Html.DisplayFor(modelItem => item.EntityKind)
+            @Html.DisplayFor(modelItem => item.EntityKind, new { ShowLink = false })
         </td>
         <td onclick="window.location = '@Url.Action("Details", new { id = item.Id })'" class="ap-hand">
             @Html.DisplayFor(modelItem => item.EntityId)

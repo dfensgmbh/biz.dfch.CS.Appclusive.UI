@@ -3,7 +3,8 @@
 
 @if (Model != null && !string.IsNullOrWhiteSpace(Model.Name))
 {
-    if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(Model.GetType(), "CanRead"))
+    bool showLink = ViewBag.ShowLink == null ? true : (bool)ViewBag.ShowLink;
+    if (showLink && biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(Model.GetType(), "CanRead"))
     {
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
