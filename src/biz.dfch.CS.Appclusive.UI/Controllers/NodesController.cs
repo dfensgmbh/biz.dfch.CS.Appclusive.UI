@@ -26,7 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node, Models.Core.Node>
     {
-        protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes; } }
+        protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes.Expand("EntityKind"); } }
 
         // GET: Nodes/Details/5
         public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)

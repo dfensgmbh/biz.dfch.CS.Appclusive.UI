@@ -395,7 +395,7 @@
     <Content Include="Views\Catalogues\Create.cshtml" />
     <Content Include="Views\Nodes\Index.cshtml" />
     <Content Include="Views\Nodes\Details.cshtml" />
-    <Content Include="Views\Nodes\ItemList.cshtml" />
+    <Content Include="Views\Nodes\ItemIndex.cshtml" />
     <Content Include="Views\Carts\Details.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Carts\ItemDetails.cshtml" />
@@ -534,7 +534,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />
     <Content Include="Views\Shared\AjaxItemSearchForm.cshtml" />
-    <Content Include="Views\Nodes\ItemIndex.cshtml" />
+    <Content Include="Views\Nodes\ItemList.cshtml" />
     <Content Include="Views\Orders\ItemIndex.cshtml" />
     <Content Include="Views\Carts\ItemIndex.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Autocomplete.cshtml" />
@@ -551,8 +551,8 @@
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Acl.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\StringMaxlength.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Trustee.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
+    <Content Include="Views\Nodes\ChildList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
