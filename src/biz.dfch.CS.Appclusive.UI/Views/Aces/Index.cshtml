@@ -22,7 +22,7 @@
             @Html.DisplayNameForSort(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Acl)
+            @Html.DisplayNameForSort(model => model.AclId)
         </th>
         <th>
             @Html.DisplayNameForSort(model => model.Type)
@@ -47,10 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
-                @if (item.Acl != null)
-                {
-                    @Html.DisplayFor(modelItem => item.Acl.Name)
-                }
+                @Html.DisplayFor(modelItem => item.AclId)
             </td>
             <td onclick="window.location = '@detailLink'" class="ap-hand">
                 @Html.DisplayFor(modelItem => item.TypeStr)

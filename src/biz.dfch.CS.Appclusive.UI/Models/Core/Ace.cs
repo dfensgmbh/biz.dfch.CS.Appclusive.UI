@@ -59,9 +59,21 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
         /// </summary>
         /// <param name="coreRepository"></param>
-        internal void ResolvePermissionAndTrustee(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
+
+            // ACL
+            if (this.AclId > 0)
+            {
+                Api.Core.Acl acl = coreRepository.Acls
+                     .Where(j => j.Id == this.AclId)
+                     .FirstOrDefault();
+                Contract.Assert(null != acl, "no acl available");
+                this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+            }
+
+            // Permission
             if (this.PermissionId > 0)
             {
                 Api.Core.Permission permission = coreRepository.Permissions
@@ -70,6 +82,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 Contract.Assert(null != permission, "no permission available");
                 this.Permission = AutoMapper.Mapper.Map<Permission>(permission);
             }
+
+            // Trustee
             if (this.TrusteeId > 0)
             {
                 if (TrusteeTypeStr == TrusteeTypeEnum.Role.ToString())
