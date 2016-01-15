@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Ace>
 @using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models.Core
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
@@ -34,29 +35,8 @@
     {
         if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
         {
-            <tr>
-                <td class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.TypeStr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Permission)
-                </td>
-                <td class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
-                </td>
-                <td class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.Trustee)
-                </td>
-                <td class="ap-btn text-nowrap"></td>
-            </tr>
-        }
-        else
-        {
             string detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
-            <tr>
+            <tr class="@item.CssClass">
                 <td onclick="window.location = '@detailLink'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -73,13 +53,31 @@
                     @Html.DisplayFor(modelItem => item.Trustee)
                 </td>
                 <td class="ap-btn text-nowrap">
-                    @if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
-                    {
-                        <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                        @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
-                        @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
-                    }
+                    <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                    @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
+                    @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
                 </td>
+            </tr>
+        }
+        else
+        {
+            <tr class="@item.CssClass">
+                <td class=" ap-hand">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TypeStr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Permission)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
+                </td>
+                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.Trustee)
+                </td>
+                <td class="ap-btn text-nowrap"></td>
             </tr>
         }
     }

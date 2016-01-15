@@ -54,6 +54,30 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Permission", ResourceType = typeof(GeneralResources))]
         public Permission Permission { get; set; }
 
+        public string CssClass
+        {
+            get
+            {
+                if (AceTypeEnum.ALARM.GetHashCode() == this.Type)
+                {
+                    return "warning";
+                }
+                if (AceTypeEnum.ALLOW.GetHashCode() == this.Type)
+                {
+                    return "success";
+                }
+                if (AceTypeEnum.AUDIT.GetHashCode() == this.Type)
+                {
+                    return "info";
+                }
+                if (AceTypeEnum.DENY.GetHashCode() == this.Type)
+                {
+                    return "danger";
+                }
+                return string.Empty;
+            }
+        }
+
         internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
