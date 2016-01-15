@@ -46,10 +46,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             Models.Core.Acl acl = new Models.Core.Acl()
             {
-                EntityKindId = 1 // fix "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node" id from database seed
+                EntityKindId = Models.Core.EntityKind.GetId(Models.Core.EntityKind.VERSION_OF_Node, this.CoreRepository)
             };
             acl.ResolveNavigationProperties(CoreRepository);
-            Contract.Assert(acl.EntityKind.Version == "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node");
             return View(acl);
         }
 
