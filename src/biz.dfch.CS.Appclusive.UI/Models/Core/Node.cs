@@ -82,7 +82,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Requires(null != coreRepository);
 
             Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Node)
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Id == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "no node-job available");
@@ -96,7 +96,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
             // explicit permissions
             Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(a => a.EntityId == this.Id && a.EntityKindId == Models.Core.EntityKind.GetId(Models.Core.EntityKind.VERSION_OF_Node, coreRepository))
+                .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 
             this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
