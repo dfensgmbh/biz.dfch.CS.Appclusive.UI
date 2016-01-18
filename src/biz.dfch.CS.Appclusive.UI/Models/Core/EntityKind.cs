@@ -88,5 +88,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             }
         }
         string controllerName = null;
+
+        public biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId EntityKindId
+        {
+            get
+            {
+                Type ekIdType = typeof(biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId);
+                Contract.Assert(Enum.IsDefined(ekIdType,(int)this.Id));
+                return (biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId)Enum.Parse(ekIdType, this.Id.ToString());
+            }
+        }
     }
 }

@@ -85,41 +85,62 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             // ACL
             if (this.AclId > 0)
             {
-                Api.Core.Acl acl = coreRepository.Acls
-                     .Where(j => j.Id == this.AclId)
-                     .FirstOrDefault();
-                Contract.Assert(null != acl, "no acl available");
+                Api.Core.Acl acl=null;
+                try
+                {
+                    acl = coreRepository.Acls
+                         .Where(j => j.Id == this.AclId)
+                         .FirstOrDefault();
+                }
+                catch 
+                {
+                    Contract.Assert(null != acl, "no acl available");
+                }
                 this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
             }
 
             // Permission
             if (this.PermissionId > 0)
             {
-                Api.Core.Permission permission = coreRepository.Permissions
-                     .Where(j => j.Id == this.PermissionId)
-                     .FirstOrDefault();
-                Contract.Assert(null != permission, "no permission available");
+                Api.Core.Permission permission = null;
+                try
+                {
+                    permission = coreRepository.Permissions
+                         .Where(j => j.Id == this.PermissionId)
+                         .FirstOrDefault();
+                }
+                catch
+                {
+                    Contract.Assert(null != permission, "no permission available");
+                }
                 this.Permission = AutoMapper.Mapper.Map<Permission>(permission);
             }
 
             // Trustee
             if (this.TrusteeId > 0)
             {
-                if (TrusteeType == TrusteeTypeEnum.Role.GetHashCode())
+                try
                 {
-                    Api.Core.Role role = coreRepository.Roles
-                         .Where(j => j.Id == this.TrusteeId)
-                         .FirstOrDefault();
-                    Contract.Assert(null != role, "no role available");
-                    this.Trustee = AutoMapper.Mapper.Map<Role>(role);
+                    if (TrusteeType == TrusteeTypeEnum.Role.GetHashCode())
+                    {
+                        Api.Core.Role role = coreRepository.Roles
+                             .Where(j => j.Id == this.TrusteeId)
+                             .FirstOrDefault();
+                        Contract.Assert(null != role, "no role available");
+                        this.Trustee = AutoMapper.Mapper.Map<Role>(role);
+                    }
+                    else
+                    {
+                        Api.Core.User user = coreRepository.Users
+                             .Where(j => j.Id == this.TrusteeId)
+                             .FirstOrDefault();
+                        Contract.Assert(null != user, "no user available");
+                        this.Trustee = AutoMapper.Mapper.Map<User>(user);
+                    }
                 }
-                else
+                catch
                 {
-                    Api.Core.User user = coreRepository.Users
-                         .Where(j => j.Id == this.TrusteeId)
-                         .FirstOrDefault();
-                    Contract.Assert(null != user, "no user available");
-                    this.Trustee = AutoMapper.Mapper.Map<User>(user);
+                    Contract.Assert(null != this.Trustee, "no trustee available");
                 }
             }
         }

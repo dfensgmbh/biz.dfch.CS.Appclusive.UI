@@ -10,9 +10,9 @@
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
         string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-        switch (Model.EntityKind.Version)
+        switch (Model.EntityKind.EntityKindId)
         {
-            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Approval:
+            case biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Approval:
                 if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(Approval), "CanRead"))
                 {
                     @Html.ActionLink(Model.RefId, "Details", "Approval", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
@@ -22,7 +22,7 @@
                     @Html.DisplayFor(model => model.RefId)
                 }
                 break;
-            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Job:
+            case biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Job:
                 if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(Job), "CanRead"))
                 {
                     @Html.ActionLink(Model.RefId, "Details", "Jobs", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
@@ -32,7 +32,7 @@
                     @Html.DisplayFor(model => model.RefId)
                 }
                 break;
-            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Node:
+            case biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node:
                 if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(Node), "CanRead"))
                 {
                     @Html.ActionLink(Model.RefId, "Details", "Nodes", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
@@ -42,7 +42,7 @@
                     @Html.DisplayFor(model => model.RefId)
                 }
                 break;
-            case biz.dfch.CS.Appclusive.UI.Models.Core.EntityKind.VERSION_OF_Order:
+            case biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Order:
                 if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(typeof(Order), "CanRead"))
                 {
                     @Html.ActionLink(Model.RefId, "Details", "Orders", new { id = Model.RefId, rId = id, rAction = action, rController = controller }, null)
