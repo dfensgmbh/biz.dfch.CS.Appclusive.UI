@@ -1483,6 +1483,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nodes.
+        /// </summary>
+        public static string Nodes {
+            get {
+                return ResourceManager.GetString("Nodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No inheritance from parent.
         /// </summary>
         public static string NoInheritanceFromParent {
@@ -2019,6 +2028,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Token {
             get {
                 return ResourceManager.GetString("Token", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tree.
+        /// </summary>
+        public static string Tree {
+            get {
+                return ResourceManager.GetString("Tree", resourceCulture);
             }
         }
         

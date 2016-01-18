@@ -1,22 +1,35 @@
-﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Tree.Node >
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Tree.Node>
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    ViewBag.Title = "Node tree test";
+    ViewBag.Title = @GeneralResources.Nodes;
+}
+
+@section Title{
+
+
+}
+
+@{
+    string dataUrl = Url.Action("TreeData");
+    string detailUrl = Url.Action("TreeDetails", new { id = 0 });
     var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
 }
-@section Title{
-    <h2>Tree </h2>
-}
-
 <div class="row">
-    <div id="tree" class="col-md-3" ></div>
-
-    <div id="tree" class="col-md-3">
-        <div class="btn btn-info" onclick="$('#tree').treeview('collapseAll', { silent: true });">collaps all</div>
-        <div class="btn btn-success" onclick="$('#tree').treeview('clearSearch');">clear search</div>
-        <div class="btn btn-default" onclick="$('#tree').treeview(true).checkAll(true);">check all</div>
-        <input id="treeSearch" class="form-control form-group-sm" value="name" />        <div class="btn btn-default" onclick="searchTree()">search</div>
+    <div class="col-md-3">
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <h2>@GeneralResources.Nodes</h2>
+                </td>
+                <td style="text-align: right; vertical-align: bottom;padding-bottom: 10px; ">
+                    @Html.ActionLink(GeneralResources.Node + " " + @GeneralResources.List, "Index", "Nodes")
+                </td>
+            </tr>
+        </table>
+        <div id="tree" style="overflow-y: auto; height:750px;"></div>
+    </div>
+    <div id="treeDetail" class="col-md-9 ">
     </div>
 </div>
 
@@ -24,33 +37,66 @@
 @using (Html.Delayed())
 {
     <script type="text/javascript">
+        glyph_opts = {
+            map: {
+                doc: "glyphicon glyphicon-file",
+                docOpen: "glyphicon glyphicon-file",
+                checkbox: "glyphicon glyphicon-unchecked",
+                checkboxSelected: "glyphicon glyphicon-check",
+                checkboxUnknown: "glyphicon glyphicon-share",
+                dragHelper: "glyphicon glyphicon-play",
+                dropMarker: "glyphicon glyphicon-arrow-right",
+                error: "glyphicon glyphicon-warning-sign",
+                expanderClosed: "glyphicon glyphicon-plus-sign",
+                expanderLazy: "glyphicon glyphicon-plus-sign",  // glyphicon-expand
+                expanderOpen: "glyphicon glyphicon-minus-sign",  // glyphicon-collapse-down
+                folder: "glyphicon glyphicon-folder-close",
+                folderOpen: "glyphicon glyphicon-folder-open",
+                loading: "glyphicon glyphicon-refresh glyphicon-spin"
+            }
+        };
 
-        $(document).ready(function () {
-            var kids = [{"text":"CHild 1" }, {"text":"again"}];
+        $(function () {
             var data = @Html.Raw(jsonData);
-            // expanded to 5 levels
-            // with a background color of green
-            $('#tree').treeview({
-                data: data,         // data is not optional
-                levels: 5,
-                backColor: 'green',
-                onNodeExpanded: function (event, node) {
-                    node.nodes = kids;
-                    alert("expanded node " + node.text);
+            $('#tree').fancytree({
+                extensions: ["glyph", "wide"],
+                checkbox: false,
+                glyph: glyph_opts,
+                source: data,
+                toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
+                wide: {
+                    iconWidth: "1em",     // Adjust this if fancy-icon-width != "16px"
+                    iconSpacing: "0.5em", // Adjust this if fancy-icon-spacing != "3px"
+                    levelOfs: "1.5em"     // Adjust this if ul padding != "16px"
+                },
+
+                activate: function(event, data){
+                    var node = data.node;
+                    loadDetail(node.key);
+                },
+                lazyLoad: function(event, data) {
+                    var node = data.node;
+                    data.result = {url: "@dataUrl", debugDelay: 1000};
+                    data.result = {
+                        url: "@dataUrl",
+                        data: { parentId: node.key},
+                        cache: false
+                    };
                 }
 
             });
 
         })
 
-        function searchTree(){
-            $('#tree').treeview('clearSearch');
-            $('#tree').treeview('search', [ $("#treeSearch").val(), {
-                ignoreCase: true,     // case insensitive
-                exactMatch: false,    // like or equals
-                revealResults: true,  // reveal matching nodes
-            }]);
+        function loadDetail(id){
+            var detailUrl = "@detailUrl".replace("/0","/"+id);
+            $.ajax({
+                url: detailUrl,
+                cache: false
+            })
+            .done(function( html ) {
+                $("#treeDetail").html(html);
+            });
         }
-   
-     </script>
+    </script>
 }

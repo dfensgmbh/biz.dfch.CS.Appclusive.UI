@@ -14,4 +14,4 @@
 /// <reference path="site.js" />
 /// <reference path="locale/de.js" />
 /// <reference path="jquery-ui-1.11.4.min.js" />
-/// <reference path="bootstrap-treeview.min.js" />
+/// <reference path="fancytree/jquery.fancytree-all.min.js" />

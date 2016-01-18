@@ -38,18 +38,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 // load Node and Children
-                var item = CoreRepository.Nodes.Expand("Parent").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
-                if (null != modelItem)
-                {
-                    modelItem.Children = LoadNodeChildren(id, 1);
-                    modelItem.ResolveSecurity(this.CoreRepository);
-                    try
-                    {
-                        modelItem.ResolveJob(this.CoreRepository);
-                    }
-                    catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
-                }
+                Models.Core.Node modelItem = LoadDetailModel(id);
                 return View(modelItem);
             }
             catch (Exception ex)
@@ -58,7 +47,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new Models.Core.Node());
             }
         }
-        
+
+        private Models.Core.Node LoadDetailModel(long id)
+        {
+            var item = CoreRepository.Nodes.Expand("Parent").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+            Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
+            if (null != modelItem)
+            {
+                modelItem.Children = LoadNodeChildren(id, 1);
+                modelItem.ResolveSecurity(this.CoreRepository);
+                try
+                {
+                    modelItem.ResolveJob(this.CoreRepository);
+                }
+                catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+            }
+            return modelItem;
+        }
+
         #region Node-children list and search
 
         // GET: Nodes/ItemList
@@ -102,21 +108,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 // load root Node and Children
-                long id = 1;
-                var item = CoreRepository.Nodes.Expand("Children").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                long id = biz.dfch.CS.Appclusive.Contracts.Constants.SYSTEM_TENANT_ROOT_NODE;
+                var item = CoreRepository.Nodes.Where(c => c.Id == id).FirstOrDefault();
 
                 Models.Tree.Node root = new Models.Tree.Node()
                 {
-                    text = item.Name
+                    key = item.Id.ToString(),
+                    title = item.Name,
+                    tooltip = item.Description,
+                    lazy = true,
+                    expanded = false,
+                    folder = true
                 };
-                foreach (var child in item.Children)
-                {
-                    root.nodes.Add(new Models.Tree.Node()
-                    {
-                        text = child.Name,
-                         selectable = true
-                    });
-                }
 
                 nodeList.Add(root);
                 return View(nodeList);
@@ -127,6 +130,44 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(nodeList);
             }
         }
+
+        public ActionResult TreeData(long parentId, object _ = null)
+        {
+            List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
+            var items = CoreRepository.Nodes.Where(c => c.ParentId == parentId);
+
+            foreach (var child in items)
+            {
+                nodeList.Add(new Models.Tree.Node()
+                {
+                    key = child.Id.ToString(),
+                    title = child.Name,
+                    tooltip = child.Description,
+                    lazy = true,
+                    expanded = false,
+                    folder = false
+                });
+            }
+
+            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+        }
+
+        public PartialViewResult TreeDetails(long id)
+        {
+            AddCheckNodePermissionObject(id);
+            try
+            {
+                // load Node and Children
+                Models.Core.Node modelItem = LoadDetailModel(id);
+                return PartialView(modelItem);
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return PartialView(new Models.Core.Node());
+            }
+        }
+        
         #endregion
 
         [HttpPost]

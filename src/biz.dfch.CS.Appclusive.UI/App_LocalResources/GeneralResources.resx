@@ -837,4 +837,10 @@
   <data name="NodeId" xml:space="preserve">
     <value>Node id</value>
   </data>
+  <data name="Nodes" xml:space="preserve">
+    <value>Nodes</value>
+  </data>
+  <data name="Tree" xml:space="preserve">
+    <value>Tree</value>
+  </data>
 </root>

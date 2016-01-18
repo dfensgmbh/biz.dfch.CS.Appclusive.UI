@@ -1,0 +1,74 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Node
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+    <li><a data-toggle="tab" href="#items">@GeneralResources.Children</a></li>
+    <li><a data-toggle="tab" href="#security">@GeneralResources.Security</a></li>
+    <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+</ul>
+<div class="tab-content">
+    <div id="details" class="tab-pane fade in active">
+        <dl>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EntityKind)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EntityKind)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EntityId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EntityId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Parent)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Parent)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Parameters)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Parameters)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Job)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Job)
+            </dd>
+        </dl>
+
+    </div>
+    <div id="items" class="tab-pane fade">
+        @Html.Partial("ChildList", Model.Children)
+    </div>
+    <div id="security" class="tab-pane fade">
+        @Html.Partial("Security", Model)
+    </div>
+    <div id="general" class="tab-pane fade">
+        @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+    </div>
+</div>

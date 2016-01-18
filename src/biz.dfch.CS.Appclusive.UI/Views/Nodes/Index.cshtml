@@ -6,7 +6,16 @@
     ViewBag.Title = "Node" + " List";
 }
 @section Title{
-    <h2>@GeneralResources.ResourceManager.GetString("Node")@GeneralResources.List</h2>
+<table style="width:100%">
+    <tr>
+        <td>
+            <h2>@GeneralResources.ResourceManager.GetString("Node") @GeneralResources.List</h2>
+        </td>
+        <td style="text-align: right; vertical-align: bottom;padding-bottom: 10px; ">
+            @Html.ActionLink(GeneralResources.Node + " " + GeneralResources.Tree, "Tree", "Nodes")
+        </td>
+    </tr>
+</table>
 }
 <div class="row">
     @Html.Partial("SearchForm")

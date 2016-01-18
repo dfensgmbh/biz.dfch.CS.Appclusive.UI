@@ -6,26 +6,25 @@ using System.Web;
 namespace biz.dfch.CS.Appclusive.UI.Models.Tree
 {
     /// <summary>
-    /// see http://jonmiles.github.io/bootstrap-treeview/
-    /// https://github.com/jonmiles/bootstrap-treeview
+    /// see http://wwwendt.de/tech/fancytree/doc/jsdoc/global.html#NodeData
     /// </summary>
     public class Node
     {
         public Node()
-        {
-            this.nodes = new List<Node>();
-            this.tags = new List<string>();
+        {     
         }
 
-        public string text { get; set; }
-        public string icon { get; set; }
-        public string selectedIcon { get; set; }
-        public string color { get; set; }
-        public string backColor { get; set; }
-        public string href { get; set; }
-        public bool selectable { get; set; }
-        public State state { get; set; }
-        public List<string> tags { get; set; }
-        public List<Node> nodes { get; set; }
+        public List<Node> children { get; set; }
+        public bool expanded { get; set; }
+        public string extraClasses { get; set; }
+        public bool folder { get; set; }
+        public bool hideCheckbox { get; set; }
+        //public string icon { get; set; }
+        public string key { get; set; }
+        public bool lazy { get; set; }
+        public bool selected { get; set; }
+        public string title { get; set; }
+        public string tooltip { get; set; }
+        public bool unselectable { get; set; }
     }
 }

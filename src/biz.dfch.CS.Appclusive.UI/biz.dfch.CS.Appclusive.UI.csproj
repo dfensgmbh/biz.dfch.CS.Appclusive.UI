@@ -294,8 +294,6 @@
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap-treeview.css" />
-    <Content Include="Content\bootstrap-treeview.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -358,13 +356,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\fancytree\skin-awesome\ui.fancytree.less" />
+    <Content Include="Scripts\fancytree\skin-bootstrap\ui.fancytree.less" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
-    <Content Include="Scripts\bootstrap-treeview.js" />
-    <Content Include="Scripts\bootstrap-treeview.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fancytree\jquery.fancytree-all.min.js" />
+    <Content Include="Scripts\fancytree\skin-awesome\ui.fancytree.css" />
+    <Content Include="Scripts\fancytree\skin-awesome\ui.fancytree.min.css" />
+    <Content Include="Scripts\fancytree\skin-bootstrap\ui.fancytree.css" />
+    <Content Include="Scripts\fancytree\skin-bootstrap\ui.fancytree.min.css" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -553,7 +556,6 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />
     <Content Include="Views\Shared\AjaxItemSearchForm.cshtml" />
-    <Content Include="Views\Nodes\ItemIndex.cshtml" />
     <Content Include="Views\Nodes\ItemList.cshtml" />
     <Content Include="Views\Orders\ItemIndex.cshtml" />
     <Content Include="Views\Carts\ItemIndex.cshtml" />
@@ -575,6 +577,8 @@
     <Content Include="Views\Nodes\ChildList.cshtml" />
     <Content Include="Views\Nodes\Security.cshtml" />
     <Content Include="Views\Shared\CheckPermission.cshtml" />
+    <Content Include="Views\Nodes\DetailsContent.cshtml" />
+    <Content Include="Views\Nodes\TreeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
