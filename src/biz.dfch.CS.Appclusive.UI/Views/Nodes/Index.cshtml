@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Node>
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @{
@@ -10,5 +11,25 @@
 <div class="row">
     @Html.Partial("SearchForm")
 </div>
-@Html.Partial("ItemList", Model)
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameForSort(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntityKind)
+        </th>
+        <th>
+            @Html.DisplayNameForSort(model => model.EntityId)
+        </th>
+        <th>
+            @Html.DisplayNameForSort(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameForSort(model => model.Tid)
+        </th>
+        <th></th>
+    </tr>
+    @Html.Partial("ItemList", Model)
+</table>
 

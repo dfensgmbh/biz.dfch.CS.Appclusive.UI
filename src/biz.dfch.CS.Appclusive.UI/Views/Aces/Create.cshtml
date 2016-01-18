@@ -17,6 +17,6 @@
     </div>
     <p>
         <hr />
-        @Html.SecuredButton("Read", Url.Action("Index"), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-arrow-left")
+        @Html.SecuredButton("Read", Url.Action("Details", "Acls", new { Id = Model.AclId}), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-arrow-left")
     </p>
 </div>

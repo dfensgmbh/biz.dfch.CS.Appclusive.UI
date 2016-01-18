@@ -376,6 +376,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check permission.
+        /// </summary>
+        public static string CheckPermission {
+            get {
+                return ResourceManager.GetString("CheckPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Children.
         /// </summary>
         public static string Children {
@@ -462,6 +471,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ConfirmRemove {
             get {
                 return ResourceManager.GetString("ConfirmRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contents.
+        /// </summary>
+        public static string Contents {
+            get {
+                return ResourceManager.GetString("Contents", resourceCulture);
             }
         }
         
@@ -637,6 +655,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Denied.
+        /// </summary>
+        public static string Denied {
+            get {
+                return ResourceManager.GetString("Denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description en.
         /// </summary>
         public static string Description {
@@ -705,6 +732,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string EditLink {
             get {
                 return ResourceManager.GetString("EditLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effective permissions.
+        /// </summary>
+        public static string EffectivAces {
+            get {
+                return ResourceManager.GetString("EffectivAces", resourceCulture);
             }
         }
         
@@ -813,6 +849,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ExpiresAt {
             get {
                 return ResourceManager.GetString("ExpiresAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explicit permissions.
+        /// </summary>
+        public static string ExplicitAcl {
+            get {
+                return ResourceManager.GetString("ExplicitAcl", resourceCulture);
             }
         }
         
@@ -957,6 +1002,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string GoToProduct {
             get {
                 return ResourceManager.GetString("GoToProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Granted.
+        /// </summary>
+        public static string Granted {
+            get {
+                return ResourceManager.GetString("Granted", resourceCulture);
             }
         }
         
@@ -1420,11 +1474,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Node id.
+        /// </summary>
+        public static string NodeId {
+            get {
+                return ResourceManager.GetString("NodeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No inheritance from parent.
         /// </summary>
         public static string NoInheritanceFromParent {
             get {
                 return ResourceManager.GetString("NoInheritanceFromParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to none.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         

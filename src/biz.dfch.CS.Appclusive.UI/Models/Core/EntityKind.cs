@@ -18,18 +18,15 @@ using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class EntityKind : AppcusiveEntityViewModelBase
     {
-        public const string VERSION_OF_Approval = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval";
-        public const string VERSION_OF_Job = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Job";
-        public const string VERSION_OF_Node = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Node";
-        public const string VERSION_OF_Order = "biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order";
-
         public EntityKind()
         {
             AppcusiveEntityBaseHelper.InitEntity(this);
@@ -41,5 +38,65 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Version", ResourceType = typeof(GeneralResources))]
         public string Version { get; set; }
 
+        /// <summary>
+        /// if there is a UI controller for this entity-kind then this property is not empty
+        /// </summary>
+        public string UiController
+        {
+            get
+            {
+                if (null == controllerName) {
+                    controllerName = "";
+                    if (!string.IsNullOrWhiteSpace(this.Version))
+                    {
+                        string localTypeName = this.Version.Split('.').Last();
+
+                        if (!string.IsNullOrWhiteSpace(localTypeName))
+                        {
+                            Assembly modelAss = typeof(Models.Core.EntityKind).Assembly;
+
+                            // find model
+                            Type modelType = modelAss.GetTypes()
+                                .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Models") && t.Name == localTypeName)
+                                .FirstOrDefault();
+
+                            // find controller
+                            if (null != modelType)
+                            {
+                                controllerName = localTypeName + "Controller";
+                                Type controllerType = modelAss.GetTypes()
+                                    .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Controllers") && t.Name == controllerName)
+                                    .FirstOrDefault();
+
+                                if (null == controllerType)
+                                {
+                                    controllerName = localTypeName + "sController";
+                                    controllerType = modelAss.GetTypes()
+                                        .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Controllers") && t.Name == controllerName)
+                                        .FirstOrDefault();
+                                }
+
+                                if (null == controllerType)
+                                {
+                                    controllerName = "";
+                                }
+                            }
+                        }
+                    }
+                }
+                return controllerName;
+            }
+        }
+        string controllerName = null;
+
+        public biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId EntityKindId
+        {
+            get
+            {
+                Type ekIdType = typeof(biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId);
+                Contract.Assert(Enum.IsDefined(ekIdType,(int)this.Id));
+                return (biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId)Enum.Parse(ekIdType, this.Id.ToString());
+            }
+        }
     }
 }

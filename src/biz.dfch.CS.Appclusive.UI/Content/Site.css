@@ -97,7 +97,7 @@ div.ap-errortext, div.ap-infotext {
     float: right;
 }
 
-/* autocoplete menu */
+/* autocomplete menu */
 ul.ui-autocomplete {
     border: 1px solid #ddd;
     background-color: white;
@@ -106,7 +106,11 @@ ul.ui-autocomplete {
 .ap-hand {
     cursor: pointer;
 }
+div.ap-message {
+    padding: 5px 10px;
+}
 
+/* sorting function in headers */
 div.ap-sortedHeader{
 
 }

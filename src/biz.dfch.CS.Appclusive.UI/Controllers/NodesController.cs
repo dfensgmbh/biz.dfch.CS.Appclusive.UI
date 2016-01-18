@@ -26,7 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node, Models.Core.Node>
     {
-        protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes; } }
+        protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes.Expand("EntityKind"); } }
 
         // GET: Nodes/Details/5
         public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
@@ -34,6 +34,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
+            AddCheckNodePermissionObject(id);
             try
             {
                 // load Node and Children
@@ -42,6 +43,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (null != modelItem)
                 {
                     modelItem.Children = LoadNodeChildren(id, 1);
+                    modelItem.ResolveSecurity(this.CoreRepository);
                     try
                     {
                         modelItem.ResolveJob(this.CoreRepository);
@@ -56,7 +58,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new Models.Core.Node());
             }
         }
-
+        
         #region Node-children list and search
 
         // GET: Nodes/ItemList
@@ -125,7 +127,41 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(nodeList);
             }
         }
-
         #endregion
+
+        [HttpPost]
+        public PartialViewResult CheckPermission(Models.SpecialOperations.CheckPermission cp)
+        {
+            try
+            {
+                cp.ResolveNavigationProperties(this.CoreRepository);
+                if (!ModelState.IsValid)
+                {
+                    return PartialView(cp);
+                }
+                else
+                {
+                    // TODO real validation through api
+                    cp.Granted = cp.TrusteeType == 1;
+                    return PartialView(cp);
+                }
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return PartialView(cp);
+            }
+        }     
+        
+        private void AddCheckNodePermissionObject(long nodeId)
+        {
+            var cp = new Models.SpecialOperations.CheckPermission()
+            {
+                NodeId = nodeId
+            };
+            cp.ResolveNavigationProperties(this.CoreRepository);
+            ViewBag.CheckNodePermission = cp;
+        }
+
     }
 }

@@ -813,4 +813,28 @@
   <data name="RoleType" xml:space="preserve">
     <value>Role type</value>
   </data>
+  <data name="Contents" xml:space="preserve">
+    <value>Contents</value>
+  </data>
+  <data name="EffectivAces" xml:space="preserve">
+    <value>Effective permissions</value>
+  </data>
+  <data name="ExplicitAcl" xml:space="preserve">
+    <value>Explicit permissions</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="CheckPermission" xml:space="preserve">
+    <value>Check permission</value>
+  </data>
+  <data name="Denied" xml:space="preserve">
+    <value>Denied</value>
+  </data>
+  <data name="Granted" xml:space="preserve">
+    <value>Granted</value>
+  </data>
+  <data name="NodeId" xml:space="preserve">
+    <value>Node id</value>
+  </data>
 </root>

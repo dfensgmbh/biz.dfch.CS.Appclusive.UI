@@ -11,14 +11,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class AcesController : CoreControllerBase<Api.Core.Ace, Models.Core.Ace, object>
     {
         protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces; } }
-        //protected override DataServiceQuery<Api.Core.Ace> BaseQuery { get { return CoreRepository.Aces.Expand("Acl"); } }
         
         protected override void OnBeforeRender<M>(M model)
         {
             Models.Core.Ace m = model as Models.Core.Ace;
             try
             {
-                m.ResolvePermissionAndTrustee(this.CoreRepository);
+                m.ResolveNavigationProperties(this.CoreRepository);
             }
             catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
         }
@@ -34,9 +33,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                //var item = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 var model = AutoMapper.Mapper.Map<Models.Core.Ace>(item);
-                model.ResolvePermissionAndTrustee(this.CoreRepository);
+                model.ResolveNavigationProperties(this.CoreRepository);
                 return View(model);
             }
             catch (Exception ex)
@@ -47,10 +45,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Aces/Create
-        public ActionResult Create()
+        public ActionResult Create(long aclId = 0)
         {
             this.AddAclSeletionToViewBag();
-            return View(new Models.Core.Ace());
+            Models.Core.Ace ace = new Models.Core.Ace(){
+                AclId = aclId,
+                Type = Models.Core.AceTypeEnum.ALLOW.GetHashCode()
+            };
+            return View(ace);
         }
 
         // POST: Aces/Create
@@ -71,13 +73,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.AddToAces(apiItem);
                     CoreRepository.SaveChanges();
 
-                    return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
+                    //return RedirectToAction("Details", new { id = apiItem.Id });
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                ace.ResolvePermissionAndTrustee(CoreRepository);
+                ace.ResolveNavigationProperties(CoreRepository);
                 return View(ace);
             }
         }
@@ -85,12 +88,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Aces/Edit/5
         public ActionResult Edit(long id)
         {
-            this.AddAclSeletionToViewBag();
             try
             {
                 var apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
-                model.ResolvePermissionAndTrustee(this.CoreRepository);
+                model.ResolveNavigationProperties(this.CoreRepository);
                 return View(model);
             }
             catch (Exception ex)
@@ -104,11 +106,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         [HttpPost]
         public ActionResult Edit(long id, Models.Core.Ace ace)
         {
-            this.AddAclSeletionToViewBag();
             try
             {
                 if (!ModelState.IsValid)
                 {
+                    ace.ResolveNavigationProperties(this.CoreRepository);
                     return View(ace);
                 }
                 else
@@ -131,15 +133,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
 
-                    var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
-                    model.ResolvePermissionAndTrustee(this.CoreRepository);
-                    return View(model);
+                    return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
+                    //var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
+                    //model.ResolveNavigationProperties(this.CoreRepository);
+                    //return View(model);
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                ace.ResolvePermissionAndTrustee(CoreRepository);
+                ace.ResolveNavigationProperties(CoreRepository);
                 return View(ace);
             }
         }
@@ -150,16 +153,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Ace apiItem = null;
             try
             {
-                apiItem = CoreRepository.Aces.Expand("Acl").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddAclSeletionToViewBag();
-                return View("Details", AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem));
+                var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);
+                if (apiItem != null)
+                {
+                    model.ResolveNavigationProperties(this.CoreRepository);
+                    return View("Details", model);
+                }
+                else
+                {
+                    return View("Details", new Models.Core.Ace());
+                }
             }
         }
 

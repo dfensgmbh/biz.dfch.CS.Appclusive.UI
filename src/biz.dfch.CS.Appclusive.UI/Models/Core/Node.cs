@@ -32,6 +32,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.IncomingAssocs = new List<Assoc>();
             this.OutgoingAssocs = new List<Assoc>();
             this.Children = new List<Node>();
+            this.EffectivAces = new List<Ace>();
         }
 
         [Display(Name = "Children", ResourceType = typeof(GeneralResources))]
@@ -65,22 +66,48 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Job", ResourceType = typeof(GeneralResources))]
         public Job Job { get; set; }
 
+        [Display(Name = "ExplicitAcl", ResourceType = typeof(GeneralResources))]
+        public Acl Acl { get; set; }
+
+        [Display(Name = "EffectivAces", ResourceType = typeof(GeneralResources))]
+        public List<Ace> EffectivAces { get; set; }
+
         /// <summary>
         /// Find Order by Approval 
         /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
         /// </summary>
         /// <param name="coreRepository"></param>
-        internal void ResolveJob(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        internal void ResolveJob(Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
 
             Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Node)
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Id == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "no node-job available");
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
 
+
+        internal void ResolveSecurity(Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            // explicit permissions
+            Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
+                .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
+                .FirstOrDefault();
+
+            this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+
+            // effectiv permissions
+            // TODO: load from API
+            this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(coreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Take(20).ToList());
+            foreach(Models.Core.Ace ace in  this.EffectivAces)
+            {
+                ace.ResolveNavigationProperties(coreRepository);
+            }
+        }
     }
 }
