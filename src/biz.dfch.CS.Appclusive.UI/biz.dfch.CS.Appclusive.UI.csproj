@@ -593,6 +593,7 @@
     <EmbeddedResource Include="App_LocalResources\ErrorResources.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorResources.de.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\ErrorResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
