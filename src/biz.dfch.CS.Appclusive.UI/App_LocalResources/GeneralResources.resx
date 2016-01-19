@@ -843,4 +843,19 @@
   <data name="Tree" xml:space="preserve">
     <value>Tree</value>
   </data>
+  <data name="BreakInheritance" xml:space="preserve">
+    <value>Break inheritance</value>
+  </data>
+  <data name="HasInheritanceFromParent" xml:space="preserve">
+    <value>Has inheritance from parent</value>
+  </data>
+  <data name="HasNoInheritanceFromParent" xml:space="preserve">
+    <value>Has no inheritance from parent</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="RestoreInheritance" xml:space="preserve">
+    <value>Restore inheritance</value>
+  </data>
 </root>

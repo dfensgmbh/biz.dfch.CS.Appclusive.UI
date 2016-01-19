@@ -241,6 +241,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break inheritance.
+        /// </summary>
+        public static string BreakInheritance {
+            get {
+                return ResourceManager.GetString("BreakInheritance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelLink {
@@ -1015,11 +1024,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has inheritance from parent.
+        /// </summary>
+        public static string HasInheritanceFromParent {
+            get {
+                return ResourceManager.GetString("HasInheritanceFromParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Has more.
         /// </summary>
         public static string HasMore {
             get {
                 return ResourceManager.GetString("HasMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Has no inheritance from parent.
+        /// </summary>
+        public static string HasNoInheritanceFromParent {
+            get {
+                return ResourceManager.GetString("HasNoInheritanceFromParent", resourceCulture);
             }
         }
         
@@ -1510,6 +1537,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not available.
+        /// </summary>
+        public static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not before.
         /// </summary>
         public static string NotBefore {
@@ -1830,6 +1866,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string RequesterId {
             get {
                 return ResourceManager.GetString("RequesterId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore inheritance.
+        /// </summary>
+        public static string RestoreInheritance {
+            get {
+                return ResourceManager.GetString("RestoreInheritance", resourceCulture);
             }
         }
         

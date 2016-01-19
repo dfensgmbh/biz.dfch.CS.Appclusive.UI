@@ -18,7 +18,12 @@
     <h4>@Html.DisplayNameFor(model => model.Acl)</h4>
     @if (Model.Acl == null)
     {
-        @GeneralResources.None
+        <div class="row" style="margin-bottom:20px">
+            <div class="col-md-4 media-middle">
+                @*<span>@GeneralResources.None   </span>*@
+                @Html.SecuredButton("Create", Url.Action("Create", "Acls", new { nodeId = Model.Id }), "btn-primary")
+            </div>
+        </div>
     }
     else
     {
@@ -27,24 +32,39 @@
                 @GeneralResources.Acl
             </div>
             <div>
-                @Html.DisplayFor(model => model.Acl)
+                @if (Model.Acl.NoInheritanceFromParent)
+                {
+                    @GeneralResources.HasNoInheritanceFromParent
+                }
+                else
+                {
+                    @GeneralResources.HasInheritanceFromParent
+                }
             </div>
         </div>
-
-        <div class="row" style="margin-bottom:10px">
-            <div class="col-md-3">
-                @Html.DisplayNameFor(model => model.Acl.NoInheritanceFromParent)
-            </div>
-            <div>
-                @Html.DisplayFor(model => model.Acl.NoInheritanceFromParent)
-            </div>
-        </div>
-
         @Html.Partial("AceList", Model.Acl.Aces, aceListViewData)
+        <div style="margin-bottom:20px">
+            @Html.SecuredButton("Update", Url.Action("Edit", "Acls", new { id = Model.Acl.Id }), "btn-primary")
+            @if (Model.Acl.NoInheritanceFromParent)
+            {
+                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = true }), "btn-success disabled", @GeneralResources.RestoreInheritance)
+            }
+            else
+            {
+                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = false }), "btn-success disabled", @GeneralResources.BreakInheritance)
+            }
+        </div>
     }
 </div>
-<hr/>
+<hr />
 <div>
     <h4>@Html.DisplayNameFor(model => model.EffectivAces)</h4>
-    @Html.Partial("AceList", Model.EffectivAces, aceListViewData)
+    @if (Model.EffectivAces == null)
+    {
+        @GeneralResources.NotAvailable
+    }
+    else
+    {
+        @Html.Partial("AceList", Model.EffectivAces, aceListViewData)
+    }
 </div>

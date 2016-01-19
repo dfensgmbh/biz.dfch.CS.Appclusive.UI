@@ -70,6 +70,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only entity kind &quot;node&quot; is allowed..
+        /// </summary>
+        public static string onlyNodeAllowed {
+            get {
+                return ResourceManager.GetString("onlyNodeAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission added to role..
         /// </summary>
         public static string permissionAdded {

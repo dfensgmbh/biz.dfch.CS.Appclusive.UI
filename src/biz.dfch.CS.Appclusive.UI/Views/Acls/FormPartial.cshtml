@@ -42,13 +42,14 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.EntityKind, htmlAttributes: new { @class = "control-label" })
-        <div>           
+        <div>
             @Html.DisplayFor(model => model.EntityKind)
+            @Html.HiddenFor(model => model.EntityKindId)
             @*@Html.EditorFor(model => model.EntityKindId, "Autocomplete", new { Value = Model.EntityKind == null ? "" : Model.EntityKind.Name, SelectUrl = @Url.Action("Select", "EntityKinds") })
-            @Html.ValidationMessageFor(model => model.EntityKindId, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.EntityKindId, "", new { @class = "text-danger" })*@
         </div>
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(model => model.EntityId, htmlAttributes: new { @class = "control-label" })
         <div>
@@ -63,8 +64,8 @@
             }
         </div>
     </div>
-    
-    
+
+
     <div class="form-group">
         <input type="submit" value="@GeneralResources.Save" class="btn btn-primary" />
     </div>

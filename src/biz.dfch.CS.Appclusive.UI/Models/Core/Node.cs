@@ -94,19 +94,24 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             Contract.Requires(null != coreRepository);
 
-            // explicit permissions
-            Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
-                .FirstOrDefault();
-
-            this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
-
-            // effectiv permissions
-            var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
-            this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
-            foreach (Models.Core.Ace ace in this.EffectivAces)
+            if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
             {
-                ace.ResolveNavigationProperties(coreRepository);
+                // explicit permissions
+                Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
+                    .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
+                    .FirstOrDefault();
+
+                this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+
+                // effectiv permissions
+                this.EffectivAces = new List<Ace>();
+                this.EffectivAces.Add(new Ace() { Permission = new Permission() { Name = "dummy" } });
+                //var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
+                //this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
+                //foreach (Models.Core.Ace ace in this.EffectivAces)
+                //{
+                //    ace.ResolveNavigationProperties(coreRepository);
+                //}
             }
         }
     }

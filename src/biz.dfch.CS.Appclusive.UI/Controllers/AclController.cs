@@ -42,11 +42,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Acls/Create
-        public ActionResult Create()
+        public ActionResult Create(long? nodeId = null)
         {
             Models.Core.Acl acl = new Models.Core.Acl()
             {
-                EntityKindId = biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode()
+                EntityKindId = biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode(),
+                EntityId = nodeId.HasValue ? nodeId.Value : 0
             };
             acl.ResolveNavigationProperties(CoreRepository);
             return View(acl);
