@@ -54,10 +54,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
             if (null != modelItem)
             {
-                modelItem.Children = LoadNodeChildren(id, 1);
-                modelItem.ResolveSecurity(this.CoreRepository);
                 try
                 {
+                    modelItem.Children = LoadNodeChildren(id, 1);
+                    modelItem.ResolveSecurity(this.CoreRepository);
                     modelItem.ResolveJob(this.CoreRepository);
                 }
                 catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
@@ -182,8 +182,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    // TODO real validation through api
-                    cp.Granted = cp.TrusteeType == 1;
+                    cp.Granted = this.CoreRepository.InvokeEntityActionWithSingleResult<Boolean>("Nodes", cp.NodeId, "CheckPermission",
+                        new { PermissionId = cp.PermissionId, TrusteeId = cp.TrusteeId, TrusteeType = cp.TrusteeType }
+                        );
                     return PartialView(cp);
                 }
             }
@@ -198,7 +199,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             var cp = new Models.SpecialOperations.CheckPermission()
             {
-                NodeId = nodeId
+                NodeId = nodeId,
+                TrusteeType = Models.Core.TrusteeTypeEnum.User.GetHashCode()
             };
             cp.ResolveNavigationProperties(this.CoreRepository);
             ViewBag.CheckNodePermission = cp;

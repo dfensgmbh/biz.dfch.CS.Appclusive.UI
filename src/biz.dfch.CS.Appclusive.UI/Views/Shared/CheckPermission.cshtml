@@ -8,6 +8,7 @@
     htmlAttributes.Add("class", "form-inline");
     // htmlAttributes.Add("style","margin-bottom: 5px; padding-left: 0px;");
 }
+@Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
 <div id="permChecker" style="margin-bottom:15px">
     @using (Ajax.BeginForm("CheckPermission", "Nodes", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary, ajaxOptions, htmlAttributes))
     {

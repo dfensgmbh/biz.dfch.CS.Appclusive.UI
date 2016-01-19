@@ -102,9 +102,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
 
             // effectiv permissions
-            // TODO: load from API
-            this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(coreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Take(20).ToList());
-            foreach(Models.Core.Ace ace in  this.EffectivAces)
+            var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
+            this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
+            foreach (Models.Core.Ace ace in this.EffectivAces)
             {
                 ace.ResolveNavigationProperties(coreRepository);
             }
