@@ -1,0 +1,10 @@
+﻿@model long
+@using biz.dfch.CS.Appclusive.UI.Models.Core
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+@{
+    string type = Enum.GetName(typeof(TrusteeTypeEnum), Model);
+    string icon = biz.dfch.CS.Appclusive.UI.Config.NavigationConfig.GetIcon(type);
+    <i class="fa @icon" title="@GeneralResources.ResourceManager.GetString(type)" data-toggle="tooltip"></i>
+    Html.Raw("&nbsp;");
+}

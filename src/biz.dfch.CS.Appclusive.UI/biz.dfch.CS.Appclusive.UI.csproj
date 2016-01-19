@@ -179,6 +179,7 @@
     <Compile Include="Config\EntityElementCollection.cs" />
     <Compile Include="Config\EntitySearchConfigurationSection.cs" />
     <Compile Include="Config\FormatStringExpression.cs" />
+    <Compile Include="Config\NavigationConfig.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\IExtendedController.cs" />
@@ -579,6 +580,7 @@
     <Content Include="Views\Shared\CheckPermission.cshtml" />
     <Content Include="Views\Nodes\DetailsContent.cshtml" />
     <Content Include="Views\Nodes\TreeDetails.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\IconTrustee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

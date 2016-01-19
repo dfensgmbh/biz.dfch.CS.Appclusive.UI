@@ -14,43 +14,32 @@
 <table class="table table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Permission)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TrusteeType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Trustee)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permission)
+        </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.OrderBy(m=>m.Type))
     {
         if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
         {
             string detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
             <tr class="@item.CssClass">
                 <td onclick="window.location = '@detailLink'" class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td onclick="window.location = '@detailLink'" class="ap-hand">
                     @Html.DisplayFor(modelItem => item.TypeStr)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Permission)
+                <td onclick="window.location = '@detailLink'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TrusteeType, "IconTrustee")
+                    @Html.DisplayFor(modelItem => item.Trustee)
                 </td>
                 <td onclick="window.location = '@detailLink'" class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
-                </td>
-                <td class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.Trustee)
+                    @Html.DisplayFor(modelItem => item.Permission)
                 </td>
                 <td class="ap-btn text-nowrap">
                     <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
@@ -62,20 +51,15 @@
         else
         {
             <tr class="@item.CssClass">
-                <td class=" ap-hand">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td class="ap-hand">
+                <td>
                     @Html.DisplayFor(modelItem => item.TypeStr)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Permission)
-                </td>
-                <td class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.TrusteeTypeStr)
-                </td>
-                <td class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.TrusteeType, "IconTrustee")
                     @Html.DisplayFor(modelItem => item.Trustee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Permission)
                 </td>
                 <td class="ap-btn text-nowrap"></td>
             </tr>
