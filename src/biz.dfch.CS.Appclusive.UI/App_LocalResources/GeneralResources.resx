@@ -337,10 +337,10 @@
     <value>Customer</value>
   </data>
   <data name="Ace" xml:space="preserve">
-    <value>ACE</value>
+    <value>Access Control Entity</value>
   </data>
   <data name="Acl" xml:space="preserve">
-    <value>ACL</value>
+    <value>Access Control List</value>
   </data>
   <data name="CimiTarget" xml:space="preserve">
     <value>Cimi target</value>
@@ -370,7 +370,7 @@
     <value>Management uris</value>
   </data>
   <data name="Aces" xml:space="preserve">
-    <value>ACEs</value>
+    <value>Access Control Entities</value>
   </data>
   <data name="GoToAcl" xml:space="preserve">
     <value>Go to ACL</value>

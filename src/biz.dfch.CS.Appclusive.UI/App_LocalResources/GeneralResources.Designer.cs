@@ -70,7 +70,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACE.
+        ///   Looks up a localized string similar to Access Control Entity.
         /// </summary>
         public static string Ace {
             get {
@@ -79,7 +79,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACEs.
+        ///   Looks up a localized string similar to Access Control Entities.
         /// </summary>
         public static string Aces {
             get {
@@ -88,7 +88,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACL.
+        ///   Looks up a localized string similar to Access Control List.
         /// </summary>
         public static string Acl {
             get {
