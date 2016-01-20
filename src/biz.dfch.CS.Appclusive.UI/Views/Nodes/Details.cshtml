@@ -15,4 +15,5 @@
 </div>
 <p>
     @Html.Partial("BackLink")
+    @Html.DisplayFor(model => model, "EntityReference", new { ShowAsButton = true, CssClass = "btn-warning" })
 </p>

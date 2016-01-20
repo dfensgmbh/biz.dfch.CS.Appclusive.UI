@@ -59,6 +59,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     modelItem.Children = LoadNodeChildren(id, 1);
                     modelItem.ResolveSecurity(this.CoreRepository);
                     modelItem.ResolveJob(this.CoreRepository);
+                    modelItem.ResolveReferencedEntityName(this.CoreRepository);
                 }
                 catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
             }

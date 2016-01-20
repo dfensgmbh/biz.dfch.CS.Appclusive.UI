@@ -37,7 +37,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var item = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.Job>(item));
+                Models.Core.Job model = AutoMapper.Mapper.Map<Models.Core.Job>(item);
+                 if (null != model)
+                 {
+                     model.ResolveReferencedEntityName(this.CoreRepository);
+                 }
+                return View(model);
             }
             catch (Exception ex)
             {

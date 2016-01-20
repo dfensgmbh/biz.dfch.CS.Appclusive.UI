@@ -38,11 +38,17 @@
         }
         else
         {
-            @Html.DisplayFor(model => model.EntityId.ToString())
+            if (!showAsButton)
+            {
+                @Html.DisplayFor(model => model.EntityId)
+            }
         }
     }
     else
     {
-        @Html.DisplayFor(model => model.EntityId.ToString())
+        if (!showAsButton)
+        {
+            @Html.DisplayFor(model => model.EntityId)
+        }
     }
 }
