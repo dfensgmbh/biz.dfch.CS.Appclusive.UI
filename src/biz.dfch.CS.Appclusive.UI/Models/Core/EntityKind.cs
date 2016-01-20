@@ -63,16 +63,16 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                             // find controller
                             if (null != modelType)
                             {
-                                controllerName = localTypeName + "Controller";
+                                controllerName = localTypeName ;
                                 Type controllerType = modelAss.GetTypes()
-                                    .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Controllers") && t.Name == controllerName)
+                                    .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Controllers") && t.Name == controllerName + "Controller")
                                     .FirstOrDefault();
 
                                 if (null == controllerType)
                                 {
-                                    controllerName = localTypeName + "sController";
+                                    controllerName = localTypeName + "s";
                                     controllerType = modelAss.GetTypes()
-                                        .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Controllers") && t.Name == controllerName)
+                                        .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.UI.Controllers") && t.Name == controllerName + "Controller")
                                         .FirstOrDefault();
                                 }
 
@@ -89,6 +89,29 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
         string controllerName = null;
 
+        public Type EntityType
+        {
+            get
+            {
+                if (null == entityType && !string.IsNullOrWhiteSpace(this.Version))
+                {
+                    string localTypeName = this.Version.Split('.').Last();
+
+                    if (!string.IsNullOrWhiteSpace(localTypeName))
+                    {
+                        Assembly apiAss = typeof(Api.Core.EntityKind).Assembly;
+
+                        // find api type
+                        entityType = apiAss.GetTypes()
+                            .Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith("biz.dfch.CS.Appclusive.Api") && t.Name == localTypeName)
+                            .FirstOrDefault();
+                    }
+                }
+                return entityType;
+            }
+        }
+        Type entityType;
+
         public biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId EntityKindId
         {
             get
@@ -98,5 +121,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 return (biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId)Enum.Parse(ekIdType, this.Id.ToString());
             }
         }
+
+
     }
 }

@@ -267,6 +267,7 @@
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
+    <Compile Include="Models\IEntityReference.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
@@ -552,7 +553,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Permission.cshtml" />
     <Content Include="Views\Roles\EditPermissionList.cshtml" />
     <Content Include="Views\Shared\SearchForm.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ReferencedItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EntityReference.cshtml" />
     <Content Include="Views\Shared\JobStatus.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />

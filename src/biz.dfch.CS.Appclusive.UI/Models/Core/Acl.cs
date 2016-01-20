@@ -8,7 +8,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Acl : AppcusiveEntityViewModelBase
+    public class Acl : AppcusiveEntityViewModelBase, IEntityReference
     {
         public Acl() : base()
         {
@@ -20,7 +20,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         [Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "EntityId", ResourceType = typeof(GeneralResources))]
-        public long EntityId { get; set; }
+        public long? EntityId { get; set; }
 
         //[Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Range(1, 1, ErrorMessageResourceName = "onlyNodeAllowed", ErrorMessageResourceType = typeof(ErrorResources))]
@@ -50,5 +50,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         }
 
+        public string EntityName { get; set; }
     }
 }

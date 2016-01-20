@@ -24,7 +24,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Node : AppcusiveEntityViewModelBase
+    public class Node : AppcusiveEntityViewModelBase, IEntityReference
     {
         public Node()
         {
@@ -88,8 +88,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Assert(null != job, "no node-job available");
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
-
-
+        
         internal void ResolveSecurity(Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
@@ -118,5 +117,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 //}
             }
         }
+        
+        public string EntityName { get; set; }
     }
 }

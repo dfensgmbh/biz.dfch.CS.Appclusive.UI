@@ -23,7 +23,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Job : AppcusiveEntityViewModelBase
+    public class Job : AppcusiveEntityViewModelBase, IEntityReference
     {
 
         [Display(Name = "Condition", ResourceType = typeof(GeneralResources))]
@@ -65,5 +65,24 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         [Display(Name = "EntityKind", ResourceType = typeof(GeneralResources))]
         public EntityKind EntityKind { get; set; }
+
+        public long? EntityId
+        {
+            get
+            {
+                long entityId = 0;
+                if (!String.IsNullOrWhiteSpace(this.RefId)
+                    && long.TryParse(this.RefId, out entityId))
+                {
+                    return entityId;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        
+        public string EntityName { get; set; }
     }
 }

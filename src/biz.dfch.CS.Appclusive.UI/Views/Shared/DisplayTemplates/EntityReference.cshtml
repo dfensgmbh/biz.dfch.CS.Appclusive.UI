@@ -1,0 +1,48 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.IEntityReference
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models.Core
+
+@if (Model != null && Model.EntityId.HasValue)
+{
+    bool showLink = ViewBag.ShowLink == null ? true : (bool)ViewBag.ShowLink;
+    bool showAsButton = ViewBag.ShowAsButton == null ? false : (bool)ViewBag.ShowAsButton;
+
+    if (showLink && Model.EntityKind != null && !string.IsNullOrWhiteSpace(Model.EntityKind.UiController))
+    {
+        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+
+        string entityName = Model.EntityKind.EntityKindId.ToString();
+
+        string tipText = GeneralResources.ResourceManager.GetString(entityName);
+        string icon = biz.dfch.CS.Appclusive.UI.Config.NavigationConfig.GetIcon(entityName);
+        string cssClass = (ViewBag.CssClass == null ? "btn-default" : ViewBag.CssClass) + " btn-sm";
+
+        if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(entityName, "CanRead"))
+        {
+            if (showAsButton)
+            {
+                string displayText = string.IsNullOrWhiteSpace(Model.EntityName) ? Model.EntityId.ToString() : Model.EntityName;
+                @Html.SecuredButton("Read", Url.Action("Details",Model.EntityKind.UiController, new { id = Model.EntityId.Value, rId = id, rAction = action, rController = controller }), cssClass, displayText, icon, tipText)
+            }
+            else
+            {
+                string displayText = Model.EntityId.ToString();
+                
+                <i class="fa @icon" title="@tipText" data-toggle="tooltip"></i>
+                @Html.Raw("&nbsp;");
+                @Html.ActionLink(displayText , "Details", Model.EntityKind.UiController, new { id = Model.EntityId.Value, rId = id, rAction = action, rController = controller }, null)
+            }
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.EntityId.ToString())
+        }
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.EntityId.ToString())
+    }
+}

@@ -43,8 +43,9 @@
             </div>
         </div>
         @Html.Partial("AceList", Model.Acl.Aces, aceListViewData)
-        <div style="margin-bottom:20px">
-            @Html.SecuredButton("Update", Url.Action("Edit", "Acls", new { id = Model.Acl.Id }), "btn-primary")
+        <div style="margin-bottom:20px">           
+            @Html.SecuredButton("Read", Url.Action("Details", "Acls", new { id = Model.Acl.Id }), "btn-primary")
+            @Html.SecuredButton("Update", Url.Action("Edit", "Acls", new { id = Model.Acl.Id }), "btn-default")
             @if (Model.Acl.NoInheritanceFromParent)
             {
                 @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = true }), "btn-success disabled", @GeneralResources.RestoreInheritance)

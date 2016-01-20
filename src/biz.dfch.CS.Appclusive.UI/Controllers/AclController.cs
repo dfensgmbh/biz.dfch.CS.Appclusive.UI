@@ -27,6 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(item);
                 if (model != null)
                 {
+                    model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
                         ace.ResolveNavigationProperties(this.CoreRepository);
@@ -90,6 +91,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
                 if (model != null)
                 {
+                    model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
                         ace.ResolveNavigationProperties(this.CoreRepository);
@@ -122,7 +124,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                     apiItem.Name = acl.Name;
                     apiItem.Description = acl.Description;
-                    apiItem.EntityId = acl.EntityId;
+                    apiItem.EntityId = acl.EntityId.Value;
                     apiItem.EntityKindId = acl.EntityKindId;
 
                     #endregion
@@ -134,6 +136,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
                     if (model != null)
                     {
+                        model.ResolveReferencedEntityName(this.CoreRepository);
                         foreach (var ace in model.Aces)
                         {
                             ace.ResolveNavigationProperties(this.CoreRepository);
@@ -146,6 +149,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 acl.ResolveNavigationProperties(CoreRepository);
+                acl.ResolveReferencedEntityName(this.CoreRepository);
                 foreach (var ace in acl.Aces)
                 {
                     ace.ResolveNavigationProperties(this.CoreRepository);
@@ -171,6 +175,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
                 if (model != null)
                 {
+                    model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
                         ace.ResolveNavigationProperties(this.CoreRepository);

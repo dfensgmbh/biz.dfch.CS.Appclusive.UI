@@ -106,7 +106,17 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// <returns></returns>
         public bool HasPermission(Type modelType, string action)
         {
-            string permissionName = string.Format("Apc:{0}s{1}", modelType.Name, action); // Apc:CataloguesCanRead 
+            return HasPermission(modelType.Name, action);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="action">without entity: CanRead</param>
+        /// <returns></returns>
+        public bool HasPermission(string modelName, string action)
+        {
+            string permissionName = string.Format("Apc:{0}s{1}", modelName, action); // Apc:CataloguesCanRead 
             return HasPermission(permissionName);
         }
         /// <summary>

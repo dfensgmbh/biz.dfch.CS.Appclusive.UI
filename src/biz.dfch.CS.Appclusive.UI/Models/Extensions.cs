@@ -16,7 +16,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
@@ -35,6 +38,36 @@ namespace biz.dfch.CS.Appclusive.UI.Models
             return datetime.ToUniversalTime() <= DateTimeOffset.MinValue.UtcDateTime
                     ? DateTimeOffset.MinValue
                     : new DateTimeOffset(datetime);
+        }
+
+        public static void ResolveReferencedEntityName(this IEntityReference entity, biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        {
+            try
+            {
+                if (entity.EntityId > 0 && null != entity.EntityKind && null != entity.EntityKind.EntityType)
+                {
+                    string uriStr = Properties.Settings.Default.AppculsiveApiBaseUrl + "Core/{0}s()?$filter=Id%20eq%20{1}L"; 
+                    Uri requestUri = new Uri(string.Format(uriStr, entity.EntityKind.EntityKindId.ToString(), entity.EntityId));
+                 
+                    // call Generic execute Method:     IEnumerable<Api.Core.Node> result = coreRepository.Execute<Api.Core.Node>(requestUri, HttpMethod.Get.ToString(), true, null);                    
+                    Type[] paramTypes = { typeof(Uri), typeof(String), typeof(Boolean), typeof(System.Data.Services.Client.OperationParameter[]) };
+                    MethodInfo m = typeof(biz.dfch.CS.Appclusive.Api.Core.Core).GetMethod("Execute", paramTypes);
+                    Type[] genericTypeArgs = { entity.EntityKind.EntityType };
+                    MethodInfo execute = m.MakeGenericMethod(genericTypeArgs);
+
+                    object[] args = {requestUri, HttpMethod.Get.ToString(), true, null};
+                    IEnumerable<object> result = (IEnumerable<object>)execute.Invoke(coreRepository, args);
+                    object refEntity = result.FirstOrDefault();
+
+                    // read name property
+                    PropertyInfo p = entity.EntityKind.EntityType.GetProperty("Name");
+                    entity.EntityName = (string)p.GetValue(refEntity);
+                }
+            }
+            catch (Exception ex)
+            {
+                // add logging 
+            }
         }
     }
 }
