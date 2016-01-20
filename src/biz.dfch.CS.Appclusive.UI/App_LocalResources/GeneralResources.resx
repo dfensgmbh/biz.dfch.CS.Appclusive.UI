@@ -303,9 +303,6 @@
   <data name="GateHelpText" xml:space="preserve">
     <value>Name must be unique and the full name of a core type.</value>
   </data>
-  <data name="GoToProduct" xml:space="preserve">
-    <value>Go to product</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -372,8 +369,8 @@
   <data name="Aces" xml:space="preserve">
     <value>Access Control Entities</value>
   </data>
-  <data name="GoToAcl" xml:space="preserve">
-    <value>Go to ACL</value>
+  <data name="GoTo" xml:space="preserve">
+    <value>Go to</value>
   </data>
   <data name="Go" xml:space="preserve">
     <value>Go</value>

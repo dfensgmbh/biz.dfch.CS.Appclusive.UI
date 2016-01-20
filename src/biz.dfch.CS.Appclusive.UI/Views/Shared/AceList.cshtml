@@ -25,7 +25,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.OrderBy(m=>m.Type))
+    @foreach (var item in Model.OrderBy(m => m.Type))
     {
         if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
         {
@@ -42,8 +42,8 @@
                     @Html.DisplayFor(modelItem => item.Permission)
                 </td>
                 <td class="ap-btn text-nowrap">
-                    <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                     @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
+                    <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
                     @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
                 </td>
             </tr>

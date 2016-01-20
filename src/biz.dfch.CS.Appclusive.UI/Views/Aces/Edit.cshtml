@@ -30,7 +30,7 @@
     @if (Model.Id > 0)
     {
         @Html.SecuredButton("Read", Url.Action("Details", new { id = Model.Id }), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-cog")
-        @Html.SecuredButton("Read", Url.Action("Details", new { id = Model.Id }), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-cog")
     }
-    @Html.Partial("BackLink") 
+    @Html.Partial("BackLink")     
+    @Html.DisplayFor(model => model.Acl, new { ShowAsButton = true, CssClass = "btn-warning" })
 </p>

@@ -988,11 +988,11 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to ACL.
+        ///   Looks up a localized string similar to Go to.
         /// </summary>
-        public static string GoToAcl {
+        public static string GoTo {
             get {
-                return ResourceManager.GetString("GoToAcl", resourceCulture);
+                return ResourceManager.GetString("GoTo", resourceCulture);
             }
         }
         
@@ -1002,15 +1002,6 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string GoToCarts {
             get {
                 return ResourceManager.GetString("GoToCarts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Go to product.
-        /// </summary>
-        public static string GoToProduct {
-            get {
-                return ResourceManager.GetString("GoToProduct", resourceCulture);
             }
         }
         
