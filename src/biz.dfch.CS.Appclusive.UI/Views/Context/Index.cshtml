@@ -1,0 +1,25 @@
+﻿@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Navigation
+@using biz.dfch.CS.Appclusive.UI.Models.Core
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = "Context";
+}
+
+@section Title{
+    <h2>@GeneralResources.TenantSwitch</h2>
+}
+<p>
+    @GeneralResources.TenantSwitchInfo
+</p>
+<div class="row">
+
+    <ul class="list-group">
+        @foreach (Tenant tenant in PermissionDecisions.Current.Tenants)
+        {
+            <li class="list-group-item">
+                @Html.ActionLink(tenant.Name, "Index", "Context", new { tenantId = tenant.Id, returnUrl = ViewBag.RreturnUrl })
+            </li>
+        }
+    </ul>
+</div>

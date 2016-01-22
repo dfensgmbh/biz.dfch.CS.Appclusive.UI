@@ -180,6 +180,7 @@
     <Compile Include="Config\EntitySearchConfigurationSection.cs" />
     <Compile Include="Config\FormatStringExpression.cs" />
     <Compile Include="Config\NavigationConfig.cs" />
+    <Compile Include="Controllers\ContextController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\IExtendedController.cs" />
@@ -583,7 +584,7 @@
     <Content Include="Views\Nodes\DetailsContent.cshtml" />
     <Content Include="Views\Nodes\TreeDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\IconTrustee.cshtml" />
-    <Content Include="Views\Shared\AjaxTreeSearchForm.cshtml" />
+    <Content Include="Views\Context\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -629,7 +630,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

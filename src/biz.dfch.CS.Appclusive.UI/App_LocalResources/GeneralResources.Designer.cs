@@ -2041,6 +2041,33 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tenant switch.
+        /// </summary>
+        public static string TenantSwitch {
+            get {
+                return ResourceManager.GetString("TenantSwitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all tenants.
+        /// </summary>
+        public static string TenantSwitchAll {
+            get {
+                return ResourceManager.GetString("TenantSwitchAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose your tenant context:.
+        /// </summary>
+        public static string TenantSwitchInfo {
+            get {
+                return ResourceManager.GetString("TenantSwitchInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tid.
         /// </summary>
         public static string Tid {

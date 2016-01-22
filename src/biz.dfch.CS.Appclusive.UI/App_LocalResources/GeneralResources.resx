@@ -855,4 +855,13 @@
   <data name="RestoreInheritance" xml:space="preserve">
     <value>Restore inheritance</value>
   </data>
+  <data name="TenantSwitch" xml:space="preserve">
+    <value>Tenant switch</value>
+  </data>
+  <data name="TenantSwitchAll" xml:space="preserve">
+    <value>all tenants</value>
+  </data>
+  <data name="TenantSwitchInfo" xml:space="preserve">
+    <value>Choose your tenant context:</value>
+  </data>
 </root>
