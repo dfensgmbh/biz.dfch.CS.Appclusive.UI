@@ -16,7 +16,7 @@
     var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
 }
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <table style="width:100%">
             <tr>
                 <td>
@@ -29,7 +29,7 @@
         </table>
         <div id="tree" style="overflow-y: auto; height:750px;"></div>
     </div>
-    <div id="treeDetail" class="col-md-9 ">
+    <div id="treeDetail" class="col-md-8">
     </div>
 </div>
 
@@ -62,28 +62,45 @@
                 extensions: ["glyph", "wide"],
                 checkbox: false,
                 glyph: glyph_opts,
-                source: data,
+                source:  {
+                    url: "@dataUrl",
+                    data: { parentId: 0},
+                    cache: false
+                },
                 toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
                 wide: {
                     iconWidth: "1em",     // Adjust this if fancy-icon-width != "16px"
                     iconSpacing: "0.5em", // Adjust this if fancy-icon-spacing != "3px"
                     levelOfs: "1.5em"     // Adjust this if ul padding != "16px"
                 },
-
                 activate: function(event, data){
                     var node = data.node;
                     loadDetail(node.key);
                 },
                 lazyLoad: function(event, data) {
                     var node = data.node;
-                    data.result = {url: "@dataUrl", debugDelay: 1000};
                     data.result = {
                         url: "@dataUrl",
                         data: { parentId: node.key},
-                        cache: false
+                        cache: false,
+                        debugDelay: 1000
                     };
-                }
-
+                },
+                clickPaging: function(event, data) {
+                    var node = data.node.getPrevSibling();
+                    data.node.replaceWith( {
+                        url: "@dataUrl",
+                        data: { parentId: node.parent.key, pageNr: node.data.pageInfo.PageNr + 1 },
+                        cache: false
+                    }) ;
+                },
+                loadChildren: function(event, data) {                    
+                    var node = data.node.getLastChild();
+                    if(node != null && node.data != null && node.data.pageInfo!=null && node.data.pageInfo.HasMore){
+                        var a = data.node.addPagingNode();
+                        data.node.render();
+                    }
+                },
             });
 
         })

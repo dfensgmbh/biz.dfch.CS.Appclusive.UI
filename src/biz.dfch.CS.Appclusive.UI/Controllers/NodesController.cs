@@ -132,22 +132,71 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult TreeData(long parentId, object _ = null)
+        public ActionResult TreeData(long parentId = 0,int pageNr = 1, object _ = null)
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
-            var items = CoreRepository.Nodes.Where(c => c.ParentId == parentId);
 
-            foreach (var child in items)
+            if (parentId <= 0)
             {
-                nodeList.Add(new Models.Tree.Node()
+                #region   load root Node
+
+                long id = biz.dfch.CS.Appclusive.Contracts.Constants.SYSTEM_TENANT_ROOT_NODE;
+                var item = CoreRepository.Nodes.Where(c => c.Id == id).FirstOrDefault();
+
+                Models.Tree.Node root = new Models.Tree.Node()
                 {
-                    key = child.Id.ToString(),
-                    title = child.Name,
-                    tooltip = child.Description,
+                    key = item.Id.ToString(),
+                    title = item.Name,
+                    tooltip = item.Description,
                     lazy = true,
                     expanded = false,
-                    folder = false
-                });
+                    folder = true
+                };
+
+                nodeList.Add(root);
+
+                #endregion
+            }
+            else
+            {
+                #region load child list
+
+                string searchTerm = null;
+                string orderBy;
+
+                var query = AddPagingOptions(this.BaseQuery, pageNr);
+                if (string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    query = query.AddQueryOption("$filter", string.Format("ParentId eq {0}", parentId));
+                }
+                else
+                {
+                    query = AddSearchFilter(query, searchTerm);
+                }
+                // query = AddOrderOptions(query, orderBy);
+
+                QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
+
+                PagingInfo pi = new PagingInfo(pageNr, items.TotalCount);
+
+                foreach (var child in items)
+                {
+                    if (child.Id != parentId)
+                    {
+                        nodeList.Add(new Models.Tree.Node()
+                        {
+                            key = child.Id.ToString(),
+                            title = child.Name,
+                            tooltip = child.Description,
+                            lazy = true,
+                            expanded = false,
+                            folder = false,
+                             pageInfo = pi
+                        });
+                    }
+                }
+
+                #endregion
             }
 
             return this.Json(nodeList, JsonRequestBehavior.AllowGet);

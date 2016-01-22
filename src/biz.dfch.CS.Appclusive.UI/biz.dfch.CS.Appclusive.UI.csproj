@@ -353,6 +353,7 @@
     <Content Include="fonts\Neue Frutiger Com Regular.woff" />
     <Content Include="fonts\Neue Frutiger Pro Cyrillic Condensed Regular.otf" />
     <Content Include="fonts\Neue Frutiger Pro Cyrillic Regular.otf" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\general-deployment-profile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
