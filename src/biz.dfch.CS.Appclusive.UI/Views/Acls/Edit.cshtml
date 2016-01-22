@@ -14,18 +14,18 @@
     <hr />
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
         <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
-        <li><a data-toggle="tab" href="#aclList">@GeneralResources.Aces</a></li>
+        <li class="active"><a data-toggle="tab" href="#aclList">@GeneralResources.Aces</a></li>
     </ul>
     <div class="tab-content">
-        <div id="details" class="tab-pane fade in active">            
+        <div id="details" class="tab-pane fade">
             @Html.Partial("FormPartial", Model)
         </div>
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
-        <div id="aclList" class="tab-pane fade">
+        <div id="aclList" class="tab-pane fade in active">
             @Html.Partial("AceList", Model.Aces)
         </div>
     </div>
@@ -36,5 +36,6 @@
     {
         @Html.SecuredButton("Read", Url.Action("Details", new { id = Model.Id }), "btn btn-default btn-sm", @GeneralResources.CancelLink, "fa-cog")
     }
-   @Html.Partial("BackLink") 
+    @Html.Partial("BackLink")
+    @Html.DisplayFor(model => model, "EntityReference", new { ShowAsButton = true, CssClass = "btn-warning" })
 </p>

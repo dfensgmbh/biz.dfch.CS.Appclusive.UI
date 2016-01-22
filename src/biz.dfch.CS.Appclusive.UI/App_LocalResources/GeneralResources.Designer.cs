@@ -70,7 +70,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACE.
+        ///   Looks up a localized string similar to Access Control Entity.
         /// </summary>
         public static string Ace {
             get {
@@ -79,7 +79,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACEs.
+        ///   Looks up a localized string similar to Access Control Entities.
         /// </summary>
         public static string Aces {
             get {
@@ -88,7 +88,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACL.
+        ///   Looks up a localized string similar to Access Control List.
         /// </summary>
         public static string Acl {
             get {
@@ -237,6 +237,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string BackToOrder {
             get {
                 return ResourceManager.GetString("BackToOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Break inheritance.
+        /// </summary>
+        public static string BreakInheritance {
+            get {
+                return ResourceManager.GetString("BreakInheritance", resourceCulture);
             }
         }
         
@@ -979,11 +988,11 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to ACL.
+        ///   Looks up a localized string similar to Go to.
         /// </summary>
-        public static string GoToAcl {
+        public static string GoTo {
             get {
-                return ResourceManager.GetString("GoToAcl", resourceCulture);
+                return ResourceManager.GetString("GoTo", resourceCulture);
             }
         }
         
@@ -997,15 +1006,6 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to product.
-        /// </summary>
-        public static string GoToProduct {
-            get {
-                return ResourceManager.GetString("GoToProduct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Granted.
         /// </summary>
         public static string Granted {
@@ -1015,11 +1015,29 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has inheritance from parent.
+        /// </summary>
+        public static string HasInheritanceFromParent {
+            get {
+                return ResourceManager.GetString("HasInheritanceFromParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Has more.
         /// </summary>
         public static string HasMore {
             get {
                 return ResourceManager.GetString("HasMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Has no inheritance from parent.
+        /// </summary>
+        public static string HasNoInheritanceFromParent {
+            get {
+                return ResourceManager.GetString("HasNoInheritanceFromParent", resourceCulture);
             }
         }
         
@@ -1483,6 +1501,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nodes.
+        /// </summary>
+        public static string Nodes {
+            get {
+                return ResourceManager.GetString("Nodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No inheritance from parent.
         /// </summary>
         public static string NoInheritanceFromParent {
@@ -1497,6 +1524,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not available.
+        /// </summary>
+        public static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
             }
         }
         
@@ -1825,6 +1861,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore inheritance.
+        /// </summary>
+        public static string RestoreInheritance {
+            get {
+                return ResourceManager.GetString("RestoreInheritance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Return url.
         /// </summary>
         public static string ReturnUrl {
@@ -2019,6 +2064,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Token {
             get {
                 return ResourceManager.GetString("Token", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tree.
+        /// </summary>
+        public static string Tree {
+            get {
+                return ResourceManager.GetString("Tree", resourceCulture);
             }
         }
         

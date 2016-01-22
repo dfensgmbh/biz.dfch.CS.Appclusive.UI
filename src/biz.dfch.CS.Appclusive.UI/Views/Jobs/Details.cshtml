@@ -52,14 +52,14 @@
                     @Html.DisplayNameFor(model => model.RefId)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model, "ReferencedItem")
+                    @Html.DisplayFor(model => model, "EntityReference")
                 </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.TenantId)
                 </dt>
                 <dd>
-                   @Html.ActionLink(Model.TenantId.ToString(), "Details", "Tenants", new { id = Model.TenantId, rId = id, rAction = action, rController = controller }, null)
+                    @Html.ActionLink(Model.TenantId.ToString(), "Details", "Tenants", new { id = Model.TenantId, rId = id, rAction = action, rController = controller }, null)
                 </dd>
 
                 <dt>
@@ -131,4 +131,5 @@
 </div>
 <p>
     @Html.Partial("BackLink")
+    @Html.DisplayFor(model => model, "EntityReference", new { ShowAsButton = true, CssClass = "btn-warning" })
 </p>

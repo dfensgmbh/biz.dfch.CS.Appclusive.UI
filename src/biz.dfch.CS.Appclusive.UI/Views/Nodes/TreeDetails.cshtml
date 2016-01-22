@@ -1,0 +1,11 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Node
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+<hr />
+@Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+@Html.Partial("Messages")
+
+@Html.Partial("DetailsContent", Model)
+

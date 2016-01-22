@@ -303,9 +303,6 @@
   <data name="GateHelpText" xml:space="preserve">
     <value>Name must be unique and the full name of a core type.</value>
   </data>
-  <data name="GoToProduct" xml:space="preserve">
-    <value>Go to product</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -337,10 +334,10 @@
     <value>Customer</value>
   </data>
   <data name="Ace" xml:space="preserve">
-    <value>ACE</value>
+    <value>Access Control Entity</value>
   </data>
   <data name="Acl" xml:space="preserve">
-    <value>ACL</value>
+    <value>Access Control List</value>
   </data>
   <data name="CimiTarget" xml:space="preserve">
     <value>Cimi target</value>
@@ -370,10 +367,10 @@
     <value>Management uris</value>
   </data>
   <data name="Aces" xml:space="preserve">
-    <value>ACEs</value>
+    <value>Access Control Entities</value>
   </data>
-  <data name="GoToAcl" xml:space="preserve">
-    <value>Go to ACL</value>
+  <data name="GoTo" xml:space="preserve">
+    <value>Go to</value>
   </data>
   <data name="Go" xml:space="preserve">
     <value>Go</value>
@@ -836,5 +833,26 @@
   </data>
   <data name="NodeId" xml:space="preserve">
     <value>Node id</value>
+  </data>
+  <data name="Nodes" xml:space="preserve">
+    <value>Nodes</value>
+  </data>
+  <data name="Tree" xml:space="preserve">
+    <value>Tree</value>
+  </data>
+  <data name="BreakInheritance" xml:space="preserve">
+    <value>Break inheritance</value>
+  </data>
+  <data name="HasInheritanceFromParent" xml:space="preserve">
+    <value>Has inheritance from parent</value>
+  </data>
+  <data name="HasNoInheritanceFromParent" xml:space="preserve">
+    <value>Has no inheritance from parent</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="RestoreInheritance" xml:space="preserve">
+    <value>Restore inheritance</value>
   </data>
 </root>

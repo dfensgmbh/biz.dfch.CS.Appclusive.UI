@@ -24,7 +24,7 @@ using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
-    public class Node : AppcusiveEntityViewModelBase
+    public class Node : AppcusiveEntityViewModelBase, IEntityReference
     {
         public Node()
         {
@@ -82,32 +82,42 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Requires(null != coreRepository);
 
             Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Version == EntityKind.VERSION_OF_Node)
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Id == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "no node-job available");
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
-
-
+        
         internal void ResolveSecurity(Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
 
-            // explicit permissions
-            Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(a => a.EntityId == this.Id && a.EntityKindId == Models.Core.EntityKind.GetId(Models.Core.EntityKind.VERSION_OF_Node, coreRepository))
-                .FirstOrDefault();
-
-            this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
-
-            // effectiv permissions
-            // TODO: load from API
-            this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(coreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Take(20).ToList());
-            foreach(Models.Core.Ace ace in  this.EffectivAces)
+            if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
             {
-                ace.ResolveNavigationProperties(coreRepository);
+                // explicit permissions
+                Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
+                    .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
+                    .FirstOrDefault();
+
+                this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+                foreach (Models.Core.Ace ace in this.Acl.Aces)
+                {
+                    ace.ResolveNavigationProperties(coreRepository);
+                }
+
+                // effectiv permissions
+                this.EffectivAces = new List<Ace>();
+                this.EffectivAces.Add(new Ace() { Permission = new Permission() { Name = "dummy" } });
+                //var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
+                //this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
+                //foreach (Models.Core.Ace ace in this.EffectivAces)
+                //{
+                //    ace.ResolveNavigationProperties(coreRepository);
+                //}
             }
         }
+        
+        public string EntityName { get; set; }
     }
 }

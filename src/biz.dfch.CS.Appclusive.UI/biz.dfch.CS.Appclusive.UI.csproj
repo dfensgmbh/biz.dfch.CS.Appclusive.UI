@@ -51,6 +51,10 @@
       <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.6\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="biz.dfch.CS.Appclusive.Contracts, Version=1.2.6.15402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Contracts.1.2.6\lib\biz.dfch.CS.Appclusive.Contracts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -68,8 +72,8 @@
       <HintPath>..\packages\Microsoft.HBase.Client.0.2.2\lib\net45\Microsoft.HBase.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Contracts.1.2.6\lib\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
@@ -79,6 +83,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Contracts.1.2.6\lib\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
@@ -89,6 +97,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Contracts.1.2.6\lib\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -167,6 +179,7 @@
     <Compile Include="Config\EntityElementCollection.cs" />
     <Compile Include="Config\EntitySearchConfigurationSection.cs" />
     <Compile Include="Config\FormatStringExpression.cs" />
+    <Compile Include="Config\NavigationConfig.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
     <Compile Include="Controllers\IExtendedController.cs" />
@@ -254,11 +267,14 @@
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\IAppcusiveEntityBase.cs" />
     <Compile Include="Models\AppcusiveEntityBaseHelper.cs" />
+    <Compile Include="Models\IEntityReference.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Config\PortalConfig.cs" />
     <Compile Include="Config\SearchConfig.cs" />
+    <Compile Include="Models\Tree\Node.cs" />
+    <Compile Include="Models\Tree\State.cs" />
     <Compile Include="Models\SpecialOperations\CheckPermission.cs" />
     <Compile Include="Navigation\PermissionDecisions.cs" />
     <Compile Include="Models\SpecialOperations\IOperationParams.cs" />
@@ -342,11 +358,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\fancytree\skin-awesome\ui.fancytree.less" />
+    <Content Include="Scripts\fancytree\skin-bootstrap\ui.fancytree.less" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fancytree\jquery.fancytree-all.min.js" />
+    <Content Include="Scripts\fancytree\skin-awesome\ui.fancytree.css" />
+    <Content Include="Scripts\fancytree\skin-awesome\ui.fancytree.min.css" />
+    <Content Include="Scripts\fancytree\skin-bootstrap\ui.fancytree.css" />
+    <Content Include="Scripts\fancytree\skin-bootstrap\ui.fancytree.min.css" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -530,7 +553,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Permission.cshtml" />
     <Content Include="Views\Roles\EditPermissionList.cshtml" />
     <Content Include="Views\Shared\SearchForm.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ReferencedItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EntityReference.cshtml" />
     <Content Include="Views\Shared\JobStatus.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\BackLink.cshtml" />
@@ -552,9 +575,13 @@
     <Content Include="Views\Shared\DisplayTemplates\Acl.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\StringMaxlength.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
+    <Content Include="Views\Nodes\Tree.cshtml" />
     <Content Include="Views\Nodes\ChildList.cshtml" />
     <Content Include="Views\Nodes\Security.cshtml" />
     <Content Include="Views\Shared\CheckPermission.cshtml" />
+    <Content Include="Views\Nodes\DetailsContent.cshtml" />
+    <Content Include="Views\Nodes\TreeDetails.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\IconTrustee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -569,6 +596,7 @@
     <EmbeddedResource Include="App_LocalResources\ErrorResources.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorResources.de.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\ErrorResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

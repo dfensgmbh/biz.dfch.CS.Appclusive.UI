@@ -9,10 +9,20 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
     {
         #region Secured buttons
 
-        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "", string iclass = "")
+        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "", string iclass = "", string tipText=null)
         {
-            string ret = string.Empty;           
-            string link = @"<a class=""btn {0}"" href=""{1}""><i class=""fa {2} ""></i> {3}</a>";
+            string ret = string.Empty;
+
+            string link = string.Empty;
+            if (string.IsNullOrWhiteSpace(tipText))
+            {
+                link = @"<a class=""btn {0}"" href=""{1}""><i class=""fa {2} ""></i> {3}</a>";
+            }
+            else
+            {
+                link = @"<a class=""btn {0}"" href=""{1}"" title=""{4}"" data-toggle=""tooltip""><i class=""fa {2} ""> {3}</i></a>";
+            }
+
             Type type = GetItemType(typeof(TModel));
 
             switch (permissionCRUD.ToLower())
@@ -24,7 +34,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-default";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-plus";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.CreateNew;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText);
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText);
                     }
                     break;
 
@@ -35,7 +45,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-primary btn-sm";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-cog";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.DetailsLink;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText);
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText);
 
                     }
                     break;
@@ -47,7 +57,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-default btn-sm";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-pencil";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.EditLink;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText);
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText);
                     }
                     break;
 

@@ -17,7 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         [Display(Name = "Password", ResourceType = typeof(GeneralResources))]
         public string Password { get; set; }
 
-        [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        //[Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Domain", ResourceType = typeof(GeneralResources))]
         public string Domain { get; set; }
 

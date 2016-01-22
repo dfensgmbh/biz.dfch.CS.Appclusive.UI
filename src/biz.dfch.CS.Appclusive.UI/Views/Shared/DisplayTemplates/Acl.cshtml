@@ -1,17 +1,34 @@
 ﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Acl
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 
 @if (Model != null && !string.IsNullOrEmpty(Model.Name))
 {
-    if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(Model.GetType(), "CanRead"))
+    bool showAsButton = ViewBag.ShowAsButton == null ? false : (bool)ViewBag.ShowAsButton;
+
+    if (showAsButton)
     {
-        string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
-        string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
-        string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
-        @Html.ActionLink(Model.Name, "Details", "Acls", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
+        string entityName = "Acl";
+        
+        string displayText = GeneralResources.Acl;
+        string cssClass = (ViewBag.CssClass == null ? "btn-default" : ViewBag.CssClass) + " btn-sm";
+        string icon = biz.dfch.CS.Appclusive.UI.Config.NavigationConfig.GetIcon(entityName);
+        string tipText = GeneralResources.GoTo + " " + GeneralResources.ResourceManager.GetString(entityName);
+         
+        @Html.SecuredButton("Read", Url.Action("Details", "Acls", new { id = Model.Id }), cssClass, displayText, icon, tipText)
     }
     else
     {
-        @Html.DisplayFor(model => model.Name)
+        if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(Model.GetType(), "CanRead"))
+        {
+            string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+            string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+            string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+            @Html.ActionLink(Model.Name, "Details", "Acls", new { id = Model.Id, rId = id, rAction = action, rController = controller }, null)
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.Name)
+        }
     }
 }

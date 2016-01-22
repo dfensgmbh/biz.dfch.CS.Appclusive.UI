@@ -120,6 +120,9 @@
   <data name="NoJobAvailable" xml:space="preserve">
     <value>No job is available</value>
   </data>
+  <data name="onlyNodeAllowed" xml:space="preserve">
+    <value>Only entity kind "node" is allowed.</value>
+  </data>
   <data name="permissionAdded" xml:space="preserve">
     <value>Permission added to role.</value>
   </data>

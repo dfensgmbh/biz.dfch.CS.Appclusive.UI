@@ -13,7 +13,7 @@
 
     AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
 }
-<div id="itemListAjax">
+<div id="itemListAjax"> 
     @if ("ItemIndex" == (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"])
     {
         @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
