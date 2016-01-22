@@ -46,7 +46,6 @@
                 </dt>
                 <dd>
                     @Html.SecuredButtonSeePassword()
-                    <a class="btn btn-primary" onclick="togglePW()" id="pwBtn">@GeneralResources.SeePassword</a>
                     <div class="well hidden" id="pwBox">
                         @Html.DisplayFor(model => model.Password)
                     </div>
