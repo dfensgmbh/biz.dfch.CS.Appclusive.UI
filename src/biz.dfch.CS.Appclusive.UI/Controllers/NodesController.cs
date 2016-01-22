@@ -132,7 +132,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult TreeData(long parentId = 0,int pageNr = 1, object _ = null)
+        public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, object _ = null)
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
 
@@ -161,9 +161,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 #region load child list
 
-                string searchTerm = null;
-                string orderBy;
-
                 var query = AddPagingOptions(this.BaseQuery, pageNr);
                 if (string.IsNullOrWhiteSpace(searchTerm))
                 {
@@ -191,7 +188,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                             lazy = true,
                             expanded = false,
                             folder = false,
-                             pageInfo = pi
+                            pageInfo = pi
                         });
                     }
                 }
@@ -217,7 +214,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return PartialView(new Models.Core.Node());
             }
         }
-        
+
         #endregion
 
         [HttpPost]
@@ -243,8 +240,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return PartialView(cp);
             }
-        }     
-        
+        }
+
         private void AddCheckNodePermissionObject(long nodeId)
         {
             var cp = new Models.SpecialOperations.CheckPermission()

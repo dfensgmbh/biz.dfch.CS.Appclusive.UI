@@ -583,6 +583,7 @@
     <Content Include="Views\Nodes\DetailsContent.cshtml" />
     <Content Include="Views\Nodes\TreeDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\IconTrustee.cshtml" />
+    <Content Include="Views\Shared\AjaxTreeSearchForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

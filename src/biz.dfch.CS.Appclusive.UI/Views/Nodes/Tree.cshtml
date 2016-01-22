@@ -14,6 +14,7 @@
     string dataUrl = Url.Action("TreeData");
     string detailUrl = Url.Action("TreeDetails", new { id = 0 });
     var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
+
 }
 <div class="row">
     <div class="col-md-4">
@@ -21,8 +22,14 @@
             <tr>
                 <td>
                     <h2>@GeneralResources.Nodes</h2>
+                    @*<div class="row">
+                        <div class="col-md-8">
+                            <input class="form-control text-box single-line ap-autocomplete" id="treeSearchTerm" name="treeSearchTerm" value="@ViewBag.ItemSearchTerm" />
+                        </div>
+                        <a class="btn btn-primary" onclick="reloadTree()">@GeneralResources.Search</a>
+                    </div>*@
                 </td>
-                <td style="text-align: right; vertical-align: bottom;padding-bottom: 10px; ">
+                <td style="text-align: right; vertical-align: bottom;padding-bottom: 10px;">
                     @Html.ActionLink(GeneralResources.Node + " " + @GeneralResources.List, "Index", "Nodes")
                 </td>
             </tr>
@@ -32,7 +39,6 @@
     <div id="treeDetail" class="col-md-8">
     </div>
 </div>
-
 
 @using (Html.Delayed())
 {
@@ -62,10 +68,11 @@
                 extensions: ["glyph", "wide"],
                 checkbox: false,
                 glyph: glyph_opts,
-                source:  {
+                source: {
                     url: "@dataUrl",
-                    data: { parentId: 0},
-                    cache: false
+                    data: { parentId: 0, searchTerm: $('#treeSearchTerm').val() },
+                    cache: false,
+                    debugDelay: 1000
                 },
                 toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
                 wide: {
@@ -81,7 +88,7 @@
                     var node = data.node;
                     data.result = {
                         url: "@dataUrl",
-                        data: { parentId: node.key},
+                        data: { parentId: node.key, searchTerm: $('#treeSearchTerm').val() },
                         cache: false,
                         debugDelay: 1000
                     };
@@ -94,7 +101,7 @@
                         cache: false
                     }) ;
                 },
-                loadChildren: function(event, data) {                    
+                loadChildren: function(event, data) {
                     var node = data.node.getLastChild();
                     if(node != null && node.data != null && node.data.pageInfo!=null && node.data.pageInfo.HasMore){
                         var a = data.node.addPagingNode();
@@ -115,5 +122,42 @@
                 $("#treeDetail").html(html);
             });
         }
+
+        /* tree-search */
+        function reloadTree(){
+            var tree = $("#tree").fancytree("getTree");
+            tree.reload();
+        }
+
+        $(document).ready(function () {
+            $('#treeSearchTerm').autocomplete(
+              {
+                  source: '@Url.Action("Search", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
+                  select: function (event, ui) {
+                      $('#treeSearchTerm').val(ui.item.key);
+                      $("#treeSearchForm").submit();
+                  }
+              });
+        })
+
+    </script>
+}
+
+@using (Html.Delayed(null, "autocompleteInit"))
+{
+    // because of Autocomplete in TreeDetails
+    <script type="text/javascript">
+
+        function InitAutocomplete(searchTermId, modelKeyId, searchSource) {
+            $(searchTermId).autocomplete(
+              {
+                  source: searchSource,
+                  select: function (event, ui) {
+                      $(searchTermId).val(ui.item.value);
+                      $(modelKeyId).val(ui.item.key);
+                  }
+              });
+        }
+
     </script>
 }
