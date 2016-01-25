@@ -222,7 +222,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public PartialViewResult AddToCart(long id)
+        public PartialViewResult AddToCart(long id, string elementId)
         {
             AjaxNotificationViewModel vm = new AjaxNotificationViewModel();
             try
@@ -239,6 +239,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 CoreRepository.SaveChanges();
                 vm.Level = ENotifyStyle.success;
                 vm.Message = string.Format("Item {0} added to cart", catalogueItem.Name);
+                vm.ElementId = elementId;
 
                 return PartialView("AjaxNotification", new AjaxNotificationViewModel[] { vm });
             }
