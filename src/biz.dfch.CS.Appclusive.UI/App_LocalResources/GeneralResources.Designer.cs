@@ -1132,6 +1132,60 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to disable inheritance.
+        /// </summary>
+        public static string InheritanceDisable {
+            get {
+                return ResourceManager.GetString("InheritanceDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to disable permission inheritance?.
+        /// </summary>
+        public static string InheritanceDisableConfirm {
+            get {
+                return ResourceManager.GetString("InheritanceDisableConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission inheritance is disabled..
+        /// </summary>
+        public static string InheritanceDisabled {
+            get {
+                return ResourceManager.GetString("InheritanceDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enable inheritance.
+        /// </summary>
+        public static string InheritanceEnable {
+            get {
+                return ResourceManager.GetString("InheritanceEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to enable permission inheritance?.
+        /// </summary>
+        public static string InheritanceEnableConfirm {
+            get {
+                return ResourceManager.GetString("InheritanceEnableConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission inheritance is enabled..
+        /// </summary>
+        public static string InheritanceEnabled {
+            get {
+                return ResourceManager.GetString("InheritanceEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to innererror.
         /// </summary>
         public static string innererror {

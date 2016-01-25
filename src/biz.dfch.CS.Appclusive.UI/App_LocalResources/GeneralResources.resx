@@ -879,4 +879,22 @@
   <data name="ConfirmDeleted" xml:space="preserve">
     <value>Item {0} was deleted.</value>
   </data>
+  <data name="InheritanceDisable" xml:space="preserve">
+    <value>disable inheritance</value>
+  </data>
+  <data name="InheritanceDisableConfirm" xml:space="preserve">
+    <value>Do you really want to disable permission inheritance?</value>
+  </data>
+  <data name="InheritanceDisabled" xml:space="preserve">
+    <value>Permission inheritance is disabled.</value>
+  </data>
+  <data name="InheritanceEnable" xml:space="preserve">
+    <value>enable inheritance</value>
+  </data>
+  <data name="InheritanceEnableConfirm" xml:space="preserve">
+    <value>Do you really want to enable permission inheritance?</value>
+  </data>
+  <data name="InheritanceEnabled" xml:space="preserve">
+    <value>Permission inheritance is enabled.</value>
+  </data>
 </root>

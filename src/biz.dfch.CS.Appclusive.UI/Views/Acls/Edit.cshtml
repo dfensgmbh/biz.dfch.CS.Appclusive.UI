@@ -38,4 +38,12 @@
     }
     @Html.Partial("BackLink")
     @Html.DisplayFor(model => model, "EntityReference", new { ShowAsButton = true, CssClass = "btn-warning" })
+    @if (Model.NoInheritanceFromParent)
+    {
+        @Html.SecuredButton("Create", Url.Action("Inheritance", new { id = Model.Id, enable = Model.NoInheritanceFromParent }), "btn-danger btn-sm", GeneralResources.InheritanceEnable, null, null, GeneralResources.InheritanceEnableConfirm)
+    }
+    else
+    {
+        @Html.SecuredButton("Create", Url.Action("Inheritance", new { id = Model.Id, enable = Model.NoInheritanceFromParent }), "btn-danger btn-sm", GeneralResources.InheritanceDisable, null, null, GeneralResources.InheritanceDisableConfirm)
+    }
 </p>

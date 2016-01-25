@@ -192,6 +192,49 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
+        public ActionResult Inheritance(long id, bool enable)
+        {
+            Api.Core.Acl apiItem = null;
+            try
+            {
+                // todo
+                if (enable)
+                {
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.warn, "Todo: " + GeneralResources.InheritanceEnabled));
+                }
+                else
+                {
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.warn, "Todo: " + GeneralResources.InheritanceDisabled));
+                }
+
+                // load detail
+                var item = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(item);
+                if (model != null)
+                {
+                    model.ResolveReferencedEntityName(this.CoreRepository);
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View("Details", model);
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);
+                if (model != null)
+                {
+                    model.ResolveReferencedEntityName(this.CoreRepository);
+                    foreach (var ace in model.Aces)
+                    {
+                        ace.ResolveNavigationProperties(this.CoreRepository);
+                    }
+                }
+                return View("Details", model);
+            }
+        }
 
         #endregion
 
