@@ -100,10 +100,13 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                     .FirstOrDefault();
 
-                this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
-                foreach (Models.Core.Ace ace in this.Acl.Aces)
+                if (null != acl)
                 {
-                    ace.ResolveNavigationProperties(coreRepository);
+                    this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+                    foreach (Models.Core.Ace ace in this.Acl.Aces)
+                    {
+                        ace.ResolveNavigationProperties(coreRepository);
+                    }
                 }
 
                 // effectiv permissions
