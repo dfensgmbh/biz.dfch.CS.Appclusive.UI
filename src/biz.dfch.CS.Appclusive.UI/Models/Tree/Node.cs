@@ -27,6 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Tree
         public string title { get; set; }
         public string tooltip { get; set; }
         public bool unselectable { get; set; }
+        public string icon { get; set; }
 
         public PagingInfo pageInfo {get;set;}
     }

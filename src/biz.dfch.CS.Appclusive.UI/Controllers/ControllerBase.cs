@@ -231,6 +231,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 query = query.AddQueryOption("$orderby", orderBy);
             }
+            else
+            {
+                if (!String.IsNullOrWhiteSpace(this.SearchConfiguration.OrderBy))
+                {
+                    query = query.AddQueryOption("$orderby", this.SearchConfiguration.OrderBy);
+                }
+            }
             return query;
         }
         #endregion

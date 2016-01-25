@@ -23,21 +23,33 @@ namespace biz.dfch.CS.Appclusive.UI.Config
         }
         private static List<NavEntry> NavEntries;
 
+
         public static string GetIcon(Type modelType)
         {
             return GetIcon(modelType.Name);
         }
         public static string GetIcon(string modelType)
         {
-            string controllerName = modelType;
+            Contract.Requires(!String.IsNullOrWhiteSpace(modelType));
+            string controllerName = modelType.Trim();
             NavEntry modelEntry = NavigationConfig.NavEntries.FirstOrDefault(e => e.Controller == controllerName);
             if (null == modelEntry)
             {
                 controllerName += "s";
                 modelEntry = NavigationConfig.NavEntries.FirstOrDefault(e => e.Controller == controllerName);
             }
-            Contract.Assert(null != modelEntry);
-            return modelEntry.Icon;
+            if (null == modelEntry)
+            {
+                modelEntry = NavigationConfig.NavEntries.FirstOrDefault(e => e.Name == modelType.Trim());
+            }
+            if (null != modelEntry)
+            {
+                return modelEntry.Icon;
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

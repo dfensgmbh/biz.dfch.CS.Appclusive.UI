@@ -8,13 +8,13 @@
     bool showLink = ViewBag.ShowLink == null ? true : (bool)ViewBag.ShowLink;
     bool showAsButton = ViewBag.ShowAsButton == null ? false : (bool)ViewBag.ShowAsButton;
 
-    if (showLink && Model.EntityKind != null && !string.IsNullOrWhiteSpace(Model.EntityKind.UiController))
+    if (showLink && null != Model.EntityKind && null != Model.EntityKind.EntityType && !string.IsNullOrWhiteSpace(Model.EntityKind.UiController))
     {
         string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
         string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
         string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
 
-        string entityName = Model.EntityKind.EntityKindId.ToString();
+        string entityName = Model.EntityKind.EntityType.Name;
 
         string tipText = GeneralResources.ResourceManager.GetString(entityName);
         string icon = biz.dfch.CS.Appclusive.UI.Config.NavigationConfig.GetIcon(entityName);

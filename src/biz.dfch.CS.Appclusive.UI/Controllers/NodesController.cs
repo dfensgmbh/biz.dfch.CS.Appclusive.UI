@@ -170,17 +170,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 {
                     query = AddSearchFilter(query, searchTerm);
                 }
-                // query = AddOrderOptions(query, orderBy);
+                query = AddOrderOptions(query, ""); // orderby from config file
 
                 QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
-
                 PagingInfo pi = new PagingInfo(pageNr, items.TotalCount);
 
-                foreach (var child in items)
+                List<Models.Core.Node> modelItems = AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
+
+                foreach (var child in modelItems)
                 {
                     if (child.Id != parentId)
                     {
-                        nodeList.Add(new Models.Tree.Node()
+                        Models.Tree.Node node = new Models.Tree.Node()
                         {
                             key = child.Id.ToString(),
                             title = child.Name,
@@ -189,7 +190,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                             expanded = false,
                             folder = false,
                             pageInfo = pi
-                        });
+                        };
+                        if (null != child.EntityKind)
+                        {
+                            string icon = null;
+                            if (null != child.EntityKind.EntityType)
+                            {
+                                icon = NavigationConfig.GetIcon(child.EntityKind.EntityType);
+                            }
+                            else
+                            {
+                                icon = NavigationConfig.GetIcon(child.EntityKind.Name);
+                            }
+                            if (!string.IsNullOrWhiteSpace(icon))
+                            {
+                                node.icon = "fa " + icon;
+                            }
+                        }
+                        nodeList.Add(node);
                     }
                 }
 
