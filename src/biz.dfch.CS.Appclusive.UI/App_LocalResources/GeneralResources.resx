@@ -876,4 +876,7 @@
   <data name="OrderByDesc" xml:space="preserve">
     <value>desc</value>
   </data>
+  <data name="ConfirmDeleted" xml:space="preserve">
+    <value>Item {0} was deleted.</value>
+  </data>
 </root>

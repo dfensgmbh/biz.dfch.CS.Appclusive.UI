@@ -475,6 +475,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item {0} was deleted..
+        /// </summary>
+        public static string ConfirmDeleted {
+            get {
+                return ResourceManager.GetString("ConfirmDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this item?.
         /// </summary>
         public static string ConfirmRemove {

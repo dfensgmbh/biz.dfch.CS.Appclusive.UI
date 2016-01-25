@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -16,8 +17,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Acl
 
         // GET: Acls/Details/5
-        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null, int d = 0)
         {
+            #region delete message
+            if (d > 0)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.ConfirmDeleted, d)));
+            }
+            #endregion
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
@@ -167,7 +174,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { d = id });
             }
             catch (Exception ex)
             {

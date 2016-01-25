@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
@@ -53,8 +54,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         
         #region basic list actions
 
-        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null)
+        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null, int d = 0)
         {
+            #region delete message
+            if (d > 0)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.ConfirmDeleted, d)));
+            }
+            #endregion
             ViewBag.SearchTerm = searchTerm;
             try
             {

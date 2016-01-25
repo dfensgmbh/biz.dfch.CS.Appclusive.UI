@@ -156,7 +156,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 apiItem = CoreRepository.Aces.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
-                return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
+                return RedirectToAction("Details", "Acls", new { id = apiItem.AclId, d = id });
             }
             catch (Exception ex)
             {
