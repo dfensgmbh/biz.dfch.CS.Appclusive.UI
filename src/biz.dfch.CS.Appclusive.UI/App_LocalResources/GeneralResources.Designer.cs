@@ -1627,6 +1627,42 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to order by.
+        /// </summary>
+        public static string OrderBy {
+            get {
+                return ResourceManager.GetString("OrderBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderByAsc {
+            get {
+                return ResourceManager.GetString("OrderByAsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderByDefault {
+            get {
+                return ResourceManager.GetString("OrderByDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to desc.
+        /// </summary>
+        public static string OrderByDesc {
+            get {
+                return ResourceManager.GetString("OrderByDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order Id.
         /// </summary>
         public static string OrderId {

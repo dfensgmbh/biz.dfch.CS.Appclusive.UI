@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
@@ -106,6 +107,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult Tree()
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
+            #region order by
+
+            Dictionary<string, string> ov = new Dictionary<string, string>();
+            ov.Add("", GeneralResources.OrderByDefault);
+            ov.Add("Name", "Name " + GeneralResources.OrderByAsc);
+            ov.Add("Name desc", "Name " + GeneralResources.OrderByDesc);
+            ViewBag.OrderBySelection =  new SelectList(ov, "Key", "Value");
+
+            #endregion
             try
             {
                 // load root Node and Children
@@ -132,9 +142,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, object _ = null)
+        public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, string orderBy = null, object _ = null)
         {
-            List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
+            List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();            
 
             if (parentId <= 0)
             {
@@ -170,7 +180,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 {
                     query = AddSearchFilter(query, searchTerm);
                 }
-                query = AddOrderOptions(query, ""); // orderby from config file
+                query = AddOrderOptions(query, orderBy); 
 
                 QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
                 PagingInfo pi = new PagingInfo(pageNr, items.TotalCount);
