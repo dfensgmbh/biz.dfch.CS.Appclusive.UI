@@ -26,13 +26,13 @@ namespace biz.dfch.CS.Appclusive.UI.Config
         public static int Pagesize = Properties.Settings.Default.Pagesize;
 
         /// <summary>
-        /// Number of options to displayd to the user
+        /// Number of options to displayed to the user
         /// </summary>
         public static int Searchsize = Properties.Settings.Default.Searchsize;
 
         /// <summary>
         /// Number of records to load before distinct can be applied to options
         /// </summary>
-        public static int SearchLoadSize = Properties.Settings.Default.Searchsize;
+        public static int SearchLoadSize = Properties.Settings.Default.SearchLoadSize;
     }
 }

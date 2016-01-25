@@ -30,18 +30,18 @@
         </table>
         <div class="row">
             <div class="col-md-8">
-                <input class="form-control text-box single-line ap-autocomplete" id="treeSearchTerm" name="treeSearchTerm" value="@ViewBag.ItemSearchTerm" />
+                <input class="form-control input-sm text-box single-line ap-autocomplete" id="treeSearchTerm" name="treeSearchTerm" value="@ViewBag.ItemSearchTerm" />
             </div>
             <div class="col-md-4" style="text-align: right;">
-                <a class="btn btn-primary" onclick="reloadTree()">@GeneralResources.Search</a>
+                <a class="btn btn-primary input-sm" onclick="reloadTree()">@GeneralResources.Search</a>
             </div>
             </div>
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row" style="margin-top:5px;">
+            <div class="col-md-4" style="padding-top:8px;">
                 @GeneralResources.OrderBy
             </div>
             <div class="col-md-8">
-                @Html.DropDownList("treeOrderBy", (IEnumerable<SelectListItem>)ViewBag.OrderBySelection, new { @class = "form-control", @onchange = "reloadTree()" })
+                @Html.DropDownList("treeOrderBy", (IEnumerable<SelectListItem>)ViewBag.OrderBySelection, new { @class = "form-control input-sm", @onchange = "reloadTree()" })
             </div>
         </div>
         <div id="tree" style="overflow-y: auto; height:750px; margin-top:10px"></div>
@@ -98,7 +98,7 @@
                     var node = data.node;
                     data.result = {
                         url: "@dataUrl",
-                        data: { parentId: node.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
+                        data: { parentId: node.key, orderBy: $('#treeOrderBy').val() },
                         cache: false,
                         debugDelay: 1000
                     };
@@ -107,7 +107,7 @@
                     var node = data.node.getPrevSibling();
                     data.node.replaceWith( {
                         url: "@dataUrl",
-                        data: { parentId: node.parent.key, pageNr: node.data.pageInfo.PageNr + 1 },
+                        data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), pageNr: node.data.pageInfo.PageNr + 1 },
                         cache: false
                     }) ;
                 },
@@ -136,7 +136,11 @@
         /* tree-search */
         function reloadTree(){
             var tree = $("#tree").fancytree("getTree");
-            tree.reload();
+            tree.reload({
+                url: "@dataUrl",
+                data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
+                cache: false
+            });
         }
 
         $(document).ready(function () {

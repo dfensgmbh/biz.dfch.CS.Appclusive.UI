@@ -216,11 +216,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr)
         {
-            if (pageNr>0)
+            return AddPagingOptions(query, pageNr, PortalConfig.Pagesize);
+        }
+        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr, int pageSize = 0)
+        {
+            if (pageNr > 0)
             {
                 query = query.AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize);
+                    .AddQueryOption("$top", pageSize)
+                    .AddQueryOption("$skip", (pageNr - 1) * pageSize);
             }
             return query;
         }

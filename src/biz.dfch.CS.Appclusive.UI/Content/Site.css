@@ -107,6 +107,7 @@ div.ap-errortext, div.ap-infotext {
 ul.ui-autocomplete {
     border: 1px solid #ddd;
     background-color: white;
+    z-index:1000;
 }
 
 .ap-hand {

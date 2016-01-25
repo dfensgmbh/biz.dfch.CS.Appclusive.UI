@@ -16,6 +16,7 @@
 
 using biz.dfch.CS.Appclusive.UI.Config;
 using System;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
@@ -28,10 +29,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         }
 
         public PagingInfo(int pageNr, long itemCount)
+            : this(pageNr, itemCount, PortalConfig.Pagesize)
         {
+        }
+
+        public PagingInfo(int pageNr, long itemCount, int pageSize)
+        {
+            Contract.Assert(pageNr>0);
+            Contract.Assert(pageSize>0);
             this.PageNr = pageNr;
             this.ItemCount = itemCount;
-            this.PageCount = (long)Math.Ceiling((double)this.ItemCount / PortalConfig.Pagesize);
+            this.PageCount = (long)Math.Ceiling((double)this.ItemCount / pageSize);
             this.HasMore = this.PageCount > this.PageNr;
         }
 

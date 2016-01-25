@@ -113,7 +113,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ov.Add("", GeneralResources.OrderByDefault);
             ov.Add("Name", "Name " + GeneralResources.OrderByAsc);
             ov.Add("Name desc", "Name " + GeneralResources.OrderByDesc);
-            ViewBag.OrderBySelection =  new SelectList(ov, "Key", "Value");
+            ViewBag.OrderBySelection = new SelectList(ov, "Key", "Value");
 
             #endregion
             try
@@ -144,87 +144,148 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, string orderBy = null, object _ = null)
         {
-            List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();            
-
-            if (parentId <= 0)
+            List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
+            bool addParents = false;
+            int pageSize = PortalConfig.Pagesize;
+            try
             {
-                #region   load root Node
+                #region query and load list
 
-                long id = biz.dfch.CS.Appclusive.Contracts.Constants.SYSTEM_TENANT_ROOT_NODE;
-                var item = CoreRepository.Nodes.Where(c => c.Id == id).FirstOrDefault();
-
-                Models.Tree.Node root = new Models.Tree.Node()
+                DataServiceQuery<Api.Core.Node> query = this.BaseQuery;
+                if (parentId <= 0)
                 {
-                    key = item.Id.ToString(),
-                    title = item.Name,
-                    tooltip = item.Description,
-                    lazy = true,
-                    expanded = false,
-                    folder = true
-                };
-
-                nodeList.Add(root);
-
-                #endregion
-            }
-            else
-            {
-                #region load child list
-
-                var query = AddPagingOptions(this.BaseQuery, pageNr);
-                if (string.IsNullOrWhiteSpace(searchTerm))
-                {
-                    query = query.AddQueryOption("$filter", string.Format("ParentId eq {0}", parentId));
+                    if (string.IsNullOrWhiteSpace(searchTerm))
+                    {
+                        //  load root Node
+                        query = AddPagingOptions(query, pageNr);
+                        query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()));
+                    }
+                    else
+                    {
+                        // search nodes
+                        query = AddPagingOptions(query, pageNr, PortalConfig.SearchLoadSize);
+                        query = AddSearchFilter(query, searchTerm);
+                        query = AddOrderOptions(query, orderBy);
+                        addParents = true;
+                        pageSize = PortalConfig.SearchLoadSize;
+                    }
                 }
                 else
                 {
-                    query = AddSearchFilter(query, searchTerm);
+                    // load child list
+                    query = AddPagingOptions(query, pageNr);
+                    query = query.AddQueryOption("$filter", string.Format("ParentId eq {0}", parentId));
+                    query = AddOrderOptions(query, orderBy);
                 }
-                query = AddOrderOptions(query, orderBy); 
 
                 QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
-                PagingInfo pi = new PagingInfo(pageNr, items.TotalCount);
+                PagingInfo pi = new PagingInfo(pageNr, items.TotalCount, pageSize);
 
                 List<Models.Core.Node> modelItems = AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
 
+                #endregion
+
+                // find parents                
+                if (addParents)
+                {
+                    List<Models.Core.Node> foundItems = modelItems.ToList();
+                    foreach (Models.Core.Node child in foundItems)
+                    {
+                        FindParent(modelItems, child);
+                    }
+                    modelItems = modelItems.Where(n => n.Parent == null).ToList();// root nodes
+                }
+
+                // create fancytree-nodes
                 foreach (var child in modelItems)
                 {
                     if (child.Id != parentId)
                     {
-                        Models.Tree.Node node = new Models.Tree.Node()
+                        Models.Tree.Node node = CreateTreeNode(child);
+                        if (null != node)
                         {
-                            key = child.Id.ToString(),
-                            title = child.Name,
-                            tooltip = child.Description,
-                            lazy = true,
-                            expanded = false,
-                            folder = false,
-                            pageInfo = pi
-                        };
-                        if (null != child.EntityKind)
-                        {
-                            string icon = null;
-                            if (null != child.EntityKind.EntityType)
-                            {
-                                icon = NavigationConfig.GetIcon(child.EntityKind.EntityType);
-                            }
-                            else
-                            {
-                                icon = NavigationConfig.GetIcon(child.EntityKind.Name);
-                            }
-                            if (!string.IsNullOrWhiteSpace(icon))
-                            {
-                                node.icon = "fa " + icon;
-                            }
+                            node.pageInfo = pi;
+                            nodeList.Add(node);
                         }
-                        nodeList.Add(node);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(ex.Message);
+            }
+            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+        }
 
-                #endregion
+        private static Models.Tree.Node CreateTreeNode(Models.Core.Node child)
+        {
+            // node
+            Models.Tree.Node node = new Models.Tree.Node()
+                {
+                    key = child.Id.ToString(),
+                    title = child.Name,
+                    tooltip = child.Description,
+                    lazy = true,
+                    expanded = false,
+                    folder = false
+                };
+
+            // icon
+            if (null != child.EntityKind)
+            {
+                string icon = null;
+                if (null != child.EntityKind.EntityType)
+                {
+                    icon = NavigationConfig.GetIcon(child.EntityKind.EntityType);
+                }
+                else
+                {
+                    icon = NavigationConfig.GetIcon(child.EntityKind.Name);
+                }
+                if (!string.IsNullOrWhiteSpace(icon))
+                {
+                    node.icon = "fa " + icon;
+                }
             }
 
-            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+            // children
+            foreach (var grandChild in child.Children)
+            {
+                Models.Tree.Node grandChildNode = CreateTreeNode(grandChild);
+                if (null != grandChildNode)
+                {
+                    if (null == node.children)
+                    {
+                        node.children = new List<Models.Tree.Node>();
+                        node.lazy = false;
+                        node.expanded = true;
+                    }
+                    node.children.Add(grandChildNode);
+                }
+            }
+            return node;
+        }
+
+        private void FindParent(List<Models.Core.Node> modelItems, Models.Core.Node child)
+        {
+            if (child.Parent == null && child.ParentId.HasValue && child.ParentId > 0 && child.Id != child.ParentId.Value)
+            {
+                var parent = modelItems.FirstOrDefault(n => n.Id == child.ParentId);
+                if (null == parent)
+                {
+                    parent = AutoMapper.Mapper.Map<Models.Core.Node>(this.BaseQuery.Where(n => n.Id == child.ParentId.Value).FirstOrDefault());
+                    if (null != parent)
+                    {
+                        modelItems.Add(parent);
+                    }
+                }
+                if (null != parent)
+                {
+                    child.Parent = parent;
+                    parent.Children.Add(child);
+                    FindParent(modelItems, parent);
+                }
+            }
         }
 
         public PartialViewResult TreeDetails(long id)
