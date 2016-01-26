@@ -1,5 +1,5 @@
-﻿@using biz.dfch.CS.Appclusive.UI.Helpers
-@model biz.dfch.CS.Appclusive.UI.Models.Core.Role
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Role
+@using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
     ViewBag.Title = @Model.GetType().Name + " details";
@@ -53,12 +53,12 @@
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
         <div id="permissionsTab" class="tab-pane fade">
-            @{ ViewBag.Id = Model.Id; }
-            @Html.Partial("EditPermissionList", Model.Permissions)
+                @{ ViewBag.Id = Model.Id; }
+                @Html.Partial("EditPermissionList", Model.Permissions)
         </div>
         <div id="usersTab" class="tab-pane fade">
-            @{ ViewBag.Id = Model.Id; }
-            @Html.Partial("EditUserList", Model.Users)
+                @{ ViewBag.Id = Model.Id; }
+                @Html.Partial("EditUserList", Model.Users)
         </div>
     </div>
     <hr />

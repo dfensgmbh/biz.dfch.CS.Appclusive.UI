@@ -1654,7 +1654,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;Entity Type&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
+        ///   Looks up a localized string similar to &apos;Entity set&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
         /// </summary>
         public static string OperationSetCreatedByHelpText {
             get {
@@ -1672,7 +1672,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;Entity Type&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
+        ///   Looks up a localized string similar to &apos;Entity set&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
         /// </summary>
         public static string OperationSetTenantHelpText {
             get {

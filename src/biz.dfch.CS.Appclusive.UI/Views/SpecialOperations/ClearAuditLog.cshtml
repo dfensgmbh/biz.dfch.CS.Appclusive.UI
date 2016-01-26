@@ -1,10 +1,28 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
 
-<div id="clearAuditLogForm">
-    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
-    @Html.Partial("Messages")
+<div class="ap-busyParent">
+    <div id="clearAuditLogFormLoading"></div>
+    <div id="clearAuditLogForm">
+        @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+        @Html.Partial("Messages")
 
-    @Ajax.ActionLink(GeneralResources.OperationClearAuditLog, "ClearAuditLog", null,
-                new AjaxOptions() { UpdateTargetId = "clearAuditLogForm", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
-                new { @class = "btn btn-primary" })
+        @Ajax.ActionLink(GeneralResources.OperationClearAuditLog, "ClearAuditLog", null,
+            new AjaxOptions() { UpdateTargetId = "clearAuditLogForm", InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showClearAuditLogBusy", OnComplete = "hideClearAuditLogBusy" },
+            new { @class = "btn btn-primary" })
+    </div>
 </div>
+
+@using (Html.Delayed(null, "clearAuditLogForm"))
+{
+    <script type="text/javascript">
+
+        function showClearAuditLogBusy() {
+            $("#clearAuditLogFormLoading").show();
+        }
+        function hideClearAuditLogBusy() {
+            $("#clearAuditLogFormLoading").hide();
+        }
+
+    </script>
+}

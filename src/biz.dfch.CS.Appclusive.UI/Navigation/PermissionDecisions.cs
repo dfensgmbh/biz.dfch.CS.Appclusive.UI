@@ -162,7 +162,8 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 NavEntry group = AutoMapper.Mapper.Map<NavEntry>(groupConfig);
                 foreach (NavEntryElement entryConfig in groupConfig.NavEntryElements)
                 {
-                    if (!String.IsNullOrWhiteSpace(entryConfig.Action) && !String.IsNullOrWhiteSpace(entryConfig.Controller))
+                    if (!String.IsNullOrWhiteSpace(groupConfig.Action) && !String.IsNullOrWhiteSpace(groupConfig.Controller)
+                        || !String.IsNullOrWhiteSpace(entryConfig.Action) && !String.IsNullOrWhiteSpace(entryConfig.Controller))
                     {
                         string permissionName = entryConfig.Permission;
                         if (String.IsNullOrWhiteSpace(permissionName))

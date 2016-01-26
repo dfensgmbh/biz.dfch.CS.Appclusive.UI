@@ -3,35 +3,54 @@
 @using biz.dfch.CS.Appclusive.UI.Helpers
 
 @{
-    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = "userList", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = "userList", InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };
 }
-@using (Ajax.BeginForm("AddUser", "Roles", new { roleId = ViewBag.Id }, ajaxOptions))
-{
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        <div class="col-md-4">
-            <input name="userId" id="userId" type="hidden" value="0" />
-            <input class="form-control text-box single-line ap-autocomplete" id="userSearch" name="userSearch" />
+<div class="row">
+    @using (Ajax.BeginForm("AddUser", "Roles", new { roleId = ViewBag.Id }, ajaxOptions))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-4">
+                <input name="userId" id="userId" type="hidden" value="0" />
+                <input class="form-control text-box single-line ap-autocomplete" id="userSearch" name="userSearch" />
+            </div>
+            <input type="submit" value="@GeneralResources.Add" class="btn btn-primary" />
         </div>
-        <input type="submit" value="@GeneralResources.Add" class="btn btn-primary" />
+    }
     </div>
-}
-@Html.Partial("UserList", Model)
+<div class="ap-busyParent">
+    <div id="itemListLoading"></div>
+    @Html.Partial("UserList", Model)
+</div>
 
-@using (Html.Delayed())
+    @using (Html.Delayed())
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#userSearch').autocomplete(
+                  {
+                      source: '@Url.Action("UserSearch", "Roles", new { roleId = ViewBag.Id })',
+                      select: function (event, ui) {
+                          $('#userId').val(ui.item.key);
+                      },
+                      change: function (event, ui) {
+                          $('#userId').val(ui.item.key);
+                      }
+                  });
+            })
+        </script>
+    }
+
+@using (Html.Delayed(null, "itemListLoading"))
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#userSearch').autocomplete(
-              {
-                  source: '@Url.Action("UserSearch", "Roles", new { roleId = ViewBag.Id })',
-                  select: function (event, ui) {
-                      $('#userId').val(ui.item.key);
-                  },
-                  change: function (event, ui) {
-                      $('#userId').val(ui.item.key);
-                  }
-              });
-        })
+
+        function showBusy() {
+            $("#itemListLoading").show();
+        }
+        function hideBusy() {
+            $("#itemListLoading").hide();
+        }
+
     </script>
 }

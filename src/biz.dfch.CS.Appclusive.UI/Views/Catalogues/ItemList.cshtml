@@ -18,4 +18,21 @@
         @Html.Partial("AjaxItemSearchForm")
     </div>
 }
-@Html.Partial("ItemIndex", Model)
+<div class="ap-busyParent">
+    <div id="itemListLoading"></div>
+    @Html.Partial("ItemIndex", Model)
+</div>
+
+@using (Html.Delayed(null, "itemListLoading"))
+{
+    <script type="text/javascript">
+
+        function showBusy() {
+            $("#itemListLoading").show();
+        }
+        function hideBusy() {
+            $("#itemListLoading").hide();
+        }
+
+    </script>
+}

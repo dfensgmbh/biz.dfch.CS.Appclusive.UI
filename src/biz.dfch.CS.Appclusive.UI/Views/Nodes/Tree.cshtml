@@ -179,3 +179,31 @@
 
     </script>
 }
+
+@using (Html.Delayed(null, "itemListLoading"))
+{
+    <script type="text/javascript">
+
+        function showBusy() {
+            $("#itemListLoading").show();
+        }
+        function hideBusy() {
+            $("#itemListLoading").hide();
+        }
+
+    </script>
+}
+
+@using (Html.Delayed(null, "permissionListLoading"))
+{
+    <script type="text/javascript">
+
+        function showPermissionBusy() {
+            $("#permissionListLoading").show();
+        }
+        function hidePermissionBusy() {
+            $("#permissionListLoading").hide();
+        }
+
+    </script>
+}

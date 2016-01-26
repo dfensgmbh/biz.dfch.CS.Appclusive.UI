@@ -52,7 +52,9 @@ textarea {
 }*/
 
 /* busy indicator */
-#detailLoading {
+#detailLoading, #itemListLoading, #permissionListLoading,
+#clearAuditLogFormLoading, #raiseUpdateConfigurationEventFormLoading,
+#reloadProductsFormLoading, #setCreatedByFormLoading, #setTenantFormLoading {
     display: none;
     position: absolute;
     top: 0;
@@ -67,7 +69,12 @@ textarea {
     z-index: 2;
     opacity: 0.75;
 }
-
+.ap-busyParent{
+     display: block;
+        position: relative;
+    padding-left:0px;
+    padding-right:0px;
+}
 
 /* styles for validation helpers */
 .field-validation-error {
