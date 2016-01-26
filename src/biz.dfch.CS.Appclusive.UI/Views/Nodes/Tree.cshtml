@@ -35,7 +35,7 @@
             <div class="col-md-4" style="text-align: right;">
                 <a class="btn btn-primary input-sm" onclick="reloadTree()">@GeneralResources.Search</a>
             </div>
-            </div>
+        </div>
         <div class="row" style="margin-top:5px;">
             <div class="col-md-4" style="padding-top:8px;">
                 @GeneralResources.OrderBy
@@ -46,10 +46,12 @@
         </div>
         <div id="tree" style="overflow-y: auto; height:750px; margin-top:10px"></div>
     </div>
-    <div id="treeDetail" class="col-md-8">
+    <div class="col-md-8">
+        <div id="detailLoading"></div>
+        <div id="treeDetail" style="min-height:500px">
+        </div>
     </div>
 </div>
-
 @using (Html.Delayed())
 {
     <script type="text/javascript">
@@ -124,12 +126,14 @@
 
         function loadDetail(id){
             var detailUrl = "@detailUrl".replace("/0","/"+id);
+            $("#detailLoading").show();
             $.ajax({
                 url: detailUrl,
                 cache: false
             })
             .done(function( html ) {
                 $("#treeDetail").html(html);
+                $("#detailLoading").hide();
             });
         }
 
