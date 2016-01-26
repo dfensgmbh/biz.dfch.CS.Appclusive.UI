@@ -110,14 +110,12 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 }
 
                 // effectiv permissions
-                this.EffectivAces = new List<Ace>();
-                this.EffectivAces.Add(new Ace() { Permission = new Permission() { Name = "dummy" } });
-                //var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
-                //this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
-                //foreach (Models.Core.Ace ace in this.EffectivAces)
-                //{
-                //    ace.ResolveNavigationProperties(coreRepository);
-                //}
+                var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
+                this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
+                foreach (Models.Core.Ace ace in this.EffectivAces)
+                {
+                    ace.ResolveNavigationProperties(coreRepository);
+                }
             }
         }
         
