@@ -47,8 +47,8 @@
       <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.7.24294, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.7\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
+    <Reference Include="biz.dfch.CS.Appclusive.Api, Version=1.2.10.16599, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\biz.dfch.CS.Appclusive.Api.1.2.10\lib\biz.dfch.CS.Appclusive.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="biz.dfch.CS.Appclusive.Contracts, Version=1.2.6.15402, Culture=neutral, processorArchitecture=MSIL">
@@ -301,6 +301,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
