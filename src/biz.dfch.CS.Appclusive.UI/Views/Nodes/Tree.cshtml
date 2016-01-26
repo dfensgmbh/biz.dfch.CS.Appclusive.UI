@@ -44,7 +44,7 @@
                 @Html.DropDownList("treeOrderBy", (IEnumerable<SelectListItem>)ViewBag.OrderBySelection, new { @class = "form-control input-sm", @onchange = "reloadTree()" })
             </div>
         </div>
-        <div id="tree" style="overflow-y: auto; height:750px; margin-top:10px"></div>
+        <div id="tree" style="overflow-y: auto; min-height:750px; margin-top:10px"></div>
     </div>
     <div class="col-md-8">
         <div id="detailLoading"></div>
