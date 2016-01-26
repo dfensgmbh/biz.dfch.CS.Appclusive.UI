@@ -897,4 +897,7 @@
   <data name="InheritanceEnabled" xml:space="preserve">
     <value>Permission inheritance is enabled.</value>
   </data>
+  <data name="PermissionsAll" xml:space="preserve">
+    <value>*</value>
+  </data>
 </root>

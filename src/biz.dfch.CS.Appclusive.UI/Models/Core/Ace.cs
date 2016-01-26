@@ -115,6 +115,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 }
                 this.Permission = AutoMapper.Mapper.Map<Permission>(permission);
             }
+            else
+            {
+                // all permissions
+                this.Permission = new Permission() { Name = GeneralResources.PermissionsAll };
+            }
 
             // Trustee
             if (this.TrusteeId > 0)
