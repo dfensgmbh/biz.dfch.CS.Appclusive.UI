@@ -1,16 +1,22 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>
-
-@foreach(biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in Model){
-    if (string.IsNullOrEmpty(note.ElementId))
+@{
+    biz.dfch.CS.Appclusive.UI.Controllers.IExtendedController extController = ViewContext.Controller as biz.dfch.CS.Appclusive.UI.Controllers.IExtendedController;
+}
+@if (null != extController && extController.IsAjaxRequest)
+{
+    foreach (biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in Model)
     {
-        <script type="text/javascript">
-            $.notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
-        </script>
-    }
-    else
-    {
-        <script type="text/javascript">
-            $("#@note.ElementId").notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
-        </script>
+        if (string.IsNullOrEmpty(note.ElementId))
+        {
+            <script type="text/javascript">
+                $.notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
+            </script>
+        }
+        else
+        {
+            <script type="text/javascript">
+                $("#@note.ElementId").notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
+            </script>
+        }
     }
 }
