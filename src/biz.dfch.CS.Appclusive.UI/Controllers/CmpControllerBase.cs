@@ -40,6 +40,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     cmpRepository.Format.UseJson();
                     cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                     cmpRepository.MergeOption = MergeOption.PreserveChanges;
+                    cmpRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
                     if (null != apiCreds)

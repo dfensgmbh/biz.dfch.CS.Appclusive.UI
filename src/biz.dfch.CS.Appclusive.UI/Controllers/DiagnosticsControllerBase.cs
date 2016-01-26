@@ -38,6 +38,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                     diagnosticsRepository.MergeOption = MergeOption.PreserveChanges;
+                    diagnosticsRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
                     if (null != apiCreds)

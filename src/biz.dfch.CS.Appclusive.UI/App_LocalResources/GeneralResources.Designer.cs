@@ -475,6 +475,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item {0} was deleted..
+        /// </summary>
+        public static string ConfirmDeleted {
+            get {
+                return ResourceManager.GetString("ConfirmDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this item?.
         /// </summary>
         public static string ConfirmRemove {
@@ -1123,6 +1132,60 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to disable inheritance.
+        /// </summary>
+        public static string InheritanceDisable {
+            get {
+                return ResourceManager.GetString("InheritanceDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to disable permission inheritance?.
+        /// </summary>
+        public static string InheritanceDisableConfirm {
+            get {
+                return ResourceManager.GetString("InheritanceDisableConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission inheritance is disabled..
+        /// </summary>
+        public static string InheritanceDisabled {
+            get {
+                return ResourceManager.GetString("InheritanceDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to enable inheritance.
+        /// </summary>
+        public static string InheritanceEnable {
+            get {
+                return ResourceManager.GetString("InheritanceEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to enable permission inheritance?.
+        /// </summary>
+        public static string InheritanceEnableConfirm {
+            get {
+                return ResourceManager.GetString("InheritanceEnableConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission inheritance is enabled..
+        /// </summary>
+        public static string InheritanceEnabled {
+            get {
+                return ResourceManager.GetString("InheritanceEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to innererror.
         /// </summary>
         public static string innererror {
@@ -1627,6 +1690,42 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to order by.
+        /// </summary>
+        public static string OrderBy {
+            get {
+                return ResourceManager.GetString("OrderBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderByAsc {
+            get {
+                return ResourceManager.GetString("OrderByAsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderByDefault {
+            get {
+                return ResourceManager.GetString("OrderByDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to desc.
+        /// </summary>
+        public static string OrderByDesc {
+            get {
+                return ResourceManager.GetString("OrderByDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order Id.
         /// </summary>
         public static string OrderId {
@@ -2037,6 +2136,33 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Tenants {
             get {
                 return ResourceManager.GetString("Tenants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tenant switch.
+        /// </summary>
+        public static string TenantSwitch {
+            get {
+                return ResourceManager.GetString("TenantSwitch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all tenants.
+        /// </summary>
+        public static string TenantSwitchAll {
+            get {
+                return ResourceManager.GetString("TenantSwitchAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose your tenant context:.
+        /// </summary>
+        public static string TenantSwitchInfo {
+            get {
+                return ResourceManager.GetString("TenantSwitchInfo", resourceCulture);
             }
         }
         

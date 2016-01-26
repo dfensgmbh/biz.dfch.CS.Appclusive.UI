@@ -855,4 +855,46 @@
   <data name="RestoreInheritance" xml:space="preserve">
     <value>Restore inheritance</value>
   </data>
+  <data name="TenantSwitch" xml:space="preserve">
+    <value>Tenant switch</value>
+  </data>
+  <data name="TenantSwitchAll" xml:space="preserve">
+    <value>all tenants</value>
+  </data>
+  <data name="TenantSwitchInfo" xml:space="preserve">
+    <value>Choose your tenant context:</value>
+  </data>
+  <data name="OrderBy" xml:space="preserve">
+    <value>order by</value>
+  </data>
+  <data name="OrderByAsc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderByDefault" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderByDesc" xml:space="preserve">
+    <value>desc</value>
+  </data>
+  <data name="ConfirmDeleted" xml:space="preserve">
+    <value>Item {0} was deleted.</value>
+  </data>
+  <data name="InheritanceDisable" xml:space="preserve">
+    <value>disable inheritance</value>
+  </data>
+  <data name="InheritanceDisableConfirm" xml:space="preserve">
+    <value>Do you really want to disable permission inheritance?</value>
+  </data>
+  <data name="InheritanceDisabled" xml:space="preserve">
+    <value>Permission inheritance is disabled.</value>
+  </data>
+  <data name="InheritanceEnable" xml:space="preserve">
+    <value>enable inheritance</value>
+  </data>
+  <data name="InheritanceEnableConfirm" xml:space="preserve">
+    <value>Do you really want to enable permission inheritance?</value>
+  </data>
+  <data name="InheritanceEnabled" xml:space="preserve">
+    <value>Permission inheritance is enabled.</value>
+  </data>
 </root>

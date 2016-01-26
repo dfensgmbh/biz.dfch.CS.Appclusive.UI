@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Services.Client;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Navigation
 {
@@ -49,6 +50,22 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         private List<Api.Core.Permission> permissions = null;
         public Dictionary<string, NavEntry> Navigation;
+        public List<Tenant> Tenants { get; private set; }
+
+        /// <summary>
+        /// current tenant
+        /// </summary>
+        public Tenant Tenant {
+            get {
+                if (tenant == null)
+                {
+                    tenant = new Tenant() { Id = Guid.Empty, Name = "" };
+                }
+                return tenant;
+            }
+            set { tenant = value; }
+        }
+        Tenant tenant = null;
 
         #endregion
 
@@ -73,9 +90,13 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         public PermissionDecisions(string username, string domain)
         {
-            // Load permissions:
             if (!string.IsNullOrEmpty(username))
             {
+                // load tenants
+                Tenants = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(CoreRepository.Tenants.ToList());
+                Tenants.Add(new Tenant() { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
+
+                // Load permissions:            
                 permissions = CoreRepository.Permissions.AddQueryOption("$inlinecount", "allpages")
                     .AddQueryOption("$top", 10000).ToList();
                 //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
@@ -88,6 +109,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
             }
             else
             {
+                Tenants = new List<Tenant>();
                 permissions = new List<Api.Core.Permission>();
             }
 
@@ -140,14 +162,17 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 NavEntry group = AutoMapper.Mapper.Map<NavEntry>(groupConfig);
                 foreach (NavEntryElement entryConfig in groupConfig.NavEntryElements)
                 {
-                    string permissionName = entryConfig.Permission; 
-                    if (String.IsNullOrWhiteSpace(permissionName))
+                    if (!String.IsNullOrWhiteSpace(entryConfig.Action) && !String.IsNullOrWhiteSpace(entryConfig.Controller))
                     {
-                        permissionName = string.Format("Apc:{0}CanRead", entryConfig.Controller); //Apc:AcesCanRead
-                    }
-                    if (permissionName == "*" || HasPermission(permissionName))
-                    {
-                        group.NavEntries.Add(AutoMapper.Mapper.Map<NavEntry>(entryConfig));
+                        string permissionName = entryConfig.Permission;
+                        if (String.IsNullOrWhiteSpace(permissionName))
+                        {
+                            permissionName = string.Format("Apc:{0}CanRead", entryConfig.Controller); //Apc:AcesCanRead
+                        }
+                        if (permissionName == "*" || HasPermission(permissionName))
+                        {
+                            group.NavEntries.Add(AutoMapper.Mapper.Map<NavEntry>(entryConfig));
+                        }
                     }
                 }
                 if (group.NavEntries.Count > 0)

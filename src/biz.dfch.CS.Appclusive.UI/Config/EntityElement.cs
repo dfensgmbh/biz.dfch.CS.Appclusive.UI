@@ -25,6 +25,8 @@ namespace biz.dfch.CS.Appclusive.UI.Config
         private const string DisplayAttribute = "display";
         private const string SearchKeyAttribute = "searchkey";
         private const string SelectAttribute = "select";
+        private const string OrderByAttribute = "orderby";
+
 
 
         /// <summary>
@@ -81,6 +83,16 @@ namespace biz.dfch.CS.Appclusive.UI.Config
             get { return Convert.ToString(this[SelectAttribute]); }
             set { this[SelectAttribute] = value; }
         }
-
+        
+        /// <summary>
+        /// Order expression
+        /// -> Id,Name desc
+        /// </summary>
+        [ConfigurationProperty(OrderByAttribute, IsRequired = false)]
+        public string OrderBy
+        {
+            get { return Convert.ToString(this[OrderByAttribute]); }
+            set { this[OrderByAttribute] = value; }
+        }
     }
 }

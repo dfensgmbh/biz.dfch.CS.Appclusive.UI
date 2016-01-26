@@ -140,7 +140,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 apiItem = CoreRepository.KeyNameValues.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { d = id });
             }
             catch (Exception ex)
             {

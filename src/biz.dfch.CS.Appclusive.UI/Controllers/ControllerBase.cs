@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
@@ -53,8 +54,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         
         #region basic list actions
 
-        protected ActionResult Index<T,M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null)
+        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null, int d = 0)
         {
+            #region delete message
+            if (d > 0)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.ConfirmDeleted, d)));
+            }
+            #endregion
             ViewBag.SearchTerm = searchTerm;
             try
             {
@@ -216,11 +223,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr)
         {
-            if (pageNr>0)
+            return AddPagingOptions(query, pageNr, PortalConfig.Pagesize);
+        }
+        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr, int pageSize = 0)
+        {
+            if (pageNr > 0)
             {
                 query = query.AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize);
+                    .AddQueryOption("$top", pageSize)
+                    .AddQueryOption("$skip", (pageNr - 1) * pageSize);
             }
             return query;
         }
@@ -230,6 +241,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             if (!String.IsNullOrWhiteSpace(orderBy))
             {
                 query = query.AddQueryOption("$orderby", orderBy);
+            }
+            else
+            {
+                if (!String.IsNullOrWhiteSpace(this.SearchConfiguration.OrderBy))
+                {
+                    query = query.AddQueryOption("$orderby", this.SearchConfiguration.OrderBy);
+                }
             }
             return query;
         }

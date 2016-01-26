@@ -48,6 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                     coreRepository.MergeOption = MergeOption.PreserveChanges;
+                    coreRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
                     if (null != apiCreds)

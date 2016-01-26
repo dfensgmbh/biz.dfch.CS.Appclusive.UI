@@ -7,6 +7,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Tree
 {
     /// <summary>
     /// see http://wwwendt.de/tech/fancytree/doc/jsdoc/global.html#NodeData
+    /// and https://github.com/mar10/fancytree/wiki
     /// </summary>
     public class Node
     {
@@ -26,5 +27,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Tree
         public string title { get; set; }
         public string tooltip { get; set; }
         public bool unselectable { get; set; }
+        public string icon { get; set; }
+
+        public PagingInfo pageInfo {get;set;}
     }
 }

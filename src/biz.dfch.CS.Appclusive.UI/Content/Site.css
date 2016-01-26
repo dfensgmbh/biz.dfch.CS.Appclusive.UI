@@ -36,7 +36,13 @@ body {
   color: #ececec;
 }
 
-
+.ap-nav-tenant{
+    right: 0px; 
+    color: black; 
+    padding-right: 15px; 
+    position: absolute; 
+    z-index:100;
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 /*input,
@@ -101,6 +107,7 @@ div.ap-errortext, div.ap-infotext {
 ul.ui-autocomplete {
     border: 1px solid #ddd;
     background-color: white;
+    z-index:1000;
 }
 
 .ap-hand {

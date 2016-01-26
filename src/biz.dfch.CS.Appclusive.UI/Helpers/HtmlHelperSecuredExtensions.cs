@@ -9,18 +9,32 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
     {
         #region Secured buttons
 
-        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "", string iclass = "", string tipText=null)
+        public static MvcHtmlString SecuredButton<TModel>(this HtmlHelper<TModel> htmlHelper, string permissionCRUD, string urlAction, string aclass = "", string displayText = "", string iclass = "", string tipText = null, string confirmMessage = null)
         {
             string ret = string.Empty;
 
             string link = string.Empty;
             if (string.IsNullOrWhiteSpace(tipText))
             {
-                link = @"<a class=""btn {0}"" href=""{1}""><i class=""fa {2} ""></i> {3}</a>";
+                if (string.IsNullOrWhiteSpace(confirmMessage))
+                {
+                    link = @"<a class=""btn {0}"" href=""{1}""><i class=""fa {2} ""></i> {3}</a>";
+                }
+                else
+                {
+                    link = @"<a class=""btn {0}"" href=""{1}"" onclick=""return confirm('{5}')""><i class=""fa {2} ""></i> {3}</a>";
+                }
             }
             else
             {
-                link = @"<a class=""btn {0}"" href=""{1}"" title=""{4}"" data-toggle=""tooltip""><i class=""fa {2} ""> {3}</i></a>";
+                if (string.IsNullOrWhiteSpace(confirmMessage))
+                {
+                    link = @"<a class=""btn {0}"" href=""{1}"" title=""{4}"" data-toggle=""tooltip""><i class=""fa {2} ""> {3}</i></a>";
+                }
+                else
+                {
+                    link = @"<a class=""btn {0}"" href=""{1}"" title=""{4}"" data-toggle=""tooltip"" onclick=""return confirm('{5}')"" ><i class=""fa {2} ""> {3}</i></a>";
+                }
             }
 
             Type type = GetItemType(typeof(TModel));
@@ -34,7 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-default";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-plus";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.CreateNew;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText);
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText, confirmMessage);
                     }
                     break;
 
@@ -45,7 +59,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-primary btn-sm";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-cog";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.DetailsLink;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText);
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText, confirmMessage);
 
                     }
                     break;
@@ -57,7 +71,7 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-default btn-sm";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-pencil";
                         if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.EditLink;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText);
+                        ret = string.Format(link, aclass, urlAction, iclass, displayText, tipText, confirmMessage);
                     }
                     break;
 
@@ -68,8 +82,8 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
                         link = @"<a class=""btn {0}"" href=""{1}"" onclick=""return confirm('{4}')"" title=""{3}"" data-toggle=""tooltip""><i class=""fa {2} ""></i></a>";
                         if (string.IsNullOrEmpty(aclass)) aclass = "btn-danger btn-sm";
                         if (string.IsNullOrEmpty(iclass)) iclass = "fa-trash-o";
-                        if (string.IsNullOrEmpty(displayText)) displayText = GeneralResources.ConfirmDelete;
-                        ret = string.Format(link, aclass, urlAction, iclass, displayText, GeneralResources.Delete);
+                        if (string.IsNullOrEmpty(confirmMessage)) confirmMessage = GeneralResources.ConfirmDelete;
+                        ret = string.Format(link, aclass, urlAction, iclass, confirmMessage, GeneralResources.Delete);
 
                     }
                     break;

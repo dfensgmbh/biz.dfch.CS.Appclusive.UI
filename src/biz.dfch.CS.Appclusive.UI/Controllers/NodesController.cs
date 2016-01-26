@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
@@ -106,6 +107,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult Tree()
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
+            #region order by
+
+            Dictionary<string, string> ov = new Dictionary<string, string>();
+            ov.Add("", GeneralResources.OrderByDefault);
+            ov.Add("Name", "Name " + GeneralResources.OrderByAsc);
+            ov.Add("Name desc", "Name " + GeneralResources.OrderByDesc);
+            ViewBag.OrderBySelection = new SelectList(ov, "Key", "Value");
+
+            #endregion
             try
             {
                 // load root Node and Children
@@ -132,14 +142,85 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult TreeData(long parentId, object _ = null)
+        public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, string orderBy = null, object _ = null)
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
-            var items = CoreRepository.Nodes.Where(c => c.ParentId == parentId);
-
-            foreach (var child in items)
+            bool addParents = false;
+            int pageSize = PortalConfig.Pagesize;
+            try
             {
-                nodeList.Add(new Models.Tree.Node()
+                #region query and load list
+
+                DataServiceQuery<Api.Core.Node> query = this.BaseQuery;
+                if (parentId <= 0)
+                {
+                    if (string.IsNullOrWhiteSpace(searchTerm))
+                    {
+                        //  load root Node
+                        query = AddPagingOptions(query, pageNr);
+                        query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()));
+                    }
+                    else
+                    {
+                        // search nodes
+                        query = AddPagingOptions(query, pageNr, PortalConfig.SearchLoadSize);
+                        query = AddSearchFilter(query, searchTerm);
+                        query = AddOrderOptions(query, orderBy);
+                        addParents = true;
+                        pageSize = PortalConfig.SearchLoadSize;
+                    }
+                }
+                else
+                {
+                    // load child list
+                    query = AddPagingOptions(query, pageNr);
+                    query = query.AddQueryOption("$filter", string.Format("ParentId eq {0}", parentId));
+                    query = AddOrderOptions(query, orderBy);
+                }
+
+                QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
+                PagingInfo pi = new PagingInfo(pageNr, items.TotalCount, pageSize);
+
+                List<Models.Core.Node> modelItems = AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
+
+                #endregion
+
+                // find parents                
+                if (addParents)
+                {
+                    List<Models.Core.Node> foundItems = modelItems.ToList();
+                    foreach (Models.Core.Node child in foundItems)
+                    {
+                        FindParent(modelItems, child);
+                    }
+                    modelItems = modelItems.Where(n => n.Parent == null).ToList();// root nodes
+                }
+
+                // create fancytree-nodes
+                foreach (var child in modelItems)
+                {
+                    if (child.Id != parentId)
+                    {
+                        Models.Tree.Node node = CreateTreeNode(child);
+                        if (null != node)
+                        {
+                            node.pageInfo = pi;
+                            nodeList.Add(node);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(ex.Message);
+            }
+            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+        }
+
+        private static Models.Tree.Node CreateTreeNode(Models.Core.Node child)
+        {
+            // node
+            Models.Tree.Node node = new Models.Tree.Node()
                 {
                     key = child.Id.ToString(),
                     title = child.Name,
@@ -147,10 +228,64 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     lazy = true,
                     expanded = false,
                     folder = false
-                });
+                };
+
+            // icon
+            if (null != child.EntityKind)
+            {
+                string icon = null;
+                if (null != child.EntityKind.EntityType)
+                {
+                    icon = NavigationConfig.GetIcon(child.EntityKind.EntityType);
+                }
+                else
+                {
+                    icon = NavigationConfig.GetIcon(child.EntityKind.Name);
+                }
+                if (!string.IsNullOrWhiteSpace(icon))
+                {
+                    node.icon = "fa " + icon;
+                }
             }
 
-            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+            // children
+            foreach (var grandChild in child.Children)
+            {
+                Models.Tree.Node grandChildNode = CreateTreeNode(grandChild);
+                if (null != grandChildNode)
+                {
+                    if (null == node.children)
+                    {
+                        node.children = new List<Models.Tree.Node>();
+                        node.lazy = false;
+                        node.expanded = true;
+                    }
+                    node.children.Add(grandChildNode);
+                }
+            }
+            return node;
+        }
+
+        private void FindParent(List<Models.Core.Node> modelItems, Models.Core.Node child)
+        {
+            if (child.Parent == null && child.ParentId.HasValue && child.ParentId > 0 && child.Id != child.ParentId.Value)
+            {
+                var parent = modelItems.FirstOrDefault(n => n.Id == child.ParentId);
+                if (null == parent)
+                {
+                    parent = AutoMapper.Mapper.Map<Models.Core.Node>(this.BaseQuery.Where(n => n.Id == child.ParentId.Value).FirstOrDefault());
+                    if (null != parent)
+                    {
+                        modelItems.Add(parent);
+                    }
+                }
+                if (null != parent)
+                {
+                    child.Parent = parent;
+                    parent.Children.Add(child);
+                    FindParent(modelItems, parent);
+                }
+            }
         }
 
         public PartialViewResult TreeDetails(long id)
@@ -168,7 +303,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return PartialView(new Models.Core.Node());
             }
         }
-        
+
         #endregion
 
         [HttpPost]
@@ -194,8 +329,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 return PartialView(cp);
             }
-        }     
-        
+        }
+
         private void AddCheckNodePermissionObject(long nodeId)
         {
             var cp = new Models.SpecialOperations.CheckPermission()

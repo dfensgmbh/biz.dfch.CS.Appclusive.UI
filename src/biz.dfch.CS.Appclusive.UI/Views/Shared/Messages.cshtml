@@ -12,7 +12,7 @@
     </div>
 }
 
-@if (null != ViewBag.Notifications && ViewBag.Notifications.Count>0)
+@if (null != ViewBag.Notifications && ViewBag.Notifications.Count > 0)
 {
     foreach (biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
     {
@@ -23,10 +23,20 @@
                     @note.Message
                 </div>
                 break;
+            case biz.dfch.CS.Appclusive.UI.Models.ENotifyStyle.warn:
+            <div class="text-warn ap-errortext">
+                @note.Message
+            </div>
+                break;
+            case biz.dfch.CS.Appclusive.UI.Models.ENotifyStyle.success:
+            <div class="text-success ap-errortext">
+                @note.Message
+            </div>
+                break;
             default:
-                <div class="text-info ap-infotext">
-                    @note.Message
-                </div>
+            <div class="text-info ap-infotext">
+                @note.Message
+            </div>
                 break;
         }
     }
@@ -35,9 +45,18 @@
     {
         foreach (biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel note in (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
         {
-            <script type="text/javascript">
-                $.notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
-            </script>
+            if (string.IsNullOrEmpty(note.ElementId))
+            {
+                <script type="text/javascript">
+                    $.notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
+                </script>
+            }
+            else
+            {
+                <script type="text/javascript">
+                    $("#@note.ElementId").notify("@note.Message.Replace("\r\n", " ")", "@note.Level");
+                </script>
+            }
         }
     }
 }

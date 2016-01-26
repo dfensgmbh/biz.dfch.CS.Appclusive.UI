@@ -24,14 +24,16 @@ namespace biz.dfch.CS.Appclusive.UI.Models
     public class AjaxNotificationViewModel
     {
         public AjaxNotificationViewModel() { }
-        public AjaxNotificationViewModel(ENotifyStyle level, string message)
+        public AjaxNotificationViewModel(ENotifyStyle level, string message, string elementId = null)
         {
             this.Level = level;
             this.Message = message;
+            this.ElementId = elementId;
         }
 
         public string Message { get; set; }
         public ENotifyStyle Level { get; set; }
+        public string ElementId { get; set; }
     }
 
     public enum ENotifyStyle
@@ -40,6 +42,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         info,
         warn,
         error
-        
+
     }
 }
