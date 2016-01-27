@@ -51,6 +51,7 @@ namespace biz.dfch.CS.Appclusive.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/font-awesome.min.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/themes/base/core.css",
                       "~/Content/themes/base/autocomplete.css",
                       "~/Scripts/fancytree/skin-bootstrap/ui.fancytree.min.css",
                       "~/Content/site.css"));

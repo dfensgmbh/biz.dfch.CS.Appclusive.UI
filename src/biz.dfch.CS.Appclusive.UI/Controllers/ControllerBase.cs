@@ -41,6 +41,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         EntityElement ItemSearchConfiguration;
 
         /// <summary>
+        /// Service context of query
+        /// to load continuations
+        /// </summary>
+        abstract protected DataServiceContext Repository { get; }
+
+        /// <summary>
         /// Has Header
         /// X-Requested-With: XMLHttpRequest
         /// </summary>
@@ -89,7 +95,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             query = AddSearchFilter(query, term);
             query = AddSelectFilter(query, term);
 
-            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
@@ -99,7 +105,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             query = AddSearchFilter(query, term);
             query = AddSelectFilter(query, term);
 
-            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateSelectOptionList(items), JsonRequestBehavior.AllowGet);
         }
@@ -137,7 +143,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             return CreateOptionList(items, "Id", this.SearchConfiguration.Display, true);
         }
-  
+                
         /// <summary>
         /// consider implementing AddSelectFilter and AddSearchFilter as well,
         /// otherwise you load the wrong properties..
@@ -151,7 +157,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             Contract.Requires(null != items);
             Contract.Requires(null != displayStringFormat);
-      
+
             System.Reflection.PropertyInfo propId = typeof(T).GetProperty(keyPropertyName);
             Contract.Assert(null != propId);
 
@@ -169,18 +175,38 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
 
             List<AjaxOption> options = new List<AjaxOption>();
-
-            foreach (var item in items)
+            int itemsCount = 0; // items.Count() throws exception
+            while (null != items)
             {
-                List<object> values = new List<object>();
-                valueProps.ForEach(p => values.Add(p.GetValue(item)));
-                string value = string.Format(exp.FormatString, values.ToArray());
-                if (!distinctValuesOnly || null == options.FirstOrDefault(o => o.value == value))
+                foreach (var item in items)
                 {
-                    options.Add(new AjaxOption(propId.GetValue(item), value));
+                    List<object> values = new List<object>();
+                    valueProps.ForEach(p => values.Add(p.GetValue(item)));
+                    string value = string.Format(exp.FormatString, values.ToArray());
+                    if (!distinctValuesOnly || null == options.FirstOrDefault(o => o.value == value))
+                    {
+                        options.Add(new AjaxOption(propId.GetValue(item), value));
+                    }
+                    itemsCount++;
+                }
+
+                DataServiceQueryContinuation<T> cont = items.GetContinuation();
+                if (null != cont)
+                {
+                    items = this.Repository.Execute<T>(cont) as QueryOperationResponse<T>;
+                }
+                else
+                {
+                    items = null;
                 }
             }
-            return options.OrderBy(o => o.value).ToList();
+
+            List<AjaxOption> deliver = options.OrderBy(o => o.value).Take(PortalConfig.Searchsize).ToList();
+            if (itemsCount == PortalConfig.SearchLoadSize || deliver.Count < options.Count)
+            {
+                deliver.Add(new AjaxOption(0, GeneralResources.MoreResults));
+            }
+            return deliver;
         }
 
         #endregion
@@ -282,7 +308,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             itemQuery = AddItemSearchFilter(itemQuery, baseFilter, term);
             itemQuery = AddItemSelectFilter(itemQuery, term);
 
-            QueryOperationResponse<T> items = itemQuery.AddQueryOption("$top", PortalConfig.Searchsize).Execute() as QueryOperationResponse<T>;
+            QueryOperationResponse<T> items = itemQuery.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateItemSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }

@@ -27,6 +27,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public abstract class DiagnosticsControllerBase<T, M> : GenericControllerBase<T, M, object>
     {
 
+        /// <summary>
+        /// Service context of query to load continuations
+        /// </summary>
+        override protected DataServiceContext Repository { get { return this.DiagnosticsRepository; } }
+
         protected biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository
         {
             get

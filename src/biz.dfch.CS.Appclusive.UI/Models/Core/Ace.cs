@@ -17,7 +17,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "TrusteeId", ResourceType = typeof(GeneralResources))]
         public long TrusteeId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
+        [Range(0, long.MaxValue, ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "PermissionId", ResourceType = typeof(GeneralResources))]
         public long PermissionId { get; set; }
 
@@ -114,6 +114,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     Contract.Assert(null != permission, "no permission available");
                 }
                 this.Permission = AutoMapper.Mapper.Map<Permission>(permission);
+            }
+            else
+            {
+                // all permissions
+                this.Permission = new Permission() { Name = GeneralResources.PermissionsAll };
             }
 
             // Trustee

@@ -3,7 +3,7 @@
 
 @if (ViewBag.AjaxPaging != null && ViewBag.AjaxPaging.PageCount > 1)
 {
-    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };
     if (ViewBag.AjaxRouteValueDictionary.ContainsKey("orderBy"))
     {
         ViewBag.AjaxRouteValueDictionary["orderBy"] = HttpContext.Current.Request.QueryString["orderBy"];

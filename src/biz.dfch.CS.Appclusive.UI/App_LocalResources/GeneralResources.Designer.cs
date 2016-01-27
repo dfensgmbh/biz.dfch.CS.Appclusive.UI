@@ -1519,6 +1519,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- not all results are shown --.
+        /// </summary>
+        public static string MoreResults {
+            get {
+                return ResourceManager.GetString("MoreResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -1654,7 +1663,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;Entity Type&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
+        ///   Looks up a localized string similar to &apos;Entity set&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
         /// </summary>
         public static string OperationSetCreatedByHelpText {
             get {
@@ -1672,7 +1681,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;Entity Type&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
+        ///   Looks up a localized string similar to &apos;Entity set&apos; must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace).
         /// </summary>
         public static string OperationSetTenantHelpText {
             get {
@@ -1866,6 +1875,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Permissions {
             get {
                 return ResourceManager.GetString("Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *.
+        /// </summary>
+        public static string PermissionsAll {
+            get {
+                return ResourceManager.GetString("PermissionsAll", resourceCulture);
             }
         }
         

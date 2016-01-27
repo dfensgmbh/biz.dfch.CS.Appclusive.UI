@@ -1,10 +1,28 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
 
-<div id="reloadProductsForm">
-    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
-    @Html.Partial("Messages")
+<div class="ap-busyParent">
+    <div id="reloadProductsFormLoading"></div>
+    <div id="reloadProductsForm">
+        @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+        @Html.Partial("Messages")
 
-    @Ajax.ActionLink(GeneralResources.OperationReloadProducts, "ReloadProducts", null,
-            new AjaxOptions() { UpdateTargetId = "reloadProductsForm", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" },
+        @Ajax.ActionLink(GeneralResources.OperationReloadProducts, "ReloadProducts", null,
+            new AjaxOptions() { UpdateTargetId = "reloadProductsForm", InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showReloadProductsBusy", OnComplete = "hideReloadProductsBusy" },
             new { @class = "btn btn-primary" })
+    </div>
 </div>
+
+@using (Html.Delayed(null, "reloadProductsForm"))
+{
+    <script type="text/javascript">
+
+        function showReloadProductsBusy() {
+            $("#reloadProductsFormLoading").show();
+        }
+        function hideReloadProductsBusy() {
+            $("#reloadProductsFormLoading").hide();
+        }
+
+    </script>
+}

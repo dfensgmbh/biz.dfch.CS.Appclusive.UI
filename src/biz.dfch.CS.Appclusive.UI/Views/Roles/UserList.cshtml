@@ -8,7 +8,7 @@
         @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
         @Html.Partial("Messages")
     }
-    @{AjaxOptions ajaxRemoveOptions = new AjaxOptions() { UpdateTargetId = "userList", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };}
+    @{AjaxOptions ajaxRemoveOptions = new AjaxOptions() { UpdateTargetId = "userList", InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };}
 
     <table class="table table-striped table-hover">
         <tr>

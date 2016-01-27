@@ -4,7 +4,7 @@
     string action = ViewBag.AjaxItemSearchAction;
     string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
 
-    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxItemSearchTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get" };
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxItemSearchTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };
     System.Collections.Generic.Dictionary<string, Object> htmlAttributes = new System.Collections.Generic.Dictionary<string, Object>();
     htmlAttributes.Add("class", "col-md-8");
     htmlAttributes.Add("id", "itemSearchForm");

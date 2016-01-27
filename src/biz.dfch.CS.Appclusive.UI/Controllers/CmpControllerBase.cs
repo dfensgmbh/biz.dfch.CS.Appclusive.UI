@@ -27,6 +27,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public abstract class CmpControllerBase<T, M> : GenericControllerBase<T, M, object>
     {
         /// <summary>
+        /// Service context of query to load continuations
+        /// </summary>
+        override protected DataServiceContext Repository { get { return this.CmpRepository; } }
+
+        /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
         protected biz.dfch.CS.Appclusive.Api.Cmp.Cmp CmpRepository

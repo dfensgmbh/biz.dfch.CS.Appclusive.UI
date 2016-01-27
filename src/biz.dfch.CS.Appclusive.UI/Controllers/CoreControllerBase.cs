@@ -33,6 +33,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     /// <typeparam name="I">ModelItem-Type (if no items: object)</typeparam>
     public abstract class CoreControllerBase<T, M, I> : GenericControllerBase<T, M, I>
     {
+        /// <summary>
+        /// Service context of query to load continuations
+        /// </summary>
+        override protected DataServiceContext Repository { get { return this.CoreRepository; } }
 
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core

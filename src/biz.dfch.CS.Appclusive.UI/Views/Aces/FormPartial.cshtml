@@ -22,6 +22,7 @@
             else
             {
                 @Html.DisplayFor(model => model.Acl)
+                @Html.HiddenFor(model => model.AclId)
             }
         </div>
     </div>
@@ -53,6 +54,7 @@
             else
             {
                 @Html.DisplayFor(model => model.TrusteeTypeStr)
+                @Html.HiddenFor(model => model.TrusteeType)
             }
         </div>
     </div>
@@ -68,7 +70,7 @@
             else
             {
                 @Html.DisplayFor(model => model.Trustee)
-
+                @Html.HiddenFor(model => model.TrusteeId)
             }
         </div>
     </div>

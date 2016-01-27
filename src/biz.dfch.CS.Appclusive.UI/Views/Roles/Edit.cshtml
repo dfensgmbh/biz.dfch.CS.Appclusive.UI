@@ -15,8 +15,8 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
         <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
-        <li><a data-toggle="tab" href="#permissionList">@GeneralResources.Permissions</a></li>
-        <li><a data-toggle="tab" href="#userList">@GeneralResources.Users</a></li>
+        <li><a data-toggle="tab" href="#permissionListTab">@GeneralResources.Permissions</a></li>
+        <li><a data-toggle="tab" href="#userListTab">@GeneralResources.Users</a></li>
     </ul>
     <div class="tab-content">
         <div id="details" class="tab-pane fade in active">
@@ -25,13 +25,19 @@
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
-        <div id="permissionList" class="tab-pane fade">
-            @{ ViewBag.Id = Model.Id; }
-            @Html.Partial("EditPermissionList", Model.Permissions)
+        <div id="permissionListTab" class="tab-pane fade">
+            <div class="ap-busyParent">
+                <div id="permissionListLoading"></div>
+                @{ ViewBag.Id = Model.Id; }
+                @Html.Partial("EditPermissionList", Model.Permissions)
+            </div>
         </div>
-        <div id="userList" class="tab-pane fade">
-            @{ ViewBag.Id = Model.Id; }
-            @Html.Partial("EditUserList", Model.Users)
+        <div id="userListTab" class="tab-pane fade">
+            <div class="ap-busyParent">
+                <div id="itemListLoading"></div>
+                @{ ViewBag.Id = Model.Id; }
+                @Html.Partial("EditUserList", Model.Users)
+            </div>
         </div>
     </div>
 </div>
@@ -43,3 +49,31 @@
     }
     @Html.Partial("BackLink")
 </p>
+
+@using (Html.Delayed(null, "itemListLoading"))
+{
+    <script type="text/javascript">
+
+        function showBusy() {
+            $("#itemListLoading").show();
+        }
+        function hideBusy() {
+            $("#itemListLoading").hide();
+        }
+
+    </script>
+}
+
+@using (Html.Delayed(null, "permissionListLoading"))
+{
+    <script type="text/javascript">
+
+        function showPermissionBusy() {
+            $("#permissionListLoading").show();
+        }
+        function hidePermissionBusy() {
+            $("#permissionListLoading").hide();
+        }
+
+    </script>
+}

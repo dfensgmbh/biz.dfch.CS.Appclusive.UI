@@ -388,7 +388,7 @@
     <value>Set created by</value>
   </data>
   <data name="OperationSetCreatedByHelpText" xml:space="preserve">
-    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+    <value>'Entity set' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
   </data>
   <data name="OperationSetTenant" xml:space="preserve">
     <value>Set tenant</value>
@@ -400,7 +400,7 @@
     <value>Next</value>
   </data>
   <data name="OperationSetTenantHelpText" xml:space="preserve">
-    <value>'Entity Type' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
+    <value>'Entity set' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>
@@ -896,5 +896,11 @@
   </data>
   <data name="InheritanceEnabled" xml:space="preserve">
     <value>Permission inheritance is enabled.</value>
+  </data>
+  <data name="MoreResults" xml:space="preserve">
+    <value>-- not all results are shown --</value>
+  </data>
+  <data name="PermissionsAll" xml:space="preserve">
+    <value>*</value>
   </data>
 </root>
