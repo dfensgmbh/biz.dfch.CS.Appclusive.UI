@@ -131,8 +131,10 @@ div.ap-errortext, div.ap-infotext {
 /* autocomplete menu */
 ul.ui-autocomplete {
     border: 1px solid #ddd;
-    background-color: white;
+    background-color: #ccedff;
     z-index:1000;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .ap-hand {
