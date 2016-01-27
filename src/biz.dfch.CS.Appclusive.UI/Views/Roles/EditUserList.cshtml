@@ -34,7 +34,12 @@
                           $('#userId').val(ui.item.key);
                       },
                       change: function (event, ui) {
-                          $('#userId').val(ui.item.key);
+                          if (ui.item != null) {
+                              $('#userId').val(ui.item.key);
+                          } else {
+                              $('#userId').val(0);
+                              $('#userSearch').val('');
+                          }
                       }
                   });
             })

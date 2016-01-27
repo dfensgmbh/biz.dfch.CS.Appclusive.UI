@@ -34,7 +34,12 @@
                           $('#permissionId').val(ui.item.key);
                       },
                       change: function (event, ui) {
-                          $('#permissionId').val(ui.item.key);
+                          if (ui.item != null) {
+                              $('#permissionId').val(ui.item.key);
+                          } else {
+                              $('#permissionId').val(0);
+                              $('#permissionSearch').val('');
+                          }
                       }
                   });
             })
