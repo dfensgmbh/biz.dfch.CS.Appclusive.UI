@@ -46,7 +46,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         #endregion
 
-        #region private variables
+        #region properties
 
         private List<Api.Core.Permission> permissions = null;
         public Dictionary<string, NavEntry> Navigation;
@@ -66,6 +66,8 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
             set { tenant = value; }
         }
         Tenant tenant = null;
+
+        public User CurrentUser { get; private set; }
 
         #endregion
 
@@ -96,9 +98,34 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 Tenants = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(CoreRepository.Tenants.ToList());
                 Tenants.Add(new Tenant() { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
 
+                // load user
+                string fullUserName = string.Format("{0}\\{1}",domain,username);
+                CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(CoreRepository.Users.Where(u => u.Name == fullUserName).FirstOrDefault());
+
+                // default tenant
+                if (null != CurrentUser)
+                {
+                    this.Tenant = this.Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid);
+                }
+
                 // Load permissions:            
-                permissions = CoreRepository.Permissions.AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", 10000).ToList();
+                permissions = new List<Api.Core.Permission>();
+                QueryOperationResponse<Api.Core.Permission> queryResponse = CoreRepository.Permissions.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.Permission>;
+                while (null != queryResponse)
+                {
+                    permissions.AddRange(queryResponse.ToList());
+                    DataServiceQueryContinuation<Api.Core.Permission> cont = queryResponse.GetContinuation();
+                    if (null != cont)
+                    {
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Permission>(cont) as QueryOperationResponse<Api.Core.Permission>;
+                    }
+                    else
+                    {
+                        queryResponse = null;
+                    }
+                }
+
+
                 //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
                 //List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
                 //    .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
@@ -149,7 +176,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         private bool HasPermission(string permissionName)
         {
             Api.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
-            return true; // TODO after API release and loading correct permissions: (permission != null);
+            return (permission != null);
         }
 
         private Dictionary<string, NavEntry> CreateNavigation()
