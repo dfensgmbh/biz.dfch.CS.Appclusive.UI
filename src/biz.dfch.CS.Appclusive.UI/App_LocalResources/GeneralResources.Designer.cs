@@ -1519,6 +1519,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- not all results are shown --.
+        /// </summary>
+        public static string MoreResults {
+            get {
+                return ResourceManager.GetString("MoreResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
