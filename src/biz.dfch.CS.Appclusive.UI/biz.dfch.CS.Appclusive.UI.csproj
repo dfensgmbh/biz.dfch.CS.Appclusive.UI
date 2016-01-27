@@ -586,6 +586,7 @@
     <Content Include="Views\Nodes\TreeDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\IconTrustee.cshtml" />
     <Content Include="Views\Context\Index.cshtml" />
+    <Content Include="Views\Acls\ItemIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

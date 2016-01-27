@@ -2,68 +2,75 @@
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.Models.Core
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.AjaxPagingTargetId = "aceListAjax";
+    ViewBag.AjaxPagingAction = "ItemIndex";
 
-@if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
-{
-    <div class="row" style="margin-bottom:5px">
-        <div class="col-md-2">
-            @Html.SecuredButton("Create", Url.Action("Create", "Aces", new { AclId = ViewBag.AclId }))
-        </div>
-    </div>
+    RouteValueDictionary rd = new RouteValueDictionary();
+    rd.Add("aclId", ViewBag.ParentId);
+    rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
+    rd.Add("pageNr", 1);
+    ViewBag.AjaxRouteValueDictionary = rd;
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };
 }
-<table class="table table-striped table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trustee)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Permission)
-        </th>
-        <th></th>
-    </tr>
+<div id="aceListAjax">
+    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+    @Html.Partial("Messages")
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Type).ToString(), "Type", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+            </th>
+            <th>
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Trustee).ToString(), "Trustee", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+            </th>
+            <th>
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Permission).ToString(), "Permission", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+            </th>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model.OrderBy(m => m.Type))
-    {
-        if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
+        @foreach (var item in Model.OrderBy(m => m.Type))
         {
-            string detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
-            <tr class="@item.CssClass">
-                <td onclick="window.location = '@detailLink'" class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.TypeStr)
-                </td>
-                <td onclick="window.location = '@detailLink'" class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.TrusteeType, "IconTrustee")
-                    @Html.DisplayFor(modelItem => item.Trustee)
-                </td>
-                <td onclick="window.location = '@detailLink'" class="ap-hand">
-                    @Html.DisplayFor(modelItem => item.Permission)
-                </td>
-                <td class="ap-btn text-nowrap">
-                    @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
-                    <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
-                    @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
-                </td>
-            </tr>
+            if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
+            {
+                string detailLink = Url.Action("Details", "Aces", new { id = item.Id, rId = item.AclId, rAction = "Details", rController = "Acls" });
+                <tr class="@item.CssClass">
+                    <td onclick="window.location = '@detailLink'" class="ap-hand">
+                        @Html.DisplayFor(modelItem => item.TypeStr)
+                    </td>
+                    <td onclick="window.location = '@detailLink'" class="ap-hand">
+                        @Html.DisplayFor(modelItem => item.TrusteeType, "IconTrustee")
+                        @Html.DisplayFor(modelItem => item.Trustee)
+                    </td>
+                    <td onclick="window.location = '@detailLink'" class="ap-hand">
+                        @Html.DisplayFor(modelItem => item.Permission)
+                    </td>
+                    <td class="ap-btn text-nowrap">
+                        @Html.SecuredButton("Update", Url.Action("Edit", "Aces", new { id = item.Id }))
+                        <a class="btn btn-primary btn-sm" href="@detailLink"><i class="fa fa-cog"></i> @GeneralResources.DetailsLink</a>
+                        @Html.SecuredButton("Delete", Url.Action("Delete", "Aces", new { id = item.Id }))
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="@item.CssClass">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeStr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrusteeType, "IconTrustee")
+                        @Html.DisplayFor(modelItem => item.Trustee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Permission)
+                    </td>
+                    <td class="ap-btn text-nowrap"></td>
+                </tr>
+            }
         }
-        else
-        {
-            <tr class="@item.CssClass">
-                <td>
-                    @Html.DisplayFor(modelItem => item.TypeStr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrusteeType, "IconTrustee")
-                    @Html.DisplayFor(modelItem => item.Trustee)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Permission)
-                </td>
-                <td class="ap-btn text-nowrap"></td>
-            </tr>
-        }
-    }
 
-</table>
+    </table>
+</div>
