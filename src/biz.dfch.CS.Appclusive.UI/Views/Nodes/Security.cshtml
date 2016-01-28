@@ -11,6 +11,7 @@
 
     ViewDataDictionary aceListViewData = new ViewDataDictionary();
     aceListViewData.Add("Readonly", true);
+    aceListViewData.Add("Notifications", new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>());
 }
 @Html.Partial("CheckPermission", (biz.dfch.CS.Appclusive.UI.Models.SpecialOperations.CheckPermission)ViewBag.CheckNodePermission)
 
