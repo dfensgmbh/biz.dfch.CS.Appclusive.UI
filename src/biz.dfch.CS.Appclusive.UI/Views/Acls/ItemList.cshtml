@@ -18,7 +18,10 @@
         @Html.Partial("AjaxItemSearchForm")
     </div>
 }
-@Html.Partial("AceList", Model)
+<div class="ap-busyParent">
+    <div id="itemListLoading"></div>    
+    @Html.Partial("AceList", Model)
+</div>
 
 @using (Html.Delayed(null, "itemListLoading"))
 {
