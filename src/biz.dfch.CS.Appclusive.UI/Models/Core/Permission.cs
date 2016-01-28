@@ -8,10 +8,9 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Permission : AppcusiveEntityViewModelBase
     {
-
         internal static List<Permission> GetPermissionsFromCache()
         {
-            string cacheKey = "permission";
+            string cacheKey = "permissions";
             List<Permission> permissions = (List<Permission>)System.Web.HttpContext.Current.Cache.Get(cacheKey);
             if (null == permissions)
             {
@@ -46,5 +45,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
         static object locker = new object();
+
     }
 }

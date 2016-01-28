@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
@@ -51,5 +52,44 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
         public string EntityName { get; set; }
+
+
+        internal static List<Acl> GetAclsFromCache()
+        {
+            string cacheKey = "acls";
+            List<Acl> acls = (List<Acl>)System.Web.HttpContext.Current.Cache.Get(cacheKey);
+            if (null == acls)
+            {
+                lock (locker)
+                {
+                    acls = (List<Acl>)System.Web.HttpContext.Current.Cache.Get(cacheKey);
+                    if (null == acls)
+                    {
+                        acls = new List<Models.Core.Acl>();
+
+                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                        QueryOperationResponse<Api.Core.Acl> queryResponse = coreRepository.Acls.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.Acl>;
+                        while (null != queryResponse)
+                        {
+                            acls.AddRange(AutoMapper.Mapper.Map<List<Models.Core.Acl>>(queryResponse.ToList()));
+                            DataServiceQueryContinuation<Api.Core.Acl> cont = queryResponse.GetContinuation();
+                            if (null != cont)
+                            {
+                                queryResponse = coreRepository.Execute<Api.Core.Acl>(cont) as QueryOperationResponse<Api.Core.Acl>;
+                            }
+                            else
+                            {
+                                queryResponse = null;
+                            }
+                        }
+
+                        System.Web.HttpContext.Current.Cache.Add(cacheKey, acls, null, DateTime.Now.AddSeconds(5), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
+                    }
+                }
+            }
+            return acls;
+        }
+
+        static object locker = new object();
     }
 }
