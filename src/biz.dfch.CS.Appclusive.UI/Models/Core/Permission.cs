@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Web;
 
@@ -7,27 +8,43 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
     public class Permission : AppcusiveEntityViewModelBase
     {
-
-        static internal Permission GetFromCache(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository, long id)
+        internal static List<Permission> GetPermissionsFromCache()
         {
-            string cacheKey = "permission_" + id;
-            Permission permission = (Permission)System.Web.HttpContext.Current.Cache.Get(cacheKey);
-            if (null == permission)
+            string cacheKey = "permission";
+            List<Permission> permissions = (List<Permission>)System.Web.HttpContext.Current.Cache.Get(cacheKey);
+            if (null == permissions)
             {
-                Permission
-                Api.Core.Role role = GetCachedRole(roleId);
-                foreach (var perm in CoreRepository.Permissions)
+                lock (locker)
                 {
-                    if (role == null || role.Permissions == null || role.Permissions.Count == 0
-                        || role.Permissions.Where(p => p.Id == perm.Id).Count() == 0)
+                    permissions = (List<Permission>)System.Web.HttpContext.Current.Cache.Get(cacheKey);
+                    if (null == permissions)
                     {
-                        options.Add(new AjaxOption(perm.Id, perm.Name));
+                        permissions = new List<Models.Core.Permission>();
+
+                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                        QueryOperationResponse<Api.Core.Permission> queryResponse = coreRepository.Permissions.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.Permission>;
+                        while (null != queryResponse)
+                        {
+                            permissions.AddRange(AutoMapper.Mapper.Map<List<Models.Core.Permission>>(queryResponse.ToList()));
+                            DataServiceQueryContinuation<Api.Core.Permission> cont = queryResponse.GetContinuation();
+                            if (null != cont)
+                            {
+                                queryResponse = coreRepository.Execute<Api.Core.Permission>(cont) as QueryOperationResponse<Api.Core.Permission>;
+                            }
+                            else
+                            {
+                                queryResponse = null;
+                            }
+                        }
+
+                        System.Web.HttpContext.Current.Cache.Add(cacheKey, permissions, null, DateTime.Now.AddSeconds(300), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
                     }
                 }
-                System.Web.HttpContext.Current.Cache.Add(cacheKeyPermissions, options, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
-            return permission;
-
+            return permissions;
         }
+
+        static object locker = new object();
+
     }
 }
