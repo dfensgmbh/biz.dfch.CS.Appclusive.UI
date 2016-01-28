@@ -104,7 +104,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region treeview
 
-        public ActionResult Tree()
+        public ActionResult Tree(long id = 0)
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
             #region order by
@@ -118,6 +118,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             #endregion
             try
             {
+                nodeList = LoadTreeData(0, 1, id, null, null);
                 return View(nodeList);
             }
             catch (Exception ex)
@@ -129,6 +130,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, string orderBy = null, object _ = null)
         {
+            List<Models.Tree.Node> nodeList = LoadTreeData(parentId, pageNr, 0, searchTerm, orderBy);
+            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<Models.Tree.Node> LoadTreeData(long parentId, int pageNr, long nodeId, string searchTerm, string orderBy)
+        {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
             bool addParents = false;
             int pageSize = PortalConfig.Pagesize;
@@ -139,20 +146,30 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 DataServiceQuery<Api.Core.Node> query = this.BaseQuery;
                 if (parentId <= 0)
                 {
-                    if (string.IsNullOrWhiteSpace(searchTerm))
+                    if (nodeId > 0)
                     {
-                        //  load root Node
+                        // load node - and all parents
                         query = AddPagingOptions(query, pageNr);
-                        query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()));
+                        query = query.AddQueryOption("$filter", string.Format("Id eq {0}", nodeId));
+                        addParents = true;
                     }
                     else
                     {
-                        // search nodes
-                        query = AddPagingOptions(query, pageNr, PortalConfig.SearchLoadSize);
-                        query = AddSearchFilter(query, searchTerm);
-                        query = AddOrderOptions(query, orderBy);
-                        addParents = true;
-                        pageSize = PortalConfig.SearchLoadSize;
+                        if (!string.IsNullOrWhiteSpace(searchTerm))
+                        {
+                            // search nodes
+                            query = AddPagingOptions(query, pageNr, PortalConfig.SearchLoadSize);
+                            query = AddSearchFilter(query, searchTerm);
+                            query = AddOrderOptions(query, orderBy);
+                            addParents = true;
+                            pageSize = PortalConfig.SearchLoadSize;
+                        }
+                        else
+                        {
+                            //  load root Node
+                            query = AddPagingOptions(query, pageNr);
+                            query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()));
+                        }
                     }
                 }
                 else
@@ -199,7 +216,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 System.Diagnostics.Trace.TraceError(ex.Message);
             }
-            return this.Json(nodeList, JsonRequestBehavior.AllowGet);
+            return nodeList;
         }
 
         private static Models.Tree.Node CreateTreeNode(Models.Core.Node child)
@@ -242,7 +259,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     if (null == node.children)
                     {
                         node.children = new List<Models.Tree.Node>();
-                        node.lazy = false;
+                        node.lazy = true;
                         node.expanded = true;
                     }
                     node.children.Add(grandChildNode);
@@ -253,7 +270,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         private void FindParent(List<Models.Core.Node> modelItems, Models.Core.Node child)
         {
-            if (child.Parent == null && child.ParentId.HasValue && child.ParentId > 0 && child.Id != child.ParentId.Value)
+            if (child.Parent == null && child.ParentId.HasValue && child.ParentId > 0 && child.Id != child.ParentId.Value
+                && child.EntityKindId != biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()) // stop at tenant root node
             {
                 var parent = modelItems.FirstOrDefault(n => n.Id == child.ParentId);
                 if (null == parent)
@@ -269,6 +287,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     child.Parent = parent;
                     parent.Children.Add(child);
                     FindParent(modelItems, parent);
+                }
+            }
+            else
+            {
+                if (child.Parent != null && child.Parent.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()) 
+                {
+                    // remove Parent if ROOT
+                    child.Parent = null;
                 }
             }
         }

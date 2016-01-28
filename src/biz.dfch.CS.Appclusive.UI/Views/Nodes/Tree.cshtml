@@ -1,4 +1,4 @@
-﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Tree.Node>
+﻿@model List<biz.dfch.CS.Appclusive.UI.Models.Tree.Node>
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
@@ -13,8 +13,12 @@
 @{
     string dataUrl = Url.Action("TreeData");
     string detailUrl = Url.Action("TreeDetails", new { id = 0 });
-    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
-
+    string jsonData = null;
+    if (Model.Count > 0)
+    {
+        jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });    
+    }
+    
 }
 <div class="row">
     <div class="col-md-4">
@@ -54,38 +58,42 @@
 </div>
 @using (Html.Delayed())
 {
-    <script type="text/javascript">
-        glyph_opts = {
-            map: {
-                doc: "glyphicon glyphicon-file",
-                docOpen: "glyphicon glyphicon-file",
-                checkbox: "glyphicon glyphicon-unchecked",
-                checkboxSelected: "glyphicon glyphicon-check",
-                checkboxUnknown: "glyphicon glyphicon-share",
-                dragHelper: "glyphicon glyphicon-play",
-                dropMarker: "glyphicon glyphicon-arrow-right",
-                error: "glyphicon glyphicon-warning-sign",
-                expanderClosed: "fa fa-plus-square-o",
-                expanderLazy: "fa fa-plus-square",  // glyphicon-expand
-                expanderOpen: "fa fa-minus-square-o",  // glyphicon-collapse-down
-                folder: "fa fa-folder",
-                folderOpen: "fa fa-folder-open",
-                loading: "fa fa-spinner fa-spin"
-            }
-        };
+    string treeSource = "{" + 
+        " url: '" + dataUrl + "', " +
+        " data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() }," +
+        " cache: false, debugDelay: 1000" +
+        "}";
+    if (jsonData != null)
+    {
+        treeSource = jsonData;
+    }
 
-        $(function () {
-            var data = @Html.Raw(jsonData);
+    <script type="text/javascript">
+    glyph_opts = {
+        map: {
+            doc: "glyphicon glyphicon-file",
+            docOpen: "glyphicon glyphicon-file",
+            checkbox: "glyphicon glyphicon-unchecked",
+            checkboxSelected: "glyphicon glyphicon-check",
+            checkboxUnknown: "glyphicon glyphicon-share",
+            dragHelper: "glyphicon glyphicon-play",
+            dropMarker: "glyphicon glyphicon-arrow-right",
+            error: "glyphicon glyphicon-warning-sign",
+            expanderClosed: "fa fa-plus-square-o",
+            expanderLazy: "fa fa-plus-square",  // glyphicon-expand
+            expanderOpen: "fa fa-minus-square-o",  // glyphicon-collapse-down
+            folder: "fa fa-folder",
+            folderOpen: "fa fa-folder-open",
+            loading: "fa fa-spinner fa-spin"
+        }
+    };
+
+    $(function () {
             $('#tree').fancytree({
                 extensions: ["glyph", "wide"],
                 checkbox: false,
                 glyph: glyph_opts,
-                source: {
-                    url: "@dataUrl",
-                    data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
-                    cache: false,
-                    debugDelay: 1000
-                },
+                source: @Html.Raw(treeSource),
                 toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
                 wide: {
                     iconWidth: "1em",     // Adjust this if fancy-icon-width != "16px"
@@ -96,67 +104,71 @@
                     var node = data.node;
                     loadDetail(node.key);
                 },
+                dblclick: function(event, data){
+                    var node = data.node;
+                    node.load(true);
+                },
                 lazyLoad: function(event, data) {
                     var node = data.node;
                     data.result = {
                         url: "@dataUrl",
-                        data: { parentId: node.key, orderBy: $('#treeOrderBy').val() },
-                        cache: false,
-                        debugDelay: 1000
-                    };
-                },
-                clickPaging: function(event, data) {
-                    var node = data.node.getPrevSibling();
-                    data.node.replaceWith( {
-                        url: "@dataUrl",
-                        data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), pageNr: node.data.pageInfo.PageNr + 1 },
-                        cache: false
-                    }) ;
-                },
-                loadChildren: function(event, data) {
-                    var node = data.node.getLastChild();
-                    if(node != null && node.data != null && node.data.pageInfo!=null && node.data.pageInfo.HasMore){
-                        var a = data.node.addPagingNode();
-                        data.node.render();
-                    }
-                },
-            });
+                    data: { parentId: node.key, orderBy: $('#treeOrderBy').val() },
+                    cache: false,
+                    debugDelay: 1000
+                };
+            },
+            clickPaging: function(event, data) {
+                var node = data.node.getPrevSibling();
+                data.node.replaceWith( {
+                    url: "@dataUrl",
+                    data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), pageNr: node.data.pageInfo.PageNr + 1 },
+                    cache: false
+                }) ;
+            },
+            loadChildren: function(event, data) {
+                var node = data.node.getLastChild();
+                if(node != null && node.data != null && node.data.pageInfo!=null && node.data.pageInfo.HasMore){
+                    var a = data.node.addPagingNode();
+                    data.node.render();
+                }
+            },
+        });
 
+    })
+
+    function loadDetail(id){
+        var detailUrl = "@detailUrl".replace("/0","/"+id);
+        $("#detailLoading").show();
+        $.ajax({
+            url: detailUrl,
+            cache: false
         })
+        .done(function( html ) {
+            $("#treeDetail").html(html);
+            $("#detailLoading").hide();
+        });
+    }
 
-        function loadDetail(id){
-            var detailUrl = "@detailUrl".replace("/0","/"+id);
-            $("#detailLoading").show();
-            $.ajax({
-                url: detailUrl,
-                cache: false
-            })
-            .done(function( html ) {
-                $("#treeDetail").html(html);
-                $("#detailLoading").hide();
-            });
-        }
+    /* tree-search */
+    function reloadTree(){
+        var tree = $("#tree").fancytree("getTree");
+        tree.reload({
+            url: "@dataUrl",
+            data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
+            cache: false
+        });
+    }
 
-        /* tree-search */
-        function reloadTree(){
-            var tree = $("#tree").fancytree("getTree");
-            tree.reload({
-                url: "@dataUrl",
-                data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
-                cache: false
-            });
-        }
-
-        $(document).ready(function () {
-            $('#treeSearchTerm').autocomplete(
-              {
-                  source: '@Url.Action("Search", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
-                  select: function (event, ui) {
-                      $('#treeSearchTerm').val(ui.item.key);
-                      $("#treeSearchForm").submit();
-                  }
-              });
-        })
+    $(document).ready(function () {
+        $('#treeSearchTerm').autocomplete(
+          {
+              source: '@Url.Action("Search", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
+              select: function (event, ui) {
+                  $('#treeSearchTerm').val(ui.item.key);
+                  $("#treeSearchForm").submit();
+              }
+          });
+    })
 
     </script>
 }
