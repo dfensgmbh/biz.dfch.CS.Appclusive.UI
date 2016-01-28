@@ -246,35 +246,31 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public PartialViewResult ItemIndex(long aclId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
-            ViewBag.ParentId = aclId;
-            DataServiceQuery<Api.Core.Ace> itemsBaseQuery = CoreRepository.Aces;
-            string itemsBaseFilter = "AclId eq " + aclId;
-            return base.ItemIndex<Api.Core.Ace, Models.Core.Ace>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+            return PartialView(LoadAces(aclId, pageNr, itemSearchTerm, orderBy));
         }
 
         private List<Models.Core.Ace> LoadAces(long aclId, int pageNr, string itemSearchTerm = null, string orderBy = null)
         {
             int itemCount = 0;
-            var acl = CoreRepository.Acls.Expand("Aces").Where(c => c.Id == aclId).FirstOrDefault();
-            var items = acl.Aces.ToList();
+            Models.Core.Acl acl = AutoMapper.Mapper.Map<Models.Core.Acl>(CoreRepository.Acls.Expand("Aces").Where(c => c.Id == aclId).FirstOrDefault());
             IEnumerable<Models.Core.Ace> aces;
             if (string.IsNullOrEmpty(itemSearchTerm) && string.IsNullOrEmpty(orderBy))
             {
                 // paging only
-                aces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(items.Skip(pageNr * PortalConfig.Pagesize).Take(PortalConfig.Pagesize));
+                aces = acl.Aces.Skip(pageNr * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
                 foreach (var ace in aces)
                 {
-                    ace.ResolveNavigationProperties(this.CoreRepository);
+                    ace.ResolveNavigationProperties(this.CoreRepository, acl);
                 }
-                itemCount = items.Count;
+                itemCount = acl.Aces.Count;
             }
             else
             {
                 // search or order by and paging 
-                aces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(items);
+                aces = acl.Aces;
                 foreach (var ace in aces)
                 {
-                    ace.ResolveNavigationProperties(this.CoreRepository);
+                    ace.ResolveNavigationProperties(this.CoreRepository, acl);
                 }
                 if (!string.IsNullOrEmpty(itemSearchTerm))
                 {

@@ -78,25 +78,29 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             }
         }
 
-        internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
+        internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository, Models.Core.Acl acl)
         {
             Contract.Requires(null != coreRepository);
 
             // ACL
             if (this.AclId > 0)
             {
-                Api.Core.Acl acl=null;
-                try
+                if (null == acl)
                 {
-                    acl = coreRepository.Acls
-                         .Where(j => j.Id == this.AclId)
-                         .FirstOrDefault();
+                    try
+                    {
+                        acl = AutoMapper.Mapper.Map<Acl>(
+                            coreRepository.Acls
+                             .Where(j => j.Id == this.AclId)
+                             .FirstOrDefault()
+                             );
+                    }
+                    catch
+                    {
+                        Contract.Assert(null != acl, "no acl available");
+                    }
                 }
-                catch 
-                {
-                    Contract.Assert(null != acl, "no acl available");
-                }
-                this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
+                this.Acl = acl;
             }
 
             // Permission
