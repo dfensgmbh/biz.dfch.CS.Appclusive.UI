@@ -48,11 +48,11 @@
             @Html.SecuredButton("Read", Url.Action("Details", "Acls", new { id = Model.Acl.Id }), "btn-primary")
             @if (Model.Acl.NoInheritanceFromParent)
             {
-                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = true }), "btn-success disabled", @GeneralResources.RestoreInheritance)
+                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = true }), "btn-success btn-sm disabled", @GeneralResources.RestoreInheritance)
             }
             else
             {
-                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = false }), "btn-success disabled", @GeneralResources.BreakInheritance)
+                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = false }), "btn-success btn-sm disabled", @GeneralResources.BreakInheritance)
             }
         </div>
     }
