@@ -56,7 +56,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Products/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.Product product)
         {
             try
@@ -98,7 +98,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Products/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.Product product)
         {
             try

@@ -55,7 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: EntityKinds/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.EntityKind entityKind)
         {
             try
@@ -97,7 +97,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: EntityKinds/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.EntityKind entityKind)
         {
             try

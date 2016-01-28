@@ -55,7 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Gates/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.Gate gate)
         {
             try
@@ -97,7 +97,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Gates/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.Gate gate)
         {
             try

@@ -57,7 +57,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: ManagementUris/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.ManagementUri managementUri)
         {
             try
@@ -102,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: ManagementUris/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.ManagementUri managementUri)
         {
             try
