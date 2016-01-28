@@ -118,21 +118,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             #endregion
             try
             {
-                // load root Node and Children
-                long id = biz.dfch.CS.Appclusive.Contracts.Constants.SYSTEM_TENANT_ROOT_NODE;
-                var item = CoreRepository.Nodes.Where(c => c.Id == id).FirstOrDefault();
-
-                Models.Tree.Node root = new Models.Tree.Node()
-                {
-                    key = item.Id.ToString(),
-                    title = item.Name,
-                    tooltip = item.Description,
-                    lazy = true,
-                    expanded = false,
-                    folder = true
-                };
-
-                nodeList.Add(root);
                 return View(nodeList);
             }
             catch (Exception ex)
