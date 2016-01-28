@@ -31,7 +31,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model.OrderBy(m => m.Type))
+        @foreach (var item in Model)
         {
             if (ViewData["Readonly"] == null || !(bool)ViewData["Readonly"])
             {
@@ -73,4 +73,5 @@
         }
 
     </table>
+    @Html.Partial("AjaxPaging", Model)
 </div>

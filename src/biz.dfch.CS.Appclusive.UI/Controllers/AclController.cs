@@ -100,7 +100,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
-                        ace.ResolveNavigationProperties(this.CoreRepository);
+                        ace.ResolveNavigationProperties(this.CoreRepository, model);
                     }
                 }
                 return View(model);
@@ -146,7 +146,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         model.ResolveReferencedEntityName(this.CoreRepository);
                         foreach (var ace in model.Aces)
                         {
-                            ace.ResolveNavigationProperties(this.CoreRepository);
+                            ace.ResolveNavigationProperties(this.CoreRepository, model);
                         }
                     }
                     return View(model);
@@ -160,7 +160,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 acl.ResolveReferencedEntityName(this.CoreRepository);
                 foreach (var ace in acl.Aces)
                 {
-                    ace.ResolveNavigationProperties(this.CoreRepository);
+                    ace.ResolveNavigationProperties(this.CoreRepository, acl);
                 }
                 return View(acl);
             }
@@ -187,7 +187,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
-                        ace.ResolveNavigationProperties(this.CoreRepository);
+                        ace.ResolveNavigationProperties(this.CoreRepository, model);
                     }
                 }
                 return View(model);
@@ -218,7 +218,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
-                        ace.ResolveNavigationProperties(this.CoreRepository);
+                        ace.ResolveNavigationProperties(this.CoreRepository, model);
                     }
                 }
                 return View("Details", model);
@@ -233,7 +233,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     model.ResolveReferencedEntityName(this.CoreRepository);
                     foreach (var ace in model.Aces)
                     {
-                        ace.ResolveNavigationProperties(this.CoreRepository);
+                        ace.ResolveNavigationProperties(this.CoreRepository, model);
                     }
                 }
                 return View("Details", model);
@@ -246,10 +246,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public PartialViewResult ItemIndex(long aclId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
         {
-            return PartialView(LoadAces(aclId, pageNr, itemSearchTerm, orderBy));
+            return PartialView("AceList", LoadAces(aclId, pageNr, false, itemSearchTerm, orderBy));
         }
 
-        private List<Models.Core.Ace> LoadAces(long aclId, int pageNr, string itemSearchTerm = null, string orderBy = null)
+        public ActionResult ItemSearch(long aclId, string term)
+        {
+            var aces = LoadAces(aclId, 1, true, term);
+            List<AjaxOption> options = new List<AjaxOption>();
+            foreach (var item in aces)
+            {
+                options.Add(new AjaxOption(item.Permission.Name, item.Permission.Name));
+            }
+            return this.Json(options, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<Models.Core.Ace> LoadAces(long aclId, int pageNr, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
         {
             int itemCount = 0;
             Models.Core.Acl acl = AutoMapper.Mapper.Map<Models.Core.Acl>(CoreRepository.Acls.Expand("Aces").Where(c => c.Id == aclId).FirstOrDefault());
@@ -257,7 +268,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             if (string.IsNullOrEmpty(itemSearchTerm) && string.IsNullOrEmpty(orderBy))
             {
                 // paging only
-                aces = acl.Aces.Skip(pageNr * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
+                aces = acl.Aces.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
                 foreach (var ace in aces)
                 {
                     ace.ResolveNavigationProperties(this.CoreRepository, acl);
@@ -279,32 +290,29 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         || a.Permission.Name.ToLower().Contains(itemSearchTerm.ToLower())
                     );
                 }
-                if (!string.IsNullOrEmpty(orderBy))
+                switch (orderBy)
                 {
-                    switch(orderBy){
-                        case "Type": aces = aces.OrderBy(a => a.TypeStr); break;
-                        case "Type desc": aces = aces.OrderBy(a => a.TypeStr); break;
-                        case "Trustee": aces = aces.OrderBy(a => a.Trustee.Name); break;
-                        case "Trustee desc": aces = aces.OrderByDescending(a => a.Trustee.Name); break;
-                        case "Permission": aces = aces.OrderBy(a => a.Permission.Name); break;
-                        case "Permission desc": aces = aces.OrderByDescending(a => a.Permission.Name); break;
-                        default: aces = aces.OrderBy(a => a.Type); break;
-                    }                    
+                    case "Type": aces = aces.OrderBy(a => a.TypeStr); break;
+                    case "Type desc": aces = aces.OrderByDescending(a => a.TypeStr); break;
+                    case "Trustee": aces = aces.OrderBy(a => a.Trustee.Name); break;
+                    case "Trustee desc": aces = aces.OrderByDescending(a => a.Trustee.Name); break;
+                    case "Permission": aces = aces.OrderBy(a => a.Permission.Name); break;
+                    case "Permission desc": aces = aces.OrderByDescending(a => a.Permission.Name); break;
+                    default: aces = aces.OrderBy(a => a.Type); break;
+                }
+                if (distinct)
+                {
+                    aces = aces.Distinct(new Models.Core.AceSearchViewComparer());
                 }
                 itemCount = aces.Count();
-                aces = aces.Skip(pageNr * PortalConfig.Pagesize).Take(PortalConfig.Pagesize).ToList();
+                aces = aces.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
             }
             ViewBag.ParentId = aclId;
+            ViewBag.ItemSearchTerm = itemSearchTerm;
             ViewBag.AjaxPaging = new PagingInfo(pageNr, itemCount);
             return aces.ToList();
         }
 
-        public ActionResult ItemSearch(long aclId, string term)
-        {
-            DataServiceQuery<Api.Core.Ace> itemsBaseQuery = CoreRepository.Aces;
-            string itemsBaseFilter = "AclId eq " + aclId;
-            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
-        }
 
         #endregion
     }

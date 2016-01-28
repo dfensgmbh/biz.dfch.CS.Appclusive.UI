@@ -78,7 +78,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             }
         }
 
-        internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository, Models.Core.Acl acl)
+        internal void ResolveNavigationProperties(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository, Models.Core.Acl acl = null)
         {
             Contract.Requires(null != coreRepository);
 
@@ -89,11 +89,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 {
                     try
                     {
-                        acl = AutoMapper.Mapper.Map<Acl>(
-                            coreRepository.Acls
-                             .Where(j => j.Id == this.AclId)
-                             .FirstOrDefault()
-                             );
+                        acl = Models.Core.Acl.GetAclsFromCache()
+                             .FirstOrDefault(j => j.Id == this.AclId);
                     }
                     catch
                     {
@@ -106,18 +103,15 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             // Permission
             if (this.PermissionId > 0)
             {
-                Api.Core.Permission permission = null;
                 try
                 {
-                    permission = coreRepository.Permissions
-                         .Where(j => j.Id == this.PermissionId)
-                         .FirstOrDefault();
+                    this.Permission = Models.Core.Permission.GetPermissionsFromCache()
+                         .FirstOrDefault(j => j.Id == this.PermissionId);
                 }
                 catch
                 {
-                    Contract.Assert(null != permission, "no permission available");
+                    Contract.Assert(null != this.Permission, "no permission available");
                 }
-                this.Permission = AutoMapper.Mapper.Map<Permission>(permission);
             }
             else
             {
@@ -132,19 +126,17 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 {
                     if (TrusteeType == TrusteeTypeEnum.Role.GetHashCode())
                     {
-                        Api.Core.Role role = coreRepository.Roles
-                             .Where(j => j.Id == this.TrusteeId)
-                             .FirstOrDefault();
+                        Models.Core.Role role = Models.Core.Role.GetRolesFromCache()
+                             .FirstOrDefault(j => j.Id == this.TrusteeId);
                         Contract.Assert(null != role, "no role available");
-                        this.Trustee = AutoMapper.Mapper.Map<Role>(role);
+                        this.Trustee = role;
                     }
                     else
                     {
-                        Api.Core.User user = coreRepository.Users
-                             .Where(j => j.Id == this.TrusteeId)
-                             .FirstOrDefault();
+                        Models.Core.User user = Models.Core.User.GetUsersFromCache()
+                             .FirstOrDefault(j => j.Id == this.TrusteeId);
                         Contract.Assert(null != user, "no user available");
-                        this.Trustee = AutoMapper.Mapper.Map<User>(user);
+                        this.Trustee = user;
                     }
                 }
                 catch
@@ -155,4 +147,5 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
     }
+    
 }
