@@ -243,7 +243,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Carts/ItemEdit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult ItemEdit(long id, Models.Core.CartItem cartItem)
         {
             try

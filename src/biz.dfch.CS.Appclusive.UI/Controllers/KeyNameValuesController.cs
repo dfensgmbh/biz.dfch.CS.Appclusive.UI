@@ -55,7 +55,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: KeyNameValues/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.KeyNameValue keyNameValue)
         {
             try
@@ -97,7 +97,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: KeyNameValues/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.KeyNameValue keyNameValue)
         {
             try

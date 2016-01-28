@@ -276,7 +276,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Catalogues/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult ItemCreate(Models.Core.CatalogueItem catalogueItem)
         {
             try
@@ -324,7 +324,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Catalogues/ItemEdit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult ItemEdit(long id, Models.Core.CatalogueItem catalogueItem)
         {
             try

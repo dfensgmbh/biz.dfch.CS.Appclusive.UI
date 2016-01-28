@@ -40,7 +40,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: ContractMappings/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.ContractMapping contractMapping)
         {
             try
@@ -84,7 +84,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: ContractMappings/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.ContractMapping contractMapping)
         {
             try
