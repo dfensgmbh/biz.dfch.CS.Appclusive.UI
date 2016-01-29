@@ -903,4 +903,16 @@
   <data name="PermissionsAll" xml:space="preserve">
     <value>*</value>
   </data>
+  <data name="AddedToCart" xml:space="preserve">
+    <value>Item {0} added to cart</value>
+  </data>
+  <data name="OrderPlaced" xml:space="preserve">
+    <value>Order has been placed</value>
+  </data>
+  <data name="Successfully" xml:space="preserve">
+    <value>Successfully</value>
+  </data>
+  <data name="SuccessfullySaved" xml:space="preserve">
+    <value>Successfully saved</value>
+  </data>
 </root>

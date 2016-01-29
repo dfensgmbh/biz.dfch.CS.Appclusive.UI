@@ -64,6 +64,30 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         public User CurrentUser { get; private set; }
 
+        /// <summary>
+        /// returns cart id if available, 
+        /// 0 if there is no cart
+        /// lt 0 if there are several
+        /// </summary>
+        public long ShoppingCartId
+        {
+            get
+            {
+                if (null == CurrentUser)
+                {
+                    return 0;
+                }
+                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+                Api.Core.Cart[] carts = coreRepository.Carts.ToArray();
+                switch (carts.Length)
+                {
+                    case 0: return 0;
+                    case 1: return carts[0].Id;
+                    default: return -1;
+                }
+            }
+        }
+
         #endregion
 
         #region Current instance

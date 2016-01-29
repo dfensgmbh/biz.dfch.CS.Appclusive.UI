@@ -136,7 +136,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
 
                     apiItem = CoreRepository.Acls.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                     Models.Core.Acl model = AutoMapper.Mapper.Map<Models.Core.Acl>(apiItem);

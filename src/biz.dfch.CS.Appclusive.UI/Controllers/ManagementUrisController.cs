@@ -131,7 +131,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, biz.dfch.CS.Appclusive.UI.App_LocalResources.GeneralResources.SuccessfullySaved));
                     return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
                 }
             }

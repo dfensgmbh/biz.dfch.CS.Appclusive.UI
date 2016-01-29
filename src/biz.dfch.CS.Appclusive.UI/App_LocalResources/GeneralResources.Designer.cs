@@ -142,6 +142,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item {0} added to cart.
+        /// </summary>
+        public static string AddedToCart {
+            get {
+                return ResourceManager.GetString("AddedToCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string Address {
@@ -1771,6 +1780,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order has been placed.
+        /// </summary>
+        public static string OrderPlaced {
+            get {
+                return ResourceManager.GetString("OrderPlaced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original.
         /// </summary>
         public static string Original {
@@ -2127,6 +2145,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully.
+        /// </summary>
+        public static string Successfully {
+            get {
+                return ResourceManager.GetString("Successfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully saved.
+        /// </summary>
+        public static string SuccessfullySaved {
+            get {
+                return ResourceManager.GetString("SuccessfullySaved", resourceCulture);
             }
         }
         
