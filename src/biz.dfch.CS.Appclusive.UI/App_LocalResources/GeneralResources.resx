@@ -915,4 +915,7 @@
   <data name="SuccessfullySaved" xml:space="preserve">
     <value>Successfully saved</value>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
 </root>

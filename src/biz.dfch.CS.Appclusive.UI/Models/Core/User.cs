@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,50 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Required(ErrorMessageResourceName = "requiredField", ErrorMessageResourceType = typeof(ErrorResources))]
         [Display(Name = "Mail", ResourceType = typeof(GeneralResources))]
         public string Mail { get; set; }
+
+        [Display(Name = "Roles", ResourceType = typeof(GeneralResources))]
+        public List<Role> Roles { get; set; }
+
+        [Display(Name = "Permissions", ResourceType = typeof(GeneralResources))]
+        public List<Permission> Permissions { get; set; }
+
+        internal void ResolveNavigationProperties()
+        {
+            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+
+            // Roles & Permissions
+            if (null == this.Roles || null == this.Permissions)
+            {
+                this.Roles = new List<Role>();
+                this.Permissions = new List<Permission>();
+
+                try
+                {
+                    // load all roles
+                    List<Role> allRoles = Models.Core.Role.GetRolesFromCache();
+                    // Navigatin properties deliver only 45 entires
+                    // TODO load all permissions and roles
+
+                    foreach (Role role in allRoles.Where(r => r.Users!=null && r.Users.Exists(u => u.Id == this.Id)))
+                    {
+                        this.Roles.Add(role);
+                        if (role.Permissions != null)
+                        {
+                            foreach (Permission rp in role.Permissions)
+                            {
+                                if (!this.Permissions.Exists(up => up.Id == rp.Id))
+                                {
+                                    this.Permissions.Add(rp);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+        }
 
 
         internal static List<User> GetUsersFromCache()

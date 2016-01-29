@@ -590,6 +590,9 @@
     <Content Include="Views\Acls\ItemList.cshtml" />
     <Content Include="Views\Shared\ShoppingCart.cshtml" />
     <Content Include="Views\Catalogues\AddToCart.cshtml" />
+    <Content Include="Views\Permissions\Permissions.cshtml" />
+    <Content Include="Views\Users\PermissionList.cshtml" />
+    <Content Include="Views\Users\RoleList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

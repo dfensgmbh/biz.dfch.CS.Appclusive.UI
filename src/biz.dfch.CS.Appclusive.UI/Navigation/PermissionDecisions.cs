@@ -73,17 +73,24 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         {
             get
             {
-                if (null == CurrentUser)
+                try
+                {
+                    if (null == CurrentUser)
+                    {
+                        return 0;
+                    }
+                    biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+                    Api.Core.Cart[] carts = coreRepository.Carts.ToArray();
+                    switch (carts.Length)
+                    {
+                        case 0: return 0;
+                        case 1: return carts[0].Id;
+                        default: return -1;
+                    }
+                }
+                catch
                 {
                     return 0;
-                }
-                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
-                Api.Core.Cart[] carts = coreRepository.Carts.ToArray();
-                switch (carts.Length)
-                {
-                    case 0: return 0;
-                    case 1: return carts[0].Id;
-                    default: return -1;
                 }
             }
         }
@@ -120,26 +127,18 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 Tenants.Add(new Tenant() { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
 
                 // load user
-                string fullUserName = string.Format("{0}\\{1}",domain,username);
-                CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(coreRepository.Users.Where(u => u.Name == fullUserName).FirstOrDefault());
+                string fullUserName = string.Format("{0}\\{1}", domain, username);
+                this.CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(coreRepository.Users.Where(u => u.Name == fullUserName).FirstOrDefault());
 
                 // default tenant
-                if (null != CurrentUser)
+                if (null != this.CurrentUser)
                 {
+                    this.CurrentUser.ResolveNavigationProperties();
                     this.Tenant = this.Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid);
                 }
 
                 // Load permissions:            
-                permissions = Models.Core.Permission.GetPermissionsFromCache();
-
-
-                //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
-                //List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
-                //    .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
-                //    .ToList();
-
-                //List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
-                //userRoles.ForEach(r => permissions.AddRange(r.Permissions));
+                permissions = Models.Core.Permission.GetPermissionsFromCache();// this.CurrentUser.Permissions;
             }
             else
             {
