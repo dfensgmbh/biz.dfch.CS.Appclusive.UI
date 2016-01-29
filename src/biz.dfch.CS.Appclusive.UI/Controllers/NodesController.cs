@@ -106,6 +106,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult Tree(long id = 0)
         {
+            ViewBag.NodeId = id;
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
             #region order by
 

@@ -16,9 +16,9 @@
     string jsonData = null;
     if (Model.Count > 0)
     {
-        jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });    
+        jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
     }
-    
+
 }
 <div class="row">
     <div class="col-md-4">
@@ -58,7 +58,7 @@
 </div>
 @using (Html.Delayed())
 {
-    string treeSource = "{" + 
+    string treeSource = "{" +
         " url: '" + dataUrl + "', " +
         " data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() }," +
         " cache: false, debugDelay: 1000" +
@@ -69,26 +69,26 @@
     }
 
     <script type="text/javascript">
-    glyph_opts = {
-        map: {
-            doc: "glyphicon glyphicon-file",
-            docOpen: "glyphicon glyphicon-file",
-            checkbox: "glyphicon glyphicon-unchecked",
-            checkboxSelected: "glyphicon glyphicon-check",
-            checkboxUnknown: "glyphicon glyphicon-share",
-            dragHelper: "glyphicon glyphicon-play",
-            dropMarker: "glyphicon glyphicon-arrow-right",
-            error: "glyphicon glyphicon-warning-sign",
-            expanderClosed: "fa fa-plus-square-o",
-            expanderLazy: "fa fa-plus-square",  // glyphicon-expand
-            expanderOpen: "fa fa-minus-square-o",  // glyphicon-collapse-down
-            folder: "fa fa-folder",
-            folderOpen: "fa fa-folder-open",
-            loading: "fa fa-spinner fa-spin"
-        }
-    };
+        glyph_opts = {
+            map: {
+                doc: "glyphicon glyphicon-file",
+                docOpen: "glyphicon glyphicon-file",
+                checkbox: "glyphicon glyphicon-unchecked",
+                checkboxSelected: "glyphicon glyphicon-check",
+                checkboxUnknown: "glyphicon glyphicon-share",
+                dragHelper: "glyphicon glyphicon-play",
+                dropMarker: "glyphicon glyphicon-arrow-right",
+                error: "glyphicon glyphicon-warning-sign",
+                expanderClosed: "fa fa-plus-square-o",
+                expanderLazy: "fa fa-plus-square",  // glyphicon-expand
+                expanderOpen: "fa fa-minus-square-o",  // glyphicon-collapse-down
+                folder: "fa fa-folder",
+                folderOpen: "fa fa-folder-open",
+                loading: "fa fa-spinner fa-spin"
+            }
+        };
 
-    $(function () {
+        $(function () {
             $('#tree').fancytree({
                 extensions: ["glyph", "wide"],
                 checkbox: false,
@@ -112,67 +112,76 @@
                     var node = data.node;
                     data.result = {
                         url: "@dataUrl",
-                    data: { parentId: node.key, orderBy: $('#treeOrderBy').val() },
-                    cache: false,
-                    debugDelay: 1000
-                };
-            },
-            clickPaging: function(event, data) {
-                var node = data.node.getPrevSibling();
-                data.node.replaceWith( {
-                    url: "@dataUrl",
-                    data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), pageNr: node.data.pageInfo.PageNr + 1 },
-                    cache: false
-                }) ;
-            },
-            loadChildren: function(event, data) {
-                var node = data.node.getLastChild();
-                if(node != null && node.data != null && node.data.pageInfo!=null && node.data.pageInfo.HasMore){
-                    var a = data.node.addPagingNode();
-                    data.node.render();
-                }
-            },
-        });
+                        data: { parentId: node.key, orderBy: $('#treeOrderBy').val() },
+                        cache: false,
+                        debugDelay: 1000
+                    };
+                },
+                clickPaging: function(event, data) {
+                    var node = data.node.getPrevSibling();
+                    data.node.replaceWith( {
+                        url: "@dataUrl",
+                        data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), pageNr: node.data.pageInfo.PageNr + 1 },
+                        cache: false
+                    }) ;
+                },
+                loadChildren: function(event, data) {
+                    var node = data.node.getLastChild();
+                    if(node != null && node.data != null && node.data.pageInfo!=null && node.data.pageInfo.HasMore){
+                        var a = data.node.addPagingNode();
+                        data.node.render();
+                    }
+                },
+            });
 
-    })
-
-    function loadDetail(id){
-        var detailUrl = "@detailUrl".replace("/0","/"+id);
-        $("#detailLoading").show();
-        $.ajax({
-            url: detailUrl,
-            cache: false
         })
-        .done(function( html ) {
-            $("#treeDetail").html(html);
-            $("#detailLoading").hide();
-        });
-    }
 
-    /* tree-search */
-    function reloadTree(){
-        var tree = $("#tree").fancytree("getTree");
-        tree.reload({
-            url: "@dataUrl",
-            data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
-            cache: false
-        });
-    }
+        function loadDetail(id){
+            var detailUrl = "@detailUrl".replace("/0","/"+id);
+            $("#detailLoading").show();
+            $.ajax({
+                url: detailUrl,
+                cache: false
+            })
+            .done(function( html ) {
+                $("#treeDetail").html(html);
+                $("#detailLoading").hide();
+            });
+        }
 
-    $(document).ready(function () {
-        $('#treeSearchTerm').autocomplete(
-          {
-              source: '@Url.Action("Search", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
-              select: function (event, ui) {
-                  $('#treeSearchTerm').val(ui.item.key);
-                  $("#treeSearchForm").submit();
-              }
-          });
-    })
+        /* tree-search */
+        function reloadTree(){
+            var tree = $("#tree").fancytree("getTree");
+            tree.reload({
+                url: "@dataUrl",
+                data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
+                cache: false
+            });
+        }
+
+        $(document).ready(function () {
+            $('#treeSearchTerm').autocomplete(
+              {
+                  source: '@Url.Action("Search", (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary)',
+                  select: function (event, ui) {
+                      $('#treeSearchTerm').val(ui.item.key);
+                      $("#treeSearchForm").submit();
+                  }
+              });
+        })
 
     </script>
-}
 
+    if (ViewBag.NodeId != null && ViewBag.NodeId > 0)
+    {
+        <script type="text/javascript">
+            /* detail open on load page */
+            $(document).ready(function () {
+                loadDetail(@ViewBag.NodeId);
+            })
+        </script>
+    }
+}
 @using (Html.Delayed(null, "autocompleteInit"))
 {
     // because of Autocomplete in TreeDetails
