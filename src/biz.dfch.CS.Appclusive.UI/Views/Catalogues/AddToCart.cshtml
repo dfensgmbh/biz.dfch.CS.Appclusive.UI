@@ -1,0 +1,11 @@
+﻿@Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+<script type="text/javascript">
+    $.ajax({
+        url: '@Url.Action("ShoppingCart", "Home")',
+        success: function (data) {
+            $('#shoppingCart').html(data);
+        },
+        cache: false
+    });
+</script>
+

@@ -23,6 +23,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using System.Data.Services.Client;
 using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -133,7 +134,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
 
                     Models.Core.Catalogue modelItem = AutoMapper.Mapper.Map<Models.Core.Catalogue>(apiItem);
                     if (null != modelItem)
@@ -241,7 +242,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 vm.Message = string.Format("Item {0} added to cart", catalogueItem.Name);
                 vm.ElementId = elementId;
 
-                return PartialView("AjaxNotification", new AjaxNotificationViewModel[] { vm });
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(vm);
+
+                return PartialView("AddToCart");
             }
             catch (Exception ex)
             {
@@ -355,7 +358,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
                     return View(catalogueItem);
                 }
             }
