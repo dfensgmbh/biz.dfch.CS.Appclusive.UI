@@ -40,7 +40,7 @@ body {
 
 .ap-nav-tenant {
     right: 0px;
-    color: black;
+    color: #337ab7;
     padding-right: 15px;
     position: absolute;
     z-index: 100;
