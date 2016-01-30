@@ -1,4 +1,4 @@
-﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Tree.Node>
+﻿@model List<biz.dfch.CS.Appclusive.UI.Models.Tree.Node>
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
@@ -13,7 +13,11 @@
 @{
     string dataUrl = Url.Action("TreeData");
     string detailUrl = Url.Action("TreeDetails", new { id = 0 });
-    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
+    string jsonData = null;
+    if (Model.Count > 0)
+    {
+        jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(Model, new Newtonsoft.Json.Formatting(), new Newtonsoft.Json.JsonSerializerSettings() { DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore });
+    }
 
 }
 <div class="row">
@@ -54,6 +58,16 @@
 </div>
 @using (Html.Delayed())
 {
+    string treeSource = "{" +
+        " url: '" + dataUrl + "', " +
+        " data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() }," +
+        " cache: false, debugDelay: 1000" +
+        "}";
+    if (jsonData != null)
+    {
+        treeSource = jsonData;
+    }
+
     <script type="text/javascript">
         glyph_opts = {
             map: {
@@ -75,17 +89,11 @@
         };
 
         $(function () {
-            var data = @Html.Raw(jsonData);
             $('#tree').fancytree({
                 extensions: ["glyph", "wide"],
                 checkbox: false,
                 glyph: glyph_opts,
-                source: {
-                    url: "@dataUrl",
-                    data: { parentId: 0, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val() },
-                    cache: false,
-                    debugDelay: 1000
-                },
+                source: @Html.Raw(treeSource),
                 toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
                 wide: {
                     iconWidth: "1em",     // Adjust this if fancy-icon-width != "16px"
@@ -95,6 +103,10 @@
                 activate: function(event, data){
                     var node = data.node;
                     loadDetail(node.key);
+                },
+                dblclick: function(event, data){
+                    var node = data.node;
+                    node.load(true);
                 },
                 lazyLoad: function(event, data) {
                     var node = data.node;
@@ -159,8 +171,17 @@
         })
 
     </script>
-}
 
+    if (ViewBag.NodeId != null && ViewBag.NodeId > 0)
+    {
+        <script type="text/javascript">
+            /* detail open on load page */
+            $(document).ready(function () {
+                loadDetail(@ViewBag.NodeId);
+            })
+        </script>
+    }
+}
 @using (Html.Delayed(null, "autocompleteInit"))
 {
     // because of Autocomplete in TreeDetails

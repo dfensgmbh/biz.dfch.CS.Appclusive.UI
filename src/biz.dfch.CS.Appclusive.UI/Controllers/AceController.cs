@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -131,7 +132,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
 
                     return RedirectToAction("Details", "Acls", new { id = apiItem.AclId });
                     //var model = AutoMapper.Mapper.Map<Models.Core.Ace>(apiItem);

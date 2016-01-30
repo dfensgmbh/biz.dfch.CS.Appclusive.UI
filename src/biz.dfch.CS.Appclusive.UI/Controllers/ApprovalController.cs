@@ -135,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                             Name = approval.Continue
                         });
 
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully " + approval.Continue));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.Successfully + " "+ approval.Continue));
 
                     return RedirectToAction("Index");
                 }

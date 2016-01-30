@@ -105,7 +105,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
                     foreach (Models.Core.Ace ace in this.Acl.Aces)
                     {
-                        ace.ResolveNavigationProperties(coreRepository);
+                        ace.ResolveNavigationProperties(coreRepository, this.Acl);
                     }
                 }
 

@@ -23,6 +23,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System.Diagnostics.Contracts;
 using System.Data.Services.Client;
 using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -105,7 +106,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
                     
                     Models.Core.Cart modelItem = AutoMapper.Mapper.Map<Models.Core.Cart>(apiItem);
                     if (null != modelItem)
@@ -155,7 +156,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 CoreRepository.AddToOrders(AutoMapper.Mapper.Map<Api.Core.Order>(order));
                 CoreRepository.SaveChanges();
 
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Order has been placed"));
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.OrderPlaced));
 
                 return View("Details", (Models.Core.Cart)null);
             }
@@ -243,7 +244,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Carts/ItemEdit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult ItemEdit(long id, Models.Core.CartItem cartItem)
         {
             try
@@ -269,7 +270,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
                     return View(AutoMapper.Mapper.Map<Models.Core.CartItem>(apiItem));
                 }
             }
@@ -355,7 +356,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.AddToCartItems(AutoMapper.Mapper.Map<Api.Core.CartItem>(cartItem));
                     CoreRepository.SaveChanges();
 
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format("Item {0} added to cart", catalogueItem.Name)));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.AddedToCart, catalogueItem.Name)));
                     return View("VdiSave", cartItem);
                 }
             }

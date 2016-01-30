@@ -229,6 +229,7 @@
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
     <Compile Include="Models\Cmp\CimiTarget.cs" />
     <Compile Include="Models\Core\Ace.cs" />
+    <Compile Include="Models\Core\AceSearchViewComparer.cs" />
     <Compile Include="Models\Core\AceTypeEnum.cs" />
     <Compile Include="Models\Core\RoleTypeEnum.cs" />
     <Compile Include="Models\Core\Acl.cs" />
@@ -586,6 +587,12 @@
     <Content Include="Views\Nodes\TreeDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\IconTrustee.cshtml" />
     <Content Include="Views\Context\Index.cshtml" />
+    <Content Include="Views\Acls\ItemList.cshtml" />
+    <Content Include="Views\Shared\ShoppingCart.cshtml" />
+    <Content Include="Views\Catalogues\AddToCart.cshtml" />
+    <Content Include="Views\Permissions\Permissions.cshtml" />
+    <Content Include="Views\Users\PermissionList.cshtml" />
+    <Content Include="Views\Users\RoleList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

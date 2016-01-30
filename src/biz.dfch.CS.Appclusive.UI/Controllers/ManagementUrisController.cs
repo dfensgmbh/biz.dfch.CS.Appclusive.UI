@@ -57,7 +57,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: ManagementUris/Create
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(Models.Core.ManagementUri managementUri)
         {
             try
@@ -102,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: ManagementUris/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(long id, Models.Core.ManagementUri managementUri)
         {
             try
@@ -131,7 +131,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     #endregion
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, "Successfully saved"));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, biz.dfch.CS.Appclusive.UI.App_LocalResources.GeneralResources.SuccessfullySaved));
                     return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
                 }
             }

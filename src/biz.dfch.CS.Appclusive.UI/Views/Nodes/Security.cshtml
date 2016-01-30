@@ -11,6 +11,7 @@
 
     ViewDataDictionary aceListViewData = new ViewDataDictionary();
     aceListViewData.Add("Readonly", true);
+    aceListViewData.Add("Notifications", new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>());
 }
 @Html.Partial("CheckPermission", (biz.dfch.CS.Appclusive.UI.Models.SpecialOperations.CheckPermission)ViewBag.CheckNodePermission)
 
@@ -48,11 +49,11 @@
             @Html.SecuredButton("Read", Url.Action("Details", "Acls", new { id = Model.Acl.Id }), "btn-primary")
             @if (Model.Acl.NoInheritanceFromParent)
             {
-                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = true }), "btn-success disabled", @GeneralResources.RestoreInheritance)
+                @Html.SecuredButton("Create", Url.Action("Inheritance", "Acls", new { id = Model.Acl.Id, enable = Model.Acl.NoInheritanceFromParent }), "btn-danger", GeneralResources.InheritanceEnable, "fa-ellipsis-v", null, GeneralResources.InheritanceEnableConfirm)
             }
             else
             {
-                @Html.SecuredButton("Update", Url.Action("InheritanceFromParent", "Acls", new { id = Model.Acl.Id, enable = false }), "btn-success disabled", @GeneralResources.BreakInheritance)
+                @Html.SecuredButton("Create", Url.Action("Inheritance", "Acls", new { id = Model.Acl.Id, enable = Model.Acl.NoInheritanceFromParent }), "btn-danger", GeneralResources.InheritanceDisable, "fa-ellipsis-h", null, GeneralResources.InheritanceDisableConfirm)
             }
         </div>
     }

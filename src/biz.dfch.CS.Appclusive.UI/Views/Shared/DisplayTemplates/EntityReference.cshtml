@@ -22,18 +22,20 @@
 
         if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.HasPermission(entityName, "CanRead"))
         {
+            string controllerAction = entityName == "Node" ? "Tree" : "Details";
             if (showAsButton)
             {
                 string displayText = string.IsNullOrWhiteSpace(Model.EntityName) ? Model.EntityId.ToString() : Model.EntityName;
-                @Html.SecuredButton("Read", Url.Action("Details",Model.EntityKind.UiController, new { id = Model.EntityId.Value, rId = id, rAction = action, rController = controller }), cssClass, displayText, icon, tipText)
+                string url = Url.Action(controllerAction, Model.EntityKind.UiController, new { id = Model.EntityId.Value, rId = id, rAction = action, rController = controller });
+                <a class="btn @cssClass" href="@url" title="@tipText" data-toggle="tooltip"><i class="fa @icon"> @displayText</i></a>
             }
             else
             {
                 string displayText = Model.EntityId.ToString();
-                
+
                 <i class="fa @icon" title="@tipText" data-toggle="tooltip"></i>
                 @Html.Raw("&nbsp;");
-                @Html.ActionLink(displayText , "Details", Model.EntityKind.UiController, new { id = Model.EntityId.Value, rId = id, rAction = action, rController = controller }, null)
+                @Html.ActionLink(displayText, controllerAction, Model.EntityKind.UiController, new { id = Model.EntityId.Value, rId = id, rAction = action, rController = controller }, null)
             }
         }
         else

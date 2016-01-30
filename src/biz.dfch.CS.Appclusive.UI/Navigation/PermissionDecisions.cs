@@ -14,41 +14,36 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
     public class PermissionDecisions
     {
         #region Core Repository
+
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
-        protected biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
+        internal biz.dfch.CS.Appclusive.Api.Core.Core CoreRepositoryGet()
         {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
-                    coreRepository.IgnoreMissingProperties = true;
-                    coreRepository.Format.UseJson();
-                    coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
-                    coreRepository.MergeOption = MergeOption.PreserveChanges;
+            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
+            coreRepository.IgnoreMissingProperties = true;
+            coreRepository.Format.UseJson();
+            coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
+            coreRepository.MergeOption = MergeOption.PreserveChanges;
 
-                    System.Net.NetworkCredential apiCreds = HttpContext.Current.Session["LoginData"] as System.Net.NetworkCredential;
-                    if (null != apiCreds)
-                    {
-                        coreRepository.Credentials = apiCreds;
-                    }
-                    else
-                    {
-                        coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    }
-                }
-                return coreRepository;
+            System.Net.NetworkCredential apiCreds = HttpContext.Current.Session["LoginData"] as System.Net.NetworkCredential;
+            if (null != apiCreds)
+            {
+                coreRepository.Credentials = apiCreds;
             }
+            else
+            {
+                coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+            }
+
+            return coreRepository;
         }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
 
         #endregion
 
         #region properties
 
-        private List<Api.Core.Permission> permissions = null;
+        private List<Models.Core.Permission> permissions = null;
         public Dictionary<string, NavEntry> Navigation;
         public List<Tenant> Tenants { get; private set; }
 
@@ -68,6 +63,37 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         Tenant tenant = null;
 
         public User CurrentUser { get; private set; }
+
+        /// <summary>
+        /// returns cart id if available, 
+        /// 0 if there is no cart
+        /// lt 0 if there are several
+        /// </summary>
+        public long ShoppingCartId
+        {
+            get
+            {
+                try
+                {
+                    if (null == CurrentUser)
+                    {
+                        return 0;
+                    }
+                    biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+                    Api.Core.Cart[] carts = coreRepository.Carts.ToArray();
+                    switch (carts.Length)
+                    {
+                        case 0: return 0;
+                        case 1: return carts[0].Id;
+                        default: return -1;
+                    }
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
 
         #endregion
 
@@ -94,54 +120,35 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         {
             if (!string.IsNullOrEmpty(username))
             {
+                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+
                 // load tenants
-                Tenants = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(CoreRepository.Tenants.ToList());
+                Tenants = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(coreRepository.Tenants.ToList());
                 Tenants.Add(new Tenant() { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
 
                 // load user
-                string fullUserName = string.Format("{0}\\{1}",domain,username);
-                CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(CoreRepository.Users.Where(u => u.Name == fullUserName).FirstOrDefault());
+                string fullUserName = string.Format("{0}\\{1}", domain, username);
+                this.CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(coreRepository.Users.Where(u => u.Name == fullUserName).FirstOrDefault());
 
                 // default tenant
-                if (null != CurrentUser)
+                if (null != this.CurrentUser)
                 {
+                    this.CurrentUser.ResolveNavigationProperties();
                     this.Tenant = this.Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid);
                 }
 
                 // Load permissions:            
-                permissions = new List<Api.Core.Permission>();
-                QueryOperationResponse<Api.Core.Permission> queryResponse = CoreRepository.Permissions.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.Permission>;
-                while (null != queryResponse)
-                {
-                    permissions.AddRange(queryResponse.ToList());
-                    DataServiceQueryContinuation<Api.Core.Permission> cont = queryResponse.GetContinuation();
-                    if (null != cont)
-                    {
-                        queryResponse = this.CoreRepository.Execute<Api.Core.Permission>(cont) as QueryOperationResponse<Api.Core.Permission>;
-                    }
-                    else
-                    {
-                        queryResponse = null;
-                    }
-                }
-
-
-                //string name = (!string.IsNullOrEmpty(domain) ? (domain + "\\") : "") + username;
-                //List<Api.Core.Role> userRoles = CoreRepository.Roles.Expand("Permissions")
-                //    .Where(r => null != r.Users.Where(u => u.Name == name).FirstOrDefault())
-                //    .ToList();
-
-                //List<Api.Core.Permission> permissions = new List<Api.Core.Permission>();
-                //userRoles.ForEach(r => permissions.AddRange(r.Permissions));
+                permissions = Models.Core.Permission.GetPermissionsFromCache();// this.CurrentUser.Permissions;
             }
             else
             {
                 Tenants = new List<Tenant>();
-                permissions = new List<Api.Core.Permission>();
+                permissions = new List<Models.Core.Permission>();
             }
 
             Navigation = CreateNavigation();
         }
+
 
         #endregion
 
@@ -175,7 +182,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// <returns></returns>
         private bool HasPermission(string permissionName)
         {
-            Api.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
+            Models.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
             return (permission != null);
         }
 

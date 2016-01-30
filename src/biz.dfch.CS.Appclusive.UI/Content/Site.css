@@ -1,13 +1,12 @@
 ﻿@font-face {
-  font-family: 'Frutiger';
-
-  src: url('../fonts/Neue Frutiger Com Regular.woff');
+    font-family: 'Frutiger';
+    src: url('../fonts/Neue Frutiger Com Regular.woff');
 }
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    font-family:  Frutiger, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-family: Frutiger, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -26,22 +25,27 @@ body {
 .dropdown-menu {
     font-size: 18px;
 }
+
 .navbar-brand {
-    font-size: 24px; 
-}
-.navbar-inverse .navbar-brand {  
-    color: #ececec;  
-}  
-.navbar-inverse .navbar-nav > li > a {
-  color: #ececec;
+    font-size: 24px;
 }
 
-.ap-nav-tenant{
-    right: 0px; 
-    color: black; 
-    padding-right: 15px; 
-    position: absolute; 
-    z-index:100;
+.navbar-inverse .navbar-brand {
+    color: #ececec;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ececec;
+}
+
+.ap-nav-tenant {
+    right: 0px;
+    color: #337ab7;
+    padding-right: 15px;
+    position: absolute;
+    z-index: 100;
+    width: 500px;
+    text-align: right;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -69,11 +73,12 @@ textarea {
     z-index: 2;
     opacity: 0.75;
 }
-.ap-busyParent{
-     display: block;
-        position: relative;
-    padding-left:0px;
-    padding-right:0px;
+
+.ap-busyParent {
+    display: block;
+    position: relative;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 /* styles for validation helpers */
@@ -107,24 +112,24 @@ input[type="checkbox"].input-validation-error {
 }
 
 /* special formatting */
-.tab-content{
-    padding-top:20px;
+.tab-content {
+    padding-top: 20px;
 }
 
-dd{
-    margin-bottom:10px;
+dd {
+    margin-bottom: 10px;
 }
 
-.table td.ap-btn{
-    padding-top:3px;
-    padding-bottom:3px;
+.table td.ap-btn {
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 div.ap-errortext, div.ap-infotext {
     margin-bottom: 10px;
 }
 
-.copy-clipboard{
+.copy-clipboard {
     float: right;
 }
 
@@ -132,7 +137,7 @@ div.ap-errortext, div.ap-infotext {
 ul.ui-autocomplete {
     border: 1px solid #ddd;
     background-color: #ccedff;
-    z-index:1000;
+    z-index: 1000;
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -140,20 +145,26 @@ ul.ui-autocomplete {
 .ap-hand {
     cursor: pointer;
 }
+
 div.ap-message {
     padding: 5px 10px;
 }
 
 /* sorting function in headers */
-div.ap-sortedHeader{
-
-}
-i.ap-sortedHeader{
-    padding-left:5px;
+div.ap-sortedHeader {
 }
 
-span.ap-nav-icon{
-    width: 38px; 
+i.ap-sortedHeader {
+    padding-left: 5px;
+}
+
+span.ap-nav-icon {
+    width: 38px;
     display: inline-block;
-    text-align:center;
+    text-align: center;
+}
+
+/*  treeview */
+ul.fancytree-container {
+    min-height: 500px;
 }
