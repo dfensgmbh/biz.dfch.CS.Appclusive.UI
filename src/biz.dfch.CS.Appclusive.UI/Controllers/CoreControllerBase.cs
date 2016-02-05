@@ -97,21 +97,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         //    }
         //}
 
-        protected void AddManagementCredentialSelectionToViewBag()
-        {
-            try
-            {
-                List<Api.Core.ManagementCredential> creds = new List<Api.Core.ManagementCredential>();
-                creds.Add(new Api.Core.ManagementCredential() { Name = "-" });
-                creds.AddRange(CoreRepository.ManagementCredentials.ToList());
+        //protected void AddManagementCredentialSelectionToViewBag()
+        //{
+        //    try
+        //    {
+        //        List<Api.Core.ManagementCredential> creds = new List<Api.Core.ManagementCredential>();
+        //        creds.Add(new Api.Core.ManagementCredential() { Name = "-" });
+        //        creds.AddRange(CoreRepository.ManagementCredentials.ToList());
 
-                ViewBag.ManagementCredentialSelection = new SelectList(creds.Select(u => { return new { Id = u.Id > 0 ? (long?)u.Id : null, Name = u.Name }; }), "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
+        //        ViewBag.ManagementCredentialSelection = new SelectList(creds.Select(u => { return new { Id = u.Id > 0 ? (long?)u.Id : null, Name = u.Name }; }), "Id", "Name");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+        //    }
+        //}
 
         protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant, bool includeEmpty = false)
         {

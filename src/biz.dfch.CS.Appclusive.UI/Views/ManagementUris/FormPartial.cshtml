@@ -41,7 +41,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ManagementCredential, htmlAttributes: new { @class = "control-label" })
         <div>
-            @Html.DropDownListFor(model => model.ManagementCredentialId, (IEnumerable<SelectListItem>)ViewBag.ManagementCredentialSelection, new { @class = "form-control" })
+            @Html.EditorFor(model => model.ManagementCredentialId, "Autocomplete", new { Value = Model.ManagementCredential == null ? "" : Model.ManagementCredential.Name, SelectUrl = @Url.Action("Select", "ManagementCredentials"), PlaceHolder = Html.DisplayNameFor(model => model.ManagementCredential) })
             @Html.ValidationMessageFor(model => model.ManagementCredentialId, "", new { @class = "text-danger" })
         </div>
     </div>

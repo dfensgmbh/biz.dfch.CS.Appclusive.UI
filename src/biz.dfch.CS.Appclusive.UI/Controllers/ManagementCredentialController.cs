@@ -22,6 +22,7 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using biz.dfch.CS.Appclusive.UI.Config;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -32,15 +33,26 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region ManagementCredential
 
         // GET: ManagementCredentials/Details/5
-        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
+        public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null, int d = 0)
         {
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
+            #region delete message
+            if (d > 0)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.ConfirmDeleted, d)));
+            }
+            #endregion
             try
             {
-                var item = CoreRepository.ManagementCredentials.Expand("ManagementUris").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(item));
+                var item = CoreRepository.ManagementCredentials.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                Models.Core.ManagementCredential modelItem = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(item);
+                if (null != modelItem)
+                {
+                    modelItem.ManagementUris = LoadManagementUris(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -89,7 +101,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 var apiItem = CoreRepository.ManagementCredentials.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-                return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
+                Models.Core.ManagementCredential modelItem = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.ManagementUris = LoadManagementUris(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -106,12 +123,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    managementCredential.ManagementUris = AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(CoreRepository.ManagementUris.Where(ci => ci.ManagementCredentialId == id).ToList());
+                    if (null != managementCredential)
+                    {
+                        managementCredential.ManagementUris = LoadManagementUris(id, 1);
+                    }
                     return View(managementCredential);
                 }
                 else
                 {
-                    var apiItem = CoreRepository.ManagementCredentials.Expand("ManagementUris").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.ManagementCredentials.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 
@@ -124,8 +144,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.UpdateObject(apiItem);
                     CoreRepository.SaveChanges();
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
-                    apiItem = CoreRepository.ManagementCredentials.Expand("ManagementUris").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault(); // because of data encryption
-                    return View(AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
+                    apiItem = CoreRepository.ManagementCredentials.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault(); // because of data encryption
+                    Models.Core.ManagementCredential modelItem = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem);
+                    if (null != modelItem)
+                    {
+                        modelItem.ManagementUris = LoadManagementUris(id, 1);
+                    }
+                    return View(modelItem);
                 }
             }
             catch (Exception ex)
@@ -149,12 +174,51 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem));
+                Models.Core.ManagementCredential modelItem = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.ManagementUris = LoadManagementUris(id, 1);
+                }
+                return View("Details", modelItem);
             }
         }
 
 
         #endregion
+
+        #region ManagementUris list and search
+        // GET: Nodes/ItemList
+        public PartialViewResult ItemIndex(long managementCredentialId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        {
+            ViewBag.ParentId = managementCredentialId;
+            DataServiceQuery<Api.Core.ManagementUri> itemsBaseQuery = CoreRepository.ManagementUris;
+            string itemsBaseFilter = "ManagementCredentialId eq " + managementCredentialId;
+            return base.ItemIndex<Api.Core.ManagementUri, Models.Core.ManagementUri>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+        }
+
+        private List<Models.Core.ManagementUri> LoadManagementUris(long managementCredentialId, int pageNr)
+        {
+            QueryOperationResponse<Api.Core.ManagementUri> items = CoreRepository.ManagementUris
+                    .AddQueryOption("$filter", "ManagementCredentialId eq " + managementCredentialId)
+                    .AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .Execute() as QueryOperationResponse<Api.Core.ManagementUri>;
+
+            ViewBag.ParentId = managementCredentialId;
+            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+
+            return AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items);
+        }
+
+        public ActionResult ItemSearch(long managementCredentialId, string term)
+        {
+            DataServiceQuery<Api.Core.ManagementUri> itemsBaseQuery = CoreRepository.ManagementUris;
+            string itemsBaseFilter = "ManagementCredentialId eq " + managementCredentialId; 
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        #endregion 
 
     }
 }
