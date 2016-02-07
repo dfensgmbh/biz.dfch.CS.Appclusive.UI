@@ -1,0 +1,40 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.ManagementUri>
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@{
+    ViewBag.AjaxItemSearchTargetId = "managementUriListAjax";
+    ViewBag.AjaxItemSearchAction = "ItemIndex";
+
+    RouteValueDictionary sd = new RouteValueDictionary();
+    sd.Add("managementCredentialId", ViewBag.ParentId);
+    ViewBag.AjaxSearchRouteValueDictionary = sd;
+}
+@if (ViewBag.ParentId > 0)
+{
+    <div class="row">
+        <div class="col-md-2">
+            @Html.SecuredButton("Create", Url.Action("Create", "ManagementUris", new { managementCredentialId = ViewBag.ParentId }), "btn-default btn-sm", GeneralResources.CreateNew)
+        </div>
+        @Html.Partial("AjaxItemSearchForm")
+    </div>
+}
+<div class="ap-busyParent">
+    <div id="itemListLoading"></div>
+    <div id="managementUriListAjax">        
+        @Html.Partial("ItemIndex", Model)
+    </div>
+</div>
+
+@using (Html.Delayed(null, "itemListLoading"))
+{
+    <script type="text/javascript">
+
+        function showBusy() {
+            $("#itemListLoading").show();
+        }
+        function hideBusy() {
+            $("#itemListLoading").hide();
+        }
+
+    </script>
+}

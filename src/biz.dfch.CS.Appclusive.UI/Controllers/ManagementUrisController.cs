@@ -50,16 +50,30 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: ManagementUris/Create
-        public ActionResult Create()
+        public ActionResult Create(long managementCredentialId = 0, string rId = "0", string rAction = null, string rController = null)
         {
-            this.AddManagementCredentialSelectionToViewBag();
-            return View(new Models.Core.ManagementUri());
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
+
+            Models.Core.ManagementUri uri = new Models.Core.ManagementUri()
+            {
+                ManagementCredentialId = managementCredentialId
+            };
+            if (managementCredentialId > 0)
+            {
+                uri.ManagementCredential = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(this.CoreRepository.ManagementCredentials.Where(mc => mc.Id == managementCredentialId).FirstOrDefault());
+            }
+            return View(uri);
         }
 
         // POST: ManagementUris/Create
         [HttpPost, ValidateInput(false)]
-        public ActionResult Create(Models.Core.ManagementUri managementUri)
+        public ActionResult Create(Models.Core.ManagementUri managementUri, string rId = "0", string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 if (!ModelState.IsValid)
@@ -73,24 +87,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.AddToManagementUris(apiItem);
                     CoreRepository.SaveChanges();
 
-                    return RedirectToAction("Details", new { id = apiItem.Id });
+                    return RedirectToAction("Details", new { id = apiItem.Id, rId = rId, rAction = rAction, rController = rController });
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddManagementCredentialSelectionToViewBag();
                 return View(managementUri);
             }
         }
 
         // GET: ManagementUris/Edit/5
-        public ActionResult Edit(long id)
+        public ActionResult Edit(long id, string rId = "0", string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 Contract.Requires(id > 0);
-                this.AddManagementCredentialSelectionToViewBag();
                 var apiItem = CoreRepository.ManagementUris.Expand("ManagementCredential").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 return View(AutoMapper.Mapper.Map<Models.Core.ManagementUri>(apiItem));
             }
@@ -103,14 +118,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         // POST: ManagementUris/Edit/5
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(long id, Models.Core.ManagementUri managementUri)
+        public ActionResult Edit(long id, Models.Core.ManagementUri managementUri, string rId = "0", string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             try
             {
                 Contract.Requires(id > 0);
                 Contract.Requires(null != managementUri);
                 
-                this.AddManagementCredentialSelectionToViewBag();
                 if (!ModelState.IsValid)
                 {
                     managementUri.ManagementCredential = AutoMapper.Mapper.Map<Models.Core.ManagementCredential>(CoreRepository.ManagementCredentials.Where(ci => ci.Id == id).ToList());
@@ -118,7 +135,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
                 else
                 {
-                    var apiItem = CoreRepository.ManagementUris.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                    var apiItem = CoreRepository.ManagementUris.Expand("ManagementCredential").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
 
                     #region copy all edited properties
 
@@ -143,15 +160,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: ManagementUris/Delete/5
-        public ActionResult Delete(long id)
+        public ActionResult Delete(long id, string rId = "0", string rAction = null, string rController = null)
         {
+            ViewBag.ReturnId = rId;
+            ViewBag.ReturnAction = rAction;
+            ViewBag.ReturnController = rController;
             Api.Core.ManagementUri apiItem = null;
             try
             {
-                apiItem = CoreRepository.ManagementUris.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                apiItem = CoreRepository.ManagementUris.Expand("ManagementCredential").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
-                return RedirectToAction("Index", new { d = id });
+                if (string.IsNullOrEmpty(rId) || string.IsNullOrEmpty(rAction) || string.IsNullOrEmpty(rController))
+                {
+                    return RedirectToAction("Index", new { d = id });
+                }
+                else
+                {
+                    return RedirectToAction(rAction, rController, new { id = rId, d = id });
+                }
             }
             catch (Exception ex)
             {

@@ -15,8 +15,8 @@
     <AssemblyName>biz.dfch.CS.Appclusive.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
@@ -593,6 +593,8 @@
     <Content Include="Views\Permissions\Permissions.cshtml" />
     <Content Include="Views\Users\PermissionList.cshtml" />
     <Content Include="Views\Users\RoleList.cshtml" />
+    <Content Include="Views\ManagementCredentials\ItemIndex.cshtml" />
+    <Content Include="Views\ManagementCredentials\ItemList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -642,7 +644,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60755</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/biz.dfch.CS.Appclusive.UI</IISUrl>
+          <IISUrl>http://localhost:60755/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
