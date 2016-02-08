@@ -75,7 +75,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var products = CoreRepository.Products.ToList();
+                List<Api.Core.Product> products = new List<Api.Core.Product>();
+
+                #region load all products
+
+                var query = coreRepository.Products.AddQueryOption("$top", 10000);
+                QueryOperationResponse<Api.Core.Product> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Product>;
+                while (null != queryResponse)
+                {
+                    products.AddRange(queryResponse.ToList());
+                    DataServiceQueryContinuation<Api.Core.Product> cont = queryResponse.GetContinuation();
+                    if (null != cont)
+                    {
+                        queryResponse = coreRepository.Execute<Api.Core.Product>(cont) as QueryOperationResponse<Api.Core.Product>;
+                    }
+                    else
+                    {
+                        queryResponse = null;
+                    }
+                }
+
+                #endregion
+
                 ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
             }
             catch (Exception ex)
@@ -158,19 +179,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #endregion
 
                 ViewBag.CustomerSelection = new SelectList(customers, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
-
-        protected void AddAclSeletionToViewBag()
-        {
-            try
-            {
-                // ACL
-                ViewBag.AclSelection = new SelectList(CoreRepository.Acls, "Id", "Name");
             }
             catch (Exception ex)
             {
