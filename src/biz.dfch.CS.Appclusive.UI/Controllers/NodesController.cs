@@ -58,9 +58,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 try
                 {
                     modelItem.Children = LoadNodeChildren(id, 1);
-                    modelItem.ResolveSecurity(this.CoreRepository);
                     modelItem.ResolveJob(this.CoreRepository);
                     modelItem.ResolveReferencedEntityName(this.CoreRepository);
+                    PagingInfo explicitAcePagingInfo, effectivecePagingInfo;
+                    modelItem.ResolveSecurity(out explicitAcePagingInfo, out effectivecePagingInfo);
+                    ViewBag.ExplicitAcePaging = explicitAcePagingInfo;
+                    ViewBag.EffectiveAcePaging = effectivecePagingInfo;
+                    
                 }
                 catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
             }
@@ -318,6 +322,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #endregion
 
+        #region security
+
         [HttpPost]
         public PartialViewResult CheckPermission(Models.SpecialOperations.CheckPermission cp)
         {
@@ -354,5 +360,22 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.CheckNodePermission = cp;
         }
 
+        public PartialViewResult AceList(long nodeId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null, string ajaxPagingTargetId = null)
+        {
+            ViewBag.Readonly = true;
+            if (!string.IsNullOrEmpty(ajaxPagingTargetId))
+            {
+                ViewBag.AjaxPagingTargetId = ajaxPagingTargetId;
+            }
+            PagingInfo pagingInfo;
+            List<Models.Core.Ace> aces = Models.Core.Node.LoadEffectivePermissions(out pagingInfo, nodeId, pageNr, itemSearchTerm, orderBy);
+            ViewBag.ParentId = nodeId;
+            ViewBag.ItemSearchTerm = itemSearchTerm;
+            ViewBag.AjaxPaging = pagingInfo;
+            ViewBag.AjaxPagingAction = "AceList";
+            ViewBag.AjaxPagingController = "Nodes";
+            return PartialView("AceList", aces);
+        }
+        #endregion
     }
 }

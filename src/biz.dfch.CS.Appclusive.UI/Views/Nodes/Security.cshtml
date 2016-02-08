@@ -2,16 +2,20 @@
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    //ViewBag.AjaxItemSearchTargetId = "itemListAjax";
-    //ViewBag.AjaxItemSearchAction = "ItemIndex";
-
-    RouteValueDictionary sd = new RouteValueDictionary();
-    sd.Add("parentId", ViewBag.ParentId);
-    ViewBag.AjaxSearchRouteValueDictionary = sd;
-
     ViewDataDictionary aceListViewData = new ViewDataDictionary();
-    aceListViewData.Add("Readonly", true);
+    aceListViewData.Add("ParentId", Model.Acl != null ? Model.Acl.Id : 0);
+    aceListViewData.Add("AjaxPaging", ViewBag.ExplicitAcePaging);
     aceListViewData.Add("Notifications", new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>());
+    aceListViewData.Add("Readonly", true);
+
+    ViewDataDictionary effectiveAceListViewData = new ViewDataDictionary();
+    effectiveAceListViewData.Add("ParentId", Model.Id); // Node-ID
+    effectiveAceListViewData.Add("AjaxPaging", ViewBag.EffectiveAcePaging);
+    effectiveAceListViewData.Add("AjaxPagingTargetId", "effAceListAjax");
+    effectiveAceListViewData.Add("AjaxPagingAction", "AceList");
+    effectiveAceListViewData.Add("AjaxPagingController", "Nodes");
+    effectiveAceListViewData.Add("Notifications", new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>());
+    effectiveAceListViewData.Add("Readonly", true);
 }
 @Html.Partial("CheckPermission", (biz.dfch.CS.Appclusive.UI.Models.SpecialOperations.CheckPermission)ViewBag.CheckNodePermission)
 
@@ -43,8 +47,13 @@
                 }
             </div>
         </div>
-        @Html.Partial("AceList", Model.Acl.Aces, aceListViewData)
-        <div style="margin-bottom:20px">           
+        <!-- Acelist -->
+        <div class="ap-busyParent">
+            <div id="aceListLoading"></div>
+            @Html.Partial("AceList", Model.Acl.Aces, aceListViewData)
+        </div>
+        <!-- Acelist end -->
+        <div style="margin-bottom:20px">
             @Html.SecuredButton("Update", Url.Action("Edit", "Acls", new { id = Model.Acl.Id }), "btn-default")
             @Html.SecuredButton("Read", Url.Action("Details", "Acls", new { id = Model.Acl.Id }), "btn-primary")
             @if (Model.Acl.NoInheritanceFromParent)
@@ -67,6 +76,20 @@
     }
     else
     {
-        @Html.Partial("AceList", Model.EffectivAces, aceListViewData)
+        @Html.Partial("AceList", Model.EffectivAces, effectiveAceListViewData)
     }
 </div>
+
+@using (Html.Delayed(null, "aceListLoading"))
+{
+    <script type="text/javascript">
+
+        function showBusy() {
+            $("#aceListLoading").show();
+        }
+        function hideBusy() {
+            $("#aceListLoading").hide();
+        }
+
+    </script>
+}

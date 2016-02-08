@@ -1,4 +1,5 @@
 ﻿using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using biz.dfch.CS.Appclusive.UI.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -91,5 +92,22 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
         static object locker = new object();
+
+        internal static List<Models.Core.Ace> LoadAces(long aclId, int pageNr, out PagingInfo pagingInfo, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
+        {
+            List<Ace> allAces = Ace.GetAcesFromCache(aclId);
+
+            IEnumerable<Models.Core.Ace> aces;
+            if (allAces == null)
+            {
+                aces = new List<Ace>();
+                pagingInfo = new PagingInfo(1, 0);
+            }
+            else
+            {
+                aces = Ace.SortAndFilter(allAces, out pagingInfo, pageNr, itemSearchTerm, orderBy, distinct);
+            }
+            return aces.ToList();
+        }
     }
 }
