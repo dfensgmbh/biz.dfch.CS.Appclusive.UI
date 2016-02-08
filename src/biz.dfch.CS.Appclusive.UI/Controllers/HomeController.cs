@@ -37,7 +37,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "The intelligent Automation Framework and Middleware";
+            ViewBag.Message = "Automation Framework and Middleware";
 
             return View();
         }

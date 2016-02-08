@@ -10,12 +10,10 @@
     ViewBag.Title = title;
 }
 
-<div class="jumbotron">
+<div class="page-header">
     <h1>@title</h1>
-    <p>Appclusive Autmation Framework and Middleware</p>
-    <p class="lead"><a href="http://d-fens.ch">d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland</a></p>
-    <p><a href="http://appclusive.net" class="btn btn-primary btn-lg" target="_blank">Learn more &raquo;</a></p>
 </div>
+
 <div class="row">
     @foreach (NavEntry group in PermissionDecisions.Current.Navigation.Values)
     {
@@ -49,28 +47,4 @@
             </ul>
         </div>
     }
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        <h3>biz.dfch.CS.Appclusive.Core</h3>
-        <p>Appclusive Framework and Middleware</p>
-        <p>Contribute on <a href="https://github.com/dfch/biz.dfch.CS.Appclusive">GitHub &raquo;</a></p>
-    </div>
-    <div class="col-sm-4">
-        <h3>biz.dfch.CS.Appclusive.Api</h3>
-        <p>.NET client to the Appclusive Framework and Middleware</p>
-        <p>Contribute on <a href="https://github.com/dfensgmbh/biz.dfch.CS.Appclusive.Api">GitHub &raquo;</a> or download from <a href="https://www.nuget.org/packages/biz.dfch.CS.Appclusive.Api/">NuGet &raquo;</a></p>
-    </div>
-    <div class="col-sm-4">
-        <h3>biz.dfch.PS.Appclusive.Client</h3>
-        <p>PowerShell module for the Appclusive Framework and Middleware</p>
-        <p>Contribute on <a href="https://github.com/dfensgmbh/biz.dfch.PS.Appclusive.Client">GitHub &raquo;</a> or download from <a href="https://www.nuget.org/packages/biz.dfch.PS.Appclusive.Client/">NuGet &raquo;</a></p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        <h3>biz.dfch.CS.Appclusive.UI</h3>
-        <p>Next version Appclusive User Interface</p>
-        <p>Contribute on <a href="https://github.com/dfch/biz.dfch.CS.Appclusive.UI">GitHub &raquo;</a></p>
-    </div>
 </div>
