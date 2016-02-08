@@ -79,7 +79,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region load all products
 
-                var query = coreRepository.Products.AddQueryOption("$top", 10000);
+                var query = this.CoreRepository.Products.AddQueryOption("$top", 10000);
                 QueryOperationResponse<Api.Core.Product> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Product>;
                 while (null != queryResponse)
                 {
@@ -87,7 +87,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     DataServiceQueryContinuation<Api.Core.Product> cont = queryResponse.GetContinuation();
                     if (null != cont)
                     {
-                        queryResponse = coreRepository.Execute<Api.Core.Product>(cont) as QueryOperationResponse<Api.Core.Product>;
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Product>(cont) as QueryOperationResponse<Api.Core.Product>;
                     }
                     else
                     {
@@ -117,7 +117,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 #region load all tenants
 
                 List<Models.Core.Tenant> allTenants = new List<Models.Core.Tenant>();
-                var query = coreRepository.Tenants.AddQueryOption("$top", 10000);
+                var query = this.CoreRepository.Tenants.AddQueryOption("$top", 10000);
                 QueryOperationResponse<Api.Core.Tenant> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Tenant>;
                 while (null != queryResponse)
                 {
@@ -125,7 +125,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     DataServiceQueryContinuation<Api.Core.Tenant> cont = queryResponse.GetContinuation();
                     if (null != cont)
                     {
-                        queryResponse = coreRepository.Execute<Api.Core.Tenant>(cont) as QueryOperationResponse<Api.Core.Tenant>;
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Tenant>(cont) as QueryOperationResponse<Api.Core.Tenant>;
                     }
                     else
                     {
@@ -160,7 +160,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 #region load all customer
 
-                var query = coreRepository.Customers.AddQueryOption("$top", 10000);
+                var query = this.CoreRepository.Customers.AddQueryOption("$top", 10000);
                 QueryOperationResponse<Api.Core.Customer> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Customer>;
                 while (null != queryResponse)
                 {
@@ -168,7 +168,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     DataServiceQueryContinuation<Api.Core.Customer> cont = queryResponse.GetContinuation();
                     if (null != cont)
                     {
-                        queryResponse = coreRepository.Execute<Api.Core.Customer>(cont) as QueryOperationResponse<Api.Core.Customer>;
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Customer>(cont) as QueryOperationResponse<Api.Core.Customer>;
                     }
                     else
                     {
