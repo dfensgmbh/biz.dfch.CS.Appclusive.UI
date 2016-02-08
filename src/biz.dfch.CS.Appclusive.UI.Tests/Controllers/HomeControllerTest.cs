@@ -50,7 +50,7 @@ namespace biz.dfch.CS.Appclusive.UI.Tests.Controllers
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("The intelligent Automation Framework and Middleware", result.ViewBag.Message);
+            Assert.AreEqual("Automation Framework and Middleware", result.ViewBag.Message);
         }
 
         [TestMethod]
