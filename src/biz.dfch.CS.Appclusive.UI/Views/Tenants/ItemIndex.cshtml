@@ -1,0 +1,57 @@
+﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Tenant>
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    string id = (string)ViewContext.Controller.ControllerContext.RouteData.Values["id"];
+    string action = (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"];
+    string controller = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+}@{
+    ViewBag.AjaxPagingTargetId = "tenantListAjax";
+    ViewBag.AjaxPagingAction = "ItemIndex";
+
+    RouteValueDictionary rd = new RouteValueDictionary();
+    rd.Add("parentId", ViewBag.ParentId);
+    rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
+    rd.Add("pageNr", 1);
+    ViewBag.AjaxRouteValueDictionary = rd;
+
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };
+}
+<div id="tenantListAjax">
+    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+    @Html.Partial("Messages")
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, @Html.DisplayNameFor(model => model.Id).ToString(), "Id", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+            </th>
+            <th>
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, @Html.DisplayNameFor(model => model.Name).ToString(), "Name", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+            </th>
+            <th>
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, @Html.DisplayNameFor(model => model.Parent).ToString(), "ParentId", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td onclick="window.location = '@Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller })'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td onclick="window.location = '@Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller })'" class="ap-hand">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink(item.ParentId.ToString(), "Details", "Tenants", new { id = item.ParentId, rId = id, rAction = action, rController = controller }, null)
+                </td>
+                <td class="ap-btn text-nowrap">
+                    @Html.SecuredButton("Read", Url.Action("Details", "Tenants", new { id = item.Id, rId = id, rAction = action, rController = controller }))
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.Partial("AjaxPaging", Model)
+</div>

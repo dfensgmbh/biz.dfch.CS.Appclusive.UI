@@ -3,6 +3,11 @@
 
 @if (ViewBag.AjaxPaging != null && ViewBag.AjaxPaging.PageCount > 1)
 {
+    string controllerName = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
+    if (ViewBag.AjaxPagingController != null)
+    {
+        controllerName = ViewBag.AjaxPagingController;
+    }
     AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };
     if (ViewBag.AjaxRouteValueDictionary.ContainsKey("orderBy"))
     {
@@ -18,11 +23,11 @@
         {
             <li>
                 @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = 1; }  
-                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-double-left", ViewBag.AjaxPagingAction, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
+                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-double-left", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
             </li>
             <li>
                 @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = ViewBag.AjaxPaging.PageNr - 1; }  
-                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-left", ViewBag.AjaxPagingAction, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
+                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-left", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
             </li>
         }
         else
@@ -53,14 +58,14 @@
             {
                 <li class="active">
                     @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = i; }
-                    @AjaxExtensions.ActionLink(Ajax, @i.ToString(), ViewBag.AjaxPagingAction, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
+                    @AjaxExtensions.ActionLink(Ajax, @i.ToString(), ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
                 </li>
             }
             else
             {
                 <li>
                     @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = i; }
-                    @AjaxExtensions.ActionLink(Ajax, i.ToString(), ViewBag.AjaxPagingAction, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
+                    @AjaxExtensions.ActionLink(Ajax, i.ToString(), ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
                 </li>
             }
         }
@@ -76,11 +81,11 @@
             int nextPage = ViewBag.AjaxPaging.PageNr + 1;
             <li>
                 @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = nextPage; }
-                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-right", ViewBag.AjaxPagingAction, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
+                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-right", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
             </li>
             <li>
                 @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = ViewBag.AjaxPaging.PageCount; } 
-                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-double-right", ViewBag.AjaxPagingAction, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
+                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-double-right", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
             </li>
         }
         else

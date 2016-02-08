@@ -14,7 +14,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     public class AclsController : CoreControllerBase<Api.Core.Acl, Models.Core.Acl, object>
     {
         protected override DataServiceQuery<Api.Core.Acl> BaseQuery { get { return CoreRepository.Acls; } }
-        
+
         #region Acl
 
         // GET: Acls/Details/5
@@ -81,7 +81,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); 
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
                 acl.ResolveNavigationProperties(CoreRepository);
                 return View(acl);
             }
@@ -244,8 +244,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region Ace  list and search
 
-        public PartialViewResult ItemIndex(long aclId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        public PartialViewResult ItemIndex(long aclId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null, bool Readonly = false, string ajaxPagingTargetId = null)
         {
+            ViewBag.Readonly = Readonly;
+            if (!string.IsNullOrEmpty(ajaxPagingTargetId))
+            {
+                ViewBag.AjaxPagingTargetId = ajaxPagingTargetId;
+            }
             return PartialView("AceList", LoadAces(aclId, pageNr, false, itemSearchTerm, orderBy));
         }
 
@@ -262,55 +267,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         private List<Models.Core.Ace> LoadAces(long aclId, int pageNr, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
         {
-            int itemCount = 0;
-            Models.Core.Acl acl = AutoMapper.Mapper.Map<Models.Core.Acl>(CoreRepository.Acls.Expand("Aces").Where(c => c.Id == aclId).FirstOrDefault());
-            IEnumerable<Models.Core.Ace> aces;
-            if (string.IsNullOrEmpty(itemSearchTerm) && string.IsNullOrEmpty(orderBy))
-            {
-                // paging only
-                aces = acl.Aces.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
-                foreach (var ace in aces)
-                {
-                    ace.ResolveNavigationProperties(this.CoreRepository, acl);
-                }
-                itemCount = acl.Aces.Count;
-            }
-            else
-            {
-                // search or order by and paging 
-                aces = acl.Aces;
-                foreach (var ace in aces)
-                {
-                    ace.ResolveNavigationProperties(this.CoreRepository, acl);
-                }
-                if (!string.IsNullOrEmpty(itemSearchTerm))
-                {
-                    aces = aces.Where(a=> a.TypeStr.ToLower().Contains(itemSearchTerm.ToLower())
-                        || a.Trustee.Name.ToLower().Contains(itemSearchTerm.ToLower())
-                        || a.Permission.Name.ToLower().Contains(itemSearchTerm.ToLower())
-                    );
-                }
-                switch (orderBy)
-                {
-                    case "Type": aces = aces.OrderBy(a => a.TypeStr); break;
-                    case "Type desc": aces = aces.OrderByDescending(a => a.TypeStr); break;
-                    case "Trustee": aces = aces.OrderBy(a => a.Trustee.Name); break;
-                    case "Trustee desc": aces = aces.OrderByDescending(a => a.Trustee.Name); break;
-                    case "Permission": aces = aces.OrderBy(a => a.Permission.Name); break;
-                    case "Permission desc": aces = aces.OrderByDescending(a => a.Permission.Name); break;
-                    default: aces = aces.OrderBy(a => a.Type); break;
-                }
-                if (distinct)
-                {
-                    aces = aces.Distinct(new Models.Core.AceSearchViewComparer());
-                }
-                itemCount = aces.Count();
-                aces = aces.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
-            }
+            PagingInfo pagingInfo;
+            var aces = Models.Core.Acl.LoadAces(aclId, pageNr, out pagingInfo, distinct, itemSearchTerm, orderBy);
             ViewBag.ParentId = aclId;
             ViewBag.ItemSearchTerm = itemSearchTerm;
-            ViewBag.AjaxPaging = new PagingInfo(pageNr, itemCount);
-            return aces.ToList();
+            ViewBag.AjaxPaging = pagingInfo;
+            return aces;
         }
 
 

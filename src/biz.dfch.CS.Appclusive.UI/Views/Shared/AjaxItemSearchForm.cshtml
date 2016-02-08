@@ -13,10 +13,6 @@
 @using (Ajax.BeginForm(action, controller, (RouteValueDictionary)ViewBag.AjaxSearchRouteValueDictionary, ajaxOptions, htmlAttributes))
 {
     <div class="col-md-4">
-        @if (ViewBag.AjaxPaging != null)
-        {
-            <input name="pageNr" type="hidden" value="@ViewBag.AjaxPaging.PageNr" />
-        }
         <input class="form-control text-box single-line ap-autocomplete" id="itemSearchTerm" name="itemSearchTerm" value="@ViewBag.ItemSearchTerm" />
     </div>
     <input type="submit" value="@GeneralResources.Search" class="btn btn-primary" />

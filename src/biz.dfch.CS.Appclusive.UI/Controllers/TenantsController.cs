@@ -7,6 +7,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using biz.dfch.CS.Appclusive.UI.Config;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -25,8 +26,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Guid guid = Guid.Parse(id);
-                var item = CoreRepository.Tenants.Expand("Customer").Expand("Parent").Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
-                return View(AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(item)));
+                var item = CoreRepository.Tenants.Expand("Customer").Expand("Parent").Where(c => c.Id == guid).FirstOrDefault();
+                Models.Core.Tenant modelItem = AutoMapper.Mapper.Map<Models.Core.Tenant>(item);
+                if (null != modelItem)
+                {
+                    modelItem.Children = LoadChildren(id, 1);
+                }
+                return View(modelItem);
             }
             catch (Exception ex)
             {
@@ -82,10 +88,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Guid guid = Guid.Parse(id);
-                var apiItem = CoreRepository.Tenants.Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
+                var apiItem = CoreRepository.Tenants.Expand("Customer").Expand("Parent").Where(c => c.Id == guid).FirstOrDefault();
                 this.AddTenantSeletionToViewBag(apiItem);
                 this.AddCustomerSeletionToViewBag();
-                return View(AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem)));
+                Models.Core.Tenant modelItem = AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.Children = LoadChildren(id, 1);
+                }
+                return View(AddUsers(modelItem));
             }
             catch (Exception ex)
             {
@@ -107,15 +118,16 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     this.AddTenantSeletionToViewBag(AutoMapper.Mapper.Map<Api.Core.Tenant>(tenant));
                     this.AddCustomerSeletionToViewBag();
                     if (tenant.Id == Guid.Empty) tenant.IdStr = id;
+                    tenant.Children = LoadChildren(id, 1);
                     return View(AddUsers(tenant));
                 }
                 else
                 {
-                    apiItem = CoreRepository.Tenants.Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
+                    apiItem = CoreRepository.Tenants.Where(c => c.Id == guid).FirstOrDefault();
 
                     #region copy all edited properties
 
-                    apiItem.Id = tenant.Id; 
+                    apiItem.Id = tenant.Id;
                     apiItem.Name = tenant.Name;
                     apiItem.Description = tenant.Description;
                     apiItem.ParentId = tenant.ParentId;
@@ -129,13 +141,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.SuccessfullySaved));
                     this.AddTenantSeletionToViewBag(apiItem);
                     this.AddCustomerSeletionToViewBag();
-                    return View(AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem)));
+                    Models.Core.Tenant modelItem = AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem);
+                    if (null != modelItem)
+                    {
+                        modelItem.Children = LoadChildren(id, 1);
+                    }
+                    return View(AddUsers(modelItem));
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddTenantSeletionToViewBag(apiItem); 
+                this.AddTenantSeletionToViewBag(apiItem);
                 this.AddCustomerSeletionToViewBag();
                 return View(AddUsers(tenant));
             }
@@ -148,7 +165,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Guid guid = Guid.Parse(id);
-                apiItem = CoreRepository.Tenants.Expand("Customer").Expand("Parent").Expand("Children").Where(c => c.Id == guid).FirstOrDefault();
+                apiItem = CoreRepository.Tenants.Expand("Customer").Expand("Parent").Where(c => c.Id == guid).FirstOrDefault();
                 CoreRepository.DeleteObject(apiItem);
                 CoreRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -156,11 +173,50 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return View("Details", AddUsers(AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem)));
+                Models.Core.Tenant modelItem = AutoMapper.Mapper.Map<Models.Core.Tenant>(apiItem);
+                if (null != modelItem)
+                {
+                    modelItem.Children = LoadChildren(id, 1);
+                }
+                return View("Details", AddUsers(modelItem));
             }
         }
 
         #endregion
+
+        #region tenant-children list and search
+
+        public PartialViewResult ItemIndex(string parentId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        {
+            ViewBag.ParentId = parentId;
+            DataServiceQuery<Api.Core.Tenant> itemsBaseQuery = CoreRepository.Tenants;
+            string itemsBaseFilter = string.Format("ParentId eq guid'{0}'", parentId);
+            return base.ItemIndex<Api.Core.Tenant, Models.Core.Tenant>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+        }
+
+        private List<Models.Core.Tenant> LoadChildren(string parentId, int pageNr)
+        {
+            QueryOperationResponse<Api.Core.Tenant> items = CoreRepository.Tenants
+                    .AddQueryOption("$filter", string.Format("ParentId eq guid'{0}'", parentId))
+                    .AddQueryOption("$inlinecount", "allpages")
+                    .AddQueryOption("$top", PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .Execute() as QueryOperationResponse<Api.Core.Tenant>;
+
+            ViewBag.ParentId = parentId;
+            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+
+            return AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(items);
+        }
+
+        public ActionResult ItemSearch(string parentId, string term)
+        {
+            DataServiceQuery<Api.Core.Tenant> itemsBaseQuery = CoreRepository.Tenants;
+            string itemsBaseFilter = string.Format("ParentId eq guid'{0}'", parentId);
+            return base.ItemSearch(itemsBaseQuery, itemsBaseFilter, term);
+        }
+
+        #endregion tenant-children list
 
         /// <summary>
         /// Adds the user objects because they are not available through .Expand("CreatedBy").Expand("ModifiedBy")

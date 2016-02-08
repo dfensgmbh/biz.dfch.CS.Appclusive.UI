@@ -75,7 +75,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                var products = CoreRepository.Products.ToList();
+                List<Api.Core.Product> products = new List<Api.Core.Product>();
+
+                #region load all products
+
+                var query = this.CoreRepository.Products.AddQueryOption("$top", 10000);
+                QueryOperationResponse<Api.Core.Product> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Product>;
+                while (null != queryResponse)
+                {
+                    products.AddRange(queryResponse.ToList());
+                    DataServiceQueryContinuation<Api.Core.Product> cont = queryResponse.GetContinuation();
+                    if (null != cont)
+                    {
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Product>(cont) as QueryOperationResponse<Api.Core.Product>;
+                    }
+                    else
+                    {
+                        queryResponse = null;
+                    }
+                }
+
+                #endregion
+
                 ViewBag.ProductSelection = new SelectList(products, "Id", "Name");
             }
             catch (Exception ex)
@@ -84,54 +105,45 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
         
-        //protected void AddEntityKindSeletionToViewBag()
-        //{
-        //    try
-        //    {
-        //        var entityKinds = CoreRepository.EntityKinds.ToList();
-        //        ViewBag.EntityKindSelection = new SelectList(entityKinds, "Id", "Name");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-        //    }
-        //}
-
-        //protected void AddManagementCredentialSelectionToViewBag()
-        //{
-        //    try
-        //    {
-        //        List<Api.Core.ManagementCredential> creds = new List<Api.Core.ManagementCredential>();
-        //        creds.Add(new Api.Core.ManagementCredential() { Name = "-" });
-        //        creds.AddRange(CoreRepository.ManagementCredentials.ToList());
-
-        //        ViewBag.ManagementCredentialSelection = new SelectList(creds.Select(u => { return new { Id = u.Id > 0 ? (long?)u.Id : null, Name = u.Name }; }), "Id", "Name");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-        //    }
-        //}
-
         protected void AddTenantSeletionToViewBag(Api.Core.Tenant currentTenant, bool includeEmpty = false)
         {
             try
             {
-                List<Api.Core.Tenant> tenants = new List<Api.Core.Tenant>();
+                List<Models.Core.Tenant> tenants = new List<Models.Core.Tenant>();
                 if (includeEmpty)
                 {
-                    tenants.Add(new Api.Core.Tenant());
+                    tenants.Add(new Models.Core.Tenant());
                 }
+                #region load all tenants
+
+                List<Models.Core.Tenant> allTenants = new List<Models.Core.Tenant>();
+                var query = this.CoreRepository.Tenants.AddQueryOption("$top", 10000);
+                QueryOperationResponse<Api.Core.Tenant> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Tenant>;
+                while (null != queryResponse)
+                {
+                    allTenants.AddRange(AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(queryResponse.ToList()));
+                    DataServiceQueryContinuation<Api.Core.Tenant> cont = queryResponse.GetContinuation();
+                    if (null != cont)
+                    {
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Tenant>(cont) as QueryOperationResponse<Api.Core.Tenant>;
+                    }
+                    else
+                    {
+                        queryResponse = null;
+                    }
+                }
+
+                #endregion
                 if (null == currentTenant || currentTenant.ParentId == currentTenant.Id)// special seed entry in DB
                 {
-                    tenants.AddRange(CoreRepository.Tenants);
+                    tenants.AddRange(allTenants);
                 }
                 else
                 {
-                    tenants.AddRange(CoreRepository.Tenants.Where(t => t.Id != currentTenant.Id));
+                    tenants.AddRange(allTenants.Where(t => t.Id != currentTenant.Id));
                 }
 
-                ViewBag.TenantSelection = new SelectList(AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(tenants), "IdStr", "Id");
+                ViewBag.TenantSelection = new SelectList(tenants, "IdStr", "Id");
             }
             catch (Exception ex)
             {
@@ -145,22 +157,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 List<Api.Core.Customer> customers = new List<Api.Core.Customer>();
                 customers.Add(new Api.Core.Customer());
-                customers.AddRange(CoreRepository.Customers);
+
+                #region load all customer
+
+                var query = this.CoreRepository.Customers.AddQueryOption("$top", 10000);
+                QueryOperationResponse<Api.Core.Customer> queryResponse = query.Execute() as QueryOperationResponse<Api.Core.Customer>;
+                while (null != queryResponse)
+                {
+                    customers.AddRange(queryResponse.ToList());
+                    DataServiceQueryContinuation<Api.Core.Customer> cont = queryResponse.GetContinuation();
+                    if (null != cont)
+                    {
+                        queryResponse = this.CoreRepository.Execute<Api.Core.Customer>(cont) as QueryOperationResponse<Api.Core.Customer>;
+                    }
+                    else
+                    {
+                        queryResponse = null;
+                    }
+                }
+
+                #endregion
 
                 ViewBag.CustomerSelection = new SelectList(customers, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-            }
-        }
-
-        protected void AddAclSeletionToViewBag()
-        {
-            try
-            {
-                // ACL
-                ViewBag.AclSelection = new SelectList(CoreRepository.Acls, "Id", "Name");
             }
             catch (Exception ex)
             {

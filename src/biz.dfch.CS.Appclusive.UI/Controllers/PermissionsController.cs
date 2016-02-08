@@ -36,7 +36,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Permissions/Create
         public ActionResult Create()
         {
-            this.AddAclSeletionToViewBag();
             return View(new Models.Core.Permission());
         }
 
@@ -63,7 +62,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddAclSeletionToViewBag();
                 return View(permission);
             }
         }
@@ -71,7 +69,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         // GET: Permissions/Edit/5
         public ActionResult Edit(long id)
         {
-            this.AddAclSeletionToViewBag();
             try
             {
                 var apiItem = CoreRepository.Permissions.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
@@ -88,7 +85,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         [HttpPost]
         public ActionResult Edit(long id, Models.Core.Permission permission)
         {
-            this.AddAclSeletionToViewBag();
             try
             {
                 if (!ModelState.IsValid)
@@ -132,7 +128,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                this.AddAclSeletionToViewBag();
                 return View("Details", AutoMapper.Mapper.Map<Models.Core.Permission>(apiItem));
             }
         }

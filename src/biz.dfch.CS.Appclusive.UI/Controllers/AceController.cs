@@ -46,13 +46,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // GET: Aces/Create
-        public ActionResult Create(long aclId = 0)
+        public ActionResult Create(long aclId)
         {
-            this.AddAclSeletionToViewBag();
             Models.Core.Ace ace = new Models.Core.Ace(){
                 AclId = aclId,
                 Type = Models.Core.AceTypeEnum.ALLOW.GetHashCode()
             };
+            ace.ResolveNavigationProperties(this.CoreRepository);
             return View(ace);
         }
 
@@ -62,9 +62,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                this.AddAclSeletionToViewBag();
                 if (!ModelState.IsValid)
                 {
+                    ace.ResolveNavigationProperties(this.CoreRepository);
                     return View(ace);
                 }
                 else

@@ -7,10 +7,6 @@
 @using (Html.BeginForm(action, controller, new { pageNr = 1 }, FormMethod.Get, new { @class = "col-md-8", @id = "searchForm", @style = "margin-bottom: 5px; padding-left: 0px;" }))
 {
     <div class="col-md-4">
-        @if (ViewBag.Paging != null)
-        {
-            <input name="pageNr" type="hidden" value="@ViewBag.Paging.PageNr" />
-        }
         <input class="form-control text-box single-line ap-autocomplete" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" />
     </div>
     <input type="submit" value="@GeneralResources.Search" class="btn btn-primary" />

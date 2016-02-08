@@ -72,6 +72,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "EffectivAces", ResourceType = typeof(GeneralResources))]
         public List<Ace> EffectivAces { get; set; }
 
+        public string EntityName { get; set; }
+
         /// <summary>
         /// Find Order by Approval 
         /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
@@ -88,37 +90,49 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Assert(null != job, "no node-job available");
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
-        
-        internal void ResolveSecurity(Api.Core.Core coreRepository)
-        {
-            Contract.Requires(null != coreRepository);
 
+        internal void ResolveSecurity(out PagingInfo explicitPagingInfo, out PagingInfo effectivePagingInfo, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        {
+            explicitPagingInfo = new PagingInfo(1, 0);
+            effectivePagingInfo = new PagingInfo(1, 0);
             if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
             {
+                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+
                 // explicit permissions
-                Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("Aces").Expand("CreatedBy").Expand("ModifiedBy")
+                Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
                     .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                     .FirstOrDefault();
 
                 if (null != acl)
                 {
                     this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
-                    foreach (Models.Core.Ace ace in this.Acl.Aces)
-                    {
-                        ace.ResolveNavigationProperties(coreRepository, this.Acl);
-                    }
+                    this.Acl.Aces = Models.Core.Acl.LoadAces(acl.Id, 1, out explicitPagingInfo, false);
                 }
 
                 // effectiv permissions
-                var aceList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", this.Id, "GetEffectivePermissions", null);
-                this.EffectivAces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(aceList);
-                foreach (Models.Core.Ace ace in this.EffectivAces)
-                {
-                    ace.ResolveNavigationProperties(coreRepository);
-                }
+                this.EffectivAces = LoadEffectivePermissions(out effectivePagingInfo, this.Id, 1);
             }
         }
+        internal static List<Ace> LoadEffectivePermissions(out PagingInfo effectivePagingInfo, long nodeId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        {
+            List<Ace> aces;
+            if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
+            {
+                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                
+                // effectiv permissions
+                var apiList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", nodeId, "GetEffectivePermissions", null);
+                aces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(apiList);
+                aces = Ace.SortAndFilter(aces, out effectivePagingInfo, pageNr, itemSearchTerm, orderBy);
+            }
+            else
+            {
+                effectivePagingInfo = new PagingInfo(1, 0);
+                aces = new List<Ace>();
+            }
+            return aces;
+        }
         
-        public string EntityName { get; set; }
     }
 }
