@@ -82,3 +82,20 @@
         </script>
     }
 }
+else
+{
+    // needs search Action on controller: public ActionResult Search(string term)
+    <script type="text/javascript">
+
+        function InitTrusteeAuto(trusteeTypeId) {
+            $("#TrusteeId").val("");
+            $("#TrusteeIdSearch").val("");
+            if (trusteeTypeId == 0) {
+                InitAutocomplete('#TrusteeIdSearch', '#TrusteeId', '@Url.Action("Select", "Roles")')
+            } else {
+                InitAutocomplete('#TrusteeIdSearch', '#TrusteeId', '@Url.Action("Select", "Users")')
+            }
+        }
+
+    </script>
+}
