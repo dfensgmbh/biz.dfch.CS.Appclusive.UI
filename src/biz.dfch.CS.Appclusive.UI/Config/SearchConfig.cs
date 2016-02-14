@@ -49,7 +49,6 @@ namespace biz.dfch.CS.Appclusive.UI.Config
                                     Display = "{Name}",
                                     Filter = "substringof('{0}',Name)",
                                     SearchKey = "Name",
-                                    Select = "Id,Name"// key must be present for ODATA and it is always the property Id
                                 });
                         }
                     }
