@@ -317,7 +317,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, "no valid vdi-name");
+                Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, ErrorResources.VdiNameNotValid);
 
                 Models.Core.VdiCartItem cartItem = new Models.Core.VdiCartItem();
                 cartItem.Name = vdiName;
@@ -338,12 +338,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             try
             {
-                Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, "no valid vdi-name");
+                Contract.Requires(vdiName == Models.Core.VdiCartItem.VDI_PERSONAL_NAME || vdiName == Models.Core.VdiCartItem.VDI_TECHNICAL_NAME, ErrorResources.VdiNameNotValid);
                 var catalogueItem = CoreRepository.CatalogueItems.Where(c => c.Name == vdiName).FirstOrDefault();
-                Contract.Assert(null != catalogueItem, "No catalog item for " + vdiName);
+                Contract.Assert(null != catalogueItem, string.Format(ErrorResources.VdiCatalogItemMissing, vdiName));
 
                 if (!ModelState.IsValid)
                 {
+                    cartItem.ResolveRequester();
                     return View(cartItem);
                 }
                 else
@@ -357,12 +358,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     CoreRepository.SaveChanges();
 
                     ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.AddedToCart, catalogueItem.Name)));
+                    cartItem.ResolveRequester();
                     return View("VdiSave", cartItem);
                 }
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                cartItem.ResolveRequester();
                 return View(cartItem);
             }
         }
