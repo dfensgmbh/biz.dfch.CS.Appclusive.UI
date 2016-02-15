@@ -70,14 +70,26 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         }
 
         [Display(Name = "Requester", ResourceType = typeof(GeneralResources))]
-        public string Requester { get; set; }
+        public User Requester { get; set; }
+
+        [Display(Name = "Requester", ResourceType = typeof(GeneralResources))]
+        public long RequesterId { get; set; }
+
+        internal void ResolveRequester()
+        {
+            Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+            if (null == this.Requester && this.RequesterId>0)
+            {
+                this.Requester = AutoMapper.Mapper.Map<User>(coreRepository.Users.Where(o => o.Id == RequesterId).FirstOrDefault());
+            }
+        }
 
         internal string RequesterToParameters()
         {
             if (this.VdiName == VDI_TECHNICAL_NAME)
             {
-                // {"Requester":"tralala"}
-                var obj = new { Requester = this.Requester };
+                // {"RequesterId":"25"}
+                var obj = new { RequesterId = this.RequesterId };
                 string json = JsonConvert.SerializeObject(obj);
                 return json;
             }

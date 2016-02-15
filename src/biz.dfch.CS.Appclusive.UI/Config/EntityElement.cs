@@ -24,10 +24,7 @@ namespace biz.dfch.CS.Appclusive.UI.Config
         private const string FilterAttribute = "filter";
         private const string DisplayAttribute = "display";
         private const string SearchKeyAttribute = "searchkey";
-        private const string SelectAttribute = "select";
         private const string OrderByAttribute = "orderby";
-
-
 
         /// <summary>
         /// Entity name
@@ -72,18 +69,7 @@ namespace biz.dfch.CS.Appclusive.UI.Config
             get { return Convert.ToString(this[SearchKeyAttribute]); }
             set { this[SearchKeyAttribute] = value; }
         }
-
-        /// <summary>
-        /// Select expression to load the necessary properties
-        /// -> Id,Name
-        /// </summary>
-        [ConfigurationProperty(SelectAttribute, IsRequired = true)]
-        public string Select
-        {
-            get { return Convert.ToString(this[SelectAttribute]); }
-            set { this[SelectAttribute] = value; }
-        }
-        
+                
         /// <summary>
         /// Order expression
         /// -> Id,Name desc

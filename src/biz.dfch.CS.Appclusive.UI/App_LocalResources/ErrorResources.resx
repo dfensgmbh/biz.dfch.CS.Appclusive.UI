@@ -159,4 +159,10 @@
   <data name="userRemoved" xml:space="preserve">
     <value>User removed from role.</value>
   </data>
+  <data name="VdiCatalogItemMissing" xml:space="preserve">
+    <value>No catalog item for {0}.</value>
+  </data>
+  <data name="VdiNameNotValid" xml:space="preserve">
+    <value>No valid vdi-name provided.</value>
+  </data>
 </root>

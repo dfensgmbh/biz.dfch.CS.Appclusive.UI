@@ -93,7 +93,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         protected ActionResult Search<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
-            query = AddSelectFilter(query, term);
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
 
@@ -103,7 +102,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         protected ActionResult Select<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
-            query = AddSelectFilter(query, term);
 
             QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
 
@@ -121,7 +119,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         /// <summary>
-        /// consider implementing AddSelectFilter and AddSearchFilter as well,
+        /// consider implementing AddSearchFilter as well,
         /// otherwise you load the wrong properties..
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -133,7 +131,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         /// <summary>
-        /// consider implementing AddSelectFilter and AddSearchFilter as well,
+        /// consider implementing AddSearchFilter as well,
         /// otherwise you load the wrong properties..
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -145,7 +143,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
                 
         /// <summary>
-        /// consider implementing AddSelectFilter and AddSearchFilter as well,
+        /// consider implementing AddSearchFilter as well,
         /// otherwise you load the wrong properties..
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -212,26 +210,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #endregion
 
         #region basic query filters
-
+        
         /// <summary>
-        /// Adds all properties to load from this.SearchConfiguration.Select
-        ///  key must be present for ODATA and it is always the property Id
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="searchTerm"></param>
-        /// <returns></returns>
-        protected virtual DataServiceQuery<T> AddSelectFilter<T>(DataServiceQuery<T> query, string searchTerm)
-        {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.AddQueryOption("$select", this.SearchConfiguration.Select); 
-            }
-            return query;
-        }
-
-        /// <summary>
-        /// consider implementing AddSelectFilter and CreateOptionList as well,
+        /// consider implementing CreateOptionList as well,
         /// otherwise you load the wrong properties..
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -306,32 +287,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         protected ActionResult ItemSearch<T>(DataServiceQuery<T> itemQuery, string baseFilter, string term)
         {
             itemQuery = AddItemSearchFilter(itemQuery, baseFilter, term);
-            itemQuery = AddItemSelectFilter(itemQuery, term);
 
             QueryOperationResponse<T> items = itemQuery.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateItemSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
-
+        
         /// <summary>
-        /// consider implementing CreateItemOptionList and AddItemSearchFilter as well,
-        /// otherwise you load the wrong properties..
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="searchTerm"></param>
-        /// <returns></returns>
-        protected virtual DataServiceQuery<T> AddItemSelectFilter<T>(DataServiceQuery<T> query, string searchTerm)
-        {
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                query = query.AddQueryOption("$select", this.ItemSearchConfiguration.Select);// key must be present for ODATA and it is always the property Id
-            }
-            return query;
-        }
-
-        /// <summary>
-        /// consider implementing AddItemSelectFilter and CreateItemOptionList as well,
+        /// consider implementing CreateItemOptionList as well,
         /// otherwise you load the wrong properties..
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -360,7 +323,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         /// <summary>
-        /// consider implementing AddItemSelectFilter and AddItemSearchFilter as well,
+        /// consider implementing AddItemSearchFilter as well,
         /// otherwise you load the wrong properties..
         /// </summary>
         /// <typeparam name="T"></typeparam>
