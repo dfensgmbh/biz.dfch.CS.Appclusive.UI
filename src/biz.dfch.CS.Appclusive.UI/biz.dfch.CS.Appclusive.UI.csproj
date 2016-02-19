@@ -597,6 +597,7 @@
     <Content Include="Views\ManagementCredentials\ItemList.cshtml" />
     <Content Include="Views\Tenants\ItemIndex.cshtml" />
     <Content Include="Views\Tenants\ItemList.cshtml" />
+    <Content Include="Views\Nodes\ActOnNode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

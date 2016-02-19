@@ -228,3 +228,17 @@
 
     </script>
 }
+
+@using (Html.Delayed(null, "actOnNodeLoading"))
+{
+    <script type="text/javascript">
+
+        function showActBusy() {
+            $("#actOnNodeLoading").show();
+        }
+        function hideActBusy() {
+            $("#actOnNodeLoading").hide();
+        }
+
+    </script>
+}

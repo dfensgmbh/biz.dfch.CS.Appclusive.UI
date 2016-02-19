@@ -1,0 +1,50 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Core.Node
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@using biz.dfch.CS.Appclusive.UI.Helpers
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = "actOnNode", InsertionMode = InsertionMode.Replace, HttpMethod = "Post", OnBegin = "showActBusy", OnComplete = "hideActBusy" };
+    System.Collections.Generic.Dictionary<string, Object> htmlAttributes = new System.Collections.Generic.Dictionary<string, Object>();
+    htmlAttributes.Add("id", "actForm");
+    htmlAttributes.Add("class", "form-inline");
+    // htmlAttributes.Add("style","margin-bottom: 5px; padding-left: 0px;");
+    RouteValueDictionary rd = new RouteValueDictionary();
+    rd.Add("id", Model.Id);
+}
+@if ("ActOnNode" == (string)ViewContext.Controller.ControllerContext.RouteData.Values["action"])
+{
+    @Html.Partial("AjaxNotification", (IEnumerable<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>)ViewBag.Notifications)
+} 
+<div class="ap-busyParent">
+    <div id="actOnNodeLoading"></div>
+    <div id="permChecker" style="margin-bottom:15px">
+        @using (Ajax.BeginForm("ActOnNode", "Nodes", rd, ajaxOptions, htmlAttributes))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+                @Html.DropDownList("nodeAction", (IEnumerable<SelectListItem>)ViewBag.AvailableActions, new { @class = "form-control" })
+            </div>
+
+            <input type="submit" value="@GeneralResources.ActOnNode" class="btn btn-primary" onclick="return confirm('@GeneralResources.ActOnNodeConfirm')" />
+        }
+    </div>
+</div>
+
+@{
+    biz.dfch.CS.Appclusive.UI.Controllers.IExtendedController extController = ViewContext.Controller as biz.dfch.CS.Appclusive.UI.Controllers.IExtendedController;
+}
+@if (null == extController || !extController.IsAjaxRequest )
+{
+    using (Html.Delayed(null, "actOnNodeLoading"))
+    {
+        <script type="text/javascript">
+
+            function showActBusy() {
+                $("#actOnNodeLoading").show();
+            }
+            function hideActBusy() {
+                $("#actOnNodeLoading").hide();
+            }
+
+        </script>
+    }
+}

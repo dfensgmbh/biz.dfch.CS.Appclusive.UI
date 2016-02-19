@@ -918,4 +918,10 @@
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="ActOnNode" xml:space="preserve">
+    <value>execute</value>
+  </data>
+  <data name="ActOnNodeConfirm" xml:space="preserve">
+    <value>Do you really want to execute this action?</value>
+  </data>
 </root>

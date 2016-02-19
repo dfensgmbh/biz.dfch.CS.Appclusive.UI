@@ -59,7 +59,10 @@
                 @Html.DisplayFor(model => model.Job)
             </dd>
         </dl>
-
+        
+        <div id="actOnNode">
+            @Html.Partial("ActOnNode")
+        </div>
     </div>
     <div id="items" class="tab-pane fade">
         @Html.Partial("ChildList", Model.Children)

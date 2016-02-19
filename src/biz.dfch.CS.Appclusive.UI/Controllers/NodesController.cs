@@ -63,12 +63,67 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     PagingInfo explicitAcePagingInfo, effectivecePagingInfo;
                     modelItem.ResolveSecurity(out explicitAcePagingInfo, out effectivecePagingInfo);
                     ViewBag.ExplicitAcePaging = explicitAcePagingInfo;
-                    ViewBag.EffectiveAcePaging = effectivecePagingInfo;
-                    
+                    ViewBag.EffectiveAcePaging = effectivecePagingInfo;                    
                 }
                 catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+
+                // create Selection list with available actions
+                LoadAvailableActions(modelItem);
+
             }
             return modelItem;
+        }
+
+        /// <summary>
+        /// create Selection list with available actions
+        /// ViewBag.AvailableActions
+        /// </summary>
+        /// <param name="modelItem"></param>
+        private void LoadAvailableActions(Models.Core.Node modelItem)
+        {
+            List<SelectListItem> availableActions = new List<SelectListItem>();
+            try
+            {
+                IEnumerable<string> nodeActions = this.CoreRepository.InvokeEntityActionWithListResult<string>(modelItem, "AvailableActions", null);
+                foreach (string action in nodeActions)
+                {
+                    availableActions.Add(new SelectListItem()
+                    {
+                        Text = action, // TODO translation
+                        Value = action
+                    });
+                }
+            }
+            catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
+            ViewBag.AvailableActions = availableActions;
+        }
+
+        [HttpPost]
+        public PartialViewResult ActOnNode(long id, string nodeAction)
+        {
+            Models.Core.Node modelItem = null;
+            try
+            {
+                modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(CoreRepository.Nodes.Where(c => c.Id == id).FirstOrDefault());
+
+                // create Selection list with available actions
+                LoadAvailableActions(modelItem);
+
+                CoreRepository.InvokeEntityActionWithVoidResult("Nodes", id, "InvokeAction",
+                         new
+                         {
+                             Name = nodeAction,
+                             Parameters = "{}",
+                         });
+
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.Successfully + " " + nodeAction, "actOnNode"));
+                return PartialView(modelItem);
+            }
+            catch (Exception ex)
+            {
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                return PartialView(modelItem);
+            }
         }
 
         #region Node-children list and search
