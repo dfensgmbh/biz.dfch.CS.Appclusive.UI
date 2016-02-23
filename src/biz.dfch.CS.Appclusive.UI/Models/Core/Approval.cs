@@ -58,7 +58,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             get
             {
                 if (null == this.Job) return ErrorResources.NoJobAvailable;
-                return (this.Job.Status == DECLINED_STATUS_CHANGE) ?
+                return (Continue == DECLINED_STATUS_CHANGE) ?
                     GeneralResources.Decline
                     :
                     GeneralResources.Approve;
