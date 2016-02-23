@@ -84,7 +84,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Requires(null != coreRepository);
 
             Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Id == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "no node-job available");
