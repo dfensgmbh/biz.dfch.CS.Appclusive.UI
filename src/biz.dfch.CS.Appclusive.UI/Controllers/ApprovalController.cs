@@ -53,7 +53,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             try
             {
                 Contract.Requires(id > 0);
-                var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.ResolveOrderId(this.CoreRepository);
                 return View(approval);
@@ -71,7 +71,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Models.Core.Approval approval = new Models.Core.Approval();
             try
             {
-                var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.Continue = Models.Core.Approval.APPROVED_STATUS_CHANGE;
                 approval.HelpText = GeneralResources.HelpTextApprove;
@@ -91,7 +91,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Models.Core.Approval approval = new Models.Core.Approval();
             try
             {
-                var apiItem = CoreRepository.Approvals.Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Approvals.Where(c => c.Id == id).FirstOrDefault();
                 approval = AutoMapper.Mapper.Map<Models.Core.Approval>(apiItem);
                 approval.Continue = Models.Core.Approval.DECLINED_STATUS_CHANGE;
                 approval.HelpText = GeneralResources.HelpTextDecline;

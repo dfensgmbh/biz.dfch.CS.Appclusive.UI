@@ -83,7 +83,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             Contract.Requires(null != coreRepository);
 
-            Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+            Api.Core.Job job = coreRepository.Jobs
                 .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 

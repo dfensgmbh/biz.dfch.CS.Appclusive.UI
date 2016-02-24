@@ -88,7 +88,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             Contract.Requires(null != coreRepository);
 
-            Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+            Api.Core.Job job = coreRepository.Jobs
                 .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Approval.GetHashCode())
                 .FirstOrDefault();
 
@@ -112,7 +112,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 this.ResolveJob(coreRepository);
             }
 
-            Api.Core.Job orderJob = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
+            Api.Core.Job orderJob = coreRepository.Jobs
                 .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Order.GetHashCode())
                 .FirstOrDefault();
 
