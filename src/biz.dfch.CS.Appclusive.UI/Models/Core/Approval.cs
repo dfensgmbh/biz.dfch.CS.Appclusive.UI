@@ -124,9 +124,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
             if (this.OrderId > 0)
             {
-                this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.Orders.Where(o => o.Id == orderId).FirstOrDefault());
+                this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.InvokeEntityActionWithSingleResult<Api.Core.Order>(this, "Order", null));
             }
         }
-
     }
 }
