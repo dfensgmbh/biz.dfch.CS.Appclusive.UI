@@ -1258,7 +1258,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Catalog item of catalog.
+        ///   Looks up a localized string similar to Catalogue item of catalogue.
         /// </summary>
         public static string ItemOfCatalog {
             get {
