@@ -38,7 +38,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (diagnosticsRepository == null)
                 {
-                    diagnosticsRepository = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Diagnostics"));
+                    diagnosticsRepository = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Diagnostics"));
                     diagnosticsRepository.IgnoreMissingProperties = true;
                     //diagnosticsRepository.Format.UseJson();
                     diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;

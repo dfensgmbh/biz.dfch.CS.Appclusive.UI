@@ -20,7 +20,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// </summary>
         internal biz.dfch.CS.Appclusive.Api.Core.Core CoreRepositoryGet()
         {
-            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
+            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
             coreRepository.IgnoreMissingProperties = true;
             coreRepository.Format.UseJson();
             coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;

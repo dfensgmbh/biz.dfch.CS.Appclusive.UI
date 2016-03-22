@@ -40,7 +40,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (cmpRepository == null)
                 {
-                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Cmp"));
+                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Cmp"));
                     cmpRepository.IgnoreMissingProperties = true;
                     cmpRepository.Format.UseJson();
                     cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
