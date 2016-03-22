@@ -58,7 +58,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             get
             {
                 if (null == this.Job) return ErrorResources.NoJobAvailable;
-                return (this.Job.Status == DECLINED_STATUS_CHANGE) ?
+                return (Continue == DECLINED_STATUS_CHANGE) ?
                     GeneralResources.Decline
                     :
                     GeneralResources.Approve;
@@ -88,8 +88,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         {
             Contract.Requires(null != coreRepository);
 
-            Api.Core.Job job = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Id == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Approval.GetHashCode())
+            Api.Core.Job job = coreRepository.Jobs
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Approval.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "no approval-job available");
@@ -112,8 +112,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 this.ResolveJob(coreRepository);
             }
 
-            Api.Core.Job orderJob = coreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKind.Id == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Order.GetHashCode())
+            Api.Core.Job orderJob = coreRepository.Jobs
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Order.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != orderJob, "no Order-job available");
@@ -124,9 +124,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
             if (this.OrderId > 0)
             {
-                this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.Orders.Where(o => o.Id == orderId).FirstOrDefault());
+                this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.InvokeEntityActionWithSingleResult<Api.Core.Order>(this, "Order", null));
             }
         }
-
     }
 }

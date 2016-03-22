@@ -36,7 +36,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnController = rController;
             try
             {
-                var item = CoreRepository.Jobs.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var item = CoreRepository.Jobs.Where(c => c.Id == id).FirstOrDefault();
                 Models.Core.Job model = AutoMapper.Mapper.Map<Models.Core.Job>(item);
                  if (null != model)
                  {

@@ -27,7 +27,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
     public class NodesController : CoreControllerBase<Api.Core.Node, Models.Core.Node, Models.Core.Node>
     {
-        protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes.Expand("EntityKind"); } }
+        protected override DataServiceQuery<Api.Core.Node> BaseQuery { get { return CoreRepository.Nodes; } }
 
         // GET: Nodes/Details/5
         public ActionResult Details(long id, string rId = "0", string rAction = null, string rController = null)
@@ -51,7 +51,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         private Models.Core.Node LoadDetailModel(long id)
         {
-            var item = CoreRepository.Nodes.Expand("Parent").Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+            var item = CoreRepository.Nodes.Expand("Parent").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
             Models.Core.Node modelItem = AutoMapper.Mapper.Map<Models.Core.Node>(item);
             if (null != modelItem)
             {

@@ -33,7 +33,14 @@
         @Html.DisplayNameFor(model => model.CreatedBy)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.CreatedBy)
+        @if (null != Model.CreatedBy)
+        {
+            @Html.DisplayFor(model => model.CreatedBy)
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.CreatedById)
+        }
     </dd>
 
     <dt>
@@ -47,8 +54,14 @@
         @Html.DisplayNameFor(model => model.ModifiedBy)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.ModifiedBy)
+        @if (null != Model.ModifiedBy)
+        {
+            @Html.DisplayFor(model => model.ModifiedBy)
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.ModifiedById)
+        }
     </dd>
-
 
 </dl>

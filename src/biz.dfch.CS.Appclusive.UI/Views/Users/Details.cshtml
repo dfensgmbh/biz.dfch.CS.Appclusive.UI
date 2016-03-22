@@ -61,14 +61,17 @@
         <div id="general" class="tab-pane fade">
             @Html.Partial("IAppcusiveEntityBaseDetails", Model)
         </div>
-        <div id="permissionsTab" class="tab-pane fade">
-            @{ ViewBag.Id = Model.Id; }
-            @Html.Partial("PermissionList", Model.Permissions)
-        </div>
-        <div id="rolesTab" class="tab-pane fade">
-            @{ ViewBag.Id = Model.Id; }
-            @Html.Partial("RoleList", Model.Roles)
-        </div>
+        @if (Model.Id > 0)
+        {
+            <div id="permissionsTab" class="tab-pane fade">
+                @{ ViewBag.Id = Model.Id; }
+                @Html.Partial("PermissionList", Model.Permissions)
+            </div>
+            <div id="rolesTab" class="tab-pane fade">
+                @{ ViewBag.Id = Model.Id; }
+                @Html.Partial("RoleList", Model.Roles)
+            </div>
+        }
     </div>
     <hr />
 </div>

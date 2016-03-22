@@ -102,6 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         private List<Models.Core.OrderItem> LoadOrderItems(long orderId, int pageNr)
         {
+            // DFTODO - #110 - Load order items with CoreRepository.LoadProperty(order, "OrderItems")
             QueryOperationResponse<Api.Core.OrderItem> items = CoreRepository.OrderItems
                     .AddQueryOption("$filter", "OrderId eq " + orderId)
                     .AddQueryOption("$inlinecount", "allpages")
