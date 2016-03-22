@@ -18,6 +18,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,14 +47,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     diagnosticsRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    if (null != apiCreds)
-                    {
-                        diagnosticsRepository.Credentials = apiCreds;
-                    }
-                    else
-                    {
-                        diagnosticsRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    }
+                    Contract.Assert(null != apiCreds);
+                    diagnosticsRepository.Credentials = apiCreds;
                 }
                 return diagnosticsRepository;
             }
