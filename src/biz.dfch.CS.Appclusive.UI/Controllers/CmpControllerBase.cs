@@ -18,6 +18,7 @@ using biz.dfch.CS.Appclusive.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -40,7 +41,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (cmpRepository == null)
                 {
-                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Cmp"));
+                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Cmp"));
                     cmpRepository.IgnoreMissingProperties = true;
                     cmpRepository.Format.UseJson();
                     cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
@@ -48,14 +49,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     cmpRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    if (null != apiCreds)
-                    {
-                        cmpRepository.Credentials = apiCreds;
-                    }
-                    else
-                    {
-                        cmpRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    }
+                    Contract.Assert(null != apiCreds);
+                    cmpRepository.Credentials = apiCreds;
                 }
                 return cmpRepository;
             }

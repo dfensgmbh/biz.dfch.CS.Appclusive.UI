@@ -56,8 +56,6 @@ namespace biz.dfch.CS.Appclusive.UI.Tests.Models
 
             // check
             Assert.IsTrue(properties.Count > 0);
-
-
         }
     }
 }

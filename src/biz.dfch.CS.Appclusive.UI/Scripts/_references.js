@@ -14,3 +14,4 @@
 /// <reference path="site.js" />
 /// <reference path="fancytree/jquery.fancytree-all.min.js" />
 /// <reference path="locale/de.js" />
+/// <reference path="notify.min.js" />

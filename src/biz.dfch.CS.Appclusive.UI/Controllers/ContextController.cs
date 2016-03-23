@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -57,21 +58,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (coreRepository == null)
                 {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
+                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
                     coreRepository.IgnoreMissingProperties = true;
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
                     coreRepository.MergeOption = MergeOption.PreserveChanges;
                    
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    if (null != apiCreds)
-                    {
-                        coreRepository.Credentials = apiCreds;
-                    }
-                    else
-                    {
-                        coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    }
+                    Contract.Assert(null != apiCreds);
+                    coreRepository.Credentials = apiCreds;
                 }
                 return coreRepository;
             }

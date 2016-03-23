@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Services.Client;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System.Diagnostics.Contracts;
 
 namespace biz.dfch.CS.Appclusive.UI.Navigation
 {
@@ -20,21 +21,15 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// </summary>
         internal biz.dfch.CS.Appclusive.Api.Core.Core CoreRepositoryGet()
         {
-            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
+            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
             coreRepository.IgnoreMissingProperties = true;
             coreRepository.Format.UseJson();
             coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
             coreRepository.MergeOption = MergeOption.PreserveChanges;
 
             System.Net.NetworkCredential apiCreds = HttpContext.Current.Session["LoginData"] as System.Net.NetworkCredential;
-            if (null != apiCreds)
-            {
-                coreRepository.Credentials = apiCreds;
-            }
-            else
-            {
-                coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-            }
+            Contract.Assert(null != apiCreds);
+            coreRepository.Credentials = apiCreds;
 
             return coreRepository;
         }

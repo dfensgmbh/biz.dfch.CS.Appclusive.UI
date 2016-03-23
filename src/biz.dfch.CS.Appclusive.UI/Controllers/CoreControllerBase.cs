@@ -47,7 +47,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (coreRepository == null)
                 {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppculsiveApiBaseUrl + "Core"));
+                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
                     coreRepository.IgnoreMissingProperties = true;
                     coreRepository.Format.UseJson();
                     coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
@@ -55,14 +55,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     coreRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
 
                     System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    if (null != apiCreds)
-                    {
-                        coreRepository.Credentials = apiCreds;
-                    }
-                    else
-                    {
-                        coreRepository.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    }
+                    Contract.Assert(null != apiCreds);
+                    coreRepository.Credentials = apiCreds;
                 }
                 return coreRepository;
             }
