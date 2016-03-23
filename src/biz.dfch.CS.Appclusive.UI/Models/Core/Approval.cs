@@ -71,7 +71,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         /// set through call of ResolveOrderId()
         /// </summary>
         [Display(Name = "OrderId", ResourceType = typeof(GeneralResources))] 
-        public int OrderId { get; private set; }
+        public long OrderId { get; private set; }
 
         /// <summary>
         /// set through call of ResolveOrderId()
@@ -98,9 +98,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         /// <summary>
         /// Find Order by Approval 
-        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Approval') 
-        /// -> Job (Name== 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order') 
-        /// -> Order
         /// </summary>
         /// <param name="coreRepository"></param>
         internal void ResolveOrderId(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
@@ -112,19 +109,10 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 this.ResolveJob(coreRepository);
             }
 
-            Api.Core.Job orderJob = coreRepository.Jobs
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Order.GetHashCode())
-                .FirstOrDefault();
-
-            Contract.Assert(null != orderJob, "no Order-job available");
-
-            int orderId = 0;
-            int.TryParse(orderJob.RefId, out orderId);
-            this.OrderId = orderId;
-
-            if (this.OrderId > 0)
+            this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.InvokeEntityActionWithSingleResult<Api.Core.Order>(this, "Order", null));
+            if (null != this.Order)
             {
-                this.Order = AutoMapper.Mapper.Map<Order>(coreRepository.InvokeEntityActionWithSingleResult<Api.Core.Order>(this, "Order", null));
+                this.OrderId = Order.Id;
             }
         }
     }
