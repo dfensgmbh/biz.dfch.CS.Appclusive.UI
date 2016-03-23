@@ -123,7 +123,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
                 // load user
                 string fullUserName = string.Format("{0}\\{1}", domain, username);
-                this.CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(coreRepository.Users.Where(u => u.Name == fullUserName).FirstOrDefault());
+                this.CurrentUser = AutoMapper.Mapper.Map<Models.Core.User>(coreRepository.Users.Where(u => u.ExternalId == fullUserName.ToLower()).FirstOrDefault());
 
                 // default tenant
                 if (null != this.CurrentUser)
