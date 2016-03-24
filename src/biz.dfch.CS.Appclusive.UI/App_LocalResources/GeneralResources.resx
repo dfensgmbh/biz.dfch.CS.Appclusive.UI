@@ -924,4 +924,34 @@
   <data name="ActOnNodeConfirm" xml:space="preserve">
     <value>Do you really want to execute this action?</value>
   </data>
+  <data name="ElementId" xml:space="preserve">
+    <value>Element id</value>
+  </data>
+  <data name="TrusteeTypeStr" xml:space="preserve">
+    <value>Trustee type str</value>
+  </data>
+  <data name="TypeStr" xml:space="preserve">
+    <value>Type str</value>
+  </data>
+  <data name="CssClass" xml:space="preserve">
+    <value>Css class</value>
+  </data>
+  <data name="EntityName" xml:space="preserve">
+    <value>Entity name</value>
+  </data>
+  <data name="UiController" xml:space="preserve">
+    <value>Ui controller</value>
+  </data>
+  <data name="extraClasses" xml:space="preserve">
+    <value>extra classes</value>
+  </data>
+  <data name="hideCheckbox" xml:space="preserve">
+    <value>hide checkbox</value>
+  </data>
+  <data name="pageInfo" xml:space="preserve">
+    <value>page info</value>
+  </data>
+  <data name="GrantedMessage" xml:space="preserve">
+    <value>Granted message</value>
+  </data>
 </root>
