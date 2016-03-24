@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NoJobAvailable" xml:space="preserve">
-    <value>No job is available</value>
+    <value>No Job is available</value>
   </data>
   <data name="onlyNodeAllowed" xml:space="preserve">
-    <value>Only entity kind "node" is allowed.</value>
+    <value>Only EntityKind "Node" is allowed.</value>
   </data>
   <data name="permissionAdded" xml:space="preserve">
     <value>Permission added to role.</value>
@@ -136,7 +136,7 @@
     <value>Permission removed from role.</value>
   </data>
   <data name="requiredField" xml:space="preserve">
-    <value>The {0} field is required.</value>
+    <value>The '{0}' field is required.</value>
   </data>
   <data name="requiredName" xml:space="preserve">
     <value>Name is required</value>
@@ -160,9 +160,9 @@
     <value>User removed from role.</value>
   </data>
   <data name="VdiCatalogItemMissing" xml:space="preserve">
-    <value>No catalog item for {0}.</value>
+    <value>No Catalog item for {0}.</value>
   </data>
   <data name="VdiNameNotValid" xml:space="preserve">
-    <value>No valid vdi-name provided.</value>
+    <value>No valid VDI-name provided.</value>
   </data>
 </root>
