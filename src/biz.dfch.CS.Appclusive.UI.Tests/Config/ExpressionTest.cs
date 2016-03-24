@@ -40,6 +40,5 @@ namespace biz.dfch.CS.Appclusive.UI.Tests.Config
             Assert.IsTrue(exp.PropertyNames.Count==2);
             Assert.AreEqual(exp.FormatString, "{0} - {1} ({1})");
         }
-
     }
 }

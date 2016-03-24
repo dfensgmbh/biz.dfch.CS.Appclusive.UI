@@ -110,7 +110,6 @@
     <Compile Include="Config\ExpressionTest.cs" />
     <Compile Include="Models\AuditTrailTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="CreateResourceFile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +124,7 @@
       <Name>biz.dfch.CS.Appclusive.UI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

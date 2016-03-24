@@ -5,19 +5,20 @@ using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace biz.dfch.CS.Appclusive.UI.Tests
 {
     [TestClass]
     public class CreateResourceFile
     {
-         [TestCategory("SkipOnTeamCity")]
+        [TestCategory("SkipOnTeamCity")]
         [TestMethod]
         public void GenerateTextsForAllProperties()
         {
             try
             {
-                string resourceFilePath = @"C:\development\projects\GitHub\biz.dfch.CS.Appclusive.UI\src\biz.dfch.CS.Appclusive.UI\App_LocalResources\GeneralResources.resx";
+                string resourceFilePath = string.Format(@"{0}\biz.dfch.CS.Appclusive.UI\App_LocalResources\GeneralResources.resx", Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName);
                 XmlDocument resourceDoc = new XmlDocument();
                 resourceDoc.Load(resourceFilePath);
 
@@ -56,7 +57,7 @@ namespace biz.dfch.CS.Appclusive.UI.Tests
                         catch (Exception ex)
                         {
                             string log = ex.Message;
-                            //throw ex;
+                            throw;
                         }
                     }
                 }
@@ -73,11 +74,11 @@ namespace biz.dfch.CS.Appclusive.UI.Tests
         public void SplitCamelCaseTest()
         {
             string camel = "CreatedByMrJones";
-            string normel = "Created by mr jones";
+            string expectedResult = "Created by mr jones";
 
-            string transferred = this.SplitCamelCase(camel);
+            string result = this.SplitCamelCase(camel);
 
-            Assert.AreEqual(transferred,normel);
+            Assert.AreEqual(result, expectedResult);
         }
 
         private string SplitCamelCase(string str)
@@ -86,21 +87,18 @@ namespace biz.dfch.CS.Appclusive.UI.Tests
             {
                 return str;
             }
-            else
-            {
-                string res = Regex.Replace(
-                    Regex.Replace(
-                        str,
-                        @"(\P{Ll})(\P{Ll}\p{Ll})",
-                        "$1 $2"
-                    ),
-                    @"(\p{Ll})(\P{Ll})",
+            string res = Regex.Replace(
+                Regex.Replace(
+                    str,
+                    @"(\P{Ll})(\P{Ll}\p{Ll})",
                     "$1 $2"
-                );
+                ),
+                @"(\p{Ll})(\P{Ll})",
+                "$1 $2"
+            );
 
-                // retain first char
-                return str.Substring(0, 1) + res.Substring(1).ToLower();
-            }
+            // retain first char
+            return str.Substring(0, 1) + res.Substring(1).ToLower();
         }
     }
 }
