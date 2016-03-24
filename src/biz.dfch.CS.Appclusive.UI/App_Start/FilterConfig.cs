@@ -16,6 +16,7 @@
 
 using System.Web;
 using System.Web.Mvc;
+using biz.dfch.CS.Appclusive.UI.ActionFilter;
 
 namespace biz.dfch.CS.Appclusive.UI
 {
@@ -24,6 +25,7 @@ namespace biz.dfch.CS.Appclusive.UI
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthenticationActionFilter());
             filters.Add(new AuthorizeAttribute());
         }
     }
