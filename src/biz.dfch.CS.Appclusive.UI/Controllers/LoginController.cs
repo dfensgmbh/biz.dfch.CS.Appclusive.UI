@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Security.Authentication;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -118,8 +117,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         private static bool Login(LoginData data)
         {
-            Api.Core.Core coreRepository = null;
-
             try
             {
                 System.Net.NetworkCredential apiCreds = new System.Net.NetworkCredential(data.Username, data.Password,
@@ -127,19 +124,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 Contract.Assert(null != apiCreds);
 
-                coreRepository = new Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"))
-                {
-                    IgnoreMissingProperties = true,
-                    SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate,
-                    MergeOption = MergeOption.PreserveChanges,
-                    TenantID = PermissionDecisions.Current.Tenant.Id.ToString(),
-                    Credentials = apiCreds
-                };
+                var repo =
+                    new Api.Diagnostics.Diagnostics(
+                        new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Diagnostics"))
+                    {
+                        IgnoreMissingProperties = true,
+                        SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate,
+                        MergeOption = MergeOption.PreserveChanges,
+                        TenantID = PermissionDecisions.Current.Tenant.Id.ToString(),
+                        Credentials = apiCreds
+                    };
 
-                coreRepository.Format.UseJson();
-
-                coreRepository.Tenants.FirstOrDefault();
-
+                repo.Format.UseJson();
+                repo.InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
+                
                 return true;
             }
             catch (DataServiceQueryException ex)
@@ -148,10 +146,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     throw new AuthenticationException("Invalid credentials", ex);
 
                 throw;
-            }
-            finally
-            {
-                coreRepository = null;
             }
         }
     }
