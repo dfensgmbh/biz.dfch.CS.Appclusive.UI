@@ -2,6 +2,9 @@
 using biz.dfch.CS.Appclusive.UI.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Data.Services.Client;
+using System.Diagnostics.Contracts;
+using System.Security.Authentication;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -12,13 +15,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
     {
         public LoginController()
         {
-            ViewBag.Notifications = new List<biz.dfch.CS.Appclusive.UI.Models.AjaxNotificationViewModel>();
+            ViewBag.Notifications = new List<AjaxNotificationViewModel>();
         }
 
         // GET: Login?ReturnUrl=%2fbiz.dfch.CS.Appclusive.UI%2f
         public ActionResult Index(string returnUrl=null)
         {
-            Models.LoginData data = new Models.LoginData()
+            LoginData data = new LoginData()
             {
                 ReturnUrl = returnUrl,
                 Username = Properties.Settings.Default.DefaultLoginUsername,
@@ -57,6 +60,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 }
             }
+            catch (AuthenticationException ex)
+            {
+                var error = new AjaxNotificationViewModel()
+                {
+                    Level = ENotifyStyle.error,
+                    Message = ex.Message
+                };
+
+                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(error);
+
+                return View(data);
+            }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
@@ -68,9 +83,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             FormsAuthentication.SignOut();
             Session["LoginData"] = null;
+            Session["PermissionDecisions"] = null;
+
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Login");
             }
             else
             {
@@ -83,17 +100,53 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private bool DoLogin(Models.LoginData data)
+        private bool DoLogin(LoginData data)
         {
-            bool isAuthenticated = true; // CheckPassword(username, password);
+            var isAuthenticated = Login(data);
+
             if (isAuthenticated)
             {
-                FormsAuthentication.RedirectFromLoginPage(data.Username, false);
                 Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
                 Session["PermissionDecisions"] = new PermissionDecisions(data.Username, data.Domain);
+                
+                FormsAuthentication.RedirectFromLoginPage(data.Username, false);
             }
+
             return isAuthenticated;
         }
 
+        private static bool Login(LoginData data)
+        {
+            try
+            {
+                System.Net.NetworkCredential apiCreds = new System.Net.NetworkCredential(data.Username, data.Password,
+                    data.Domain);
+
+                Contract.Assert(null != apiCreds);
+
+                var repo =
+                    new Api.Diagnostics.Diagnostics(
+                        new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Diagnostics"))
+                    {
+                        IgnoreMissingProperties = true,
+                        SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate,
+                        MergeOption = MergeOption.PreserveChanges,
+                        TenantID = PermissionDecisions.Current.Tenant.Id.ToString(),
+                        Credentials = apiCreds
+                    };
+
+                repo.Format.UseJson();
+                repo.InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
+                
+                return true;
+            }
+            catch (DataServiceQueryException ex)
+            {
+                if (ex.Response.StatusCode == 401)
+                    throw new AuthenticationException("Invalid credentials", ex);
+
+                throw;
+            }
+        }
     }
 }
