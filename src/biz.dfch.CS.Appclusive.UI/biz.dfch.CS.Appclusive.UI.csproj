@@ -542,7 +542,6 @@
     <Content Include="Views\Shared\DisplayTemplates\CostCentre.cshtml" />
     <Content Include="Views\Tenants\General.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Tenant.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Customer.cshtml" />
     <Content Include="Views\Permissions\Create.cshtml" />
     <Content Include="Views\Permissions\Details.cshtml" />
