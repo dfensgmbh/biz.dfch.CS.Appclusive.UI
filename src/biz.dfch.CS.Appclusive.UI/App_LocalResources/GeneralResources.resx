@@ -951,4 +951,19 @@
   <data name="GrantedMessage" xml:space="preserve">
     <value>Granted message</value>
   </data>
+  <data name="HealthCheck" xml:space="preserve">
+    <value>Health Check</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Degraded" xml:space="preserve">
+    <value>Degraded</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
 </root>

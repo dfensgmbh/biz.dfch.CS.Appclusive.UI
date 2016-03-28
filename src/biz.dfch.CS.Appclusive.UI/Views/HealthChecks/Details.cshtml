@@ -1,0 +1,69 @@
+﻿@model biz.dfch.CS.Appclusive.UI.Models.Diagnostics.HealthCheck
+@using biz.dfch.CS.Appclusive.UI.App_LocalResources
+@{
+    ViewBag.Title = @Model.GetType().Name + " details";
+}
+@section Title{
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h4>@GeneralResources.ResourceManager.GetString(@Model.GetType().Name)</h4>
+}
+<div>
+    <hr />
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details">@GeneralResources.Details</a></li>
+        <li><a data-toggle="tab" href="#general">@GeneralResources.General</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane fade in active">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Active)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Active)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @switch (Model.Status)
+                    {
+                        case "Ok":
+                            <span class="label label-success">@GeneralResources.Ok</span>
+                            break;
+                        case "Degraded":
+                            <span class="label label-warning">@GeneralResources.Degraded</span>
+                            break;
+                        case "Failed":
+                            <span class="label label-danger">@GeneralResources.Failed</span>
+                            break;
+                        default:
+                            @Html.DisplayFor(model => model.Status);
+                            break;
+                    }
+                </dd>
+            </dl>
+        </div>
+        <div id="general" class="tab-pane fade">
+            @Html.Partial("IAppcusiveEntityBaseDetails", Model)
+        </div>
+    </div>
+    <hr />
+</div>
+<p>
+    @Html.Partial("BackLink")
+</p>

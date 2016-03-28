@@ -74,6 +74,7 @@ namespace biz.dfch.CS.Appclusive.UI
 
             Mapper.CreateMap<Api_Diagnostics.AuditTrail, Models.Diagnostics.AuditTrail>();
             Mapper.CreateMap<Api_Diagnostics.Endpoint, Models.Diagnostics.Endpoint>();
+            Mapper.CreateMap<Api_Diagnostics.HealthCheck, Models.Diagnostics.HealthCheck>();
 
             Mapper.CreateMap<Api.Core.Ace, Models.Core.Ace>();
             Mapper.CreateMap<Models.Core.Ace, Api.Core.Ace>();

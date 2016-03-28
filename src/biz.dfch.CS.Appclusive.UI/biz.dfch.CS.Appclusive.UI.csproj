@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ContextController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
+    <Compile Include="Controllers\HealthChecksController.cs" />
     <Compile Include="Controllers\IExtendedController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
+    <Compile Include="Models\Diagnostics\HealthCheck.cs" />
     <Compile Include="Models\ExceptionHelper.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
@@ -599,6 +601,8 @@
     <Content Include="Views\Tenants\ItemIndex.cshtml" />
     <Content Include="Views\Tenants\ItemList.cshtml" />
     <Content Include="Views\Nodes\ActOnNode.cshtml" />
+    <Content Include="Views\HealthChecks\Details.cshtml" />
+    <Content Include="Views\HealthChecks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

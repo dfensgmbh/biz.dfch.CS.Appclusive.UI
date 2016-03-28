@@ -133,6 +133,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Execute.
         /// </summary>
         public static string ActOnNode {
@@ -700,6 +709,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Degraded.
+        /// </summary>
+        public static string Degraded {
+            get {
+                return ResourceManager.GetString("Degraded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -961,6 +979,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string Failed {
+            get {
+                return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gate.
         /// </summary>
         public static string Gate {
@@ -1119,6 +1146,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string HasNoInheritanceFromParent {
             get {
                 return ResourceManager.GetString("HasNoInheritanceFromParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Health Check.
+        /// </summary>
+        public static string HealthCheck {
+            get {
+                return ResourceManager.GetString("HealthCheck", resourceCulture);
             }
         }
         
@@ -1704,6 +1740,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string odata_error {
             get {
                 return ResourceManager.GetString("odata_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
