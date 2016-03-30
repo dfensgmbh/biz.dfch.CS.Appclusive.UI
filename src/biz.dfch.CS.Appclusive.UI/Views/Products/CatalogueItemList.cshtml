@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => catalogItem.Description)
             </td>
             <td class="ap-btn text-nowrap">
-                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" }) "><i class="fa fa-cog"></i> @GeneralResources.CatalogueItem @GeneralResources.DetailsLink</a>
+                <a class="btn btn-default btn-sm" href="@Url.Action("ItemDetails", "Catalogues", new { id = catalogItem.Id, rId = catalogItem.ProductId, rAction = "Details", rController = "Products" })"><i class="fa fa-cog"></i> @GeneralResources.CatalogueItem @GeneralResources.DetailsLink</a>
             </td>
         </tr>
     }

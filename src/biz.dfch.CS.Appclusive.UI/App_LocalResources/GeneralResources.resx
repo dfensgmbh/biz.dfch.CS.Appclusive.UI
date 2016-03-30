@@ -130,7 +130,7 @@
     <value>Expires at</value>
   </data>
   <data name="HelpText" xml:space="preserve">
-    <value>Help Text</value>
+    <value>Help text</value>
   </data>
   <data name="HelpTextApprove" xml:space="preserve">
     <value>The request will be approved when you click the 'Approve' button. You can optionally add a explanation or reason for approval.</value>
@@ -148,13 +148,13 @@
     <value>Order Id</value>
   </data>
   <data name="ParentId" xml:space="preserve">
-    <value>Parent id</value>
+    <value>Parent Id</value>
   </data>
   <data name="ReferencedItemId" xml:space="preserve">
     <value>Ref Id</value>
   </data>
   <data name="ServerRole" xml:space="preserve">
-    <value>Server role</value>
+    <value>Server Role</value>
   </data>
   <data name="TenantId" xml:space="preserve">
     <value>Tenant Id</value>
@@ -166,13 +166,13 @@
     <value>Valid until</value>
   </data>
   <data name="VDI_INVALID_HelpText" xml:space="preserve">
-    <value>invalid VDI</value>
+    <value>Invalid VDI</value>
   </data>
   <data name="VDI_PERSONAL_HelpText" xml:space="preserve">
-    <value>Add technical VDI</value>
+    <value>Order a VDI for yourself</value>
   </data>
   <data name="VDI_TECHNICAL_HelpText" xml:space="preserve">
-    <value>You are requestiong a VDI for antoher user</value>
+    <value>Order a VDI for antoher user</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
@@ -187,19 +187,19 @@
     <value>General</value>
   </data>
   <data name="BackToOrder" xml:space="preserve">
-    <value>Back to order</value>
+    <value>Back to Order</value>
   </data>
   <data name="CancelLink" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="ItemOfOrder" xml:space="preserve">
-    <value>Order item of order</value>
+    <value>Order item of Order</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
   <data name="Catalogue" xml:space="preserve">
-    <value>Catalogue</value>
+    <value>Software Catalogue</value>
   </data>
   <data name="KeyNameValue" xml:space="preserve">
     <value>Configuration (KNV)</value>
@@ -220,10 +220,10 @@
     <value>Catalogue item</value>
   </data>
   <data name="CostCentre" xml:space="preserve">
-    <value>Cost centre</value>
+    <value>Cost Centre</value>
   </data>
   <data name="EntityKind" xml:space="preserve">
-    <value>Entity kind</value>
+    <value>Entity Kind</value>
   </data>
   <data name="Gate" xml:space="preserve">
     <value>Gate</value>
@@ -232,13 +232,13 @@
     <value>Job</value>
   </data>
   <data name="ManagementCredential" xml:space="preserve">
-    <value>Management credential</value>
+    <value>Management Credential</value>
   </data>
   <data name="ManagementUri" xml:space="preserve">
-    <value>Management uri</value>
+    <value>Management URI</value>
   </data>
   <data name="Node" xml:space="preserve">
-    <value>Node (Inventory)</value>
+    <value>Inventory (Nodes)</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
@@ -253,16 +253,16 @@
     <value>VDI</value>
   </data>
   <data name="AuditTrail" xml:space="preserve">
-    <value>Audit trail</value>
+    <value>Audit Trail</value>
   </data>
   <data name="Endpoint" xml:space="preserve">
     <value>Endpoint</value>
   </data>
   <data name="ItemOfCart" xml:space="preserve">
-    <value>Cart item of cart</value>
+    <value>Cart item of Cart</value>
   </data>
   <data name="ItemOfCatalog" xml:space="preserve">
-    <value>Catalogue item of catalogue</value>
+    <value>Catalogue item of Catalogue</value>
   </data>
   <data name="Approve" xml:space="preserve">
     <value>Approve</value>
@@ -274,7 +274,7 @@
     <value> list</value>
   </data>
   <data name="Request" xml:space="preserve">
-    <value>request</value>
+    <value>Request</value>
   </data>
   <data name="BackToCart" xml:space="preserve">
     <value>Back to Cart</value>
@@ -283,22 +283,22 @@
     <value>Catalogue items</value>
   </data>
   <data name="CheckOutCart" xml:space="preserve">
-    <value>Check out cart</value>
+    <value>Check out Cart</value>
   </data>
   <data name="GoToCarts" xml:space="preserve">
-    <value>go to carts</value>
+    <value>Go to Carts</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Create New</value>
   </data>
   <data name="AddToCart" xml:space="preserve">
-    <value>Add to cart</value>
+    <value>Add to Cart</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
   <data name="BackToCatalogue" xml:space="preserve">
-    <value>Back to catalogue</value>
+    <value>Back to Catalogue</value>
   </data>
   <data name="GateHelpText" xml:space="preserve">
     <value>Name must be unique and the full name of a core type.</value>
@@ -307,7 +307,7 @@
     <value>Save</value>
   </data>
   <data name="ConfirmCheckOut" xml:space="preserve">
-    <value>Are you sure want to checkout?</value>
+    <value>Are you sure you want to checkout?</value>
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Are you sure you want to delete this item?</value>
@@ -322,10 +322,10 @@
     <value>New</value>
   </data>
   <data name="VDI_PERSONAL" xml:space="preserve">
-    <value>Add personal VDI</value>
+    <value>Order Personal VDI</value>
   </data>
   <data name="VDI_TECHNICAL" xml:space="preserve">
-    <value>Add VDI for technical use</value>
+    <value>Order VDI on behalf of</value>
   </data>
   <data name="HelpTextAuditTrail" xml:space="preserve">
     <value>This table shows all modifications to the underlying entities</value>
@@ -340,13 +340,13 @@
     <value>Access Control List</value>
   </data>
   <data name="CimiTarget" xml:space="preserve">
-    <value>Cimi target</value>
+    <value>Cimi Target</value>
   </data>
   <data name="ContractMapping" xml:space="preserve">
-    <value>Contract mapping</value>
+    <value>Contract Mapping</value>
   </data>
   <data name="ContractMappings" xml:space="preserve">
-    <value>Contract mappings</value>
+    <value>Contract Mappings</value>
   </data>
   <data name="Tenant" xml:space="preserve">
     <value>Tenant</value>
@@ -364,7 +364,7 @@
     <value>ACLs</value>
   </data>
   <data name="ManagementUris" xml:space="preserve">
-    <value>Management uris</value>
+    <value>Management URIs</value>
   </data>
   <data name="Aces" xml:space="preserve">
     <value>Access Control Entities</value>
@@ -376,13 +376,13 @@
     <value>Go</value>
   </data>
   <data name="OperationClearAuditLog" xml:space="preserve">
-    <value>Clear audit log</value>
+    <value>Clear Audit Log</value>
   </data>
   <data name="OperationRaiseUpdateConfigurationEvent" xml:space="preserve">
-    <value>Raise update configuration event</value>
+    <value>Raise UpdateConfiguration Event</value>
   </data>
   <data name="OperationReloadProducts" xml:space="preserve">
-    <value>Reload products</value>
+    <value>Reload Products</value>
   </data>
   <data name="OperationSetCreatedBy" xml:space="preserve">
     <value>Set created by</value>
@@ -391,10 +391,10 @@
     <value>'Entity set' must include full namespace (biz.dfch.CS.Appclusive.Core.OdataServices.Core.Ace)</value>
   </data>
   <data name="OperationSetTenant" xml:space="preserve">
-    <value>Set tenant</value>
+    <value>Set Tenant</value>
   </data>
   <data name="SpecialOperations" xml:space="preserve">
-    <value>Special operations</value>
+    <value>Special Operations</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
@@ -469,16 +469,16 @@
     <value>Naming convention: use project namespace as prefix</value>
   </data>
   <data name="Copied" xml:space="preserve">
-    <value>copied!</value>
+    <value>Copied!</value>
   </data>
   <data name="CopyPassword" xml:space="preserve">
-    <value>Copy password to clip board</value>
+    <value>Copy password to clipboard</value>
   </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
   <data name="SeePassword" xml:space="preserve">
-    <value>See password</value>
+    <value>Show password</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
@@ -508,7 +508,7 @@
     <value>Logout</value>
   </data>
   <data name="LoginInfo" xml:space="preserve">
-    <value>Login with your Appclusive-API credentials</value>
+    <value>Login with your Windows user account</value>
   </data>
   <data name="CreateNewItem" xml:space="preserve">
     <value>Create new item</value>
@@ -529,10 +529,10 @@
     <value>Level</value>
   </data>
   <data name="key" xml:space="preserve">
-    <value>key</value>
+    <value>Key</value>
   </data>
   <data name="value" xml:space="preserve">
-    <value>value</value>
+    <value>Value</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>
@@ -547,25 +547,25 @@
     <value>Row version</value>
   </data>
   <data name="Tid" xml:space="preserve">
-    <value>Tid</value>
+    <value>Tenant Id</value>
   </data>
   <data name="CreatedById" xml:space="preserve">
-    <value>Created by id</value>
+    <value>Created by Id</value>
   </data>
   <data name="ModifiedById" xml:space="preserve">
-    <value>Modified by id</value>
+    <value>Modified by Id</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description en</value>
+    <value>Description</value>
   </data>
   <data name="CimiId" xml:space="preserve">
-    <value>Cimi id</value>
+    <value>Cimi Id</value>
   </data>
   <data name="CimiType" xml:space="preserve">
     <value>Cimi type</value>
   </data>
   <data name="CatalogueItemId" xml:space="preserve">
-    <value>Catalogue item id</value>
+    <value>Catalogue item Id</value>
   </data>
   <data name="Trustee" xml:space="preserve">
     <value>Trustee</value>
@@ -574,10 +574,10 @@
     <value>Action</value>
   </data>
   <data name="AclId" xml:space="preserve">
-    <value>Acl id</value>
+    <value>Acl Id</value>
   </data>
   <data name="EntityKindId" xml:space="preserve">
-    <value>Entity kind id</value>
+    <value>Entity kind Id</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
@@ -585,26 +585,23 @@
   <data name="ActionText" xml:space="preserve">
     <value>Action text</value>
   </data>
-  <data name="OrderIdClass" xml:space="preserve">
-    <value>Order id class</value>
-  </data>
   <data name="Destination" xml:space="preserve">
     <value>Destination</value>
   </data>
   <data name="DestinationId" xml:space="preserve">
-    <value>Destination id</value>
+    <value>Destination Id</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Source</value>
   </data>
   <data name="SourceId" xml:space="preserve">
-    <value>Source id</value>
+    <value>Source Id</value>
   </data>
   <data name="CartItems" xml:space="preserve">
     <value>Cart items</value>
   </data>
   <data name="CartId" xml:space="preserve">
-    <value>Cart id</value>
+    <value>Cart Id</value>
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parameters</value>
@@ -616,25 +613,25 @@
     <value>Version</value>
   </data>
   <data name="CatalogueId" xml:space="preserve">
-    <value>Catalogue id</value>
+    <value>Catalogue Id</value>
   </data>
   <data name="ProductId" xml:space="preserve">
-    <value>Product id</value>
+    <value>Product Id</value>
   </data>
   <data name="ValidFromDateTime" xml:space="preserve">
-    <value>Valid from date time</value>
+    <value>Valid from</value>
   </data>
   <data name="ExternalType" xml:space="preserve">
     <value>External type</value>
   </data>
   <data name="ExternalId" xml:space="preserve">
-    <value>External id</value>
+    <value>External Id</value>
   </data>
   <data name="IsPrimary" xml:space="preserve">
     <value>Is primary</value>
   </data>
   <data name="CustomerId" xml:space="preserve">
-    <value>Customer id</value>
+    <value>Customer Id</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -667,25 +664,25 @@
     <value>Username</value>
   </data>
   <data name="ManagementCredentialId" xml:space="preserve">
-    <value>Management credential id</value>
+    <value>Management credential Id</value>
   </data>
   <data name="TypeSelection" xml:space="preserve">
     <value>Type selection</value>
   </data>
   <data name="IncomingAssocs" xml:space="preserve">
-    <value>Incoming assocs</value>
+    <value>Incoming Associations</value>
   </data>
   <data name="OutgoingAssocs" xml:space="preserve">
-    <value>Outgoing assocs</value>
+    <value>Outgoing Associations</value>
   </data>
   <data name="CostCentreId" xml:space="preserve">
-    <value>Cost centre id</value>
+    <value>Cost Centre Id</value>
   </data>
   <data name="OrderItems" xml:space="preserve">
     <value>Order items</value>
   </data>
   <data name="RequesterId" xml:space="preserve">
-    <value>Requester id</value>
+    <value>Requester Id</value>
   </data>
   <data name="Requester" xml:space="preserve">
     <value>Requester</value>
@@ -694,22 +691,22 @@
     <value>Id str</value>
   </data>
   <data name="ParentIdStr" xml:space="preserve">
-    <value>Parent id str</value>
+    <value>Parent Id str</value>
   </data>
   <data name="Mail" xml:space="preserve">
     <value>Mail</value>
   </data>
   <data name="VdiName" xml:space="preserve">
-    <value>Vdi name</value>
+    <value>VDI name</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Appclusive</value>
   </data>
   <data name="Current" xml:space="preserve">
     <value>Current</value>
   </data>
   <data name="EntityId" xml:space="preserve">
-    <value>Entity id</value>
+    <value>Entity Id</value>
   </data>
   <data name="EntityState" xml:space="preserve">
     <value>Entity state</value>
@@ -736,22 +733,22 @@
     <value>Return url</value>
   </data>
   <data name="lang" xml:space="preserve">
-    <value>lang</value>
+    <value>Lang</value>
   </data>
   <data name="stacktrace" xml:space="preserve">
-    <value>stacktrace</value>
+    <value>Stacktrace</value>
   </data>
   <data name="internalexception" xml:space="preserve">
-    <value>internalexception</value>
+    <value>Internal exception</value>
   </data>
   <data name="code" xml:space="preserve">
-    <value>code</value>
+    <value>Code</value>
   </data>
   <data name="innererror" xml:space="preserve">
-    <value>innererror</value>
+    <value>Inner error</value>
   </data>
   <data name="odata_error" xml:space="preserve">
-    <value>odata _error</value>
+    <value>OData error</value>
   </data>
   <data name="PageNr" xml:space="preserve">
     <value>Page nr</value>
@@ -790,10 +787,10 @@
     <value>Changed properties</value>
   </data>
   <data name="TrusteeId" xml:space="preserve">
-    <value>Trustee id</value>
+    <value>Trustee Id</value>
   </data>
   <data name="PermissionId" xml:space="preserve">
-    <value>Permission id</value>
+    <value>Permission Id</value>
   </data>
   <data name="TrusteeType" xml:space="preserve">
     <value>Trustee type</value>
@@ -802,7 +799,7 @@
     <value>No inheritance from parent</value>
   </data>
   <data name="RefId" xml:space="preserve">
-    <value>Ref id</value>
+    <value>Ref Id</value>
   </data>
   <data name="MailAddress" xml:space="preserve">
     <value>Mail address</value>
@@ -832,7 +829,7 @@
     <value>Granted</value>
   </data>
   <data name="NodeId" xml:space="preserve">
-    <value>Node id</value>
+    <value>Node Id</value>
   </data>
   <data name="Nodes" xml:space="preserve">
     <value>Nodes</value>
@@ -859,13 +856,13 @@
     <value>Tenant switch</value>
   </data>
   <data name="TenantSwitchAll" xml:space="preserve">
-    <value>all tenants</value>
+    <value>All tenants</value>
   </data>
   <data name="TenantSwitchInfo" xml:space="preserve">
     <value>Choose your tenant context:</value>
   </data>
   <data name="OrderBy" xml:space="preserve">
-    <value>order by</value>
+    <value>Order by</value>
   </data>
   <data name="OrderByAsc" xml:space="preserve">
     <value />
@@ -880,7 +877,7 @@
     <value>Item {0} was deleted.</value>
   </data>
   <data name="InheritanceDisable" xml:space="preserve">
-    <value>disable inheritance</value>
+    <value>Disable inheritance</value>
   </data>
   <data name="InheritanceDisableConfirm" xml:space="preserve">
     <value>Do you really want to disable permission inheritance?</value>
@@ -889,7 +886,7 @@
     <value>Permission inheritance is disabled.</value>
   </data>
   <data name="InheritanceEnable" xml:space="preserve">
-    <value>enable inheritance</value>
+    <value>Enable inheritance</value>
   </data>
   <data name="InheritanceEnableConfirm" xml:space="preserve">
     <value>Do you really want to enable permission inheritance?</value>
@@ -919,9 +916,54 @@
     <value>Roles</value>
   </data>
   <data name="ActOnNode" xml:space="preserve">
-    <value>execute</value>
+    <value>Execute</value>
   </data>
   <data name="ActOnNodeConfirm" xml:space="preserve">
     <value>Do you really want to execute this action?</value>
+  </data>
+  <data name="ElementId" xml:space="preserve">
+    <value>Element Id</value>
+  </data>
+  <data name="TrusteeTypeStr" xml:space="preserve">
+    <value>Trustee type str</value>
+  </data>
+  <data name="TypeStr" xml:space="preserve">
+    <value>Type str</value>
+  </data>
+  <data name="CssClass" xml:space="preserve">
+    <value>CSS class</value>
+  </data>
+  <data name="EntityName" xml:space="preserve">
+    <value>Entity name</value>
+  </data>
+  <data name="UiController" xml:space="preserve">
+    <value>UI controller</value>
+  </data>
+  <data name="extraClasses" xml:space="preserve">
+    <value>Extra classes</value>
+  </data>
+  <data name="hideCheckbox" xml:space="preserve">
+    <value>Hide checkbox</value>
+  </data>
+  <data name="pageInfo" xml:space="preserve">
+    <value>Page info</value>
+  </data>
+  <data name="GrantedMessage" xml:space="preserve">
+    <value>Granted message</value>
+  </data>
+  <data name="HealthCheck" xml:space="preserve">
+    <value>Health Check</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Degraded" xml:space="preserve">
+    <value>Degraded</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
   </data>
 </root>

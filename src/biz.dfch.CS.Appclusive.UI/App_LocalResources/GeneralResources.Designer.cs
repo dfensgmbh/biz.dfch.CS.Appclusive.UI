@@ -97,7 +97,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acl id.
+        ///   Looks up a localized string similar to Acl Id.
         /// </summary>
         public static string AclId {
             get {
@@ -133,7 +133,16 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to execute.
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute.
         /// </summary>
         public static string ActOnNode {
             get {
@@ -178,7 +187,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to cart.
+        ///   Looks up a localized string similar to Add to Cart.
         /// </summary>
         public static string AddToCart {
             get {
@@ -214,7 +223,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audit trail.
+        ///   Looks up a localized string similar to Audit Trail.
         /// </summary>
         public static string AuditTrail {
             get {
@@ -250,7 +259,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to catalogue.
+        ///   Looks up a localized string similar to Back to Catalogue.
         /// </summary>
         public static string BackToCatalogue {
             get {
@@ -259,7 +268,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to order.
+        ///   Looks up a localized string similar to Back to Order.
         /// </summary>
         public static string BackToOrder {
             get {
@@ -295,7 +304,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cart id.
+        ///   Looks up a localized string similar to Cart Id.
         /// </summary>
         public static string CartId {
             get {
@@ -322,7 +331,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Catalogue.
+        ///   Looks up a localized string similar to Software Catalogue.
         /// </summary>
         public static string Catalogue {
             get {
@@ -331,7 +340,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Catalogue id.
+        ///   Looks up a localized string similar to Catalogue Id.
         /// </summary>
         public static string CatalogueId {
             get {
@@ -349,7 +358,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Catalogue item id.
+        ///   Looks up a localized string similar to Catalogue item Id.
         /// </summary>
         public static string CatalogueItemId {
             get {
@@ -403,7 +412,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out cart.
+        ///   Looks up a localized string similar to Check out Cart.
         /// </summary>
         public static string CheckOutCart {
             get {
@@ -430,7 +439,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cimi id.
+        ///   Looks up a localized string similar to Cimi Id.
         /// </summary>
         public static string CimiId {
             get {
@@ -439,7 +448,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cimi target.
+        ///   Looks up a localized string similar to Cimi Target.
         /// </summary>
         public static string CimiTarget {
             get {
@@ -457,7 +466,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to code.
+        ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string code {
             get {
@@ -484,7 +493,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to checkout?.
+        ///   Looks up a localized string similar to Are you sure you want to checkout?.
         /// </summary>
         public static string ConfirmCheckOut {
             get {
@@ -538,7 +547,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contract mapping.
+        ///   Looks up a localized string similar to Contract Mapping.
         /// </summary>
         public static string ContractMapping {
             get {
@@ -547,7 +556,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contract mappings.
+        ///   Looks up a localized string similar to Contract Mappings.
         /// </summary>
         public static string ContractMappings {
             get {
@@ -556,7 +565,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to copied!.
+        ///   Looks up a localized string similar to Copied!.
         /// </summary>
         public static string Copied {
             get {
@@ -565,7 +574,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy password to clip board.
+        ///   Looks up a localized string similar to Copy password to clipboard.
         /// </summary>
         public static string CopyPassword {
             get {
@@ -583,7 +592,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cost centre.
+        ///   Looks up a localized string similar to Cost Centre.
         /// </summary>
         public static string CostCentre {
             get {
@@ -592,7 +601,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cost centre id.
+        ///   Looks up a localized string similar to Cost Centre Id.
         /// </summary>
         public static string CostCentreId {
             get {
@@ -628,7 +637,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created by id.
+        ///   Looks up a localized string similar to Created by Id.
         /// </summary>
         public static string CreatedById {
             get {
@@ -655,6 +664,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CSS class.
+        /// </summary>
+        public static string CssClass {
+            get {
+                return ResourceManager.GetString("CssClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current.
         /// </summary>
         public static string Current {
@@ -673,7 +691,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer id.
+        ///   Looks up a localized string similar to Customer Id.
         /// </summary>
         public static string CustomerId {
             get {
@@ -687,6 +705,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Decline {
             get {
                 return ResourceManager.GetString("Decline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degraded.
+        /// </summary>
+        public static string Degraded {
+            get {
+                return ResourceManager.GetString("Degraded", resourceCulture);
             }
         }
         
@@ -709,7 +736,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description en.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
             get {
@@ -727,7 +754,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Destination id.
+        ///   Looks up a localized string similar to Destination Id.
         /// </summary>
         public static string DestinationId {
             get {
@@ -790,6 +817,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Element Id.
+        /// </summary>
+        public static string ElementId {
+            get {
+                return ResourceManager.GetString("ElementId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encrypted password.
         /// </summary>
         public static string EncryptedPassword {
@@ -826,7 +862,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity id.
+        ///   Looks up a localized string similar to Entity Id.
         /// </summary>
         public static string EntityId {
             get {
@@ -835,7 +871,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity kind.
+        ///   Looks up a localized string similar to Entity Kind.
         /// </summary>
         public static string EntityKind {
             get {
@@ -844,11 +880,20 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity kind id.
+        ///   Looks up a localized string similar to Entity kind Id.
         /// </summary>
         public static string EntityKindId {
             get {
                 return ResourceManager.GetString("EntityKindId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity name.
+        /// </summary>
+        public static string EntityName {
+            get {
+                return ResourceManager.GetString("EntityName", resourceCulture);
             }
         }
         
@@ -907,7 +952,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to External id.
+        ///   Looks up a localized string similar to External Id.
         /// </summary>
         public static string ExternalId {
             get {
@@ -921,6 +966,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string ExternalType {
             get {
                 return ResourceManager.GetString("ExternalType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extra classes.
+        /// </summary>
+        public static string extraClasses {
+            get {
+                return ResourceManager.GetString("extraClasses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string Failed {
+            get {
+                return ResourceManager.GetString("Failed", resourceCulture);
             }
         }
         
@@ -1033,7 +1096,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to go to carts.
+        ///   Looks up a localized string similar to Go to Carts.
         /// </summary>
         public static string GoToCarts {
             get {
@@ -1047,6 +1110,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string Granted {
             get {
                 return ResourceManager.GetString("Granted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Granted message.
+        /// </summary>
+        public static string GrantedMessage {
+            get {
+                return ResourceManager.GetString("GrantedMessage", resourceCulture);
             }
         }
         
@@ -1078,7 +1150,16 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help Text.
+        ///   Looks up a localized string similar to Health Check.
+        /// </summary>
+        public static string HealthCheck {
+            get {
+                return ResourceManager.GetString("HealthCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help text.
         /// </summary>
         public static string HelpText {
             get {
@@ -1110,6 +1191,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string HelpTextDecline {
             get {
                 return ResourceManager.GetString("HelpTextDecline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide checkbox.
+        /// </summary>
+        public static string hideCheckbox {
+            get {
+                return ResourceManager.GetString("hideCheckbox", resourceCulture);
             }
         }
         
@@ -1150,7 +1240,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incoming assocs.
+        ///   Looks up a localized string similar to Incoming Associations.
         /// </summary>
         public static string IncomingAssocs {
             get {
@@ -1159,7 +1249,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to disable inheritance.
+        ///   Looks up a localized string similar to Disable inheritance.
         /// </summary>
         public static string InheritanceDisable {
             get {
@@ -1186,7 +1276,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enable inheritance.
+        ///   Looks up a localized string similar to Enable inheritance.
         /// </summary>
         public static string InheritanceEnable {
             get {
@@ -1213,7 +1303,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to innererror.
+        ///   Looks up a localized string similar to Inner error.
         /// </summary>
         public static string innererror {
             get {
@@ -1222,7 +1312,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to internalexception.
+        ///   Looks up a localized string similar to Internal exception.
         /// </summary>
         public static string internalexception {
             get {
@@ -1249,7 +1339,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cart item of cart.
+        ///   Looks up a localized string similar to Cart item of Cart.
         /// </summary>
         public static string ItemOfCart {
             get {
@@ -1258,7 +1348,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Catalogue item of catalogue.
+        ///   Looks up a localized string similar to Catalogue item of Catalogue.
         /// </summary>
         public static string ItemOfCatalog {
             get {
@@ -1267,7 +1357,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Order item of order.
+        ///   Looks up a localized string similar to Order item of Order.
         /// </summary>
         public static string ItemOfOrder {
             get {
@@ -1366,7 +1456,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to key.
+        ///   Looks up a localized string similar to Key.
         /// </summary>
         public static string key {
             get {
@@ -1393,7 +1483,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to lang.
+        ///   Looks up a localized string similar to Lang.
         /// </summary>
         public static string lang {
             get {
@@ -1429,7 +1519,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login with your Appclusive-API credentials.
+        ///   Looks up a localized string similar to Login with your Windows user account.
         /// </summary>
         public static string LoginInfo {
             get {
@@ -1465,7 +1555,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Management credential.
+        ///   Looks up a localized string similar to Management Credential.
         /// </summary>
         public static string ManagementCredential {
             get {
@@ -1474,7 +1564,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Management credential id.
+        ///   Looks up a localized string similar to Management credential Id.
         /// </summary>
         public static string ManagementCredentialId {
             get {
@@ -1492,7 +1582,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Management uri.
+        ///   Looks up a localized string similar to Management URI.
         /// </summary>
         public static string ManagementUri {
             get {
@@ -1501,7 +1591,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Management uris.
+        ///   Looks up a localized string similar to Management URIs.
         /// </summary>
         public static string ManagementUris {
             get {
@@ -1537,7 +1627,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modified by id.
+        ///   Looks up a localized string similar to Modified by Id.
         /// </summary>
         public static string ModifiedById {
             get {
@@ -1582,7 +1672,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Node (Inventory).
+        ///   Looks up a localized string similar to Inventory (Nodes).
         /// </summary>
         public static string Node {
             get {
@@ -1591,7 +1681,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Node id.
+        ///   Looks up a localized string similar to Node Id.
         /// </summary>
         public static string NodeId {
             get {
@@ -1645,7 +1735,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to odata _error.
+        ///   Looks up a localized string similar to OData error.
         /// </summary>
         public static string odata_error {
             get {
@@ -1654,7 +1744,16 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear audit log.
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Audit Log.
         /// </summary>
         public static string OperationClearAuditLog {
             get {
@@ -1663,7 +1762,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Raise update configuration event.
+        ///   Looks up a localized string similar to Raise UpdateConfiguration Event.
         /// </summary>
         public static string OperationRaiseUpdateConfigurationEvent {
             get {
@@ -1672,7 +1771,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reload products.
+        ///   Looks up a localized string similar to Reload Products.
         /// </summary>
         public static string OperationReloadProducts {
             get {
@@ -1699,7 +1798,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set tenant.
+        ///   Looks up a localized string similar to Set Tenant.
         /// </summary>
         public static string OperationSetTenant {
             get {
@@ -1726,7 +1825,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to order by.
+        ///   Looks up a localized string similar to Order by.
         /// </summary>
         public static string OrderBy {
             get {
@@ -1771,15 +1870,6 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Order id class.
-        /// </summary>
-        public static string OrderIdClass {
-            get {
-                return ResourceManager.GetString("OrderIdClass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Order item.
         /// </summary>
         public static string OrderItem {
@@ -1816,7 +1906,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Outgoing assocs.
+        ///   Looks up a localized string similar to Outgoing Associations.
         /// </summary>
         public static string OutgoingAssocs {
             get {
@@ -1830,6 +1920,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string PageCount {
             get {
                 return ResourceManager.GetString("PageCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page info.
+        /// </summary>
+        public static string pageInfo {
+            get {
+                return ResourceManager.GetString("pageInfo", resourceCulture);
             }
         }
         
@@ -1861,7 +1960,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parent id.
+        ///   Looks up a localized string similar to Parent Id.
         /// </summary>
         public static string ParentId {
             get {
@@ -1870,7 +1969,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parent id str.
+        ///   Looks up a localized string similar to Parent Id str.
         /// </summary>
         public static string ParentIdStr {
             get {
@@ -1897,7 +1996,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Permission id.
+        ///   Looks up a localized string similar to Permission Id.
         /// </summary>
         public static string PermissionId {
             get {
@@ -1951,7 +2050,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product id.
+        ///   Looks up a localized string similar to Product Id.
         /// </summary>
         public static string ProductId {
             get {
@@ -1978,7 +2077,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ref id.
+        ///   Looks up a localized string similar to Ref Id.
         /// </summary>
         public static string RefId {
             get {
@@ -1987,7 +2086,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to request.
+        ///   Looks up a localized string similar to Request.
         /// </summary>
         public static string Request {
             get {
@@ -2005,7 +2104,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requester id.
+        ///   Looks up a localized string similar to Requester Id.
         /// </summary>
         public static string RequesterId {
             get {
@@ -2113,7 +2212,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See password.
+        ///   Looks up a localized string similar to Show password.
         /// </summary>
         public static string SeePassword {
             get {
@@ -2122,7 +2221,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server role.
+        ///   Looks up a localized string similar to Server Role.
         /// </summary>
         public static string ServerRole {
             get {
@@ -2140,7 +2239,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source id.
+        ///   Looks up a localized string similar to Source Id.
         /// </summary>
         public static string SourceId {
             get {
@@ -2149,7 +2248,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Special operations.
+        ///   Looks up a localized string similar to Special Operations.
         /// </summary>
         public static string SpecialOperations {
             get {
@@ -2158,7 +2257,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to stacktrace.
+        ///   Looks up a localized string similar to Stacktrace.
         /// </summary>
         public static string stacktrace {
             get {
@@ -2230,7 +2329,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to all tenants.
+        ///   Looks up a localized string similar to All tenants.
         /// </summary>
         public static string TenantSwitchAll {
             get {
@@ -2248,7 +2347,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tid.
+        ///   Looks up a localized string similar to Tenant Id.
         /// </summary>
         public static string Tid {
             get {
@@ -2257,7 +2356,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title.
+        ///   Looks up a localized string similar to Appclusive.
         /// </summary>
         public static string Title {
             get {
@@ -2293,7 +2392,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trustee id.
+        ///   Looks up a localized string similar to Trustee Id.
         /// </summary>
         public static string TrusteeId {
             get {
@@ -2307,6 +2406,15 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string TrusteeType {
             get {
                 return ResourceManager.GetString("TrusteeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trustee type str.
+        /// </summary>
+        public static string TrusteeTypeStr {
+            get {
+                return ResourceManager.GetString("TrusteeTypeStr", resourceCulture);
             }
         }
         
@@ -2325,6 +2433,24 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         public static string TypeSelection {
             get {
                 return ResourceManager.GetString("TypeSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type str.
+        /// </summary>
+        public static string TypeStr {
+            get {
+                return ResourceManager.GetString("TypeStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI controller.
+        /// </summary>
+        public static string UiController {
+            get {
+                return ResourceManager.GetString("UiController", resourceCulture);
             }
         }
         
@@ -2365,7 +2491,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valid from date time.
+        ///   Looks up a localized string similar to Valid from.
         /// </summary>
         public static string ValidFromDateTime {
             get {
@@ -2383,7 +2509,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to value.
+        ///   Looks up a localized string similar to Value.
         /// </summary>
         public static string value {
             get {
@@ -2410,7 +2536,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to invalid VDI.
+        ///   Looks up a localized string similar to Invalid VDI.
         /// </summary>
         public static string VDI_INVALID_HelpText {
             get {
@@ -2419,7 +2545,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add personal VDI.
+        ///   Looks up a localized string similar to Order Personal VDI.
         /// </summary>
         public static string VDI_PERSONAL {
             get {
@@ -2428,7 +2554,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add technical VDI.
+        ///   Looks up a localized string similar to Order a VDI for yourself.
         /// </summary>
         public static string VDI_PERSONAL_HelpText {
             get {
@@ -2437,7 +2563,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add VDI for technical use.
+        ///   Looks up a localized string similar to Order VDI on behalf of.
         /// </summary>
         public static string VDI_TECHNICAL {
             get {
@@ -2446,7 +2572,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are requestiong a VDI for antoher user.
+        ///   Looks up a localized string similar to Order a VDI for antoher user.
         /// </summary>
         public static string VDI_TECHNICAL_HelpText {
             get {
@@ -2464,7 +2590,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vdi name.
+        ///   Looks up a localized string similar to VDI name.
         /// </summary>
         public static string VdiName {
             get {

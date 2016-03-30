@@ -101,6 +101,10 @@
       <HintPath>..\packages\biz.dfch.CS.Appclusive.Contracts.1.2.6\lib\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -121,10 +125,6 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -151,6 +151,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilter\AuthenticationActionFilter.cs" />
     <Compile Include="App_LocalResources\ErrorResources.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +184,7 @@
     <Compile Include="Controllers\ContextController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
+    <Compile Include="Controllers\HealthChecksController.cs" />
     <Compile Include="Controllers\IExtendedController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
@@ -264,6 +266,7 @@
     <Compile Include="Models\Core\VdiCartItem.cs" />
     <Compile Include="Models\Diagnostics\AuditTrail.cs" />
     <Compile Include="Models\Diagnostics\Endpoint.cs" />
+    <Compile Include="Models\Diagnostics\HealthCheck.cs" />
     <Compile Include="Models\ExceptionHelper.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
@@ -542,7 +545,6 @@
     <Content Include="Views\Shared\DisplayTemplates\CostCentre.cshtml" />
     <Content Include="Views\Tenants\General.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Tenant.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Customer.cshtml" />
     <Content Include="Views\Permissions\Create.cshtml" />
     <Content Include="Views\Permissions\Details.cshtml" />
@@ -599,6 +601,8 @@
     <Content Include="Views\Tenants\ItemIndex.cshtml" />
     <Content Include="Views\Tenants\ItemList.cshtml" />
     <Content Include="Views\Nodes\ActOnNode.cshtml" />
+    <Content Include="Views\HealthChecks\Details.cshtml" />
+    <Content Include="Views\HealthChecks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

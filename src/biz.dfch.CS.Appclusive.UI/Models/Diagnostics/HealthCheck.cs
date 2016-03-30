@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright 2015 d-fens GmbH
+ * Copyright 2016 d-fens GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.UI.App_LocalResources;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using biz.dfch.CS.Appclusive.UI.ActionFilter;
 
-namespace biz.dfch.CS.Appclusive.UI
+namespace biz.dfch.CS.Appclusive.UI.Models.Diagnostics
 {
-    public class FilterConfig
+    public class HealthCheck : AppcusiveEntityViewModelBase
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthenticationActionFilter());
-            filters.Add(new AuthorizeAttribute());
-        }
+        [Display(Name = "Status", ResourceType = typeof(GeneralResources))]
+        public string Status { get; set; }
+
+        [Display(Name = "Active", ResourceType = typeof(GeneralResources))]
+        public bool Active { get; set; }
     }
 }

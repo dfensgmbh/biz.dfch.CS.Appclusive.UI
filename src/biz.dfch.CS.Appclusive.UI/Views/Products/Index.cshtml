@@ -2,7 +2,7 @@
 @model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.Product>
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
-    ViewBag.Title = "Product" + " list";
+    ViewBag.Title = "Product" + @GeneralResources.List;
 }
 @section Title{
     <h2>@GeneralResources.ResourceManager.GetString("Product")@GeneralResources.List</h2>

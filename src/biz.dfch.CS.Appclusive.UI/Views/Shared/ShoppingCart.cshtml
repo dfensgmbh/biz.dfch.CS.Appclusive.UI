@@ -6,7 +6,7 @@
     {
         cartUrl = Url.Action("Details", "Carts", new { id = cartId });
     }
-    if (cartId < 0)
+    if (cartId <= 0)
     {
         cartUrl = Url.Action("Index", "Carts");
     }

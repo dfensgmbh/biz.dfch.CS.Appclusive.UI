@@ -151,8 +151,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-
-        // GET: EntityTypes/Delete/5
         public ActionResult Delete(long id)
         { 
             Api.Core.Catalogue apiItem =null;
@@ -369,8 +367,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-
-        // GET: EntityTypes/ItemDelete/5
         public ActionResult ItemDelete(long id)
         {
             Api.Core.CatalogueItem apiItem = null;

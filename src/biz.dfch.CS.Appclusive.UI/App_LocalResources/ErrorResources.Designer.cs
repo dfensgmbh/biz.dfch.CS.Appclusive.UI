@@ -61,7 +61,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No job is available.
+        ///   Looks up a localized string similar to No Job is available.
         /// </summary>
         public static string NoJobAvailable {
             get {
@@ -70,7 +70,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only entity kind &quot;node&quot; is allowed..
+        ///   Looks up a localized string similar to Only EntityKind &quot;Node&quot; is allowed..
         /// </summary>
         public static string onlyNodeAllowed {
             get {
@@ -115,7 +115,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The {0} field is required..
+        ///   Looks up a localized string similar to The &apos;{0}&apos; field is required..
         /// </summary>
         public static string requiredField {
             get {
@@ -187,7 +187,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No catalog item for {0}..
+        ///   Looks up a localized string similar to No Catalog item for {0}..
         /// </summary>
         public static string VdiCatalogItemMissing {
             get {
@@ -196,7 +196,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No valid vdi-name provided..
+        ///   Looks up a localized string similar to No valid VDI-name provided..
         /// </summary>
         public static string VdiNameNotValid {
             get {
