@@ -124,7 +124,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 var nodeTemplate = coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.Node>("Nodes", "Template", null);
                 
                 this.CurrentUser = AutoMapper.Mapper.Map<User>(
-                    coreRepository.Users.Where(u => u.CreatedById == nodeTemplate.CreatedById).FirstOrDefault());
+                    coreRepository.Users.Where(u => u.Id == nodeTemplate.CreatedById).FirstOrDefault());
                 
                 // default tenant
                 if (null != this.CurrentUser)
