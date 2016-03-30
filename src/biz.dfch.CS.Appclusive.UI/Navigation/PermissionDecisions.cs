@@ -121,10 +121,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 Tenants = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(coreRepository.Tenants.ToList());
                 Tenants.Add(new Tenant() { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
 
-                var nodeTemplate = coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.Node>("Nodes", "Template", null);
-                
-                this.CurrentUser = AutoMapper.Mapper.Map<User>(
-                    coreRepository.Users.Where(u => u.Id == nodeTemplate.CreatedById).FirstOrDefault());
+                this.CurrentUser = AutoMapper.Mapper.Map<User>(coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null));
                 
                 // default tenant
                 if (null != this.CurrentUser)
