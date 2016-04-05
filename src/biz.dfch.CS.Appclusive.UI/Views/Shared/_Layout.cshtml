@@ -21,9 +21,6 @@
     <div class="navbar navbar-inverse navbar-fixed-top" id="navMenu">
         <div class="container">
             <div class="navbar-header">
-                @*<span id="shoppingCart">
-                    @Html.Partial("ShoppingCart")
-                </span>*@
                 @* home *@
                 @Html.ActionLink(title, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
@@ -85,6 +82,10 @@
                         }
                     </li>
                 </ul>
+
+                <span id="shoppingCart" class="nav navbar-nav navbar-right">
+                    @Html.Partial("ShoppingCart")
+                </span>
             </div>
         </div>
     </div>

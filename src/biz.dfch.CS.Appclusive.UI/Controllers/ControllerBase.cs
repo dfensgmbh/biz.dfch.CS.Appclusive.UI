@@ -71,7 +71,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.SearchTerm = searchTerm;
             try
             {
-                query = AddSearchFilter(query, searchTerm);
+                query = AddSearchFilter(query, HttpUtility.UrlEncode(searchTerm));
                 query = AddPagingOptions(query, pageNr);
                 query = AddOrderOptions(query, orderBy);
 
@@ -223,7 +223,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.AddQueryOption("$filter", string.Format(this.SearchConfiguration.Filter, searchTerm));
+                query = query.AddQueryOption("$filter", string.Format(this.SearchConfiguration.Filter, HttpUtility.UrlEncode(searchTerm)));
             }
             return query;
         }
@@ -308,11 +308,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(filter))
                 {
-                    filter = string.Format(this.ItemSearchConfiguration.Filter, searchTerm);
+                    filter = string.Format(this.ItemSearchConfiguration.Filter, HttpUtility.UrlEncode(searchTerm));
                 }
                 else
                 {
-                    filter = string.Format("{1} and " + this.ItemSearchConfiguration.Filter, searchTerm, filter);
+                    filter = string.Format("{1} and " + this.ItemSearchConfiguration.Filter, HttpUtility.UrlEncode(searchTerm), filter);
                 }
             }
             if (!string.IsNullOrWhiteSpace(filter))

@@ -177,7 +177,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             ViewBag.ParentId = catalogueId;
             DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
-            string itemsBaseFilter = "CatalogueId eq " + catalogueId; //           .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
+            // .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
+            string itemsBaseFilter = string.Format("CatalogueId eq {0}", catalogueId);
             return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
         }
 
