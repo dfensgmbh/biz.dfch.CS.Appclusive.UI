@@ -331,7 +331,7 @@ namespace biz.dfch.CS.Appclusive.UI.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Software Catalogue.
+        ///   Looks up a localized string similar to Catalogue.
         /// </summary>
         public static string Catalogue {
             get {
