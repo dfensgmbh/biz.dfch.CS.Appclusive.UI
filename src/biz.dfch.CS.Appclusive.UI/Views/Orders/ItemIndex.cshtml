@@ -29,7 +29,7 @@
                 @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Type).ToString(), "Type", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th>
-                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Description).ToString(), "Description", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
+                @AjaxHelperExtensions.DisplayNameForSort(Ajax, Html.DisplayNameFor(model => model.Job).ToString(), "Status", (string)ViewBag.AjaxPagingAction, rd, ajaxOptions)
             </th>
             <th></th>
         </tr>
@@ -47,7 +47,7 @@
                     @Html.DisplayFor(modeItem => orderItem.Type)
                 </td>
                 <td onclick="window.location = '@Url.Action("ItemDetails", new { id = orderItem.Id })'" class="ap-hand">
-                    @Html.DisplayFor(modeItem => orderItem.Description)
+                    @Html.DisplayFor(modelItem => orderItem.Job)
                 </td>
                 <td class="ap-btn text-nowrap">                  
                     @Html.SecuredButton("Read", Url.Action("ItemDetails", new { id = orderItem.Id }))

@@ -53,12 +53,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
         [Display(Name = "Job", ResourceType = typeof(GeneralResources))]
         public Job Job { get; set; }
 
-
-        /// <summary>
-        /// Find Job by Approval 
-        /// -> Job-Parent (Name = 'biz.dfch.CS.Appclusive.Core.OdataServices.Core.Order') 
-        /// </summary>
-        /// <param name="coreRepository"></param>
         internal void ResolveJob(biz.dfch.CS.Appclusive.Api.Core.Core coreRepository)
         {
             Contract.Requires(null != coreRepository);
@@ -67,8 +61,21 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Order.GetHashCode())
                 .FirstOrDefault();
 
-            Contract.Assert(null != job, "no order-job available");
+            Contract.Assert(null != job, "No job available for this order");
             this.Job = AutoMapper.Mapper.Map<Job>(job);
+        }
+
+        internal void ResolveOrderItemJobs(Api.Core.Core coreRepository)
+        {
+            Contract.Requires(null != coreRepository);
+
+            if (null != OrderItems)
+            {
+                foreach (var orderItem in OrderItems)
+                {
+                    orderItem.ResolveJob(coreRepository);
+                }
+            }
         }
     }
 }

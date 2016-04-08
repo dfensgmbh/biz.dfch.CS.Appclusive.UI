@@ -92,7 +92,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Approval.GetHashCode())
                 .FirstOrDefault();
 
-            Contract.Assert(null != job, "no approval-job available");
+            Contract.Assert(null != job, "No job available for this approval");
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
 

@@ -46,17 +46,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.ReturnId = rId;
             ViewBag.ReturnAction = rAction;
             ViewBag.ReturnController = rController;
+            
             try
             {
-                var item = CoreRepository.Orders.Expand("CostCentre").Expand("Requester").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
+                var apiItem = CoreRepository.Orders.Expand("CostCentre").Expand("Requester").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
                
-                Models.Core.Order modelItem = AutoMapper.Mapper.Map<Models.Core.Order>(item);
+                Models.Core.Order modelItem = AutoMapper.Mapper.Map<Models.Core.Order>(apiItem);
                 if (null != modelItem)
                 {
                     modelItem.OrderItems = LoadOrderItems(id, 1);
                     try
                     {
-                        modelItem.ResolveJob(this.CoreRepository);
+                        modelItem.ResolveJob(CoreRepository);
+                        modelItem.ResolveOrderItemJobs(CoreRepository);
                     }
                     catch (Exception ex) { ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex)); }
                 }
@@ -130,7 +132,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult ItemDetails(long id)
         {
             var item = CoreRepository.OrderItems.Expand("Order").Expand("CreatedBy").Expand("ModifiedBy").Where(c => c.Id == id).FirstOrDefault();
-            return View(AutoMapper.Mapper.Map<Models.Core.OrderItem>(item));
+            var orderItem = AutoMapper.Mapper.Map<Models.Core.OrderItem>(item);
+            orderItem.ResolveJob(CoreRepository);
+            return View(orderItem);
         }
 
         // GET: Orders/Delete/5
