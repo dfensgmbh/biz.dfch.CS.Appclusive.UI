@@ -324,24 +324,19 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult UserSearch(long roleId, string term)
         {
-            string cacheKeyUsers = "user_options_role_" + roleId;
-            List<AjaxOption> options = (List<AjaxOption>)System.Web.HttpContext.Current.Cache.Get(cacheKeyUsers);
-            if (null == options)
-            {
-                options = new List<AjaxOption>();
-                Api.Core.Role role = GetCachedRole(roleId);
-                foreach (var user in CoreRepository.Users)
-                {
-                    if (role == null || role.Users == null || role.Users.Count == 0
-                        || role.Users.Where(p => p.Id == user.Id).Count() == 0)
-                    {
-                        options.Add(new AjaxOption(user.Id, user.Name));
-                    }
-                }
-                System.Web.HttpContext.Current.Cache.Add(cacheKeyUsers, options, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
-            }
-            return this.Json(options.Where(t => t.value.ToLower().Contains(term.ToLower())), JsonRequestBehavior.AllowGet);
+            var options = new List<AjaxOption>();
+            Api.Core.Role role = GetCachedRole(roleId);
 
+            var query = string.Format("substringof(tolower('{0}'),tolower(Name)) or substringof(tolower('{0}'),tolower(ExternalId))", term);
+            foreach (var user in CoreRepository.Users.AddQueryOption("$filter", query))
+            {
+                if (role.Users.All(p => p.Id != user.Id))
+                {
+                    options.Add(new AjaxOption(user.Id, string.Format("{0} ({1})", user.Name, user.ExternalId)));
+                }
+            }
+
+            return this.Json(options.Where(t => t.value.ToLower().Contains(term.ToLower())), JsonRequestBehavior.AllowGet);
         }
 
         #endregion
