@@ -199,14 +199,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             Api.Core.Acl apiItem = null;
             try
             {
-                // todo
                 if (enable)
                 {
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.warn, "Todo: " + GeneralResources.InheritanceEnabled));
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.warn, "TODO: " + GeneralResources.InheritanceEnabled));
                 }
                 else
                 {
-                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.warn, "Todo: " + GeneralResources.InheritanceDisabled));
+                    CoreRepository.InvokeEntityActionWithVoidResult("Acls", id, "BreakInheritance", new
+                    {
+                        CopyAces = true
+                    });
+                    ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, GeneralResources.InheritanceDisabled));
                 }
 
                 // load detail
