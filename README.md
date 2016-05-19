@@ -13,3 +13,7 @@ d-fens GmbH, General-Guisan-Strasse 6, CH-6300 Zug, Switzerland
 ## Description
 
 Next version UI for the Appclusive Framework
+
+[![TeamCity Logo](https://github.com/dfensgmbh/biz.dfch.CS.Appclusive.UI/blob/develop/TeamCity.png)](https://www.jetbrains.com/teamcity/)
+
+Built and released with TeamCity
