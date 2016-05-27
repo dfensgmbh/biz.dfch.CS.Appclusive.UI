@@ -80,10 +80,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
 
                 var next = items.GetContinuation();
-                var s = this.Request.QueryString["skip"];
-                var skip = 3;
-                var res = skip % PortalConfig.Searchsize;
-                
+               
                 ViewBag.Paging = new PagingInfo2((next != null ? next.NextLinkUri : null));
 
                 models.ForEach(m => this.OnBeforeRender<M>(m));
