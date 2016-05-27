@@ -17,6 +17,8 @@
 using biz.dfch.CS.Appclusive.UI.Config;
 using System;
 using System.Diagnostics.Contracts;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
@@ -49,5 +51,33 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         public long PageCount { get; set; }
 
         public long ItemCount { get; set; }
+    }
+
+    public class PagingInfo2
+    {
+        public PagingInfo2(Uri nextLink)
+            : this(nextLink, PortalConfig.Pagesize)
+        {
+        }
+
+        public PagingInfo2(Uri nextLink, int pageSize)
+        {
+            Contract.Assert(pageSize > 0);
+            this.NextLink = nextLink;
+
+            if (nextLink != null)
+            {
+                var query = HttpUtility.ParseQueryString(nextLink.Query);
+                var s = query.Get("$skip");
+                var prevSkip = int.Parse(s) - pageSize;
+
+                prevSkip = (prevSkip < 0 ? 0 : prevSkip);
+
+                PrevLink = new Uri(Regex.Replace(nextLink.AbsoluteUri, "\\$skip=\\d+", "$skip=" + prevSkip));
+            }
+        }
+
+        public Uri NextLink { get; set; }
+        public Uri PrevLink { get; set; }
     }
 }

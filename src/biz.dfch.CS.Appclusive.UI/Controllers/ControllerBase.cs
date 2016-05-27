@@ -60,7 +60,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         
         #region basic list actions
 
-        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null, int d = 0)
+        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 0, string searchTerm = null, string orderBy = null, int d = 0)
         {
             #region delete message
             if (d > 0)
@@ -77,15 +77,23 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
+
+                var next = items.GetContinuation();
+                var s = this.Request.QueryString["skip"];
+                var skip = 3;
+                var res = skip % PortalConfig.Searchsize;
+                
+                ViewBag.Paging = new PagingInfo2((next != null ? next.NextLinkUri : null));
+
                 models.ForEach(m => this.OnBeforeRender<M>(m));
 
                 return View(models);
             }
             catch (Exception ex)
             {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                ((List<AjaxNotificationViewModel>) ViewBag.Notifications).AddRange(
+                    ExceptionHelper.GetAjaxNotifications(ex));
                 return View(new List<M>());
             }
         }
@@ -94,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             query = AddSearchFilter(query, term);
 
-            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
+            QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
@@ -103,7 +111,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             query = AddSearchFilter(query, term);
 
-            QueryOperationResponse<T> items = query.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
+            QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateSelectOptionList(items), JsonRequestBehavior.AllowGet);
         }
@@ -236,9 +244,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (pageNr > 0)
             {
-                query = query.AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", pageSize)
-                    .AddQueryOption("$skip", (pageNr - 1) * pageSize);
+                query = query.AddQueryOption("$inlinecount", "allpages").AddQueryOption("$skip", pageNr);
             }
             return query;
         }
@@ -288,7 +294,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             itemQuery = AddItemSearchFilter(itemQuery, baseFilter, term);
 
-            QueryOperationResponse<T> items = itemQuery.AddQueryOption("$top", PortalConfig.SearchLoadSize).Execute() as QueryOperationResponse<T>;
+            QueryOperationResponse<T> items = itemQuery.Execute() as QueryOperationResponse<T>;
 
             return this.Json(CreateItemSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
