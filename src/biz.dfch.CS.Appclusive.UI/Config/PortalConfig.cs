@@ -33,6 +33,6 @@ namespace biz.dfch.CS.Appclusive.UI.Config
         /// <summary>
         /// Number of records to load before distinct can be applied to options
         /// </summary>
-        public static int SearchLoadSize = Properties.Settings.Default.SearchLoadSize;
+        public static int SearchLoadSize = 45; //restricted to 45 due to paging problems with Appclusive.Core
     }
 }

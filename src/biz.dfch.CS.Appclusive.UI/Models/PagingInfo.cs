@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.Contracts;
 using System.Text.RegularExpressions;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
@@ -37,8 +38,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         public PagingInfo(int pageNr, long itemCount, int pageSize)
         {
-            Contract.Assert(pageNr>0);
-            Contract.Assert(pageSize>0);
+            Contract.Assert(pageNr > 0);
+            Contract.Assert(pageSize > 0);
             this.PageNr = pageNr;
             this.ItemCount = itemCount;
             this.PageCount = (long)Math.Ceiling((double)this.ItemCount / pageSize);
@@ -53,31 +54,57 @@ namespace biz.dfch.CS.Appclusive.UI.Models
         public long ItemCount { get; set; }
     }
 
-    public class PagingInfo2
+    public class PagingFilterInfo
     {
-        public PagingInfo2(Uri nextLink)
-            : this(nextLink, PortalConfig.Pagesize)
+        public PagingFilterInfo() : this(null)
         {
+            ;
         }
 
-        public PagingInfo2(Uri nextLink, int pageSize)
+        public PagingFilterInfo(Uri nextLink)
         {
-            Contract.Assert(pageSize > 0);
             this.NextLink = nextLink;
 
-            if (nextLink != null)
-            {
-                var query = HttpUtility.ParseQueryString(nextLink.Query);
-                var s = query.Get("$skip");
-                var prevSkip = int.Parse(s) - pageSize;
+            //if (nextLink == null) return;
 
-                prevSkip = (prevSkip < 0 ? 0 : prevSkip);
-
-                PrevLink = new Uri(Regex.Replace(nextLink.AbsoluteUri, "\\$skip=\\d+", "$skip=" + prevSkip));
-            }
+            //PreviousLink = Request.UrlReferrer; //BuildPreviousLink(nextLink);
         }
 
         public Uri NextLink { get; set; }
-        public Uri PrevLink { get; set; }
+        public Uri PreviousLink { get; set; }
+
+        public int PreviousSkipCount
+        {
+            get { return NextLink == null ? 0 : GetSkipFromUri(PreviousLink); }
+        }
+
+        public int NextSkipCount
+        {
+            get { return NextLink == null ? 0 : GetSkipFromUri(NextLink); }
+        }
+
+        public static int GetSkipFromUri(Uri uri)
+        {
+            var query = HttpUtility.ParseQueryString(uri.Query);
+            var skip = query.Get("$skip");
+            var skipVaule = int.Parse(skip);
+
+            return skipVaule;
+        }
+
+        public static Uri ReplaceSkipInUri(Uri uri, int skip)
+        {
+            return new Uri(Regex.Replace(uri.AbsoluteUri, "\\$skip=\\d+", "$skip=" + skip));
+        }
+
+        public static Uri BuildPreviousLink(Uri currentUri)
+        {
+            var currentSkip = GetSkipFromUri(currentUri);
+            var previousSkip = currentSkip - PortalConfig.SearchLoadSize;
+
+            previousSkip = (previousSkip < 0 ? 0 : previousSkip);
+
+            return ReplaceSkipInUri(currentUri, previousSkip);
+        }
     }
 }

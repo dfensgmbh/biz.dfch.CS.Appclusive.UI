@@ -1,43 +1,108 @@
-﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
-@using biz.dfch.CS.Appclusive.UI.Models
-@using Microsoft.HBase.Client.Filters
+﻿@using biz.dfch.CS.Appclusive.UI.Models
 
-@if (ViewBag.Paging is PagingInfo2)
+@if (ViewBag.Paging != null && ViewBag.Paging is PagingFilterInfo && (ViewBag.Paging.NextLink != null || ViewBag.Paging.PreviousLink != null))
 {
-
-    string orderBy = HttpContext.Current.Request.QueryString["orderBy"];
-    var skip = HttpContext.Current.Request.QueryString["skip"];
-
-    int? skipValue = skip != null ? int.Parse(skip) : 0;
+    var orderBy = HttpContext.Current.Request.QueryString["orderBy"];
 
     <ul class="pagination">
-        @if (ViewBag.Paging.PrevLink != null)
+        @if (ViewBag.Paging.PreviousLink != null)
         {
-            var query = HttpUtility.ParseQueryString(ViewBag.Paging.PrevLink.Query);
-            var s = query.Get("$skip");
-
-            var sk = (s != null ? int.Parse(s) : 0);
-
             <li>
-                <a href="@Url.Action("Index", new { pageNr = sk, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy })"><i class="fa fa-angle-left"></i></a>
+                <a href="@Url.Action("Index", new {href = Request.UrlReferrer})"><i class="fa fa-angle-left"></i>Previous</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", new {pageNr = ViewBag.Paging.PreviousSkipCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-left"></i>Previous</a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"><i class="fa fa-angle-left"></i></a>
+                <a class="disabled"><i class="fa fa-angle-left"></i>Previous</a>
             </li>
         }
 
         @if (ViewBag.Paging.NextLink != null)
         {
-            var query = HttpUtility.ParseQueryString(ViewBag.Paging.NextLink.Query);
-            var s = query.Get("$skip");
-
-            var sk = (s != null ? int.Parse(s) : 0);
-
             <li>
-                <a href="@Url.Action("Index", new {pageNr = sk, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-right"></i></a>
+                <a href="@Url.Action("Index", new { pageNr = ViewBag.Paging.NextSkipCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy })"><i class="fa fa-angle-right"></i>Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-right"></i>Next</a>
+            </li>
+        }
+    </ul>
+}
+
+@if (ViewBag.Paging != null && (ViewBag.Paging is PagingInfo && ViewBag.Paging.PageCount > 1))
+{
+    string orderBy = HttpContext.Current.Request.QueryString["orderBy"];
+    <ul class="pagination">
+        @if (ViewBag.Paging.PageNr > 1)
+        {
+            <li>
+                <a href="@Url.Action("Index", new {pageNr = 1, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-double-left"></i></a>
+            </li>
+            int prevPage = ViewBag.Paging.PageNr - 1;
+            <li>
+                <a href="@Url.Action("Index", new {pageNr = prevPage, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-left"></i></a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-double-left"></i></a>
+            </li>
+            <li class="disabled">
+                <a class="disabled"><i class="fa fa-angle-left"></i></a>
+            </li>
+        }
+
+        @{
+            long start = Math.Max(1, ViewBag.Paging.PageNr - 2);
+            long end = Math.Min(ViewBag.Paging.PageCount, ViewBag.Paging.PageNr + 2);
+        }
+
+        @if (start > 1)
+        {
+            <li class="disabled">
+                <a class="disabled">...</a>
+            </li>
+        }
+
+        @for (long i = start; i <= end; i++)
+        {
+            if (i == ViewBag.Paging.PageNr)
+            {
+                <li class="active">
+                    <a href="@Url.Action("Index", new {pageNr = i, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})">@i</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Index", new {pageNr = i, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})">@i</a>
+                </li>
+            }
+        }
+
+        @if (end < ViewBag.Paging.PageCount - 1)
+        {
+            <li class="disabled">
+                <a class="disabled">...</a>
+            </li>
+        }
+
+        @if (ViewBag.Paging.HasMore)
+        {
+            int nextPage = ViewBag.Paging.PageNr + 1;
+            <li>
+                <a href="@Url.Action("Index", new {pageNr = nextPage, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-right"></i></a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", new {pageNr = ViewBag.Paging.PageCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-double-right"></i></a>
             </li>
         }
         else
@@ -45,89 +110,9 @@
             <li class="disabled">
                 <a class="disabled"><i class="fa fa-angle-right"></i></a>
             </li>
+            <li class="disabled">
+                <a href="@Url.Action("Index", new {pageNr = ViewBag.Paging.PageCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-double-right"></i></a>
+            </li>
         }
     </ul>
 }
-        @*else
-            {
-                if (ViewBag.Paging != null && ViewBag.Paging.PageCount > 1)
-                {
-                    string orderBy = HttpContext.Current.Request.QueryString["orderBy"];
-                    <ul class="pagination">
-
-                        @if (ViewBag.Paging.PageNr > 1)
-                        {
-                            <li>
-                                <a href="@Url.Action("Index", new {pageNr = 1, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-double-left"></i></a>
-                            </li>
-                            int prevPage = ViewBag.Paging.PageNr - 1;
-                            <li>
-                                <a href="@Url.Action("Index", new {pageNr = prevPage, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-left"></i></a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="disabled">
-                                <a class="disabled"><i class="fa fa-angle-double-left"></i></a>
-                            </li>
-                            <li class="disabled">
-                                <a class="disabled"><i class="fa fa-angle-left"></i></a>
-                            </li>
-                        }
-
-                        @{
-                            long start = Math.Max(1, ViewBag.Paging.PageNr - 2);
-                            long end = Math.Min(ViewBag.Paging.PageCount, ViewBag.Paging.PageNr + 2);
-                        }
-
-                        @if (start > 1)
-                        {
-                            <li class="disabled">
-                                <a class="disabled">...</a>
-                            </li>
-                        }
-
-                        @for (long i = start; i <= end; i++)
-                        {
-                            if (i == ViewBag.Paging.PageNr)
-                            {
-                                <li class="active">
-                                    <a href="@Url.Action("Index", new {pageNr = i, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})">@i</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", new {pageNr = i, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})">@i</a>
-                                </li>
-                            }
-                        }
-                        @if (end < ViewBag.Paging.PageCount - 1)
-                        {
-                            <li class="disabled">
-                                <a class="disabled">...</a>
-                            </li>
-                        }
-
-                        @if (ViewBag.Paging.HasMore)
-                        {
-                            int nextPage = ViewBag.Paging.PageNr + 1;
-                            <li>
-                                <a href="@Url.Action("Index", new {pageNr = nextPage, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-right"></i></a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", new {pageNr = ViewBag.Paging.PageCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-double-right"></i></a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="disabled">
-                                <a class="disabled"><i class="fa fa-angle-right"></i></a>
-                            </li>
-                            <li class="disabled">
-                                <a href="@Url.Action("Index", new {pageNr = ViewBag.Paging.PageCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-double-right"></i></a>
-                            </li>
-                        }
-                    </ul>
-                }
-            }*@
