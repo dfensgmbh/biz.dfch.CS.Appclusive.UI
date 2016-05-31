@@ -26,8 +26,7 @@ namespace biz.dfch.CS.Appclusive.UI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://172.19.115.33:80/Appclusive/api/")]
-        public string AppclusiveApiBaseUrl
-        {
+        public string AppclusiveApiBaseUrl {
             get {
                 return ((string)(this["AppclusiveApiBaseUrl"]));
             }
