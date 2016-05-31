@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.Public;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
@@ -228,7 +229,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         {
                             //  load root Node
                             query = AddPagingOptions(query, pageNr);
-                            query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()));
+                            query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", Constants.EntityKindId.TenantRoot.GetHashCode()));
                         }
                     }
                 }
@@ -331,7 +332,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         private void FindParent(List<Models.Core.Node> modelItems, Models.Core.Node child)
         {
             if (child.Parent == null && child.ParentId.HasValue && child.ParentId > 0 && child.Id != child.ParentId.Value
-                && child.EntityKindId != biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()) // stop at tenant root node
+                && child.EntityKindId != Constants.EntityKindId.TenantRoot.GetHashCode()) // stop at tenant root node
             {
                 var parent = modelItems.FirstOrDefault(n => n.Id == child.ParentId);
                 if (null == parent)
@@ -351,7 +352,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             else
             {
-                if (child.Parent != null && child.Parent.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.TenantRoot.GetHashCode()) 
+                if (child.Parent != null && child.Parent.EntityKindId == Constants.EntityKindId.TenantRoot.GetHashCode()) 
                 {
                     // remove Parent if ROOT
                     child.Parent = null;
