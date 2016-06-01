@@ -17,6 +17,9 @@
 using biz.dfch.CS.Appclusive.UI.Config;
 using System;
 using System.Diagnostics.Contracts;
+using System.Text.RegularExpressions;
+using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace biz.dfch.CS.Appclusive.UI.Models
 {
@@ -35,8 +38,8 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         public PagingInfo(int pageNr, long itemCount, int pageSize)
         {
-            Contract.Assert(pageNr>0);
-            Contract.Assert(pageSize>0);
+            Contract.Assert(pageNr > 0);
+            Contract.Assert(pageSize > 0);
             this.PageNr = pageNr;
             this.ItemCount = itemCount;
             this.PageCount = (long)Math.Ceiling((double)this.ItemCount / pageSize);
@@ -50,4 +53,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         public long ItemCount { get; set; }
     }
+
+   
 }
