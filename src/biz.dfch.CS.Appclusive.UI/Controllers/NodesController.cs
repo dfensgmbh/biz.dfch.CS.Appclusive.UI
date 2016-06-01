@@ -179,7 +179,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             #endregion
             try
             {
-                nodeList = LoadTreeData(0, 1, id, null, null);
+                nodeList = LoadTreeData(0, 0, id, null, null);
                 return View(nodeList);
             }
             catch (Exception ex)
@@ -189,7 +189,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, string orderBy = null, object _ = null)
+        public ActionResult TreeData(long parentId = 0, int pageNr = 0, string searchTerm = null, string orderBy = null, object _ = null)
         {
             List<Models.Tree.Node> nodeList = LoadTreeData(parentId, pageNr, 0, searchTerm, orderBy);
             return this.Json(nodeList, JsonRequestBehavior.AllowGet);
@@ -242,10 +242,12 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 }
 
                 QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
-                PagingInfo pi = new PagingInfo(pageNr, items.TotalCount, pageSize);
-
+                
                 List<Models.Core.Node> modelItems = AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
 
+                var next = items.GetContinuation();
+                var pi = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
+                
                 #endregion
 
                 // find parents                
