@@ -23,16 +23,17 @@ namespace biz.dfch.CS.Appclusive.UI.Config
 {
     public class PortalConfig
     {
-        public static int Pagesize = Properties.Settings.Default.Pagesize;
+        private const int _pageSize = 2; //restricted to 45 due to paging problems with Appclusive.Core
+        public static int Pagesize = _pageSize;
 
         /// <summary>
         /// Number of options to displayed to the user
         /// </summary>
-        public static int Searchsize = Properties.Settings.Default.Searchsize;
+        public static int Searchsize = _pageSize;
 
         /// <summary>
         /// Number of records to load before distinct can be applied to options
         /// </summary>
-        public static int SearchLoadSize = 45; //restricted to 45 due to paging problems with Appclusive.Core
+        public static int SearchLoadSize = Properties.Settings.Default.SearchLoadSize;
     }
 }
