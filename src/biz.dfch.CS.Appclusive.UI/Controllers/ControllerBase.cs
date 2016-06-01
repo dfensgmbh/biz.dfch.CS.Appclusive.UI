@@ -18,7 +18,6 @@ using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
@@ -82,7 +81,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
                 List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
 
-                if (UsePageEntityFilter(typeof (T)))
+                if (usePageFilter)
                 {
                     var next = items.GetContinuation();
                     var pageFilter = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
@@ -94,7 +93,6 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         {
                             pageFilter.PreviousLink = PagingFilterInfo.BuildPreviousLink(query.RequestUri);
                         }
-                        
                     }
 
                     ViewBag.Paging = pageFilter;
