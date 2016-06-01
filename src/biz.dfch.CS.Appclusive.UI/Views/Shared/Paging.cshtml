@@ -8,26 +8,26 @@
         @if (ViewBag.Paging.PreviousLink != null)
         {
             <li>
-                <a href="@Url.Action("Index", new {skip = ViewBag.Paging.PreviousSkipCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-left"></i>Previous</a>
+                <a href="@Url.Action("Index", new {skip = ViewBag.Paging.PreviousSkipCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy})"><i class="fa fa-angle-left"></i></a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"><i class="fa fa-angle-left"></i>Previous</a>
+                <a class="disabled"><i class="fa fa-angle-left"></i></a>
             </li>
         }
 
         @if (ViewBag.Paging.NextLink != null)
         {
             <li>
-                <a href="@Url.Action("Index", new { skip = ViewBag.Paging.NextSkipCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy })"><i class="fa fa-angle-right"></i>Next</a>
+                <a href="@Url.Action("Index", new { skip = ViewBag.Paging.NextSkipCount, searchTerm = @ViewBag.SearchTerm, orderBy = orderBy })"><i class="fa fa-angle-right"></i></a>
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"><i class="fa fa-angle-right"></i>Next</a>
+                <a class="disabled"><i class="fa fa-angle-right"></i></a>
             </li>
         }
     </ul>
