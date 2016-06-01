@@ -18,7 +18,6 @@ using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
