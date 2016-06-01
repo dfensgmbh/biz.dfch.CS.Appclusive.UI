@@ -23,7 +23,7 @@ namespace biz.dfch.CS.Appclusive.UI.Config
 {
     public class PortalConfig
     {
-        private const int _pageSize = 2; //restricted to 45 due to paging problems with Appclusive.Core
+        private const int _pageSize = 45; //restricted to 45 due to paging problems with Appclusive.Core
         public static int Pagesize = _pageSize;
 
         /// <summary>
