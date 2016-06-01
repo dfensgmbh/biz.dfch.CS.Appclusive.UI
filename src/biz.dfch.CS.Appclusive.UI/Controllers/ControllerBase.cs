@@ -24,6 +24,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using biz.dfch.CS.Appclusive.Api.Core;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -57,10 +58,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return this.Request.Headers["X-Requested-With"] != null && this.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             }
         }
-        
+
         #region basic list actions
 
-        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, string searchTerm = null, string orderBy = null, int d = 0)
+        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, int skip = 0, string searchTerm = null, string orderBy = null, int d = 0)
         {
             #region delete message
             if (d > 0)
@@ -71,14 +72,36 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.SearchTerm = searchTerm;
             try
             {
+                var usePageFilter = UsePageEntityFilter(typeof (T));
+
                 query = AddSearchFilter(query, HttpUtility.UrlEncode(searchTerm));
-                query = AddPagingOptions(query, pageNr);
+                query = AddPagingOptions(query, usePageFilter ? skip : pageNr);
                 query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
-
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
+
+                if (usePageFilter)
+                {
+                    var next = items.GetContinuation();
+                    var pageFilter = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
+                    var urlSkip = PagingFilterInfo.GetSkipFromUri(query.RequestUri);
+
+                    if (urlSkip > 0)
+                    {
+                        if (urlSkip - PortalConfig.Pagesize >= 0)
+                        {
+                            pageFilter.PreviousLink = PagingFilterInfo.BuildPreviousLink(query.RequestUri);
+                        }
+                    }
+
+                    ViewBag.Paging = pageFilter;
+                }
+                else
+                {
+                    ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
+                }
+
                 models.ForEach(m => this.OnBeforeRender<M>(m));
 
                 return View(models);
@@ -89,7 +112,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 return View(new List<M>());
             }
         }
-        
+
         protected ActionResult Search<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
@@ -98,7 +121,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             return this.Json(CreateSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
-        
+
         protected ActionResult Select<T>(DataServiceQuery<T> query, string term)
         {
             query = AddSearchFilter(query, term);
@@ -141,7 +164,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             return CreateOptionList(items, "Id", this.SearchConfiguration.Display, true);
         }
-                
+
         /// <summary>
         /// consider implementing AddSearchFilter as well,
         /// otherwise you load the wrong properties..
@@ -210,7 +233,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #endregion
 
         #region basic query filters
-        
+
         /// <summary>
         /// consider implementing CreateOptionList as well,
         /// otherwise you load the wrong properties..
@@ -236,11 +259,30 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             if (pageNr > 0)
             {
+                var skip = CalculateSkip(query.ElementType, pageNr, pageSize);
+
                 query = query.AddQueryOption("$inlinecount", "allpages")
                     .AddQueryOption("$top", pageSize)
-                    .AddQueryOption("$skip", (pageNr - 1) * pageSize);
+                    .AddQueryOption("$skip", skip);
             }
             return query;
+        }
+
+        private bool UsePageEntityFilter(Type type)
+        {
+            return type == typeof (Node)
+                   || type == typeof (Job)
+                   || type == typeof (KeyNameValue);
+        }
+
+        private int CalculateSkip(Type type, int pageNr, int pageSize)
+        {
+            if (UsePageEntityFilter(type))
+            {
+                return pageNr;
+            }
+
+            return (pageNr - 1)*pageSize;
         }
 
         protected DataServiceQuery<T> AddOrderOptions<T>(DataServiceQuery<T> query, string orderBy)
@@ -292,7 +334,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             return this.Json(CreateItemSearchOptionList(items), JsonRequestBehavior.AllowGet);
         }
-        
+
         /// <summary>
         /// consider implementing CreateItemOptionList as well,
         /// otherwise you load the wrong properties..
@@ -331,7 +373,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <returns></returns>
         protected virtual List<AjaxOption> CreateItemSearchOptionList<T>(QueryOperationResponse<T> items)
         {
-            return CreateOptionList(items, this.ItemSearchConfiguration.SearchKey , this.ItemSearchConfiguration.Display, true);
+            return CreateOptionList(items, this.ItemSearchConfiguration.SearchKey, this.ItemSearchConfiguration.Display, true);
         }
 
         #endregion
