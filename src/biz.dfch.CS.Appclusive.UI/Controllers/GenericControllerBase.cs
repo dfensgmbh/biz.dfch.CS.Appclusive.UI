@@ -15,9 +15,9 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         protected abstract DataServiceQuery<T> BaseQuery { get; }
 
         // GET: Endpoints
-        public virtual ActionResult Index(int pageNr = 1, int skip = 0, string searchTerm = null, string orderBy = null, int d = 0)
+        public virtual ActionResult Index(int pageNr = 1, string searchTerm = null, string orderBy = null, int d = 0)
         {
-            return base.Index<T, M>(BaseQuery, pageNr, skip, searchTerm, orderBy, d);
+            return base.Index<T, M>(BaseQuery, pageNr, searchTerm, orderBy, d);
         }
 
         public ActionResult Search(string term)
