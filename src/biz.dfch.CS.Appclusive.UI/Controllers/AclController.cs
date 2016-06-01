@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using biz.dfch.CS.Appclusive.UI.Models;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
+using biz.dfch.CS.Appclusive.Public;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using biz.dfch.CS.Appclusive.UI.Config;
 
@@ -52,7 +53,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             Models.Core.Acl acl = new Models.Core.Acl()
             {
-                EntityKindId = biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode(),
+                EntityKindId = Constants.EntityKindId.Node.GetHashCode(),
                 EntityId = nodeId.HasValue ? nodeId.Value : 0
             };
             acl.ResolveNavigationProperties(CoreRepository);

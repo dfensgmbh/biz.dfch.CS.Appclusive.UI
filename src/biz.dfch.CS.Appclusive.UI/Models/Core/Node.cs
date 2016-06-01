@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using biz.dfch.CS.Appclusive.Public;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Requires(null != coreRepository);
 
             Api.Core.Job job = coreRepository.Jobs
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == Constants.EntityKindId.Node.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "No job available for this node");
@@ -101,7 +102,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
                 // explicit permissions
                 Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
-                    .Where(a => a.EntityId == this.Id && a.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Node.GetHashCode())
+                    .Where(a => a.EntityId == this.Id && a.EntityKindId == Constants.EntityKindId.Node.GetHashCode())
                     .FirstOrDefault();
 
                 if (null != acl)

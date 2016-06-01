@@ -21,6 +21,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
+using biz.dfch.CS.Appclusive.Public;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
@@ -89,7 +90,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             Contract.Requires(null != coreRepository);
 
             Api.Core.Job job = coreRepository.Jobs
-                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == biz.dfch.CS.Appclusive.Contracts.Constants.EntityKindId.Approval.GetHashCode())
+                .Where(j => j.RefId == this.Id.ToString() && j.EntityKindId == Constants.EntityKindId.Approval.GetHashCode())
                 .FirstOrDefault();
 
             Contract.Assert(null != job, "No job available for this approval");
