@@ -62,7 +62,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region basic list actions
 
-        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 0, string searchTerm = null, string orderBy = null, int d = 0)
+        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, int skip = 0, string searchTerm = null, string orderBy = null, int d = 0)
         {
             #region delete message
             if (d > 0)
@@ -73,8 +73,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.SearchTerm = searchTerm;
             try
             {
+                var usePageFilter = UsePageEntityFilter(typeof (T));
+
                 query = AddSearchFilter(query, HttpUtility.UrlEncode(searchTerm));
-                query = AddPagingOptions(query, pageNr);
+                query = AddPagingOptions(query, usePageFilter ? skip : pageNr);
                 query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
@@ -83,29 +85,22 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 if (UsePageEntityFilter(typeof (T)))
                 {
                     var next = items.GetContinuation();
+                    var pageFilter = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
+                    var urlSkip = PagingFilterInfo.GetSkipFromUri(query.RequestUri);
 
-                    // if there's no next link but the current skip is higher than 0
-                    // we must generate a previous link
-                    if (next == null)
+                    if (urlSkip > 0)
                     {
-                        var skip = PagingFilterInfo.GetSkipFromUri(query.RequestUri);
-                        if (skip != 0)
+                        if (urlSkip - PortalConfig.Pagesize >= 0)
                         {
-                            ViewBag.Paging = new PagingFilterInfo
-                            {
-                                //PreviousLink = PagingFilterInfo.BuildPreviousLink(query.RequestUri)
-                                PreviousLink = Request.UrlReferrer
-                            };
+                            pageFilter.PreviousLink = PagingFilterInfo.BuildPreviousLink(query.RequestUri);
                         }
+                        
                     }
-                    else
-                    {
-                        ViewBag.Paging = new PagingFilterInfo(next.NextLinkUri) {PreviousLink = Request.UrlReferrer};
-                    }
+
+                    ViewBag.Paging = pageFilter;
                 }
                 else
                 {
-                    pageNr = (pageNr == 0 ? 1 : pageNr);
                     ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
                 }
 
