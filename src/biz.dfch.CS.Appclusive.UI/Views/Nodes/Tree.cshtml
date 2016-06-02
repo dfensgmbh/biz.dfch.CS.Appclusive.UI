@@ -121,7 +121,7 @@
                     var node = data.node.getPrevSibling();
                     data.node.replaceWith( {
                         url: "@dataUrl",
-                        data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), pageNr: node.data.pageInfo.PageNr + 1 },
+                        data: { parentId: node.parent.key, searchTerm: $('#treeSearchTerm').val(), orderBy: $('#treeOrderBy').val(), skip: node.data.pageInfo.NextSkipCount },
                         cache: false
                     }) ;
                 },

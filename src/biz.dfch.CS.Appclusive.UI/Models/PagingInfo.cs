@@ -48,11 +48,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models
 
         public int PageNr { get; set; }
         public bool HasMore { get; set; }
-
         public long PageCount { get; set; }
-
         public long ItemCount { get; set; }
     }
-
-   
 }

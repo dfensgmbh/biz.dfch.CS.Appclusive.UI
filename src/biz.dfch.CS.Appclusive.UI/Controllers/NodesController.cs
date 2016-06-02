@@ -179,7 +179,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             #endregion
             try
             {
-                nodeList = LoadTreeData(0, 1, id, null, null);
+                nodeList = LoadTreeData(0, 0, id, null, null);
                 return View(nodeList);
             }
             catch (Exception ex)
@@ -189,13 +189,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
         }
 
-        public ActionResult TreeData(long parentId = 0, int pageNr = 1, string searchTerm = null, string orderBy = null, object _ = null)
+        public ActionResult TreeData(long parentId = 0, int skip = 0, string searchTerm = null, string orderBy = null, object _ = null)
         {
-            List<Models.Tree.Node> nodeList = LoadTreeData(parentId, pageNr, 0, searchTerm, orderBy);
+            List<Models.Tree.Node> nodeList = LoadTreeData(parentId, skip, 0, searchTerm, orderBy);
             return this.Json(nodeList, JsonRequestBehavior.AllowGet);
         }
 
-        private List<Models.Tree.Node> LoadTreeData(long parentId, int pageNr, long nodeId, string searchTerm, string orderBy)
+        private List<Models.Tree.Node> LoadTreeData(long parentId, int skip, long nodeId, string searchTerm, string orderBy)
         {
             List<Models.Tree.Node> nodeList = new List<Models.Tree.Node>();
             bool addParents = false;
@@ -210,7 +210,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                     if (nodeId > 0)
                     {
                         // load node - and all parents
-                        query = AddPagingOptions(query, pageNr);
+                        query = AddPagingOptions(query, skip);
                         query = query.AddQueryOption("$filter", string.Format("Id eq {0}", nodeId));
                         addParents = true;
                     }
@@ -219,7 +219,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         if (!string.IsNullOrWhiteSpace(searchTerm))
                         {
                             // search nodes
-                            query = AddPagingOptions(query, pageNr, PortalConfig.SearchLoadSize);
+                            query = AddPagingOptions(query, skip, PortalConfig.SearchLoadSize);
                             query = AddSearchFilter(query, searchTerm);
                             query = AddOrderOptions(query, orderBy);
                             addParents = true;
@@ -228,7 +228,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         else
                         {
                             //  load root Node
-                            query = AddPagingOptions(query, pageNr);
+                            query = AddPagingOptions(query, skip);
                             query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", Constants.EntityKindId.TenantRoot.GetHashCode()));
                         }
                     }
@@ -236,16 +236,18 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 else
                 {
                     // load child list
-                    query = AddPagingOptions(query, pageNr);
+                    query = AddPagingOptions(query, skip);
                     query = query.AddQueryOption("$filter", string.Format("ParentId eq {0}", parentId));
                     query = AddOrderOptions(query, orderBy);
                 }
 
                 QueryOperationResponse<Api.Core.Node> items = query.Execute() as QueryOperationResponse<Api.Core.Node>;
-                PagingInfo pi = new PagingInfo(pageNr, items.TotalCount, pageSize);
-
+                
                 List<Models.Core.Node> modelItems = AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
 
+                var next = items.GetContinuation();
+                var pi = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
+                
                 #endregion
 
                 // find parents                
