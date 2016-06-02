@@ -29,6 +29,6 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Tree
         public bool unselectable { get; set; }
         public string icon { get; set; }
 
-        public PagingInfo pageInfo {get;set;}
+        public PagingFilterInfo pageInfo {get;set;}
     }
 }
