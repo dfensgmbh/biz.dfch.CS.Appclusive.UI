@@ -104,18 +104,24 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         private List<Models.Core.OrderItem> LoadOrderItems(long orderId, int pageNr)
         {
-            // DFTODO - #110 - Load order items with CoreRepository.LoadProperty(order, "OrderItems")
-            QueryOperationResponse<Api.Core.OrderItem> items = CoreRepository.OrderItems
+            var result = new List<Api.Core.OrderItem>();
+            var items = CoreRepository.OrderItems
                     .AddQueryOption("$filter", "OrderId eq " + orderId)
-                    .AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
                     .Execute() as QueryOperationResponse<Api.Core.OrderItem>;
 
-            ViewBag.ParentId = orderId;
-            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+            while (true)
+            {
+                if (items == null) break;
+                
+                result = result.Concat(items).ToList();
+                var continuation = items.GetContinuation();
+                if (continuation == null) break;
+                items = CoreRepository.Execute(continuation);
+            }
 
-            return AutoMapper.Mapper.Map<List<Models.Core.OrderItem>>(items);
+            ViewBag.ParentId = orderId;
+
+            return AutoMapper.Mapper.Map<List<Models.Core.OrderItem>>(result);
         }
 
         public ActionResult ItemSearch(long orderId, string term)
