@@ -1,5 +1,4 @@
 ﻿@model object
-@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @{
     object modelKey = Model;
@@ -70,7 +69,8 @@ else
                       select: function (event, ui) {
                           $(searchTermId).val(ui.item.value);
                           $(modelKeyId).val(ui.item.key);
-                      }
+                      },
+                      minLength: 3
                   });
             }
 
