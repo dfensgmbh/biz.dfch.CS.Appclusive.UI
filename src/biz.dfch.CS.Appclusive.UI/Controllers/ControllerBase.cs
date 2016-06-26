@@ -24,7 +24,6 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using biz.dfch.CS.Appclusive.Api.Core;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -61,46 +60,31 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region basic list actions
 
-        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int pageNr = 1, int skip = 0, string searchTerm = null, string orderBy = null, int d = 0)
+        protected ActionResult Index<T, M>(DataServiceQuery<T> query, int skip = 0, string searchTerm = null, string orderBy = null, int d = 0)
         {
             #region delete message
+
             if (d > 0)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).Add(new AjaxNotificationViewModel(ENotifyStyle.success, string.Format(GeneralResources.ConfirmDeleted, d)));
             }
+
             #endregion
+
             ViewBag.SearchTerm = searchTerm;
+
             try
             {
-                var usePageFilter = UsePageEntityFilter(typeof (T));
-
                 query = AddSearchFilter(query, HttpUtility.UrlEncode(searchTerm));
-                query = AddPagingOptions(query, usePageFilter ? skip : pageNr);
+                query = AddPagingOptions(query, skip);
                 query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
                 List<M> models = AutoMapper.Mapper.Map<List<M>>(items);
 
-                if (usePageFilter)
-                {
-                    var next = items.GetContinuation();
-                    var pageFilter = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
-                    var urlSkip = PagingFilterInfo.GetSkipFromUri(query.RequestUri);
+                var pageFilterInfo = CreatePageFilterInfo(items);
 
-                    if (urlSkip > 0)
-                    {
-                        if (urlSkip - PortalConfig.Pagesize >= 0)
-                        {
-                            pageFilter.PreviousLink = PagingFilterInfo.BuildPreviousLink(query.RequestUri);
-                        }
-                    }
-
-                    ViewBag.Paging = pageFilter;
-                }
-                else
-                {
-                    ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                }
+                ViewBag.Paging = pageFilterInfo;
 
                 models.ForEach(m => this.OnBeforeRender<M>(m));
 
@@ -108,7 +92,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             catch (Exception ex)
             {
-                ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
+                ((List<AjaxNotificationViewModel>) ViewBag.Notifications).AddRange(
+                    ExceptionHelper.GetAjaxNotifications(ex));
                 return View(new List<M>());
             }
         }
@@ -234,6 +219,25 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region basic query filters
 
+        protected static PagingFilterInfo CreatePageFilterInfo<T>(QueryOperationResponse<T> items)
+        {
+            var next = items.GetContinuation();
+            var pageFilter = new PagingFilterInfo((next == null ? null : next.NextLinkUri));
+            var urlSkip = PagingFilterInfo.GetSkipFromUri(items.Query.RequestUri);
+
+            if (urlSkip <= 0)
+            {
+                return pageFilter;
+            }
+
+            if (urlSkip - PortalConfig.Pagesize >= 0)
+            {
+                pageFilter.PreviousLink = PagingFilterInfo.BuildPreviousLink(items.Query.RequestUri);
+            }
+
+            return pageFilter;
+        }
+
         /// <summary>
         /// consider implementing CreateOptionList as well,
         /// otherwise you load the wrong properties..
@@ -251,38 +255,20 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return query;
         }
 
-        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr)
+        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int skip)
         {
-            return AddPagingOptions(query, pageNr, PortalConfig.Pagesize);
+            return AddPagingOptions(query, PortalConfig.Pagesize, skip);
         }
-        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageNr, int pageSize = 0)
+        protected DataServiceQuery<T> AddPagingOptions<T>(DataServiceQuery<T> query, int pageSize, int skip)
         {
-            if (pageNr > 0)
-            {
-                var skip = CalculateSkip(query.ElementType, pageNr, pageSize);
+            query = query.AddQueryOption("$top", pageSize);
 
-                query = query.AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", pageSize)
-                    .AddQueryOption("$skip", skip);
+            if (skip > 0)
+            {
+                query = query.AddQueryOption("$skip", skip);
             }
+
             return query;
-        }
-
-        private bool UsePageEntityFilter(Type type)
-        {
-            return type == typeof (Node)
-                   || type == typeof (Job)
-                   || type == typeof (KeyNameValue);
-        }
-
-        private int CalculateSkip(Type type, int pageNr, int pageSize)
-        {
-            if (UsePageEntityFilter(type))
-            {
-                return pageNr;
-            }
-
-            return (pageNr - 1)*pageSize;
         }
 
         protected DataServiceQuery<T> AddOrderOptions<T>(DataServiceQuery<T> query, string orderBy)
@@ -304,25 +290,31 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region Item Search
 
-        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        protected PartialViewResult ItemIndex<T, M>(DataServiceQuery<T> query, string baseFilter, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ItemSearchTerm = itemSearchTerm;
+            List<M> result = new List<M>();
+
             try
             {
                 query = AddItemSearchFilter(query, baseFilter, itemSearchTerm);
-                query = AddPagingOptions(query, pageNr);
+                query = AddPagingOptions(query, skip);
                 query = AddOrderOptions(query, orderBy);
 
                 QueryOperationResponse<T> items = query.Execute() as QueryOperationResponse<T>;
 
-                ViewBag.Paging = new PagingInfo(pageNr, items.TotalCount);
-                ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
-                return PartialView(AutoMapper.Mapper.Map<List<M>>(items));
+                result = AutoMapper.Mapper.Map<List<M>>(items);
+                var pageFilterInfo = CreatePageFilterInfo(items);
+
+                ViewBag.Paging = pageFilterInfo;
+                ViewBag.AjaxPaging = pageFilterInfo;
+
+                return PartialView();
             }
             catch (Exception ex)
             {
                 ((List<AjaxNotificationViewModel>)ViewBag.Notifications).AddRange(ExceptionHelper.GetAjaxNotifications(ex));
-                return PartialView(new List<M>());
+                return PartialView(new List<M>(result));
             }
         }
 

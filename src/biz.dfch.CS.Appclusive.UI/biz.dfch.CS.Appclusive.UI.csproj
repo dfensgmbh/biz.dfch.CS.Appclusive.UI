@@ -276,7 +276,6 @@
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\OdataError.cs" />
     <Compile Include="Models\PagingFilterInfo.cs" />
-    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Config\PortalConfig.cs" />
     <Compile Include="Config\SearchConfig.cs" />
     <Compile Include="Models\Tree\Node.cs" />

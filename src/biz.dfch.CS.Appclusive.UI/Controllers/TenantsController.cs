@@ -186,27 +186,29 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region tenant-children list and search
 
-        public PartialViewResult ItemIndex(string parentId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        public PartialViewResult ItemIndex(string parentId, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = parentId;
             DataServiceQuery<Api.Core.Tenant> itemsBaseQuery = CoreRepository.Tenants;
             string itemsBaseFilter = string.Format("ParentId eq guid'{0}'", parentId);
-            return base.ItemIndex<Api.Core.Tenant, Models.Core.Tenant>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+            return base.ItemIndex<Api.Core.Tenant, Models.Core.Tenant>(itemsBaseQuery, itemsBaseFilter, skip, itemSearchTerm, orderBy);
         }
 
-        private List<Models.Core.Tenant> LoadChildren(string parentId, int pageNr)
+        private List<Models.Core.Tenant> LoadChildren(string parentId, int skip)
         {
             QueryOperationResponse<Api.Core.Tenant> items = CoreRepository.Tenants
                     .AddQueryOption("$filter", string.Format("ParentId eq guid'{0}'", parentId))
                     .AddQueryOption("$inlinecount", "allpages")
                     .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", skip)
                     .Execute() as QueryOperationResponse<Api.Core.Tenant>;
 
-            ViewBag.ParentId = parentId;
-            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+            var result = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(items);
 
-            return AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(items);
+            ViewBag.ParentId = parentId;
+            ViewBag.AjaxPaging = CreatePageFilterInfo(items);
+
+            return result;
         }
 
         public ActionResult ItemSearch(string parentId, string term)

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<biz.dfch.CS.Appclusive.UI.Models.Core.CartItem>
+
 @using biz.dfch.CS.Appclusive.UI.Helpers
 @using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @{
@@ -8,7 +9,7 @@
     RouteValueDictionary rd = new RouteValueDictionary();
     rd.Add("cartId", ViewBag.ParentId);
     rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
-    rd.Add("pageNr", 1);
+    rd.Add("skip", 0);
     ViewBag.AjaxRouteValueDictionary = rd;
 
     AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };

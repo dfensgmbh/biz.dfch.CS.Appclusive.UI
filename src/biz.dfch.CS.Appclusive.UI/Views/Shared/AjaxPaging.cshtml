@@ -1,7 +1,8 @@
 ﻿@using biz.dfch.CS.Appclusive.UI.App_LocalResources
 @using biz.dfch.CS.Appclusive.UI.Helpers
+@using biz.dfch.CS.Appclusive.UI.Models
 
-@if (ViewBag.AjaxPaging != null && ViewBag.AjaxPaging.PageCount > 1)
+@if (ViewBag.Paging != null && ViewBag.Paging is PagingFilterInfo && (ViewBag.Paging.NextLink != null || ViewBag.Paging.PreviousLink != null))
 {
     string controllerName = (string)ViewContext.Controller.ControllerContext.RouteData.Values["controller"];
     if (ViewBag.AjaxPagingController != null)
@@ -17,84 +18,33 @@
     {
         ViewBag.AjaxRouteValueDictionary.Add("orderBy", HttpContext.Current.Request.QueryString["orderBy"]);
     }
-    
+
     <ul class="pagination">
-        @if (ViewBag.AjaxPaging.PageNr > 1)
+        @if (ViewBag.Paging.PreviousLink != null)
         {
             <li>
-                @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = 1; }  
-                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-double-left", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
-            </li>
-            <li>
-                @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = ViewBag.AjaxPaging.PageNr - 1; }  
+                @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["skip"] = ViewBag.Paging.PreviousSkipCount; }
                 @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-left", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
             </li>
         }
         else
         {
             <li class="disabled">
-                <a class="disabled"><i class="fa fa-angle-double-left"></i></a>
-            </li>
-            <li class="disabled">
                 <a class="disabled"><i class="fa fa-angle-left"></i></a>
             </li>
         }
 
-        @{
-        long start = Math.Max(1, ViewBag.AjaxPaging.PageNr - 2);
-        long end = Math.Min(ViewBag.AjaxPaging.PageCount, ViewBag.AjaxPaging.PageNr + 2);
-        }
-
-        @if (start > 1)
+        @if (ViewBag.Paging.NextLink != null)
         {
-            <li class="disabled">
-                <a class="disabled">...</a>
-            </li>
-        }
-
-        @for (long i = start; i <= end; i++)
-        {
-            if (i == ViewBag.AjaxPaging.PageNr)
-            {
-                <li class="active">
-                    @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = i; }
-                    @AjaxExtensions.ActionLink(Ajax, @i.ToString(), ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
-                </li>
-            }
-            else
-            {
-                <li>
-                    @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = i; }
-                    @AjaxExtensions.ActionLink(Ajax, i.ToString(), ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
-                </li>
-            }
-        }
-        @if (end < ViewBag.AjaxPaging.PageCount - 1)
-        {
-            <li class="disabled">
-                <a class="disabled">...</a>
-            </li>
-        }
-
-        @if (ViewBag.AjaxPaging.HasMore)
-        {
-            int nextPage = ViewBag.AjaxPaging.PageNr + 1;
             <li>
-                @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = nextPage; }
+                @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["skip"] = ViewBag.Paging.NextSkipCount; }
                 @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-right", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
-            </li>
-            <li>
-                @{ ((RouteValueDictionary)ViewBag.AjaxRouteValueDictionary)["pageNr"] = ViewBag.AjaxPaging.PageCount; } 
-                @AjaxHelperExtensions.IconActionLink(Ajax, "fa fa-angle-double-right", ViewBag.AjaxPagingAction, controllerName, ViewBag.AjaxRouteValueDictionary, ajaxOptions, null)
             </li>
         }
         else
         {
             <li class="disabled">
                 <a class="disabled"><i class="fa fa-angle-right"></i></a>
-            </li>
-            <li class="disabled">
-                <a href="@Url.Action("Index", new { pageNr = ViewBag.AjaxPaging.PageCount })"><i class="fa fa-angle-double-right"></i></a>
             </li>
         }
     </ul>

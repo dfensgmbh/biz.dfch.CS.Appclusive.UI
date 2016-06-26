@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
+using System;
 using biz.dfch.CS.Appclusive.Public;
 using biz.dfch.CS.Appclusive.UI.App_LocalResources;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Web;
 
 namespace biz.dfch.CS.Appclusive.UI.Models.Core
 {
@@ -92,10 +91,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             this.Job = AutoMapper.Mapper.Map<Job>(job);
         }
 
-        internal void ResolveSecurity(out PagingInfo explicitPagingInfo, out PagingInfo effectivePagingInfo, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        internal void ResolveSecurity(out PagingFilterInfo explicitPagingFilterInfo, out PagingFilterInfo effectivePagingFilterInfo, Uri uri, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
-            explicitPagingInfo = new PagingInfo(1, 0);
-            effectivePagingInfo = new PagingInfo(1, 0);
+            explicitPagingFilterInfo = new PagingFilterInfo();
+            effectivePagingFilterInfo = new PagingFilterInfo();
+
             if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
             {
                 biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
@@ -108,14 +108,14 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 if (null != acl)
                 {
                     this.Acl = AutoMapper.Mapper.Map<Acl>(acl);
-                    this.Acl.Aces = Models.Core.Acl.LoadAces(acl.Id, 1, out explicitPagingInfo, false);
+                    this.Acl.Aces = Models.Core.Acl.LoadAces(acl.Id, 1, out explicitPagingFilterInfo, uri, false);
                 }
 
                 // effectiv permissions
-                this.EffectivAces = LoadEffectivePermissions(out effectivePagingInfo, this.Id, 1);
+                this.EffectivAces = LoadEffectivePermissions(out effectivePagingFilterInfo, uri, this.Id, 1);
             }
         }
-        internal static List<Ace> LoadEffectivePermissions(out PagingInfo effectivePagingInfo, long nodeId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        internal static List<Ace> LoadEffectivePermissions(out PagingFilterInfo effectivePagingFilterInfo, Uri uri, long nodeId, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
             List<Ace> aces;
             if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
@@ -125,15 +125,14 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 // effectiv permissions
                 var apiList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", nodeId, "GetEffectivePermissions", null);
                 aces = AutoMapper.Mapper.Map<List<Models.Core.Ace>>(apiList);
-                aces = Ace.SortAndFilter(aces, out effectivePagingInfo, pageNr, itemSearchTerm, orderBy);
+                aces = Ace.SortAndFilter(aces, out effectivePagingFilterInfo, uri, skip, itemSearchTerm, orderBy);
             }
             else
             {
-                effectivePagingInfo = new PagingInfo(1, 0);
+                effectivePagingFilterInfo = new PagingFilterInfo();
                 aces = new List<Ace>();
             }
             return aces;
         }
-        
     }
 }

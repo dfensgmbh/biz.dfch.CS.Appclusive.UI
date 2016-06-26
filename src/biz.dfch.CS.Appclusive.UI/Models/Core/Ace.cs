@@ -194,7 +194,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         static object locker = new object();
 
-        internal static List<Ace> SortAndFilter(List<Ace> allAces, out PagingInfo pagingInfo, int pageNr = 1, string itemSearchTerm = null, string orderBy = null, bool distinct = false)
+        internal static List<Ace> SortAndFilter(List<Ace> allAces, out PagingFilterInfo pagingFilterInfo, Uri uri, int skip = 0, string itemSearchTerm = null, string orderBy = null, bool distinct = false)
         {
             IEnumerable<Models.Core.Ace> aces;
             int itemCount = 0;
@@ -203,7 +203,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             if (string.IsNullOrEmpty(itemSearchTerm) && string.IsNullOrEmpty(orderBy))
             {
                 // paging only
-                aces = allAces.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
+                aces = allAces.Skip(skip).Take(PortalConfig.Pagesize);
                 foreach (var ace in aces)
                 {
                     ace.ResolveNavigationProperties(coreRepository);
@@ -238,12 +238,30 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                 {
                     aces = aces.Distinct(new Models.Core.AceSearchViewComparer());
                 }
-                itemCount = aces.Count();
-                aces = aces.Skip((pageNr - 1) * PortalConfig.Pagesize).Take(PortalConfig.Pagesize);
+              
+                aces = aces.Skip(skip).Take(PortalConfig.Pagesize);
             }
-            pagingInfo = new PagingInfo(pageNr, itemCount);
+
+            pagingFilterInfo = new PagingFilterInfo();
+            var newUri = BuildSkipUri(uri, skip);
+
+            if (skip > 0)
+            {
+                pagingFilterInfo.NextLink = newUri;
+                pagingFilterInfo.PreviousLink = PagingFilterInfo.BuildPreviousLink(newUri);
+            }
+            
             return aces.ToList();
         }
+
+        private static Uri BuildSkipUri(Uri uri, int skip)
+        {
+            var uriBuilder = new UriBuilder(uri);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["skip"] = skip.ToString();
+            uriBuilder.Query = query.ToString();
+
+            return uriBuilder.Uri;
+        }
     }
-    
 }

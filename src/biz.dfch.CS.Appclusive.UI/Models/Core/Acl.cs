@@ -93,7 +93,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         static object locker = new object();
 
-        internal static List<Models.Core.Ace> LoadAces(long aclId, int pageNr, out PagingInfo pagingInfo, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
+        internal static List<Models.Core.Ace> LoadAces(long aclId, int skip, out PagingFilterInfo pagingFilterInfo, Uri uri, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
         {
             List<Ace> allAces = Ace.GetAcesFromCache(aclId);
 
@@ -101,11 +101,11 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             if (allAces == null)
             {
                 aces = new List<Ace>();
-                pagingInfo = new PagingInfo(1, 0);
+                pagingFilterInfo = new PagingFilterInfo();
             }
             else
             {
-                aces = Ace.SortAndFilter(allAces, out pagingInfo, pageNr, itemSearchTerm, orderBy, distinct);
+                aces = Ace.SortAndFilter(allAces, out pagingFilterInfo, uri, skip, itemSearchTerm, orderBy, distinct);
             }
             return aces.ToList();
         }

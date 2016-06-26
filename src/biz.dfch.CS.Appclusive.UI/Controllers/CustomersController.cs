@@ -152,7 +152,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
 
-        private List<Models.Core.Tenant> LoadTenants(long customerId, int pageNr)
+        private List<Models.Core.Tenant> LoadTenants(long customerId, int skip)
         {
             List<Api.Core.Tenant> items = CoreRepository.Tenants.Where(t=>t.CustomerId==customerId).ToList();
             return AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(items);

@@ -248,14 +248,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region Ace  list and search
 
-        public PartialViewResult ItemIndex(long aclId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null, bool Readonly = false, string ajaxPagingTargetId = null)
+        public PartialViewResult ItemIndex(long aclId, int skip = 0, string itemSearchTerm = null, string orderBy = null, bool Readonly = false, string ajaxPagingTargetId = null)
         {
             ViewBag.Readonly = Readonly;
             if (!string.IsNullOrEmpty(ajaxPagingTargetId))
             {
                 ViewBag.AjaxPagingTargetId = ajaxPagingTargetId;
             }
-            return PartialView("AceList", LoadAces(aclId, pageNr, false, itemSearchTerm, orderBy));
+            return PartialView("AceList", LoadAces(aclId, skip, false, itemSearchTerm, orderBy));
         }
 
         public ActionResult ItemSearch(long aclId, string term)
@@ -269,16 +269,17 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return this.Json(options, JsonRequestBehavior.AllowGet);
         }
 
-        private List<Models.Core.Ace> LoadAces(long aclId, int pageNr, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
+        private List<Models.Core.Ace> LoadAces(long aclId, int skip = 0, bool distinct = false, string itemSearchTerm = null, string orderBy = null)
         {
-            PagingInfo pagingInfo;
-            var aces = Models.Core.Acl.LoadAces(aclId, pageNr, out pagingInfo, distinct, itemSearchTerm, orderBy);
+            var uri = this.HttpContext.Request.Url;
+
+            PagingFilterInfo pagingFilterInfo;
+            var aces = Models.Core.Acl.LoadAces(aclId, skip, out pagingFilterInfo, uri, distinct, itemSearchTerm, orderBy);
             ViewBag.ParentId = aclId;
             ViewBag.ItemSearchTerm = itemSearchTerm;
-            ViewBag.AjaxPaging = pagingInfo;
+            ViewBag.AjaxPaging = pagingFilterInfo;
             return aces;
         }
-
 
         #endregion
     }

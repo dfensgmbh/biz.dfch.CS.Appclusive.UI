@@ -188,27 +188,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         #region ManagementUris list and search
         // GET: Nodes/ItemList
-        public PartialViewResult ItemIndex(long managementCredentialId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        public PartialViewResult ItemIndex(long managementCredentialId, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = managementCredentialId;
             DataServiceQuery<Api.Core.ManagementUri> itemsBaseQuery = CoreRepository.ManagementUris;
             string itemsBaseFilter = "ManagementCredentialId eq " + managementCredentialId;
-            return base.ItemIndex<Api.Core.ManagementUri, Models.Core.ManagementUri>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+            return base.ItemIndex<Api.Core.ManagementUri, Models.Core.ManagementUri>(itemsBaseQuery, itemsBaseFilter, skip, itemSearchTerm, orderBy);
         }
 
-        private List<Models.Core.ManagementUri> LoadManagementUris(long managementCredentialId, int pageNr)
+        private List<Models.Core.ManagementUri> LoadManagementUris(long managementCredentialId, int skip)
         {
             QueryOperationResponse<Api.Core.ManagementUri> items = CoreRepository.ManagementUris
                     .AddQueryOption("$filter", "ManagementCredentialId eq " + managementCredentialId)
-                    .AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", skip)
                     .Execute() as QueryOperationResponse<Api.Core.ManagementUri>;
 
-            ViewBag.ParentId = managementCredentialId;
-            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+            var result = AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items);
 
-            return AutoMapper.Mapper.Map<List<Models.Core.ManagementUri>>(items);
+            ViewBag.ParentId = managementCredentialId;
+            ViewBag.AjaxPaging = CreatePageFilterInfo(items);
+
+            return result;
         }
 
         public ActionResult ItemSearch(long managementCredentialId, string term)

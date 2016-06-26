@@ -8,7 +8,7 @@
     RouteValueDictionary rd = new RouteValueDictionary();
     rd.Add("managementCredentialId", ViewBag.ParentId);
     rd.Add("itemSearchTerm", ViewBag.ItemSearchTerm);
-    rd.Add("pageNr", 1);
+    rd.Add("skip", 0);
     ViewBag.AjaxRouteValueDictionary = rd;
 
     AjaxOptions ajaxOptions = new AjaxOptions() { UpdateTargetId = ViewBag.AjaxPagingTargetId, InsertionMode = InsertionMode.Replace, HttpMethod = "Get", OnBegin = "showBusy", OnComplete = "hideBusy" };

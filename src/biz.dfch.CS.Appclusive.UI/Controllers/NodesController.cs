@@ -58,11 +58,13 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 try
                 {
+                    var uri = HttpContext.Request.Url;
+
                     modelItem.Children = LoadNodeChildren(id, 1);
                     modelItem.ResolveJob(this.CoreRepository);
                     modelItem.ResolveReferencedEntityName(this.CoreRepository);
-                    PagingInfo explicitAcePagingInfo, effectivecePagingInfo;
-                    modelItem.ResolveSecurity(out explicitAcePagingInfo, out effectivecePagingInfo);
+                    PagingFilterInfo explicitAcePagingInfo, effectivecePagingInfo;
+                    modelItem.ResolveSecurity(out explicitAcePagingInfo, out effectivecePagingInfo, uri);
                     ViewBag.ExplicitAcePaging = explicitAcePagingInfo;
                     ViewBag.EffectiveAcePaging = effectivecePagingInfo;                    
                 }
@@ -130,27 +132,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region Node-children list and search
 
         // GET: Nodes/ItemList
-        public PartialViewResult ItemIndex(long parentId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        public PartialViewResult ItemIndex(long parentId, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = parentId;
             DataServiceQuery<Api.Core.Node> itemsBaseQuery = CoreRepository.Nodes;
             string itemsBaseFilter = "ParentId eq " + parentId;
-            return base.ItemIndex<Api.Core.Node, Models.Core.Node>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+            return base.ItemIndex<Api.Core.Node, Models.Core.Node>(itemsBaseQuery, itemsBaseFilter, skip, itemSearchTerm, orderBy);
         }
 
-        private List<Models.Core.Node> LoadNodeChildren(long parentId, int pageNr)
+        private List<Models.Core.Node> LoadNodeChildren(long parentId, int skip)
         {
             QueryOperationResponse<Api.Core.Node> items = CoreRepository.Nodes
                     .AddQueryOption("$filter", "ParentId eq " + parentId)
-                    .AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", skip)
                     .Execute() as QueryOperationResponse<Api.Core.Node>;
 
-            ViewBag.ParentId = parentId;
-            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+            var result = AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
 
-            return AutoMapper.Mapper.Map<List<Models.Core.Node>>(items);
+            ViewBag.ParentId = parentId;
+            ViewBag.AjaxPaging = CreatePageFilterInfo(items);
+
+            return result;
         }
 
         public ActionResult ItemSearch(long parentId, string term)
@@ -418,18 +420,21 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             ViewBag.CheckNodePermission = cp;
         }
 
-        public PartialViewResult AceList(long nodeId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null, string ajaxPagingTargetId = null)
+        public PartialViewResult AceList(long nodeId, int skip = 0, string itemSearchTerm = null, string orderBy = null, string ajaxPagingTargetId = null)
         {
             ViewBag.Readonly = true;
             if (!string.IsNullOrEmpty(ajaxPagingTargetId))
             {
                 ViewBag.AjaxPagingTargetId = ajaxPagingTargetId;
             }
-            PagingInfo pagingInfo;
-            List<Models.Core.Ace> aces = Models.Core.Node.LoadEffectivePermissions(out pagingInfo, nodeId, pageNr, itemSearchTerm, orderBy);
+
+            var uri = this.HttpContext.Request.Url;
+
+            PagingFilterInfo pagingFilterInfo;
+            List<Models.Core.Ace> aces = Models.Core.Node.LoadEffectivePermissions(out pagingFilterInfo, uri, nodeId, skip, itemSearchTerm, orderBy);
             ViewBag.ParentId = nodeId;
             ViewBag.ItemSearchTerm = itemSearchTerm;
-            ViewBag.AjaxPaging = pagingInfo;
+            ViewBag.AjaxPaging = pagingFilterInfo;
             ViewBag.AjaxPagingAction = "AceList";
             ViewBag.AjaxPagingController = "Nodes";
             return PartialView("AceList", aces);

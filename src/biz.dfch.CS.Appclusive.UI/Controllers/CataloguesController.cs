@@ -173,28 +173,28 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         #region CatalogItems list and search
 
         // GET: Catalogues/ItemList
-        public PartialViewResult ItemIndex(long catalogueId, int pageNr = 1, string itemSearchTerm = null, string orderBy = null)
+        public PartialViewResult ItemIndex(long catalogueId, int skip = 0, string itemSearchTerm = null, string orderBy = null)
         {
             ViewBag.ParentId = catalogueId;
             DataServiceQuery<Api.Core.CatalogueItem> itemsBaseQuery = CoreRepository.CatalogueItems;
             // .AddQueryOption("$filter", "CatalogueId eq " + catalogueId);
             string itemsBaseFilter = string.Format("CatalogueId eq {0}", catalogueId);
-            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, pageNr, itemSearchTerm, orderBy);
+            return base.ItemIndex<Api.Core.CatalogueItem, Models.Core.CatalogueItem>(itemsBaseQuery, itemsBaseFilter, skip, itemSearchTerm, orderBy);
         }
 
-        private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int pageNr)
+        private List<Models.Core.CatalogueItem> LoadCatalogueItems(long catalogueId, int skip)
         {
             QueryOperationResponse<Api.Core.CatalogueItem> items = CoreRepository.CatalogueItems
                     .AddQueryOption("$filter", "CatalogueId eq " + catalogueId)
-                    .AddQueryOption("$inlinecount", "allpages")
-                    .AddQueryOption("$top", PortalConfig.Pagesize)
-                    .AddQueryOption("$skip", (pageNr - 1) * PortalConfig.Pagesize)
+                    .AddQueryOption("$skip", skip)
                     .Execute() as QueryOperationResponse<Api.Core.CatalogueItem>;
 
-            ViewBag.ParentId = catalogueId;
-            ViewBag.AjaxPaging = new PagingInfo(pageNr, items.TotalCount);
+            var result = AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(items);
 
-            return AutoMapper.Mapper.Map<List<Models.Core.CatalogueItem>>(items);
+            ViewBag.ParentId = catalogueId;
+            ViewBag.AjaxPaging = CreatePageFilterInfo(items);
+
+            return result;
         }
 
         public ActionResult ItemSearch(long catalogueId, string term)
