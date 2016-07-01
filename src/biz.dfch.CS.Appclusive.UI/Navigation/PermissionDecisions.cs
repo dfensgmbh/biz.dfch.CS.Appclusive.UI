@@ -19,19 +19,9 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
-        internal biz.dfch.CS.Appclusive.Api.Core.Core CoreRepositoryGet()
+        internal Api.Core.Core CoreRepositoryGet()
         {
-            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
-            coreRepository.IgnoreMissingProperties = true;
-            coreRepository.Format.UseJson();
-            coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
-            coreRepository.MergeOption = MergeOption.PreserveChanges;
-
-            System.Net.NetworkCredential apiCreds = HttpContext.Current.Session["LoginData"] as System.Net.NetworkCredential;
-            Contract.Assert(null != apiCreds);
-            coreRepository.Credentials = apiCreds;
-
-            return coreRepository;
+            return new AuthenticatedCoreApi();
         }
 
         #endregion

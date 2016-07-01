@@ -176,11 +176,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Config\Constants.cs" />
     <Compile Include="Config\EntityElement.cs" />
     <Compile Include="Config\EntityElementCollection.cs" />
     <Compile Include="Config\EntitySearchConfigurationSection.cs" />
     <Compile Include="Config\FormatStringExpression.cs" />
     <Compile Include="Config\NavigationConfig.cs" />
+    <Compile Include="Config\PermissionConfig.cs" />
     <Compile Include="Controllers\ContextController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GenericControllerBase.cs" />
@@ -226,6 +228,11 @@
     </Compile>
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperSecuredExtensions.cs" />
+    <Compile Include="Helpers\JwtHelper.cs" />
+    <Compile Include="Managers\AuthenticatedCmpApi.cs" />
+    <Compile Include="Managers\AuthenticatedCoreApi.cs" />
+    <Compile Include="Managers\AuthenticatedDiagnosticsApi.cs" />
+    <Compile Include="Managers\DataServiceContextExtension.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
     <Compile Include="Models\AjaxOption.cs" />
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />

@@ -22,6 +22,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -33,27 +34,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// </summary>
         override protected DataServiceContext Repository { get { return this.DiagnosticsRepository; } }
 
-        protected biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics DiagnosticsRepository
+        protected Api.Diagnostics.Diagnostics DiagnosticsRepository
         {
-            get
-            {
-                if (diagnosticsRepository == null)
-                {
-                    diagnosticsRepository = new biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Diagnostics"));
-                    diagnosticsRepository.IgnoreMissingProperties = true;
-                    //diagnosticsRepository.Format.UseJson();
-                    diagnosticsRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
-                    diagnosticsRepository.MergeOption = MergeOption.PreserveChanges;
-                    diagnosticsRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
-
-                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    Contract.Assert(null != apiCreds);
-                    diagnosticsRepository.Credentials = apiCreds;
-                }
-                return diagnosticsRepository;
-            }
+            get { return diagnosticsRepository ?? (diagnosticsRepository = new AuthenticatedDiagnosticsApi()); }
         }
-        private biz.dfch.CS.Appclusive.Api.Diagnostics.Diagnostics diagnosticsRepository;
+        private Api.Diagnostics.Diagnostics diagnosticsRepository;
 
     }
 }

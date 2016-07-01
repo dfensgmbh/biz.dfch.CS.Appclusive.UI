@@ -53,7 +53,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         {
             Models.Core.Acl acl = new Models.Core.Acl()
             {
-                EntityKindId = Constants.EntityKindId.Node.GetHashCode(),
+                EntityKindId = Public.Constants.EntityKindId.Node.GetHashCode(),
                 EntityId = nodeId.HasValue ? nodeId.Value : 0
             };
             acl.ResolveNavigationProperties(CoreRepository);

@@ -22,6 +22,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -35,27 +36,11 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
-        protected biz.dfch.CS.Appclusive.Api.Cmp.Cmp CmpRepository
+        protected Api.Cmp.Cmp CmpRepository
         {
-            get
-            {
-                if (cmpRepository == null)
-                {
-                    cmpRepository = new biz.dfch.CS.Appclusive.Api.Cmp.Cmp(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Cmp"));
-                    cmpRepository.IgnoreMissingProperties = true;
-                    cmpRepository.Format.UseJson();
-                    cmpRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
-                    cmpRepository.MergeOption = MergeOption.PreserveChanges;
-                    cmpRepository.TenantID = biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.Tenant.Id.ToString();
-
-                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    Contract.Assert(null != apiCreds);
-                    cmpRepository.Credentials = apiCreds;
-                }
-                return cmpRepository;
-            }
+            get { return cmpRepository ?? (cmpRepository = new AuthenticatedCmpApi()); }
         }
-        private biz.dfch.CS.Appclusive.Api.Cmp.Cmp cmpRepository;
+        private Api.Cmp.Cmp cmpRepository;
         
     }
 }

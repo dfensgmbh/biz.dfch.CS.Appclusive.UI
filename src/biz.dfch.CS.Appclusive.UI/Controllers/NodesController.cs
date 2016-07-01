@@ -229,7 +229,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                         {
                             //  load root Node
                             query = AddPagingOptions(query, skip);
-                            query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", Constants.EntityKindId.TenantRoot.GetHashCode()));
+                            query = query.AddQueryOption("$filter", string.Format("EntityKindId eq {0}", Public.Constants.EntityKindId.TenantRoot.GetHashCode()));
                         }
                     }
                 }
@@ -334,7 +334,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         private void FindParent(List<Models.Core.Node> modelItems, Models.Core.Node child)
         {
             if (child.Parent == null && child.ParentId.HasValue && child.ParentId > 0 && child.Id != child.ParentId.Value
-                && child.EntityKindId != Constants.EntityKindId.TenantRoot.GetHashCode()) // stop at tenant root node
+                && child.EntityKindId != Public.Constants.EntityKindId.TenantRoot.GetHashCode()) // stop at tenant root node
             {
                 var parent = modelItems.FirstOrDefault(n => n.Id == child.ParentId);
                 if (null == parent)
@@ -354,7 +354,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             }
             else
             {
-                if (child.Parent != null && child.Parent.EntityKindId == Constants.EntityKindId.TenantRoot.GetHashCode()) 
+                if (child.Parent != null && child.Parent.EntityKindId == Public.Constants.EntityKindId.TenantRoot.GetHashCode()) 
                 {
                     // remove Parent if ROOT
                     child.Parent = null;

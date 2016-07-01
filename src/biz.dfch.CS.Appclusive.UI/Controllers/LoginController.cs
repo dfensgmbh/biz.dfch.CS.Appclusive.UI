@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Security.Authentication;
 using System.Web.Mvc;
 using System.Web.Security;
+using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -107,7 +108,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             if (isAuthenticated)
             {
                 Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
-                Session["PermissionDecisions"] = new PermissionDecisions(data.Username, data.Domain);
+                Session["PermissionDecisions"] = new PermissionDecisions(data.Username);
                 
                 FormsAuthentication.RedirectFromLoginPage(data.Username, false);
             }
@@ -124,18 +125,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 Contract.Assert(null != apiCreds);
 
-                var repo =
-                    new Api.Diagnostics.Diagnostics(
-                        new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Diagnostics"))
-                    {
-                        IgnoreMissingProperties = true,
-                        SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate,
-                        MergeOption = MergeOption.PreserveChanges,
-                        TenantID = PermissionDecisions.Current.Tenant.Id.ToString(),
-                        Credentials = apiCreds
-                    };
-
-                repo.Format.UseJson();
+                var repo = new AuthenticatedDiagnosticsApi();
                 repo.InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
                 
                 return true;
