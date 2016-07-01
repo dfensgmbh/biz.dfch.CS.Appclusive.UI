@@ -125,7 +125,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 Contract.Assert(null != apiCreds);
 
-                var repo = new AuthenticatedDiagnosticsApi();
+                var repo = new AuthenticatedDiagnosticsApi(apiCreds);
                 repo.InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
                 
                 return true;
