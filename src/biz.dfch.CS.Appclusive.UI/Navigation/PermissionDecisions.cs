@@ -108,7 +108,10 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 _permissionManager = new PermissionManager(coreRepository);
 
                 // load tenants
-                Tenants = AutoMapper.Mapper.Map<List<Tenant>>(coreRepository.Tenants.ToList());
+                Tenants = AutoMapper.Mapper.Map<List<Tenant>>(coreRepository
+                    .Tenants
+                    .Where(t => !t.Name.Equals("HOME_TENANT") && !t.Name.Equals("GROUP_TENANT"))
+                    .ToList());
                 // Tenants.Add(new Tenant { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
 
                 this.CurrentUser = AutoMapper.Mapper.Map<User>(coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null));
