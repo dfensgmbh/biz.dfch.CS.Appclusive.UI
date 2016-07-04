@@ -83,8 +83,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult Logout(string returnUrl = null)
         {
             FormsAuthentication.SignOut();
-            Session["LoginData"] = null;
-            Session["PermissionDecisions"] = null;
+            Session.Clear();
 
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
