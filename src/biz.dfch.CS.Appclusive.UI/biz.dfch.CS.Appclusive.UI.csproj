@@ -233,6 +233,7 @@
     <Compile Include="Managers\AuthenticatedCoreApi.cs" />
     <Compile Include="Managers\AuthenticatedDiagnosticsApi.cs" />
     <Compile Include="Managers\DataServiceContextExtension.cs" />
+    <Compile Include="Managers\PermissionManager.cs" />
     <Compile Include="Models\AjaxNotificationViewModel.cs" />
     <Compile Include="Models\AjaxOption.cs" />
     <Compile Include="Models\AppcusiveEntityViewModelBase.cs" />
