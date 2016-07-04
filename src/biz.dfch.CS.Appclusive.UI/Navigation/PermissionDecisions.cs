@@ -143,7 +143,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="modelType"></param>
+        /// <param name="modelName"></param>
         /// <param name="action">without entity: CanRead</param>
         /// <returns></returns>
         public bool HasPermission(string modelName, string action)
@@ -159,7 +159,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// <returns></returns>
         private bool HasPermission(string permissionName)
         {
-            var grantedPermissions = _permissionManager.ReadPermissions(Tenant.Id);
+            var grantedPermissions = _permissionManager.TenantPermissions(Tenant.Id);
             return grantedPermissions.Any(p => p.Equals(permissionName));
         }
 
