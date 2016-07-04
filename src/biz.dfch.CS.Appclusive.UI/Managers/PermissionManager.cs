@@ -12,10 +12,8 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
     public class PermissionManager
     {
         private const string PermissionsCacheKey = "_PermissionManager_Permissions";
-        private const string ReadPermissionsCacheKey = "_PermissionManager_ReadPermissions";
-
-        private const string CanReadSuffix = "CanRead";
-
+        private const string TenantPermissionsCacheKey = "_PermissionManager_TenantPermissions";
+        
         private const long AllPermissions = 0;
 
         private readonly AuthenticatedCoreApi _authenticatedCoreApi;
@@ -80,7 +78,6 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
                 var response = _authenticatedCoreApi
                     .Permissions
                     .AddQueryOption("$skip", permissions.Count)
-                    .AddQueryOption("$filter", string.Format("endswith(Name,'{0}')", CanReadSuffix))
                     .IncludeTotalCount()
                     .Execute() as QueryOperationResponse<Permission>;
                 Contract.Assert(response != null);
@@ -93,14 +90,14 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
             return permissions;
         }
 
-        public IEnumerable<string> ReadPermissions(Guid tenantId)
+        public IEnumerable<string> TenantPermissions(Guid tenantId)
         {
-            var cacheKey = string.Format("{0}_{1}", ReadPermissionsCacheKey, tenantId);
+            var cacheKey = string.Format("{0}_{1}", TenantPermissionsCacheKey, tenantId);
             var cachedPermissions = HttpContext.Current.Session[cacheKey] as IEnumerable<string>;
 
             if (cachedPermissions == null)
             {
-                cachedPermissions = LoadReadPermissions(tenantId).ToList().AsEnumerable();
+                cachedPermissions = LoadTenantPermissions(tenantId).ToList().AsEnumerable();
                 HttpContext.Current.Session[cacheKey] = cachedPermissions;
             }
 
@@ -115,7 +112,7 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
             return permission;
         }
 
-        private IEnumerable<string> LoadReadPermissions(Guid tenantId)
+        private IEnumerable<string> LoadTenantPermissions(Guid tenantId)
         {
             var aces = Aces(tenantId);
 
@@ -144,7 +141,6 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
 
             return grantedPermissions
                 .Where(pair => pair.Value)
-                .Where(pair => pair.Key.EndsWith(CanReadSuffix))
                 .Select(pair => pair.Key);
         }
 

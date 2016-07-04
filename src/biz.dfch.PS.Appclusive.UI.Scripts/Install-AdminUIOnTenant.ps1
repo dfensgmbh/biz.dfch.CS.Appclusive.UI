@@ -24,7 +24,7 @@ PARAM(
 	$TenantId
 	,
 	# Guid of the Tenant for whom the AdminUI should be configured.
-	[Parameter(Mandatory = $false, Position = 3)]
+	[Parameter(Mandatory = $false, Position = 4)]
 	$TenantName
 )
 
