@@ -164,7 +164,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     {
                         aces = new List<Models.Core.Ace>();
 
-                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
                         var query = coreRepository.Aces.AddQueryOption("$top", 10000);
                         if (aclId > 0)
                         {
@@ -199,7 +199,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             IEnumerable<Models.Core.Ace> aces;
             int itemCount = 0;
 
-            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
             if (string.IsNullOrEmpty(itemSearchTerm) && string.IsNullOrEmpty(orderBy))
             {
                 // paging only

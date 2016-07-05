@@ -11,12 +11,13 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
     {
         #region Core Repository
 
+        private AuthenticatedCoreApi _coreRepository;
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
-        internal AuthenticatedCoreApi CoreRepositoryGet()
+        internal AuthenticatedCoreApi GetCoreRepository()
         {
-            return new AuthenticatedCoreApi();
+            return _coreRepository ?? (_coreRepository = new AuthenticatedCoreApi());
         }
 
         #endregion
@@ -35,8 +36,12 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
             set
             {
                 _tenant = value;
-                Permissions = GetPermissionsForTenant(_tenant.Id);
-                Navigation = CreateNavigation();
+                if (_tenant != null)
+                {
+                    GetCoreRepository().TenantID = _tenant.Id.ToString();
+                    Permissions = GetPermissionsForTenant(_tenant.Id);
+                    Navigation = CreateNavigation();
+                }
             }
         }
 
@@ -44,7 +49,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         private IEnumerable<Ace> GetPermissionsForTenant(Guid tenantId)
         {
-            return AutoMapper.Mapper.Map<IEnumerable<Ace>>(new PermissionManager().Aces(tenantId)); ;
+            return AutoMapper.Mapper.Map<IEnumerable<Ace>>(_permissionManager.Aces(tenantId)); ;
         }
 
         public User CurrentUser { get; private set; }
@@ -64,7 +69,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                     {
                         return 0;
                     }
-                    biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+                    biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.GetCoreRepository();
                     Api.Core.Cart[] carts = coreRepository.Carts.ToArray();
                     switch (carts.Length)
                     {
@@ -97,14 +102,14 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         #region Constructors
 
-        private PermissionManager _permissionManager;
+        private readonly PermissionManager _permissionManager;
         public PermissionDecisions(string username)
         {
             Tenants = new List<Tenant>();
 
             if (!string.IsNullOrEmpty(username))
             {
-                var coreRepository = CoreRepositoryGet();
+                var coreRepository = GetCoreRepository();
                 _permissionManager = new PermissionManager(coreRepository);
 
                 // load tenants
@@ -120,7 +125,8 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 if (null != CurrentUser)
                 {
                     CurrentUser.ResolveNavigationProperties();
-                    Tenant = Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid);
+                    Tenant = Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid)
+                             ?? Tenants.FirstOrDefault();
                 }
             }
         }

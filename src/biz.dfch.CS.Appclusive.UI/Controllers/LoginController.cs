@@ -106,7 +106,14 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             if (isAuthenticated)
             {
-                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+                if (!data.Username.Contains("\\"))
+                {
+                    data.Username = string.Format("{0}\\{1}", data.Domain, data.Username);
+                }
+
+                var credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+
+                Session["LoginData"] = credentials;
                 Session["PermissionDecisions"] = new PermissionDecisions(data.Username);
                 
                 FormsAuthentication.RedirectFromLoginPage(data.Username, false);

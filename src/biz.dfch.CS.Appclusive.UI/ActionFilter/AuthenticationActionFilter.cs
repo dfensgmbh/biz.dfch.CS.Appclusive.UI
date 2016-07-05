@@ -23,6 +23,7 @@ namespace biz.dfch.CS.Appclusive.UI.ActionFilter
             if (IsJwtHeaderPresent(filterContext))
             {
                 JwtHelper.JwtHeader = filterContext.HttpContext.Request.Headers[JwtHelper.JwtHeaderKey];
+                return;
             }
 
             if (IsLoginDataPresent(filterContext))

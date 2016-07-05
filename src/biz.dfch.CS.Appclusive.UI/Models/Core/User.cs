@@ -31,7 +31,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         internal void ResolveNavigationProperties()
         {
-            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
 
             // Roles & Permissions
             if (null == this.Roles || null == this.Permissions)
@@ -81,7 +81,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     {
                         acls = new List<Models.Core.User>();
 
-                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
                         QueryOperationResponse<Api.Core.User> queryResponse = coreRepository.Users.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.User>;
                         while (null != queryResponse)
                         {

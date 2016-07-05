@@ -77,7 +77,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
 
         internal void ResolveRequester()
         {
-            Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+            Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
             if (null == this.Requester && this.RequesterId>0)
             {
                 this.Requester = AutoMapper.Mapper.Map<User>(coreRepository.Users.Where(o => o.Id == RequesterId).FirstOrDefault());
