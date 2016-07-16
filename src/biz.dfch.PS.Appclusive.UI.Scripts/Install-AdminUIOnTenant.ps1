@@ -98,13 +98,14 @@ PROCESS
 		}
 
 		$TenantId = $Tenant.Id
-		Write-Host "$TenantName $TenantId"
 	}
 
+	$null = Set-ApcSessionTenant -TenantId $TenantId;
+	
 	$AdminUIConfigurationEntityKindFilter = "Version eq '{0}'" -f $AdminUIContants.EntityKinds.AdminUIConfiguration;
 	$AdminUIConfigurationEntityKind = $appclusive.Core.EntityKinds.AddQueryOption('$filter', $AdminUIConfigurationEntityKindFilter);
-												 
-	if (!$AdminUIConfigurationEntityKind)
+	
+	if (IsNullOrEmpty($AdminUIConfigurationEntityKind))
 	{
 		$message = ("EntityKind:'{0}' does not exist. Aborting, need to run 'Install-AdminUI' first." -f $AdminUIContants.EntityKinds.AdminUIConfiguration);
 		Log-Error $fn $message;
@@ -115,8 +116,20 @@ PROCESS
 	$AdminUIConfigurationNodeFilter = "Tid eq guid'{0}' and EntityKindId eq {1}" -f $TenantId,$AdminUIConfigurationEntityKind.Id;
 	$AdminUIConfigurationNode = $appclusive.Core.Nodes.AddQueryOption('$filter', $AdminUIConfigurationNodeFilter);
 
-	if (!$AdminUIConfigurationNode)
+	
+	$emptyOrNull = IsNullOrEmpty($AdminUIConfigurationNode);
+	if ($emptyOrNull -ne $true)
 	{
+		Write-Host "AdminUIConfigurationNode " -NoNewLine
+		Write-Host "Exists" -foregroundcolor Green		
+		$AdminUIConfigurationNode
+		
+		$nodeId = $AdminUIConfigurationNode.Id;
+	}
+	else
+	{
+		Write-Host "Creating AdminUIConfigurationNode" -foregroundcolor Yellow -NoNewLine;
+		
 		$message = "AdminUIConfigurationNode does not exist for TenantId:{0}, start Creation." -f $TenantId;
 		Log-Info $fn $message;
 		Write-Information $message;
@@ -124,7 +137,7 @@ PROCESS
 		$ConfigurationEntityKindFilter = "Version eq '{0}'" -f $AdminUIContants.EntityKinds.Configuration;
 		$ConfigurationEntityKind = $appclusive.Core.EntityKinds.AddQueryOption('$filter', $ConfigurationEntityKindFilter);
 		
-		if (!$ConfigurationEntityKind)
+		if (IsNullOrEmpty($ConfigurationEntityKind))
 		{
 			$message = ("EntityKind:'{0}' does not exist. Aborting." -f $AdminUIContants.EntityKinds.AdminUIConfiguration);
 			Log-Error $fn $message;
@@ -135,7 +148,7 @@ PROCESS
 		$ConfigurationNodeFilter = "Tid eq guid'{0}' and EntityKindId eq {1}" -f $TenantId,$ConfigurationEntityKind.Id;
 		$ConfigurationNode = $appclusive.Core.Nodes.AddQueryOption('$filter', $ConfigurationNodeFilter);
 
-		if (!$ConfigurationNode)
+		if (IsNullOrEmpty($ConfigurationNode))
 		{
 			$message = "Configuration Node does not exist. Aborting.";
 			Log-Error $fn $message;
@@ -157,17 +170,30 @@ PROCESS
 		$message = ("Admin UI Configuration Node with Id:{0} created." -f $AdminUIConfigurationNode.Id);
 		Log-Info $fn $message;
 		Write-Information $message;
+		
+		Write-Host ("Created (ID:{0})" -f $AdminUIConfigurationNode.Id);
+		$nodeId = $AdminUIConfigurationNode.Id;
 	}
-
-	$AclFilter = "EntityId eq {0}" -f $AdminUIConfigurationNode.Id;
+	
+	$AclFilter = "EntityId eq {0}" -f $nodeId;
 	$Acl = $appclusive.Core.Acls.AddQueryOption('$filter', $AclFilter);
 
-	if (!$Acl)
+	$emptyOrNull = IsNullOrEmpty($Acl);
+	if ($emptyOrNull -ne $true)
 	{
+		Write-Host "ACL " -NoNewLine
+		Write-Host "Exists" -foregroundcolor Green
+		
+		$Acl
+	}
+	else
+	{
+		Write-Host "Creating ACL" -foregroundcolor Yellow
+		
 		$CloudAdminRoleFilter = "Tid eq guid'{0}' and Name eq '{1}' and RoleType eq 'BuiltIn'" -f $TenantId,$AdminUIContants.CloudAdminRoleName;
 		$CloudAdminRole = $appclusive.Core.Roles.AddQueryOption('$filter', $CloudAdminRoleFilter);
 
-		if (!$CloudAdminRole)
+		if (IsNullOrEmpty($CloudAdminRole))
 		{
 			$message = ("Role(Name:'{0}',TenantId:'{1}') does not exist. Aborting." -f $AdminUIContants.CloudAdminRoleName,$TenantId);
 			Log-Error $fn $message;
@@ -207,6 +233,8 @@ PROCESS
 		$message = "Ace {0} created for TenantId:{1}, start Creation." -f $Ace.Name,$TenantId;
 		Log-Info $fn $message;
 		Write-Information $message;
+		
+		Write-Host ("Created (ID:{0})" -f $Acl.Id);
 	}
 
 	Write-Host "SUCCEEDED" -ForegroundColor Green;
