@@ -151,6 +151,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="ActionFilter\AuthenticationActionFilter.cs" />
     <Compile Include="App_LocalResources\ErrorResources.de.Designer.cs">
       <AutoGen>True</AutoGen>
