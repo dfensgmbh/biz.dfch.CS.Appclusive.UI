@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "biz.dfch.CS.Appclusive.UI.T
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "biz.dfch.PS.Appclusive.UI.Scripts", "biz.dfch.PS.Appclusive.UI.Scripts\biz.dfch.PS.Appclusive.UI.Scripts.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Release", "Release", "{84996765-8B1B-4DCF-9316-C9FAAB5EBC0A}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyVersion.cs = AssemblyVersion.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
