@@ -219,25 +219,27 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
         public ActionResult PermissionSearch(long roleId, string term)
         {
+            term = term.ToLowerInvariant();
+
             string cacheKeyPermissions = "permission_options_role_" + roleId;
             List<AjaxOption> options = (List<AjaxOption>)System.Web.HttpContext.Current.Cache.Get(cacheKeyPermissions);
             if (null == options)
             {
                 options = new List<AjaxOption>();
-
-                string cacheKeyRole = "role_" + roleId;
+                
                 Api.Core.Role role = GetCachedRole(roleId);
-                foreach (var perm in CoreRepository.Permissions)
+                var permissions = CoreRepository.Permissions.AddQueryOption("$filter", string.Format("substringof('{0}', tolower(Name)) or substringof('{0}', tolower(Description))", term)).Execute();
+                foreach (var perm in permissions)
                 {
-                    if (role == null || role.Permissions == null || role.Permissions.Count == 0 
-                        || role.Permissions.Where(p => p.Id == perm.Id).Count() == 0)
+                    if (role == null || role.Permissions == null || role.Permissions.Count == 0 || role.Permissions.All(p => p.Id != perm.Id))
                     {
                         options.Add(new AjaxOption(perm.Id, perm.Name));
                     }
                 }
                 System.Web.HttpContext.Current.Cache.Add(cacheKeyPermissions, options, null, DateTime.Now.AddSeconds(30), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Normal, null);
             }
-            return this.Json(options.Where(t => t.value.ToLower().Contains(term.ToLower())), JsonRequestBehavior.AllowGet);
+
+            return this.Json(options.Where(t => t.value.ToLower().Contains(term)), JsonRequestBehavior.AllowGet);
 
         }
         #endregion
