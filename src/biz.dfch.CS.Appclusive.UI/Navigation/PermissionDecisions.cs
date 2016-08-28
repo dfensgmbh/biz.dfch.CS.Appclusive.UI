@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using biz.dfch.CS.Appclusive.UI.Helpers;
 using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Navigation
@@ -115,14 +116,16 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 // load tenants
                 Tenants = AutoMapper.Mapper.Map<List<Tenant>>(coreRepository
                     .Tenants
-                    .Where(t => !t.Name.Equals("HOME_TENANT") && !t.Name.Equals("GROUP_TENANT"))
+                    .Where(t => !TenantHelper.IsBuiltInTenant(t))
                     .ToList());
-                // Tenants.Add(new Tenant { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
-
                 this.CurrentUser = AutoMapper.Mapper.Map<User>(coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null));
-                
-                // default tenant
-                if (null != CurrentUser)
+
+                if (TenantHelper.HasFixedTenantId)
+                {
+                    Tenant = Tenants.FirstOrDefault(t => t.Id.Equals(TenantHelper.FixedTenantId))
+                             ?? Tenants.FirstOrDefault();
+                }
+                else if (null != CurrentUser)
                 {
                     CurrentUser.ResolveNavigationProperties();
                     Tenant = Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid)

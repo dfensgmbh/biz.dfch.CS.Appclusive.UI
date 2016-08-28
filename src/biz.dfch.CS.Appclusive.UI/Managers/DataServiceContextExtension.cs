@@ -1,7 +1,9 @@
-﻿using System.Data.Services.Client;
+﻿using System;
+using System.Data.Services.Client;
 using System.Net;
 using System.Web;
 using biz.dfch.CS.Appclusive.UI.Helpers;
+using Microsoft.HBase.Client.LoadBalancing;
 
 namespace biz.dfch.CS.Appclusive.UI.Managers
 {
@@ -25,6 +27,11 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
                 if (JwtHelper.HasJwtHeader)
                 {
                     args.RequestMessage.SetHeader(JwtHelper.JwtHeaderKey, JwtHelper.JwtHeader);
+                }
+
+                if (AccessTokenHelper.HasAccessToken)
+                {
+                    args.RequestMessage.SetHeader(AccessTokenHelper.HeaderKey, AccessTokenHelper.AccessToken);
                 }
             };
         }

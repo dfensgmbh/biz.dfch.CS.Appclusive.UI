@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Controllers;
 using biz.dfch.CS.Appclusive.UI.Helpers;
 
@@ -25,8 +26,8 @@ namespace biz.dfch.CS.Appclusive.UI.ActionFilter
                 JwtHelper.JwtHeader = filterContext.HttpContext.Request.Headers[JwtHelper.JwtHeaderKey];
                 return;
             }
-
-            if (IsLoginDataPresent(filterContext))
+            
+            if (AccessTokenHelper.HasAccessToken || IsLoginDataPresent(filterContext))
             {
                 return;
             }
@@ -34,7 +35,7 @@ namespace biz.dfch.CS.Appclusive.UI.ActionFilter
             RedirectToLoginPage(filterContext);
         }
 
-        private void RedirectToLoginPage(ActionExecutingContext filterContext)
+        private static void RedirectToLoginPage(ActionExecutingContext filterContext)
         {
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
@@ -43,16 +44,16 @@ namespace biz.dfch.CS.Appclusive.UI.ActionFilter
                 });
         }
 
-        private bool IsJwtHeaderPresent(ActionExecutingContext filterContext)
+        private static bool IsJwtHeaderPresent(ActionExecutingContext filterContext)
         {
             return filterContext.HttpContext.Request.Headers.AllKeys.Any(key => key.Equals(JwtHelper.JwtHeaderKey));
         }
         
-        private bool IsLoginDataPresent(ActionExecutingContext filterContext)
+        private static bool IsLoginDataPresent(ActionExecutingContext filterContext)
         {
             return filterContext.HttpContext != null
                    && filterContext.HttpContext.Session != null
-                   && filterContext.HttpContext.Session["LoginData"] != null;
+                   && filterContext.HttpContext.Session[Constants.LoginDataSessionKey] != null;
         }
     }
 }

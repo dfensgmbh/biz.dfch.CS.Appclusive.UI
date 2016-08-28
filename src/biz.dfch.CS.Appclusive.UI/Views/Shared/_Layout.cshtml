@@ -70,10 +70,13 @@
                             <li>@Html.ActionLink(@GeneralResources.Logout, "Logout", "Login")</li>
                             @{
                                 string returnUrl = string.IsNullOrEmpty(ViewBag.ReturnUrl) ? Request.Url.PathAndQuery : (string)ViewBag.ReturnUrl;
-                            }
-                            @foreach (Tenant tenant in PermissionDecisions.Current.Tenants)
-                            {
-                                <li>@Html.ActionLink(tenant.Name, "Index", "Context", new { tenantId = tenant.Id, returnUrl = @returnUrl }, null)</li>
+                                if (!TenantHelper.HasFixedTenantId)
+                                {
+                                    foreach (Tenant tenant in PermissionDecisions.Current.Tenants)
+                                    {
+                                        <li>@Html.ActionLink(tenant.Name, "Index", "Context", new { tenantId = tenant.Id, returnUrl = @returnUrl }, null)</li>
+                                    }
+                                }
                             }
                         </ul>
                         @if (PermissionDecisions.Current.Tenant != null)

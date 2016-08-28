@@ -229,9 +229,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AccessTokenHelper.cs" />
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperSecuredExtensions.cs" />
     <Compile Include="Helpers\JwtHelper.cs" />
+    <Compile Include="Helpers\TenantHelper.cs" />
     <Compile Include="Managers\AuthenticatedCmpApi.cs" />
     <Compile Include="Managers\AuthenticatedCoreApi.cs" />
     <Compile Include="Managers\AuthenticatedDiagnosticsApi.cs" />

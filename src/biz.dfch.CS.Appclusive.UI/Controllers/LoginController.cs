@@ -5,13 +5,17 @@ using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
 using System.Security.Authentication;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
+using biz.dfch.CS.Appclusive.UI.Config;
+using biz.dfch.CS.Appclusive.UI.Helpers;
 using biz.dfch.CS.Appclusive.UI.Managers;
+using Microsoft.Ajax.Utilities;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    [AllowAnonymous]
+    [System.Web.Mvc.AllowAnonymous]
     public class LoginController : Controller
     {
         public LoginController()
@@ -32,7 +36,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Login
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Index(Models.LoginData data)
         {
             try
@@ -92,6 +96,38 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             else
             {
                 return Redirect(returnUrl);
+            }
+        }
+
+        // [GET] ~/Login/FromPortal/?accessToken={A12...}&tenantId={B34..}
+        [System.Web.Mvc.HttpGet]
+        public ActionResult FromPortal([FromUri]string accessToken, [FromUri]Guid tenantId)
+        {
+            Contract.Assert(null != accessToken);
+            Contract.Assert(Guid.Empty != tenantId);
+
+            try
+            {
+                if (HttpContext == null || HttpContext.Session == null)
+                {
+                    throw new ApplicationException("Server does not support Sesions.");
+                }
+
+                AccessTokenHelper.AccessToken = accessToken;
+                TenantHelper.FixedTenantId = tenantId;
+
+                new AuthenticatedDiagnosticsApi().InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
+                
+                return RedirectToAction("Index", "Home");
+            }
+            catch (DataServiceQueryException ex)
+            {
+                if (ex.Response.StatusCode == 401)
+                {
+                    throw new AuthenticationException("Invalid credentials", ex);
+                }
+
+                throw;
             }
         }
 
