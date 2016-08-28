@@ -13,15 +13,15 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             get
             {
                 Contract.Assert(HasFixedTenantId);
-                return (Guid)HttpContext.Current.Items[Constants.FixedTenantId];
+                return (Guid)HttpContext.Current.Session[Constants.FixedTenantId];
             }
 
-            set { HttpContext.Current.Items[Constants.FixedTenantId] = value; }
+            set { HttpContext.Current.Session[Constants.FixedTenantId] = value; }
         }
 
         public static bool HasFixedTenantId
         {
-            get { return HttpContext.Current.Items[Constants.FixedTenantId] != null; }
+            get { return HttpContext.Current.Session[Constants.FixedTenantId] != null; }
         }
 
         public static bool IsBuiltInTenant(Tenant tenant)

@@ -30,15 +30,15 @@ namespace biz.dfch.CS.Appclusive.UI.Helpers
             get
             {
                 Contract.Assert(HasAccessToken);
-                return HttpContext.Current.Items[Constants.AccessTokenSessionKey] as string;
+                return HttpContext.Current.Session[Constants.AccessTokenSessionKey] as string;
             }
 
-            set { HttpContext.Current.Items[Constants.AccessTokenSessionKey] = value; }
+            set { HttpContext.Current.Session[Constants.AccessTokenSessionKey] = value; }
         }
 
         public static bool HasAccessToken
         {
-            get { return HttpContext.Current.Items[Constants.AccessTokenSessionKey] != null; }
+            get { return HttpContext.Current.Session[Constants.AccessTokenSessionKey] != null; }
         }
     }
 }

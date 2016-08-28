@@ -116,8 +116,8 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                 // load tenants
                 Tenants = AutoMapper.Mapper.Map<List<Tenant>>(coreRepository
                     .Tenants
-                    .Where(t => !TenantHelper.IsBuiltInTenant(t))
-                    .ToList());
+                    .ToList()
+                    .Where(t => !TenantHelper.IsBuiltInTenant(t)));
                 this.CurrentUser = AutoMapper.Mapper.Map<User>(coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null));
 
                 if (TenantHelper.HasFixedTenantId)

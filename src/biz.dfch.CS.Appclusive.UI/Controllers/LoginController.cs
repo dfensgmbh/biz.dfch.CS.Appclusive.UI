@@ -8,10 +8,8 @@ using System.Security.Authentication;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
-using biz.dfch.CS.Appclusive.UI.Config;
 using biz.dfch.CS.Appclusive.UI.Helpers;
 using biz.dfch.CS.Appclusive.UI.Managers;
-using Microsoft.Ajax.Utilities;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -116,8 +114,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
                 AccessTokenHelper.AccessToken = accessToken;
                 TenantHelper.FixedTenantId = tenantId;
 
-                new AuthenticatedDiagnosticsApi().InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
-                
+                var currentUser = new AuthenticatedCoreApi().InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null);
+                Session["PermissionDecisions"] = new PermissionDecisions(currentUser.Name);
+
+                FormsAuthentication.RedirectFromLoginPage(currentUser.Name, false);
                 return RedirectToAction("Index", "Home");
             }
             catch (DataServiceQueryException ex)
@@ -169,6 +169,8 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 var repo = new AuthenticatedDiagnosticsApi(apiCreds);
                 repo.InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
+
+
                 
                 return true;
             }
