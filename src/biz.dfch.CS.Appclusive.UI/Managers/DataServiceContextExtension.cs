@@ -31,7 +31,22 @@ namespace biz.dfch.CS.Appclusive.UI.Managers
 
                 if (AccessTokenHelper.HasAccessToken)
                 {
-                    args.RequestMessage.SetHeader(AccessTokenHelper.HeaderKey, AccessTokenHelper.AccessToken);
+                    args.RequestMessage.SetHeader(
+                        AccessTokenHelper.HeaderKey,
+                        string.Format("Bearer {0}", AccessTokenHelper.AccessToken));
+                    args.RequestMessage.SetHeader(
+                        "Scs-Impersonation-Token",
+                        string.Format("Bearer {0}", AccessTokenHelper.AccessToken));
+
+                    if (TenantHelper.HasFixedTenantId)
+                    {
+                        args.RequestMessage.SetHeader("Tenant-Id", TenantHelper.FixedTenantId.ToString());
+                    }
+                    else
+                    {
+                        args.RequestMessage.SetHeader(
+                            "Tenant-Id", Navigation.PermissionDecisions.Current.Tenant.Id.ToString());
+                    }
                 }
             };
         }
