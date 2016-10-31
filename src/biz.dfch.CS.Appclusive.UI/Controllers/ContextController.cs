@@ -6,6 +6,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
@@ -52,25 +53,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             return View();
         }
 
-        protected biz.dfch.CS.Appclusive.Api.Core.Core CoreRepository
+        protected Api.Core.Core CoreRepository
         {
-            get
-            {
-                if (coreRepository == null)
-                {
-                    coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
-                    coreRepository.IgnoreMissingProperties = true;
-                    coreRepository.Format.UseJson();
-                    coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
-                    coreRepository.MergeOption = MergeOption.PreserveChanges;
-                   
-                    System.Net.NetworkCredential apiCreds = Session["LoginData"] as System.Net.NetworkCredential;
-                    Contract.Assert(null != apiCreds);
-                    coreRepository.Credentials = apiCreds;
-                }
-                return coreRepository;
-            }
+            get { return coreRepository ?? (coreRepository = new AuthenticatedCoreApi()); }
         }
-        private biz.dfch.CS.Appclusive.Api.Core.Core coreRepository;
+        private Api.Core.Core coreRepository;
     }
 }

@@ -21,7 +21,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     {
                         permissions = new List<Models.Core.Permission>();
 
-                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
                         QueryOperationResponse<Api.Core.Permission> queryResponse = coreRepository.Permissions.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.Permission>;
                         while (null != queryResponse)
                         {

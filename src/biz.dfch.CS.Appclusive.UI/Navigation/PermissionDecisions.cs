@@ -1,14 +1,10 @@
-﻿using biz.dfch.CS.Appclusive.UI.Controllers;
-using biz.dfch.CS.Appclusive.UI.Models.Core;
-using biz.dfch.CS.Appclusive.UI.Models.Cmp;
-using biz.dfch.CS.Appclusive.UI.Models.SpecialOperations;
+﻿using biz.dfch.CS.Appclusive.UI.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.Services.Client;
-using biz.dfch.CS.Appclusive.UI.App_LocalResources;
-using System.Diagnostics.Contracts;
+using biz.dfch.CS.Appclusive.UI.Helpers;
+using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Navigation
 {
@@ -16,46 +12,46 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
     {
         #region Core Repository
 
+        private AuthenticatedCoreApi _coreRepository;
         /// <summary>
         /// biz.dfch.CS.Appclusive.Api.Core.Core
         /// </summary>
-        internal biz.dfch.CS.Appclusive.Api.Core.Core CoreRepositoryGet()
+        internal AuthenticatedCoreApi GetCoreRepository()
         {
-            biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = new biz.dfch.CS.Appclusive.Api.Core.Core(new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Core"));
-            coreRepository.IgnoreMissingProperties = true;
-            coreRepository.Format.UseJson();
-            coreRepository.SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate;
-            coreRepository.MergeOption = MergeOption.PreserveChanges;
-
-            System.Net.NetworkCredential apiCreds = HttpContext.Current.Session["LoginData"] as System.Net.NetworkCredential;
-            Contract.Assert(null != apiCreds);
-            coreRepository.Credentials = apiCreds;
-
-            return coreRepository;
+            return _coreRepository ?? (_coreRepository = new AuthenticatedCoreApi());
         }
 
         #endregion
 
         #region properties
 
-        private List<Models.Core.Permission> permissions = null;
-        public Dictionary<string, NavEntry> Navigation;
+        public Dictionary<string, NavEntry> Navigation = new Dictionary<string, NavEntry>();
         public List<Tenant> Tenants { get; private set; }
 
         /// <summary>
         /// current tenant
         /// </summary>
+        private Tenant _tenant = null;
         public Tenant Tenant {
-            get {
-                if (tenant == null)
+            get { return _tenant ?? (_tenant = new Tenant {Id = Guid.Empty, Name = ""}); }
+            set
+            {
+                _tenant = value;
+                if (_tenant != null)
                 {
-                    tenant = new Tenant() { Id = Guid.Empty, Name = "" };
+                    GetCoreRepository().TenantID = _tenant.Id.ToString();
+                    Permissions = GetPermissionsForTenant(_tenant.Id);
+                    Navigation = CreateNavigation();
                 }
-                return tenant;
             }
-            set { tenant = value; }
         }
-        Tenant tenant = null;
+
+        private IEnumerable<Ace> Permissions { get; set; }
+
+        private IEnumerable<Ace> GetPermissionsForTenant(Guid tenantId)
+        {
+            return AutoMapper.Mapper.Map<IEnumerable<Ace>>(_permissionManager.Aces(tenantId)); ;
+        }
 
         public User CurrentUser { get; private set; }
 
@@ -74,7 +70,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                     {
                         return 0;
                     }
-                    biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+                    biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.GetCoreRepository();
                     Api.Core.Cart[] carts = coreRepository.Carts.ToArray();
                     switch (carts.Length)
                     {
@@ -98,12 +94,8 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         {
             get
             {
-                PermissionDecisions current = HttpContext.Current.Session["PermissionDecisions"] as PermissionDecisions;
-                if (current == null)
-                {
-                    current = new PermissionDecisions(null, null);
-                }
-                return current;
+                return HttpContext.Current.Session["PermissionDecisions"] as PermissionDecisions
+                            ?? new PermissionDecisions(null);
             }
         }
 
@@ -111,37 +103,36 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
 
         #region Constructors
 
-        public PermissionDecisions(string username, string domain)
+        private readonly PermissionManager _permissionManager;
+        public PermissionDecisions(string username)
         {
+            Tenants = new List<Tenant>();
+
             if (!string.IsNullOrEmpty(username))
             {
-                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = this.CoreRepositoryGet();
+                var coreRepository = GetCoreRepository();
+                _permissionManager = new PermissionManager(coreRepository);
 
                 // load tenants
-                Tenants = AutoMapper.Mapper.Map<List<Models.Core.Tenant>>(coreRepository.Tenants.ToList());
-                Tenants.Add(new Tenant() { Id = Guid.Empty, Name = GeneralResources.TenantSwitchAll });
-
+                Tenants = AutoMapper.Mapper.Map<List<Tenant>>(coreRepository
+                    .Tenants
+                    .ToList()
+                    .Where(t => !TenantHelper.IsBuiltInTenant(t)));
                 this.CurrentUser = AutoMapper.Mapper.Map<User>(coreRepository.InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null));
-                
-                // default tenant
-                if (null != this.CurrentUser)
+
+                if (TenantHelper.HasFixedTenantId)
                 {
-                    this.CurrentUser.ResolveNavigationProperties();
-                    this.Tenant = this.Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid);
+                    Tenant = Tenants.FirstOrDefault(t => t.Id.Equals(TenantHelper.FixedTenantId))
+                             ?? Tenants.FirstOrDefault();
                 }
-
-                // Load permissions:            
-                permissions = Models.Core.Permission.GetPermissionsFromCache();// this.CurrentUser.Permissions;
+                else if (null != CurrentUser)
+                {
+                    CurrentUser.ResolveNavigationProperties();
+                    Tenant = Tenants.FirstOrDefault(t => t.Id == CurrentUser.Tid)
+                             ?? Tenants.FirstOrDefault();
+                }
             }
-            else
-            {
-                Tenants = new List<Tenant>();
-                permissions = new List<Models.Core.Permission>();
-            }
-
-            Navigation = CreateNavigation();
         }
-
 
         #endregion
 
@@ -157,10 +148,11 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         {
             return HasPermission(modelType.Name, action);
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="modelType"></param>
+        /// <param name="modelName"></param>
         /// <param name="action">without entity: CanRead</param>
         /// <returns></returns>
         public bool HasPermission(string modelName, string action)
@@ -168,6 +160,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
             string permissionName = string.Format("Apc:{0}s{1}", modelName, action); // Apc:CataloguesCanRead 
             return HasPermission(permissionName);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -175,8 +168,8 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
         /// <returns></returns>
         private bool HasPermission(string permissionName)
         {
-            Models.Core.Permission permission = permissions.Where(p => p.Name == permissionName).FirstOrDefault();
-            return (permission != null);
+            var grantedPermissions = _permissionManager.TenantPermissions(Tenant.Id);
+            return grantedPermissions.Any(p => p.Equals(permissionName));
         }
 
         private Dictionary<string, NavEntry> CreateNavigation()
@@ -203,6 +196,7 @@ namespace biz.dfch.CS.Appclusive.UI.Navigation
                         }
                     }
                 }
+
                 if (group.NavEntries.Count > 0)
                 {
                     navigation.Add(group.Name, group);

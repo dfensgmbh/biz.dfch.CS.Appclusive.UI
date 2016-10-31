@@ -68,7 +68,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
                     {
                         acls = new List<Models.Core.Acl>();
 
-                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                        biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
                         QueryOperationResponse<Api.Core.Acl> queryResponse = coreRepository.Acls.AddQueryOption("$top", 10000).Execute() as QueryOperationResponse<Api.Core.Acl>;
                         while (null != queryResponse)
                         {

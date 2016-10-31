@@ -24,12 +24,12 @@ namespace biz.dfch.CS.Appclusive.UI.Config
 {
     public class PortalConfig
     {
-        public static int Pagesize = Constants.ODATA_ENABLEQUERY_PAGESIZE;
+        public static int Pagesize = Public.Constants.ODATA_ENABLEQUERY_PAGESIZE;
 
         /// <summary>
         /// Number of options to displayed to the user
         /// </summary>
-        public static int Searchsize = Constants.ODATA_ENABLEQUERY_PAGESIZE;
+        public static int Searchsize = Public.Constants.ODATA_ENABLEQUERY_PAGESIZE;
 
         /// <summary>
         /// Number of records to load before distinct can be applied to options

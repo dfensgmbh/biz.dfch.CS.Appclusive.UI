@@ -5,12 +5,15 @@ using System.Collections.Generic;
 using System.Data.Services.Client;
 using System.Diagnostics.Contracts;
 using System.Security.Authentication;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
+using biz.dfch.CS.Appclusive.UI.Helpers;
+using biz.dfch.CS.Appclusive.UI.Managers;
 
 namespace biz.dfch.CS.Appclusive.UI.Controllers
 {
-    [AllowAnonymous]
+    [System.Web.Mvc.AllowAnonymous]
     public class LoginController : Controller
     {
         public LoginController()
@@ -31,7 +34,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         }
 
         // POST: Login
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Index(Models.LoginData data)
         {
             try
@@ -82,8 +85,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
         public ActionResult Logout(string returnUrl = null)
         {
             FormsAuthentication.SignOut();
-            Session["LoginData"] = null;
-            Session["PermissionDecisions"] = null;
+            Session.Clear();
 
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
@@ -92,6 +94,40 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             else
             {
                 return Redirect(returnUrl);
+            }
+        }
+
+        // [GET] ~/Login/FromPortal/?accessToken={A12...}&tenantId={B34..}
+        [System.Web.Mvc.HttpGet]
+        public ActionResult FromPortal([FromUri]string accessToken, [FromUri]Guid tenantId)
+        {
+            Contract.Assert(null != accessToken);
+            Contract.Assert(Guid.Empty != tenantId);
+
+            try
+            {
+                if (HttpContext == null || HttpContext.Session == null)
+                {
+                    throw new ApplicationException("Server does not support Sesions.");
+                }
+
+                AccessTokenHelper.AccessToken = accessToken;
+                TenantHelper.FixedTenantId = tenantId;
+
+                var currentUser = new AuthenticatedCoreApi().InvokeEntitySetActionWithSingleResult<Api.Core.User>("Users", "Current", null);
+                Session["PermissionDecisions"] = new PermissionDecisions(currentUser.Name);
+
+                FormsAuthentication.RedirectFromLoginPage(currentUser.Name, false);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (DataServiceQueryException ex)
+            {
+                if (ex.Response.StatusCode == 401)
+                {
+                    throw new AuthenticationException("Invalid credentials", ex);
+                }
+
+                throw;
             }
         }
 
@@ -106,8 +142,15 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
             if (isAuthenticated)
             {
-                Session["LoginData"] = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
-                Session["PermissionDecisions"] = new PermissionDecisions(data.Username, data.Domain);
+                if (!data.Username.Contains("\\"))
+                {
+                    data.Username = string.Format("{0}\\{1}", data.Domain, data.Username);
+                }
+
+                var credentials = new System.Net.NetworkCredential(data.Username, data.Password, data.Domain);
+
+                Session["LoginData"] = credentials;
+                Session["PermissionDecisions"] = new PermissionDecisions(data.Username);
                 
                 FormsAuthentication.RedirectFromLoginPage(data.Username, false);
             }
@@ -124,19 +167,10 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
 
                 Contract.Assert(null != apiCreds);
 
-                var repo =
-                    new Api.Diagnostics.Diagnostics(
-                        new Uri(Properties.Settings.Default.AppclusiveApiBaseUrl + "Diagnostics"))
-                    {
-                        IgnoreMissingProperties = true,
-                        SaveChangesDefaultOptions = SaveChangesOptions.PatchOnUpdate,
-                        MergeOption = MergeOption.PreserveChanges,
-                        TenantID = PermissionDecisions.Current.Tenant.Id.ToString(),
-                        Credentials = apiCreds
-                    };
-
-                repo.Format.UseJson();
+                var repo = new AuthenticatedDiagnosticsApi(apiCreds);
                 repo.InvokeEntitySetActionWithVoidResult("Endpoints", "AuthenticatedPing", null);
+
+
                 
                 return true;
             }

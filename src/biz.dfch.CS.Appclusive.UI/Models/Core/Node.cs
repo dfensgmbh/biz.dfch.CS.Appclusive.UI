@@ -98,7 +98,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             effectivePagingInfo = new PagingInfo(1, 0);
             if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
             {
-                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
 
                 // explicit permissions
                 Api.Core.Acl acl = coreRepository.Acls.Expand("EntityKind").Expand("CreatedBy").Expand("ModifiedBy")
@@ -120,7 +120,7 @@ namespace biz.dfch.CS.Appclusive.UI.Models.Core
             List<Ace> aces;
             if (biz.dfch.CS.Appclusive.UI.Navigation.PermissionDecisions.Current.CanRead(typeof(Acl)))
             {
-                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.CoreRepositoryGet();
+                biz.dfch.CS.Appclusive.Api.Core.Core coreRepository = Navigation.PermissionDecisions.Current.GetCoreRepository();
                 
                 // effectiv permissions
                 var apiList = coreRepository.InvokeEntityActionWithListResult<Api.Core.Ace>("Nodes", nodeId, "GetEffectivePermissions", null);
