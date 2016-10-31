@@ -74,7 +74,7 @@ namespace biz.dfch.CS.Appclusive.UI.Controllers
             {
                 var usePageFilter = UsePageEntityFilter(typeof (T));
 
-                query = AddSearchFilter(query, HttpUtility.UrlEncode(searchTerm));
+                query = AddSearchFilter(query, HttpUtility.HtmlEncode(searchTerm));
                 query = AddPagingOptions(query, usePageFilter ? skip : pageNr);
                 query = AddOrderOptions(query, orderBy);
 
